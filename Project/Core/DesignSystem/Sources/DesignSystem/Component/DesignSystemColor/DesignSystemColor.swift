@@ -53,10 +53,18 @@ extension DesignSystemColor {
 
   public enum LabelChip: Equatable, CaseIterable {
     case `default`
+    case greenSlate
+    case ocher
 
     var color: Color {
       switch self {
       case .default: Asset.ColorChip.Label.labelDefault.swiftUIColor
+        
+      case .greenSlate:
+        Asset.ColorChip.Label.labelGreenSlate.swiftUIColor
+        
+      case .ocher:
+        Asset.ColorChip.Label.labelOcher.swiftUIColor
       }
     }
   }
