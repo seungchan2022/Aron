@@ -101,7 +101,7 @@ extension NowPlayingPage.SearchResultMovieComponent: View {
                         ? DesignSystemColor.system(.white).color
                         : DesignSystemColor.system(.black).color)
 
-                  Text(item.releaseDate)
+                  Text(item.releaseDate.toDate?.toString ?? "")
                     .font(.system(size: 16))
                     .foregroundStyle(
                       colorScheme == .dark
@@ -163,5 +163,21 @@ extension NowPlayingPage.SearchResultMovieComponent {
     let voteAverage: Double
     let releaseDate: String
     let overView: String?
+  }
+}
+
+extension String {
+  fileprivate var toDate: Date? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    return dateFormatter.date(from: self)
+  }
+}
+
+extension Date {
+  fileprivate var toString: String? {
+    let displayFormatter = DateFormatter()
+    displayFormatter.dateFormat = "MMM d, yyyy"
+    return displayFormatter.string(from: self)
   }
 }
