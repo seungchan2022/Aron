@@ -17,6 +17,7 @@ struct NowPlayingReducer {
   @ObservableState
   struct State: Equatable, Identifiable {
     let id: UUID
+    var query = ""
     
     init(id: UUID = UUID()) {
       self.id = id
