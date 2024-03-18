@@ -72,7 +72,8 @@ extension NowPlayingPage.ItemComponent: View {
 }
 
 extension NowPlayingPage.ItemComponent {
-  struct ViewState: Equatable {
+  struct ViewState: Equatable, Identifiable {
+    let id: Int
     let title: String
     let voteAverage: Double
     let releaseDate: String
