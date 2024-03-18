@@ -1,14 +1,15 @@
+import Architecture
 import ComposableArchitecture
 import Foundation
 
 @Reducer
-struct NowPlayingReducer {
+struct MovieDetailReducer {
 
   // MARK: Lifecycle
 
   init(
     pageID: String = UUID().uuidString,
-    sideEffect: NowPlayingSideEffect)
+    sideEffect: MovieDetailSideEffect)
   {
     self.pageID = pageID
     self.sideEffect = sideEffect
@@ -17,20 +18,17 @@ struct NowPlayingReducer {
   // MARK: Internal
 
   @ObservableState
-  struct State: Equatable, Identifiable {
+  struct State: Equatable {
     let id: UUID
-    var query = ""
 
     init(id: UUID = UUID()) {
       self.id = id
     }
   }
 
-  enum Action: BindableAction, Equatable {
+  enum Action: Equatable, BindableAction {
     case binding(BindingAction<State>)
     case teardown
-
-    case routeToDetail
   }
 
   enum CancelID: Equatable, CaseIterable {
@@ -42,15 +40,11 @@ struct NowPlayingReducer {
     Reduce { _, action in
       switch action {
       case .binding:
-        return .none
+        .none
 
       case .teardown:
-        return .concatenate(
+        .concatenate(
           CancelID.allCases.map { .cancel(pageID: pageID, id: $0) })
-
-      case .routeToDetail:
-        sideEffect.routeToDetail()
-        return .none
       }
     }
   }
@@ -58,5 +52,5 @@ struct NowPlayingReducer {
   // MARK: Private
 
   private let pageID: String
-  private let sideEffect: NowPlayingSideEffect
+  private let sideEffect: MovieDetailSideEffect
 }

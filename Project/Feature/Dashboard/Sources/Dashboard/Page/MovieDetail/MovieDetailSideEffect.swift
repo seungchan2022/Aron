@@ -2,9 +2,7 @@ import Architecture
 import ComposableArchitecture
 import Foundation
 
-// MARK: - NowPlayingSideEffect
-
-struct NowPlayingSideEffect {
+struct MovieDetailSideEffect {
   let useCase: DashboardEnvironmentUsable
   let main: AnySchedulerOf<DispatchQueue>
   let navigator: RootNavigatorType
@@ -17,15 +15,5 @@ struct NowPlayingSideEffect {
     self.useCase = useCase
     self.main = main
     self.navigator = navigator
-  }
-}
-
-extension NowPlayingSideEffect {
-  var routeToDetail: () -> Void {
-    {
-      navigator.next(
-        linkItem: .init(path: Link.Dashboard.Path.movieDetail.rawValue),
-        isAnimated: true)
-    }
   }
 }

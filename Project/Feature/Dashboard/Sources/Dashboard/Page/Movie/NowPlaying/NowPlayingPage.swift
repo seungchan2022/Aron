@@ -152,7 +152,7 @@ extension NowPlayingPage: View {
           ForEach(itemListComponentViewState) { item in
             ItemComponent(
               viewState: item,
-              tapAction: { })
+              tapAction: { store.send(.routeToDetail) })
           }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
