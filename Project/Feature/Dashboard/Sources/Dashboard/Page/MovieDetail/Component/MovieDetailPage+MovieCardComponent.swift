@@ -1,4 +1,5 @@
 import DesignSystem
+import Domain
 import SwiftUI
 
 // MARK: - MovieDetailPage.MovieCardComponent
@@ -9,6 +10,16 @@ extension MovieDetailPage {
     let genreTapAction: () -> Void
     @Environment(\.colorScheme) var colorScheme
 
+  }
+}
+
+extension MovieDetailPage.MovieCardComponent {
+  private var releaseDate: String {
+    viewState.item.releaseDate.toDate?.toString ?? ""
+  }
+
+  private var voteAverage: String {
+    "\(Int(viewState.item.voteAverage * 10))%"
   }
 }
 
@@ -25,24 +36,24 @@ extension MovieDetailPage.MovieCardComponent: View {
 
         VStack(alignment: .leading, spacing: 8) {
           HStack {
-            Text(viewState.releaseDate)
+            Text(releaseDate)
               .font(.system(size: 16))
 
-            Text(" • \(viewState.runtime) minutes")
+            Text(" • \(viewState.item.runtime) minutes")
               .font(.system(size: 16))
 
-            Text(" • \(viewState.status)")
+            Text(" • \(viewState.item.status)")
               .font(.system(size: 16))
           }
 
-          Text(viewState.productionCountryList.first?.name ?? "")
+          Text(viewState.item.productionCountryList.first?.name ?? "")
             .font(.system(size: 16))
 
           HStack {
-            Text("\(Int(viewState.voteAverage * 10))%")
+            Text(voteAverage)
               .font(.system(size: 14))
 
-            Text("\(viewState.voteCount) ratings")
+            Text("\(viewState.item.voteCount) ratings")
               .font(.system(size: 18))
           }
           .padding(.top, 8)
@@ -53,7 +64,7 @@ extension MovieDetailPage.MovieCardComponent: View {
 
       ScrollView(.horizontal) {
         LazyHStack {
-          ForEach(viewState.genreList) { item in
+          ForEach(viewState.item.genreItemList) { item in
             Button(action: { }) {
               HStack {
                 Text(item.name)
@@ -85,28 +96,30 @@ extension MovieDetailPage.MovieCardComponent: View {
     }
     .padding(.vertical, 16)
     .frame(maxWidth: .infinity)
-    .background(.gray.opacity(0.5))
+    .background(.gray.opacity(0.8))
   }
 }
 
+// MARK: - MovieDetailPage.MovieCardComponent.ViewState
+
 extension MovieDetailPage.MovieCardComponent {
   struct ViewState: Equatable {
-    let poster: Image?
-    let releaseDate: String
-    let runtime: Int
-    let status: String
-    let productionCountryList: [ProductionContry]
-    let voteAverage: Double
-    let voteCount: Int
-    let genreList: [GenreItem]
+    let item: MovieEntity.MovieDetail.MovieCard.Response
   }
+}
 
-  struct ProductionContry: Equatable {
-    let name: String
+extension String {
+  fileprivate var toDate: Date? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    return dateFormatter.date(from: self)
   }
+}
 
-  struct GenreItem: Equatable, Identifiable {
-    let id: Int
-    let name: String
+extension Date {
+  fileprivate var toString: String? {
+    let displayFormatter = DateFormatter()
+    displayFormatter.dateFormat = "yyyy"
+    return displayFormatter.string(from: self)
   }
 }

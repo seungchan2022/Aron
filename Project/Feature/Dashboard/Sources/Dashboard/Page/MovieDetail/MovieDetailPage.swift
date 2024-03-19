@@ -15,23 +15,8 @@ struct MovieDetailPage {
 }
 
 extension MovieDetailPage {
-  private var movieCardComponentViewState: MovieCardComponent.ViewState {
-    .init(
-      poster: .none,
-      releaseDate: "2023",
-      runtime: 117,
-      status: "Released",
-      productionCountryList: [
-        .init(name: "United Kingdom"),
-        .init(name: "United States of America"),
-      ],
-      voteAverage: 7.202,
-      voteCount: 2556,
-      genreList: [
-        .init(id: 35, name: "Comedy"),
-        .init(id: 10751, name: "Family"),
-        .init(id: 14, name: "Fantasy"),
-      ])
+  private var navigationTitle: String {
+    store.state.fetchDetailItem.value?.title ?? ""
   }
 
   private var listButtonComponentViewState: ListButtonComponent.ViewState {
@@ -40,25 +25,6 @@ extension MovieDetailPage {
 
   private var reviewComponentViewState: ReviewComponent.ViewState {
     .init(id: 787699, totalResultListCount: 8)
-  }
-
-  private var overviewComponentViewState: OverviewComponent.ViewState {
-    //    .init(overview: "마법사이자 초콜릿 메이커 ‘윌리 웡카’의 꿈은 디저트의 성지, ‘달콤 백화점’에 자신만의 초콜릿 가게를 여는 것. 가진 것이라고는 낡은 모자 가득한 꿈과 단돈 12소베른 뿐이지만 특별한 마법의 초콜릿으로 사람들을 사로잡을 자신이 있다. 하지만 먹을 것도, 잠잘 곳도, 의지할 사람도 없는 상황 속에서 낡은 여인숙에 머물게 된 ‘웡카’는 ‘스크러빗 부인’과 ‘블리처’의 계략에 빠져 눈더미처럼 불어난 숙박비로 인해 순식간에 빚더미에 오른다. 게다가 밤마다 초콜릿을 훔쳐가는 작은 도둑 ‘움파 룸파’의 등장과 ‘달콤 백화점’을 독점한 초콜릿 카르텔의 강력한 견제까지. 세계 최고의 초콜릿 메이커가 되는 길은 험난하기만 한데…")
-    .init(overview: "")
-  }
-
-  private var keywordItemListComponentViewState: KeywordItemListComponent.ViewState {
-    .init(
-      keywordBucket: .init(
-        keywordItem: [
-          .init(id: 715, name: "chocolate"),
-          .init(id: 4344, name: "musical"),
-          .init(id: 9675, name: "prequel"),
-          .init(id: 179431, name: "duringcrditsstinger"),
-          .init(id: 206594, name: "cartel"),
-          .init(id: 324713, name: "whimsical"),
-        ]))
-//    .init(keywordBucket: .init(keywordItem: []))
   }
 
   private var castItemListComponentViewState: CastItemListComponent.ViewState {
@@ -187,9 +153,11 @@ extension MovieDetailPage: View {
       // Section1 (MovieCard ~ OverView)
       VStack {
         // MovieCard
-        MovieCardComponent(
-          viewState: movieCardComponentViewState,
-          genreTapAction: { })
+        if let item = store.fetchDetailItem.value {
+          MovieCardComponent(
+            viewState: .init(item: item),
+            genreTapAction: { })
+        }
 
         // List 버튼들
         ListButtonComponent(
@@ -204,9 +172,11 @@ extension MovieDetailPage: View {
           tapAction: { })
 
         // Overview
-        OverviewComponent(
-          viewState: overviewComponentViewState,
-          isReadMoreTapped: self.$isReadMoreTapped)
+        if let item = store.fetchDetailItem.value {
+          OverviewComponent(
+            viewState: .init(item: item),
+            isReadMoreTapped: self.$isReadMoreTapped)
+        }
       }
       .background(
         colorScheme == .dark
@@ -217,7 +187,9 @@ extension MovieDetailPage: View {
 
       // Section2 (Keyword ~ Images)
       VStack {
-        KeywordItemListComponent(viewState: keywordItemListComponentViewState)
+        if let item = store.fetchDetailItem.value {
+          KeywordItemListComponent(viewState: .init(item: item))
+        }
 
         // cast
         CastItemListComponent(
@@ -259,7 +231,7 @@ extension MovieDetailPage: View {
     .frame(maxWidth: .infinity, alignment: .leading)
     .background(
       colorScheme == .dark ? DesignSystemColor.system(.black).color : DesignSystemColor.palette(.gray(.lv200)).color)
-    .navigationTitle("Movie Title")
+    .navigationTitle(navigationTitle)
     .navigationBarTitleDisplayMode(.large)
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
@@ -267,6 +239,12 @@ extension MovieDetailPage: View {
           Image(systemName: "text.badge.plus")
         }
       }
+    }
+    .onAppear {
+      store.send(.getDetail)
+    }
+    .onDisappear {
+      store.send(.teardown)
     }
   }
 }

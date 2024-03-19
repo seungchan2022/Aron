@@ -1,4 +1,5 @@
 import DesignSystem
+import Domain
 import SwiftUI
 
 // MARK: - MovieDetailPage.KeywordItemListComponent
@@ -17,14 +18,14 @@ extension MovieDetailPage.KeywordItemListComponent { }
 
 extension MovieDetailPage.KeywordItemListComponent: View {
   var body: some View {
-    if !(viewState.keywordBucket.keywordItem?.isEmpty ?? true) {
+    if !(viewState.item.keywordBucket.keywordItem?.isEmpty ?? true) {
       VStack(alignment: .leading) {
         Text("Keywords")
           .padding(.leading, 12)
 
         ScrollView(.horizontal) {
           LazyHStack {
-            ForEach(viewState.keywordBucket.keywordItem ?? []) { item in
+            ForEach(viewState.item.keywordBucket.keywordItem ?? []) { item in
               Button(action: { }) {
                 HStack {
                   Text(item.name)
@@ -55,17 +56,10 @@ extension MovieDetailPage.KeywordItemListComponent: View {
   }
 }
 
+// MARK: - MovieDetailPage.KeywordItemListComponent.ViewState
+
 extension MovieDetailPage.KeywordItemListComponent {
   struct ViewState: Equatable {
-    let keywordBucket: KeywordItemList
-  }
-
-  struct KeywordItemList: Equatable {
-    let keywordItem: [KeywordItem]?
-  }
-
-  struct KeywordItem: Equatable, Identifiable {
-    let id: Int
-    let name: String
+    let item: MovieEntity.MovieDetail.MovieCard.Response
   }
 }

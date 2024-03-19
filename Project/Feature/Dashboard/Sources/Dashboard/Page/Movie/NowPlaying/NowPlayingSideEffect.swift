@@ -34,11 +34,21 @@ extension NowPlayingSideEffect {
     }
   }
 
-  var routeToDetail: () -> Void {
-    {
+  var routeToDetail: (MovieEntity.Movie.NowPlaying.Response.Item) -> Void {
+    { item in
       navigator.next(
-        linkItem: .init(path: Link.Dashboard.Path.movieDetail.rawValue),
+        linkItem: .init(
+          path: Link.Dashboard.Path.movieDetail.rawValue,
+          items: item.serialized()),
         isAnimated: true)
     }
+  }
+}
+
+extension MovieEntity.Movie.NowPlaying.Response.Item {
+  fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
+    .init(
+      pathList: .init(movieID: id),
+      queryItemPath: .init())
   }
 }

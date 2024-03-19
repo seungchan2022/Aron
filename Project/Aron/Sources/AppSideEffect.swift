@@ -10,4 +10,5 @@ import Platform
 struct AppSideEffect: DependencyType, DashboardEnvironmentUsable {
   let toastViewModel: ToastViewModel
   let movieUseCase: MovieUseCase
+  let movieDetailUseCase: MovieDetailUseCase
 }

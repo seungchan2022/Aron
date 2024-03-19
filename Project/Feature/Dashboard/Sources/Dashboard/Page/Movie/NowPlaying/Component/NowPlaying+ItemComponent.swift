@@ -7,7 +7,7 @@ import SwiftUI
 extension NowPlayingPage {
   struct ItemComponent {
     let viewState: ViewState
-    let tapAction: () -> Void
+    let tapAction: (MovieEntity.Movie.NowPlaying.Response.Item) -> Void
 
     @Environment(\.colorScheme) var colorScheme
   }
@@ -27,7 +27,7 @@ extension NowPlayingPage.ItemComponent {
 
 extension NowPlayingPage.ItemComponent: View {
   var body: some View {
-    Button(action: { tapAction() }) {
+    Button(action: { tapAction(viewState.item) }) {
       VStack {
         HStack(spacing: 8) {
           Rectangle()

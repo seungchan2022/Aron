@@ -1,4 +1,5 @@
 import DesignSystem
+import Domain
 import SwiftUI
 
 // MARK: - MovieDetailPage.OverviewComponent
@@ -17,14 +18,14 @@ extension MovieDetailPage.OverviewComponent { }
 
 extension MovieDetailPage.OverviewComponent: View {
   var body: some View {
-    if !viewState.overview.isEmpty {
+    if !viewState.item.overview.isEmpty {
       Divider()
         .padding(.leading, 16)
 
       VStack(alignment: .leading, spacing: 8) {
         Text("Overview:")
 
-        Text(viewState.overview)
+        Text(viewState.item.overview)
           .font(.system(size: 16))
           .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
           .multilineTextAlignment(.leading)
@@ -46,6 +47,6 @@ extension MovieDetailPage.OverviewComponent: View {
 
 extension MovieDetailPage.OverviewComponent {
   struct ViewState: Equatable {
-    let overview: String
+    let item: MovieEntity.MovieDetail.MovieCard.Response
   }
 }

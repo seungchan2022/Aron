@@ -116,7 +116,9 @@ extension NowPlayingPage: View {
           ForEach(store.itemList) { item in
             ItemComponent(
               viewState: .init(item: item),
-              tapAction: { store.send(.routeToDetail) })
+              tapAction: {
+                store.send(.routeToDetail($0))
+              })
               .onAppear {
                 guard let last = store.itemList.last, last.id == item.id else { return }
                 guard !store.fetchItem.isLoading else { return }

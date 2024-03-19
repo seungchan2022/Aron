@@ -37,7 +37,7 @@ struct NowPlayingReducer {
     case getItem
     case fetchItem(Result<MovieEntity.Movie.NowPlaying.Response, CompositeErrorRepository>)
 
-    case routeToDetail
+    case routeToDetail(MovieEntity.Movie.NowPlaying.Response.Item)
 
     case throwError(CompositeErrorRepository)
   }
@@ -76,8 +76,8 @@ struct NowPlayingReducer {
           return .run { await $0(.throwError(error)) }
         }
 
-      case .routeToDetail:
-        sideEffect.routeToDetail()
+      case .routeToDetail(let item):
+        sideEffect.routeToDetail(item)
         return .none
 
       case .throwError(let error):
