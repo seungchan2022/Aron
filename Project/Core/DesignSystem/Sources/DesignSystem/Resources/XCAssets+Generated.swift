@@ -60,6 +60,7 @@ enum Asset {
     enum Tint {
       static let tintGreen = ColorAsset(name: "TintGreen")
       static let tintPurple = ColorAsset(name: "TintPurple")
+      static let tintRed = ColorAsset(name: "TintRed")
       static let tintSand = ColorAsset(name: "TintSand")
     }
   }
