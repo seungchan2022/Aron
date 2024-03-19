@@ -24,6 +24,7 @@ typealias AssetColorTypeAlias = ColorAsset.Color
 enum Asset {
   enum ColorChip {
     enum Background {
+      static let backgroundBlack = ColorAsset(name: "BackgroundBlack")
       static let backgroundBlue = ColorAsset(name: "BackgroundBlue")
       static let backgroundGreen = ColorAsset(name: "BackgroundGreen")
     }

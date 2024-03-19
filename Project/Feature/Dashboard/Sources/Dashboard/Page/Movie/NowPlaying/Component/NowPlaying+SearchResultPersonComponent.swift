@@ -36,10 +36,7 @@ extension NowPlayingPage.SearchResultPersonComponent: View {
 
       ForEach(viewState.personItemList) { item in
 
-        Button(action: {
-          tapAction()
-          print("profile tap")
-        }) {
+        Button(action: { tapAction() }) {
           HStack(spacing: 12) {
             Rectangle()
               .fill(.gray)

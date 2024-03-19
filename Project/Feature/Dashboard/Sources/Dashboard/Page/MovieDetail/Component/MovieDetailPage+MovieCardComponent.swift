@@ -85,7 +85,7 @@ extension MovieDetailPage.MovieCardComponent: View {
     }
     .padding(.vertical, 16)
     .frame(maxWidth: .infinity)
-    .background(.black.opacity(0.7))
+    .background(.gray.opacity(0.5))
   }
 }
 

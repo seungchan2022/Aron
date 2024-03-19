@@ -42,11 +42,15 @@ extension DesignSystemColor {
   public enum BackgroundChip: Equatable, CaseIterable {
     case green
     case blue
+    case black
 
     var color: Color {
       switch self {
       case .green: Asset.ColorChip.Background.backgroundGreen.swiftUIColor
       case .blue: Asset.ColorChip.Background.backgroundBlue.swiftUIColor
+
+      case .black:
+        Asset.ColorChip.Background.backgroundBlack.swiftUIColor
       }
     }
   }

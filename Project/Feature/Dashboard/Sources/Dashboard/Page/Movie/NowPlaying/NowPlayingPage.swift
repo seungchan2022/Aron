@@ -180,7 +180,7 @@ extension NowPlayingPage: View {
           case .movie:
 
             SearchResultMovieComponent(
-              viewState: searchResultMovieListComponentViewState, 
+              viewState: searchResultMovieListComponentViewState,
               tapAction: { },
               store: store)
 
