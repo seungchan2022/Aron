@@ -1,4 +1,5 @@
 import DesignSystem
+import Domain
 import SwiftUI
 
 // MARK: - MovieDetailPage.CastItemListComponent
@@ -49,7 +50,7 @@ extension MovieDetailPage.CastItemListComponent: View {
 
       ScrollView(.horizontal) {
         LazyHStack {
-          ForEach(viewState.castItemList) { item in
+          ForEach(viewState.item.castItemList) { item in
             Button(action: { }) {
               VStack {
                 Rectangle()
@@ -81,15 +82,19 @@ extension MovieDetailPage.CastItemListComponent: View {
   }
 }
 
+// MARK: - MovieDetailPage.CastItemListComponent.ViewState
+
 extension MovieDetailPage.CastItemListComponent {
   struct ViewState: Equatable {
-    let castItemList: [CastItem]
+    let item: MovieEntity.MovieDetail.Credit.Response
+
+//    let castItemList: [CastItem]
   }
 
-  struct CastItem: Equatable, Identifiable {
-    let id: Int
-    let name: String
-    let character: String
-    let profileImage: Image?
-  }
+//  struct CastItem: Equatable, Identifiable {
+//    let id: Int
+//    let name: String
+//    let character: String
+//    let profileImage: Image?
+//  }
 }

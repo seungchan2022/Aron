@@ -9,10 +9,15 @@ struct MovieDetailRouteBuilder<RootNavigator: RootNavigatorType> {
     return .init(matchPath: matchPath) { navigator, items, diContainer -> RouteViewController? in
       guard let env: DashboardEnvironmentUsable = diContainer.resolve() else { return .none }
       guard let item: MovieEntity.MovieDetail.MovieCard.Request = items.decoded() else { return .none }
+      guard let reviewItem: MovieEntity.MovieDetail.Review.Request = items.decoded() else { return .none }
+      guard let creditItem: MovieEntity.MovieDetail.Credit.Request = items.decoded() else { return .none }
 
       return DebugWrappingController(matchPath: matchPath) {
         MovieDetailPage(store: .init(
-          initialState: MovieDetailReducer.State(item: item),
+          initialState: MovieDetailReducer.State(
+            item: item,
+            reviewItem: reviewItem,
+            creditItem: creditItem),
           reducer: {
             MovieDetailReducer(sideEffect: .init(
               useCase: env,

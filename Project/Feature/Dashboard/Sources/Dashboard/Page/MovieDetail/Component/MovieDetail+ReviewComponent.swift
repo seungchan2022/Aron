@@ -1,4 +1,5 @@
 import DesignSystem
+import Domain
 import SwiftUI
 
 // MARK: - MovieDetailPage.ReviewComponent
@@ -16,13 +17,13 @@ extension MovieDetailPage.ReviewComponent { }
 
 extension MovieDetailPage.ReviewComponent: View {
   var body: some View {
-    if viewState.totalResultListCount != .zero {
+    if viewState.item.totalItemListCount != .zero {
       Divider()
         .padding(.leading, 48)
 
       Button(action: { }) {
         HStack {
-          Text("\(viewState.totalResultListCount) reviews")
+          Text("\(viewState.item.totalItemListCount) reviews")
             .foregroundStyle(DesignSystemColor.label(.greenSlate).color)
 
           Spacer()
@@ -42,8 +43,7 @@ extension MovieDetailPage.ReviewComponent: View {
 // MARK: - MovieDetailPage.ReviewComponent.ViewState
 
 extension MovieDetailPage.ReviewComponent {
-  struct ViewState: Equatable, Identifiable {
-    let id: Int
-    let totalResultListCount: Int
+  struct ViewState: Equatable {
+    let item: MovieEntity.MovieDetail.Review.Response
   }
 }

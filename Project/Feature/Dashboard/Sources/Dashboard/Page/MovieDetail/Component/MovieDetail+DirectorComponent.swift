@@ -1,4 +1,5 @@
 import DesignSystem
+import Domain
 import SwiftUI
 
 // MARK: - MovieDetailPage.DirectorComponent
@@ -18,7 +19,7 @@ extension MovieDetailPage.DirectorComponent { }
 
 extension MovieDetailPage.DirectorComponent: View {
   var body: some View {
-    if let director = viewState.crewList.first(where: { $0.job == "Director" }) {
+    if let director = viewState.item.crewItemList.first(where: { $0.job == "Director" }) {
       Divider()
         .padding(.leading, 16)
 
@@ -50,14 +51,10 @@ extension MovieDetailPage.DirectorComponent: View {
   }
 }
 
+// MARK: - MovieDetailPage.DirectorComponent.ViewState
+
 extension MovieDetailPage.DirectorComponent {
   struct ViewState: Equatable {
-    let crewList: [CrewItem]
-  }
-
-  struct CrewItem: Equatable, Identifiable {
-    let id: Int
-    let job: String
-    let name: String
+    let item: MovieEntity.MovieDetail.Credit.Response
   }
 }

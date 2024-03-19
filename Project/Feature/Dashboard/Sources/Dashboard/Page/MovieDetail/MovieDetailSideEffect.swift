@@ -33,4 +33,26 @@ extension MovieDetailSideEffect {
       }
     }
   }
+
+  var review: (MovieEntity.MovieDetail.Review.Request) -> Effect<MovieDetailReducer.Action> {
+    { item in
+      .publisher {
+        useCase.movieDetailUseCase.review(item)
+          .receive(on: main)
+          .mapToResult()
+          .map(MovieDetailReducer.Action.fetchReviewItem)
+      }
+    }
+  }
+
+  var credit: (MovieEntity.MovieDetail.Credit.Request) -> Effect<MovieDetailReducer.Action> {
+    { item in
+      .publisher {
+        useCase.movieDetailUseCase.credit(item)
+          .receive(on: main)
+          .mapToResult()
+          .map(MovieDetailReducer.Action.fetchCreditItem)
+      }
+    }
+  }
 }

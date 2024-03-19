@@ -23,71 +23,6 @@ extension MovieDetailPage {
     .init()
   }
 
-  private var reviewComponentViewState: ReviewComponent.ViewState {
-    .init(id: 787699, totalResultListCount: 8)
-  }
-
-  private var castItemListComponentViewState: CastItemListComponent.ViewState {
-    .init(castItemList: [
-      .init(
-        id: 1,
-        name: "Chalamet",
-        character: "Willy Wonka",
-        profileImage: .none),
-      .init(
-        id: 2,
-        name: "Calah Lane",
-        character: "Noodle",
-        profileImage: .none),
-
-      .init(
-        id: 3,
-        name: "Hugh Grant",
-        character: "Ooppa-Loompa / Lofty",
-        profileImage: .none),
-
-      .init(
-        id: 4,
-        name: "Paterson Jaseph",
-        character: "Arthur Slugworth",
-        profileImage: .none),
-    ])
-  }
-
-  private var directorComponentViewState: DirectorComponent.ViewState {
-    .init(crewList: [
-      .init(id: 2, job: "Actor", name: "Alice"),
-      .init(id: 5, job: "Director", name: "Mattew"),
-    ])
-  }
-
-  private var crewItemListComponentViewState: CrewItemListComponent.ViewState {
-    .init(crewItemList: [
-      .init(
-        id: 1,
-        name: "Chalamet",
-        department: "Writing",
-        profileImage: .none),
-      .init(
-        id: 2,
-        name: "Calah Lane",
-        department: "Acting",
-        profileImage: .none),
-
-      .init(
-        id: 3,
-        name: "Hugh Grant",
-        department: "Makeup Supe",
-        profileImage: .none),
-
-      .init(
-        id: 4,
-        name: "Paterson Jaseph",
-        department: "Director of Photography",
-        profileImage: .none),
-    ])
-  }
-
   private var similarMovieItemListComponentViewState: SimilarMovieItemListComponent.ViewState {
     .init(similarMovieList: [
       .init(id: 1, poster: .none, title: "similar movie1", voteAverage: 7.99),
@@ -167,9 +102,11 @@ extension MovieDetailPage: View {
           isShowingConfirmation: self.$isShowingConfirmation)
 
         // review
-        ReviewComponent(
-          viewState: reviewComponentViewState,
-          tapAction: { })
+        if let item = store.fetchReviewItem.value {
+          ReviewComponent(
+            viewState: .init(item: item),
+            tapAction: { })
+        }
 
         // Overview
         if let item = store.fetchDetailItem.value {
@@ -192,17 +129,23 @@ extension MovieDetailPage: View {
         }
 
         // cast
-        CastItemListComponent(
-          viewState: castItemListComponentViewState,
-          tapAction: { })
+        if let item = store.fetchCreditItem.value {
+          CastItemListComponent(
+            viewState: .init(item: item),
+            tapAction: { })
+        }
 
-        DirectorComponent(
-          viewState: directorComponentViewState,
-          tapAction: { })
+        if let item = store.fetchCreditItem.value {
+          DirectorComponent(
+            viewState: .init(item: item),
+            tapAction: { })
+        }
 
-        CrewItemListComponent(
-          viewState: crewItemListComponentViewState,
-          tapAction: { })
+        if let item = store.fetchCreditItem.value {
+          CrewItemListComponent(
+            viewState: .init(item: item),
+            tapAction: { })
+        }
 
         SimilarMovieItemListComponent(
           viewState: similarMovieItemListComponentViewState,
@@ -242,6 +185,8 @@ extension MovieDetailPage: View {
     }
     .onAppear {
       store.send(.getDetail)
+      store.send(.getReview)
+      store.send(.getCredit)
     }
     .onDisappear {
       store.send(.teardown)

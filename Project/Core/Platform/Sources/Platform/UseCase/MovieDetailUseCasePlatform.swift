@@ -27,4 +27,32 @@ extension MovieDetailUseCasePlatform: MovieDetailUseCase {
         .fetch(isDebug: true)
     }
   }
+
+  public var review: (MovieEntity.MovieDetail.Review.Request) -> AnyPublisher<
+    MovieEntity.MovieDetail.Review.Response,
+    CompositeErrorRepository
+  > {
+    { item in
+      Endpoint(
+        baseURL: baseURL,
+        pathList: ["\(item.pathList.movieID)", "reviews"],
+        httpMethod: .get,
+        content: .queryItemPath(item.queryItemPath))
+        .fetch(isDebug: true)
+    }
+  }
+
+  public var credit: (MovieEntity.MovieDetail.Credit.Request) -> AnyPublisher<
+    MovieEntity.MovieDetail.Credit.Response,
+    CompositeErrorRepository
+  > {
+    { item in
+      Endpoint(
+        baseURL: baseURL,
+        pathList: ["\(item.pathList.movieID)", "credits"],
+        httpMethod: .get,
+        content: .queryItemPath(item.queryItemPath))
+        .fetch(isDebug: true)
+    }
+  }
 }
