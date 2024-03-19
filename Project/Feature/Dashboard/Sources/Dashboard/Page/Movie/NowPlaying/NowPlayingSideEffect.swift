@@ -1,5 +1,7 @@
 import Architecture
+import CombineExt
 import ComposableArchitecture
+import Domain
 import Foundation
 
 // MARK: - NowPlayingSideEffect
@@ -21,6 +23,17 @@ struct NowPlayingSideEffect {
 }
 
 extension NowPlayingSideEffect {
+  var getItem: (MovieEntity.Movie.NowPlaying.Request) -> Effect<NowPlayingReducer.Action> {
+    { item in
+      .publisher {
+        useCase.movieUseCase.nowPlaying(item)
+          .receive(on: main)
+          .mapToResult()
+          .map(NowPlayingReducer.Action.fetchItem)
+      }
+    }
+  }
+
   var routeToDetail: () -> Void {
     {
       navigator.next(

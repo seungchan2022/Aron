@@ -1,4 +1,5 @@
 import DesignSystem
+import Domain
 import SwiftUI
 
 // MARK: - NowPlayingPage.ItemComponent
@@ -14,11 +15,11 @@ extension NowPlayingPage {
 
 extension NowPlayingPage.ItemComponent {
   private var releaseDate: String {
-    viewState.releaseDate.toDate?.toString ?? ""
+    viewState.item.releaseDate.toDate?.toString ?? ""
   }
 
   private var voteAverage: String {
-    "\(Int(viewState.voteAverage * 10))%"
+    "\(Int((viewState.item.voteAverage) * 10))%"
   }
 }
 
@@ -35,7 +36,7 @@ extension NowPlayingPage.ItemComponent: View {
             .clipShape(RoundedRectangle(cornerRadius: 10))
 
           VStack(alignment: .leading, spacing: 16) {
-            Text(viewState.title)
+            Text(viewState.item.title)
               .font(.system(size: 18))
               .foregroundStyle(DesignSystemColor.label(.ocher).color)
 
@@ -55,8 +56,8 @@ extension NowPlayingPage.ItemComponent: View {
                     : DesignSystemColor.system(.black).color)
             }
 
-            if let overView = viewState.overView {
-              Text(overView)
+            if let overview = viewState.item.overview {
+              Text(overview)
                 .font(.system(size: 18))
                 .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
                 .multilineTextAlignment(.leading)
@@ -83,12 +84,8 @@ extension NowPlayingPage.ItemComponent: View {
 // MARK: - NowPlayingPage.ItemComponent.ViewState
 
 extension NowPlayingPage.ItemComponent {
-  struct ViewState: Equatable, Identifiable {
-    let id: Int
-    let title: String
-    let voteAverage: Double
-    let releaseDate: String
-    let overView: String?
+  struct ViewState: Equatable {
+    let item: MovieEntity.Movie.NowPlaying.Response.Item
   }
 }
 

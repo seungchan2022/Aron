@@ -23,7 +23,8 @@ final class AppContainer {
 extension AppContainer {
   class func build() -> AppContainer {
     let sideEffect = AppSideEffect(
-      toastViewModel: .init())
+      toastViewModel: .init(),
+      movieUseCase: MovieUseCasePlatform())
 
     return .init(
       dependency: sideEffect,
