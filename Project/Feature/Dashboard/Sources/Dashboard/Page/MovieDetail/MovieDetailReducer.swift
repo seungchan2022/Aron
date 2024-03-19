@@ -27,12 +27,16 @@ struct MovieDetailReducer {
       id: UUID = UUID(),
       item: MovieEntity.MovieDetail.MovieCard.Request,
       reviewItem: MovieEntity.MovieDetail.Review.Request,
-      creditItem: MovieEntity.MovieDetail.Credit.Request)
+      creditItem: MovieEntity.MovieDetail.Credit.Request,
+      similarMovieItem: MovieEntity.MovieDetail.SimilarMovie.Request,
+      recommendedMovieItem: MovieEntity.MovieDetail.RecommendedMovie.Request)
     {
       self.id = id
       self.item = item
       self.reviewItem = reviewItem
       self.creditItem = creditItem
+      self.similarMovieItem = similarMovieItem
+      self.recommendedMovieItem = recommendedMovieItem
     }
 
     // MARK: Internal
@@ -41,11 +45,18 @@ struct MovieDetailReducer {
     let item: MovieEntity.MovieDetail.MovieCard.Request
     let reviewItem: MovieEntity.MovieDetail.Review.Request
     let creditItem: MovieEntity.MovieDetail.Credit.Request
+    let similarMovieItem: MovieEntity.MovieDetail.SimilarMovie.Request
+    let recommendedMovieItem: MovieEntity.MovieDetail.RecommendedMovie.Request
 
     var fetchDetailItem: FetchState.Data<MovieEntity.MovieDetail.MovieCard.Response?> = .init(isLoading: false, value: .none)
     var fetchReviewItem: FetchState.Data<MovieEntity.MovieDetail.Review.Response?> = .init(isLoading: false, value: .none)
     var fetchCreditItem: FetchState.Data<MovieEntity.MovieDetail.Credit.Response?> = .init(isLoading: false, value: .none)
-
+    var fetchSimilarMovieItem: FetchState.Data<MovieEntity.MovieDetail.SimilarMovie.Response?> = .init(
+      isLoading: false,
+      value: .none)
+    var fetchRecommendedMovieItem: FetchState.Data<MovieEntity.MovieDetail.RecommendedMovie.Response?> = .init(
+      isLoading: false,
+      value: .none)
   }
 
   enum Action: Equatable, BindableAction {
@@ -55,9 +66,14 @@ struct MovieDetailReducer {
     case getDetail
     case getReview
     case getCredit
+    case getSimilarMovie
+    case getRecommendedMovie
+
     case fetchDetailItem(Result<MovieEntity.MovieDetail.MovieCard.Response, CompositeErrorRepository>)
     case fetchReviewItem(Result<MovieEntity.MovieDetail.Review.Response, CompositeErrorRepository>)
     case fetchCreditItem(Result<MovieEntity.MovieDetail.Credit.Response, CompositeErrorRepository>)
+    case fetchSimilarMovieItem(Result<MovieEntity.MovieDetail.SimilarMovie.Response, CompositeErrorRepository>)
+    case fetchRecommendedMovieItem(Result<MovieEntity.MovieDetail.RecommendedMovie.Response, CompositeErrorRepository>)
 
     case throwError(CompositeErrorRepository)
   }
@@ -67,6 +83,8 @@ struct MovieDetailReducer {
     case requestDetail
     case requestReview
     case requestCredit
+    case reqeustSimilarMovie
+    case requestRecommendedMovie
   }
 
   var body: some Reducer<State, Action> {
@@ -95,6 +113,16 @@ struct MovieDetailReducer {
         return sideEffect.credit(state.creditItem)
           .cancellable(pageID: pageID, id: CancelID.requestCredit, cancelInFlight: true)
 
+      case .getSimilarMovie:
+        state.fetchSimilarMovieItem.isLoading = true
+        return sideEffect.similarMovie(state.similarMovieItem)
+          .cancellable(pageID: pageID, id: CancelID.reqeustSimilarMovie, cancelInFlight: true)
+
+      case .getRecommendedMovie:
+        state.fetchRecommendedMovieItem.isLoading = true
+        return sideEffect.recommendedMovie(state.recommendedMovieItem)
+          .cancellable(pageID: pageID, id: CancelID.requestRecommendedMovie, cancelInFlight: true)
+
       case .fetchDetailItem(let result):
         state.fetchDetailItem.isLoading = false
         switch result {
@@ -122,6 +150,28 @@ struct MovieDetailReducer {
         switch result {
         case .success(let item):
           state.fetchCreditItem.value = item
+          return .none
+
+        case .failure(let error):
+          return .run { await $0(.throwError(error)) }
+        }
+
+      case .fetchSimilarMovieItem(let result):
+        state.fetchSimilarMovieItem.isLoading = false
+        switch result {
+        case .success(let item):
+          state.fetchSimilarMovieItem.value = item
+          return .none
+
+        case .failure(let error):
+          return .run { await $0(.throwError(error)) }
+        }
+
+      case .fetchRecommendedMovieItem(let result):
+        state.fetchRecommendedMovieItem.isLoading = false
+        switch result {
+        case .success(let item):
+          state.fetchRecommendedMovieItem.value = item
           return .none
 
         case .failure(let error):

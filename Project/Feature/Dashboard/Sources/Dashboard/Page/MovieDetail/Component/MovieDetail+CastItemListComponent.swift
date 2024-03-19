@@ -64,10 +64,12 @@ extension MovieDetailPage.CastItemListComponent: View {
                     colorScheme == .dark
                       ? DesignSystemColor.system(.white).color
                       : DesignSystemColor.system(.black).color)
+                    .lineLimit(1)
 
                 Text(item.character)
                   .font(.system(size: 16))
                   .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
+                  .lineLimit(1)
               }
             }
             .frame(width: 120)

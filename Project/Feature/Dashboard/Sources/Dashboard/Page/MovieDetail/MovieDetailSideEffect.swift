@@ -55,4 +55,26 @@ extension MovieDetailSideEffect {
       }
     }
   }
+
+  var similarMovie: (MovieEntity.MovieDetail.SimilarMovie.Request) -> Effect<MovieDetailReducer.Action> {
+    { item in
+      .publisher {
+        useCase.movieDetailUseCase.similarMovie(item)
+          .receive(on: main)
+          .mapToResult()
+          .map(MovieDetailReducer.Action.fetchSimilarMovieItem)
+      }
+    }
+  }
+
+  var recommendedMovie: (MovieEntity.MovieDetail.RecommendedMovie.Request) -> Effect<MovieDetailReducer.Action> {
+    { item in
+      .publisher {
+        useCase.movieDetailUseCase.recommendedMovie(item)
+          .receive(on: main)
+          .mapToResult()
+          .map(MovieDetailReducer.Action.fetchRecommendedMovieItem)
+      }
+    }
+  }
 }

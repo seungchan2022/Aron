@@ -1,4 +1,5 @@
 import DesignSystem
+import Domain
 import SwiftUI
 
 // MARK: - MovieDetailPage.SimilarMovieItemListComponent
@@ -18,7 +19,7 @@ extension MovieDetailPage.SimilarMovieItemListComponent { }
 
 extension MovieDetailPage.SimilarMovieItemListComponent: View {
   var body: some View {
-    if !(viewState.similarMovieList?.isEmpty ?? true) {
+    if !viewState.item.itemList.isEmpty {
       Divider()
         .padding(.leading, 16)
 
@@ -47,7 +48,7 @@ extension MovieDetailPage.SimilarMovieItemListComponent: View {
 
         ScrollView(.horizontal) {
           LazyHStack {
-            ForEach(viewState.similarMovieList ?? []) { item in
+            ForEach(viewState.item.itemList) { item in
               Button(action: { }) {
                 VStack {
                   Rectangle()
@@ -81,15 +82,11 @@ extension MovieDetailPage.SimilarMovieItemListComponent: View {
   }
 }
 
+// MARK: - MovieDetailPage.SimilarMovieItemListComponent.ViewState
+
 extension MovieDetailPage.SimilarMovieItemListComponent {
   struct ViewState: Equatable {
-    let similarMovieList: [SimilarMovieItem]?
-  }
+    let item: MovieEntity.MovieDetail.SimilarMovie.Response
 
-  struct SimilarMovieItem: Equatable, Identifiable {
-    let id: Int
-    let poster: Image?
-    let title: String
-    let voteAverage: Double
   }
 }

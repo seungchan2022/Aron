@@ -15,4 +15,14 @@ public protocol MovieDetailUseCase {
     MovieEntity.MovieDetail.Credit.Response,
     CompositeErrorRepository
   > { get }
+
+  var similarMovie: (MovieEntity.MovieDetail.SimilarMovie.Request) -> AnyPublisher<
+    MovieEntity.MovieDetail.SimilarMovie.Response,
+    CompositeErrorRepository
+  > { get }
+
+  var recommendedMovie: (MovieEntity.MovieDetail.RecommendedMovie.Request) -> AnyPublisher<
+    MovieEntity.MovieDetail.RecommendedMovie.Response,
+    CompositeErrorRepository
+  > { get }
 }

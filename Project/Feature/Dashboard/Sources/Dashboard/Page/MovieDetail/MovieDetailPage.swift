@@ -23,28 +23,6 @@ extension MovieDetailPage {
     .init()
   }
 
-  private var similarMovieItemListComponentViewState: SimilarMovieItemListComponent.ViewState {
-    .init(similarMovieList: [
-      .init(id: 1, poster: .none, title: "similar movie1", voteAverage: 7.99),
-      .init(id: 2, poster: .none, title: "similar movie2", voteAverage: 7.99),
-      .init(id: 3, poster: .none, title: "similar movie3", voteAverage: 7.99),
-      .init(id: 4, poster: .none, title: "similar movie4", voteAverage: 7.99),
-      .init(id: 5, poster: .none, title: "similar movie5", voteAverage: 7.99),
-      .init(id: 6, poster: .none, title: "similar movie6", voteAverage: 7.99),
-    ])
-  }
-
-  private var recommendedMovieItemListComponentViewState: RecommendedMovieItemListComponent.ViewState {
-    .init(recommendedMovieList: [
-      .init(id: 1, poster: .none, title: "recommended movie1", voteAverage: 7.99),
-      .init(id: 2, poster: .none, title: "recommended movie2", voteAverage: 7.99),
-      .init(id: 3, poster: .none, title: "recommended movie3", voteAverage: 7.99),
-      .init(id: 4, poster: .none, title: "recommended movie4", voteAverage: 7.99),
-      .init(id: 5, poster: .none, title: "recommended movie5", voteAverage: 7.99),
-      .init(id: 6, poster: .none, title: "recommended movie6", voteAverage: 7.99),
-    ])
-  }
-
   private var otherPosterItemListComponentViewState: OtherPosterItemListComponent.ViewState {
     .init(
       imageBucket: .init(
@@ -147,13 +125,17 @@ extension MovieDetailPage: View {
             tapAction: { })
         }
 
-        SimilarMovieItemListComponent(
-          viewState: similarMovieItemListComponentViewState,
-          tapAction: { })
+        if let item = store.fetchSimilarMovieItem.value {
+          SimilarMovieItemListComponent(
+            viewState: .init(item: item),
+            tapAction: { })
+        }
 
-        RecommendedMovieItemListComponent(
-          viewState: recommendedMovieItemListComponentViewState,
-          tapAction: { })
+        if let item = store.fetchRecommendedMovieItem.value {
+          RecommendedMovieItemListComponent(
+            viewState: .init(item: item),
+            tapAction: { })
+        }
 
         OtherPosterItemListComponent(
           viewState: otherPosterItemListComponentViewState,
@@ -187,6 +169,8 @@ extension MovieDetailPage: View {
       store.send(.getDetail)
       store.send(.getReview)
       store.send(.getCredit)
+      store.send(.getSimilarMovie)
+      store.send(.getRecommendedMovie)
     }
     .onDisappear {
       store.send(.teardown)

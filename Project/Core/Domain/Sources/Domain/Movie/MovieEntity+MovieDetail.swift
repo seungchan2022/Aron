@@ -304,3 +304,173 @@ extension MovieEntity.MovieDetail.Credit {
     }
   }
 }
+
+extension MovieEntity.MovieDetail.SimilarMovie {
+
+  public struct PathList: Equatable, Codable, Sendable {
+    public let movieID: Int
+
+    public init(movieID: Int) {
+      self.movieID = movieID
+    }
+  }
+
+  public struct QueryItemPath: Equatable, Codable, Sendable {
+
+    // MARK: Lifecycle
+
+    public init(
+      apiKey: String = "1d9b898a212ea52e283351e521e17871",
+      language: String = "en-US")
+    {
+      self.apiKey = apiKey
+      self.language = language
+    }
+
+    // MARK: Public
+
+    public let apiKey: String
+    public let language: String
+
+    // MARK: Private
+
+    private enum CodingKeys: String, CodingKey {
+      case apiKey = "api_key"
+      case language
+    }
+  }
+
+  public struct Response: Equatable, Codable, Sendable {
+
+    // MARK: Public
+
+    public struct Item: Equatable, Identifiable, Codable, Sendable {
+      public let id: Int
+      public let title: String
+      public let voteAverage: Double
+
+      private enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case voteAverage = "vote_average"
+      }
+    }
+
+    public let page: Int
+    public let itemList: [Item]
+    public let totalPage: Int
+    public let totalResultListCount: Int
+
+    // MARK: Private
+
+    private enum CodingKeys: String, CodingKey {
+      case page
+      case itemList = "results"
+      case totalPage = "total_pages"
+      case totalResultListCount = "total_results"
+    }
+
+  }
+}
+
+// MARK: - MovieEntity.MovieDetail.SimilarMovie.Request
+
+extension MovieEntity.MovieDetail.SimilarMovie {
+  public struct Request: Equatable, Sendable, Codable {
+    public let pathList: MovieEntity.MovieDetail.SimilarMovie.PathList
+    public let queryItemPath: MovieEntity.MovieDetail.SimilarMovie.QueryItemPath
+
+    public init(
+      pathList: MovieEntity.MovieDetail.SimilarMovie.PathList,
+      queryItemPath: MovieEntity.MovieDetail.SimilarMovie.QueryItemPath)
+    {
+      self.pathList = pathList
+      self.queryItemPath = queryItemPath
+    }
+  }
+}
+
+extension MovieEntity.MovieDetail.RecommendedMovie {
+
+  public struct PathList: Equatable, Codable, Sendable {
+    public let movieID: Int
+
+    public init(movieID: Int) {
+      self.movieID = movieID
+    }
+  }
+
+  public struct QueryItemPath: Equatable, Codable, Sendable {
+
+    // MARK: Lifecycle
+
+    public init(
+      apiKey: String = "1d9b898a212ea52e283351e521e17871",
+      language: String = "en-US")
+    {
+      self.apiKey = apiKey
+      self.language = language
+    }
+
+    // MARK: Public
+
+    public let apiKey: String
+    public let language: String
+
+    // MARK: Private
+
+    private enum CodingKeys: String, CodingKey {
+      case apiKey = "api_key"
+      case language
+    }
+  }
+
+  public struct Response: Equatable, Codable, Sendable {
+
+    // MARK: Public
+
+    public struct Item: Equatable, Identifiable, Codable, Sendable {
+      public let id: Int
+      public let title: String
+      public let voteAverage: Double
+
+      private enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case voteAverage = "vote_average"
+      }
+    }
+
+    public let page: Int
+    public let itemList: [Item]
+    public let totalPage: Int
+    public let totalResultListCount: Int
+
+    // MARK: Private
+
+    private enum CodingKeys: String, CodingKey {
+      case page
+      case itemList = "results"
+      case totalPage = "total_pages"
+      case totalResultListCount = "total_results"
+    }
+
+  }
+}
+
+// MARK: - MovieEntity.MovieDetail.RecommendedMovie.Request
+
+extension MovieEntity.MovieDetail.RecommendedMovie {
+  public struct Request: Equatable, Sendable, Codable {
+    public let pathList: MovieEntity.MovieDetail.RecommendedMovie.PathList
+    public let queryItemPath: MovieEntity.MovieDetail.RecommendedMovie.QueryItemPath
+
+    public init(
+      pathList: MovieEntity.MovieDetail.RecommendedMovie.PathList,
+      queryItemPath: MovieEntity.MovieDetail.RecommendedMovie.QueryItemPath)
+    {
+      self.pathList = pathList
+      self.queryItemPath = queryItemPath
+    }
+  }
+}
