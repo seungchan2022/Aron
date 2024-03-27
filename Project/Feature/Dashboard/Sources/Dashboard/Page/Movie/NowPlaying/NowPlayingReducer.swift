@@ -22,7 +22,7 @@ struct NowPlayingReducer {
   struct State: Equatable, Identifiable {
     let id: UUID
     var query = ""
-    var itemList: [MovieEntity.Movie.NowPlaying.Response.Item] = []
+    var itemList: [MovieEntity.Movie.NowPlaying.Item] = []
     var fetchItem: FetchState.Data<MovieEntity.Movie.NowPlaying.Response?> = .init(isLoading: false, value: .none)
 
     init(id: UUID = UUID()) {
@@ -37,7 +37,7 @@ struct NowPlayingReducer {
     case getItem
     case fetchItem(Result<MovieEntity.Movie.NowPlaying.Response, CompositeErrorRepository>)
 
-    case routeToDetail(MovieEntity.Movie.NowPlaying.Response.Item)
+    case routeToDetail(MovieEntity.Movie.NowPlaying.Item)
 
     case throwError(CompositeErrorRepository)
   }

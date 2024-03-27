@@ -7,7 +7,7 @@ import SwiftUI
 extension NowPlayingPage {
   struct ItemComponent {
     let viewState: ViewState
-    let tapAction: (MovieEntity.Movie.NowPlaying.Response.Item) -> Void
+    let tapAction: (MovieEntity.Movie.NowPlaying.Item) -> Void
 
     @Environment(\.colorScheme) var colorScheme
   }
@@ -85,7 +85,7 @@ extension NowPlayingPage.ItemComponent: View {
 
 extension NowPlayingPage.ItemComponent {
   struct ViewState: Equatable {
-    let item: MovieEntity.Movie.NowPlaying.Response.Item
+    let item: MovieEntity.Movie.NowPlaying.Item
   }
 }
 

@@ -44,22 +44,6 @@ extension MovieEntity.Movie.NowPlaying {
 
     // MARK: Public
 
-    public struct Item: Equatable, Identifiable, Codable, Sendable {
-      public let id: Int
-      public let title: String
-      public let voteAverage: Double
-      public let releaseDate: String
-      public let overview: String?
-
-      private enum CodingKeys: String, CodingKey {
-        case id
-        case title
-        case voteAverage = "vote_average"
-        case releaseDate = "release_date"
-        case overview
-      }
-    }
-
     public let page: Int
     public let itemList: [Item]
     public let totalPage: Int
@@ -72,6 +56,22 @@ extension MovieEntity.Movie.NowPlaying {
       case itemList = "results"
       case totalPage = "total_pages"
       case totalResultListCount = "total_results"
+    }
+  }
+  
+  public struct Item: Equatable, Identifiable, Codable, Sendable {
+    public let id: Int
+    public let title: String
+    public let voteAverage: Double
+    public let releaseDate: String
+    public let overview: String?
+
+    private enum CodingKeys: String, CodingKey {
+      case id
+      case title
+      case voteAverage = "vote_average"
+      case releaseDate = "release_date"
+      case overview
     }
   }
 }

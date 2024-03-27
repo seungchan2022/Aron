@@ -34,7 +34,7 @@ extension NowPlayingSideEffect {
     }
   }
 
-  var routeToDetail: (MovieEntity.Movie.NowPlaying.Response.Item) -> Void {
+  var routeToDetail: (MovieEntity.Movie.NowPlaying.Item) -> Void {
     { item in
       navigator.next(
         linkItem: .init(
@@ -45,7 +45,7 @@ extension NowPlayingSideEffect {
   }
 }
 
-extension MovieEntity.Movie.NowPlaying.Response.Item {
+extension MovieEntity.Movie.NowPlaying.Item {
   fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
     .init(
       pathList: .init(movieID: id),
