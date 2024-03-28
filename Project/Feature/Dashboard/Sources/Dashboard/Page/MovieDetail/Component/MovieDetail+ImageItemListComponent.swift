@@ -1,13 +1,13 @@
 import DesignSystem
 import SwiftUI
+import Domain
 
 // MARK: - MovieDetailPage.ImageItemListComponent
 
 extension MovieDetailPage {
   struct ImageItemListComponent {
     let viewState: ViewState
-    let tapAction: () -> Void
-
+    
     @Environment(\.colorScheme) var colorScheme
   }
 }
@@ -18,24 +18,23 @@ extension MovieDetailPage.ImageItemListComponent { }
 
 extension MovieDetailPage.ImageItemListComponent: View {
   var body: some View {
-    if !(viewState.imageBucket.backdropImageList?.isEmpty ?? true) {
+    if !(viewState.item.imageBucket.backdropImageList?.isEmpty ?? true) {
       Divider()
         .padding(.leading, 16)
-
+      
       VStack(alignment: .leading) {
         Text("Images")
           .font(.system(size: 16))
           .foregroundStyle(
             colorScheme == .dark
-              ? DesignSystemColor.system(.white).color
-              : DesignSystemColor.system(.black).color)
-            .padding(.leading, 12)
-            .padding(.top, 8)
-
+            ? DesignSystemColor.system(.white).color
+            : DesignSystemColor.system(.black).color)
+          .padding(.leading, 12)
+          .padding(.top, 8)
+        
         ScrollView(.horizontal) {
           LazyHStack(spacing: 16) {
-            ForEach(viewState.imageBucket.backdropImageList?.prefix(8) ?? []) { _ in
-
+            ForEach(viewState.item.imageBucket.backdropImageList?.prefix(8) ?? [], id: \.image) { _ in
               Rectangle()
                 .fill(DesignSystemColor.palette(.gray(.lv250)).color)
                 .frame(width: 300, height: 140)
@@ -54,15 +53,6 @@ extension MovieDetailPage.ImageItemListComponent: View {
 
 extension MovieDetailPage.ImageItemListComponent {
   struct ViewState: Equatable {
-    let imageBucket: BackdropImageList
-  }
-
-  struct BackdropImageList: Equatable {
-    let backdropImageList: [BackdropImageItem]?
-  }
-
-  struct BackdropImageItem: Equatable, Identifiable {
-    let id: Int
-    let image: Image?
+    let item: MovieEntity.MovieDetail.MovieCard.Response
   }
 }

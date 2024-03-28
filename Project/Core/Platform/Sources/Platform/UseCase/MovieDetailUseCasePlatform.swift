@@ -21,9 +21,9 @@ extension MovieDetailUseCasePlatform: MovieDetailUseCase {
     { item in
       Endpoint(
         baseURL: baseURL,
-        pathList: ["\(item.pathList.movieID)"],
+        pathList: ["\(item.movieID)"],
         httpMethod: .get,
-        content: .queryItemPath(item.queryItemPath))
+        content: .queryItemPath(MovieCardQueryItem()))
         .fetch(isDebug: true)
     }
   }
@@ -35,9 +35,9 @@ extension MovieDetailUseCasePlatform: MovieDetailUseCase {
     { item in
       Endpoint(
         baseURL: baseURL,
-        pathList: ["\(item.pathList.movieID)", "reviews"],
+        pathList: ["\(item.movieID)", "reviews"],
         httpMethod: .get,
-        content: .queryItemPath(item.queryItemPath))
+        content: .queryItemPath(DetailQueryItem()))
         .fetch(isDebug: true)
     }
   }
@@ -49,9 +49,9 @@ extension MovieDetailUseCasePlatform: MovieDetailUseCase {
     { item in
       Endpoint(
         baseURL: baseURL,
-        pathList: ["\(item.pathList.movieID)", "credits"],
+        pathList: ["\(item.movieID)", "credits"],
         httpMethod: .get,
-        content: .queryItemPath(item.queryItemPath))
+        content: .queryItemPath(DetailQueryItem()))
         .fetch(isDebug: true)
     }
   }
@@ -63,9 +63,9 @@ extension MovieDetailUseCasePlatform: MovieDetailUseCase {
     { item in
       Endpoint(
         baseURL: baseURL,
-        pathList: ["\(item.pathList.movieID)", "similar"],
+        pathList: ["\(item.movieID)", "similar"],
         httpMethod: .get,
-        content: .queryItemPath(item.queryItemPath))
+        content: .queryItemPath(DetailQueryItem()))
         .fetch(isDebug: true)
     }
   }
@@ -77,10 +77,71 @@ extension MovieDetailUseCasePlatform: MovieDetailUseCase {
     { item in
       Endpoint(
         baseURL: baseURL,
-        pathList: ["\(item.pathList.movieID)", "recommendations"],
+        pathList: ["\(item.movieID)", "recommendations"],
         httpMethod: .get,
-        content: .queryItemPath(item.queryItemPath))
+        content: .queryItemPath(DetailQueryItem()))
         .fetch(isDebug: true)
+    }
+  }
+}
+
+extension MovieDetailUseCasePlatform {
+  fileprivate struct MovieCardQueryItem: Equatable, Codable, Sendable {
+
+    // MARK: Lifecycle
+
+    public init(
+      apiKey: String = "1d9b898a212ea52e283351e521e17871",
+      language: String = "ko-KR",
+      includeImageLanguage: String? = "ko,ko,null",
+      appendToResponse: String? = "keywords,images")
+    {
+      self.apiKey = apiKey
+      self.language = language
+      self.includeImageLanguage = includeImageLanguage
+      self.appendToResponse = appendToResponse
+    }
+
+    // MARK: Public
+
+    public let apiKey: String
+    public let language: String
+    public let includeImageLanguage: String?
+    public let appendToResponse: String?
+
+    // MARK: Private
+
+    private enum CodingKeys: String, CodingKey {
+      case apiKey = "api_key"
+      case language
+      case includeImageLanguage = "include_image_language"
+      case appendToResponse = "append_to_response"
+    }
+  }
+  
+  fileprivate struct DetailQueryItem: Equatable, Codable, Sendable {
+
+    // MARK: Lifecycle
+
+    public init(
+      apiKey: String = "1d9b898a212ea52e283351e521e17871",
+      language: String = "en-US")
+    {
+      self.apiKey = apiKey
+      self.language = language
+    }
+
+    // MARK: Public
+
+    public let apiKey: String
+    public let language: String
+
+    // MARK: Private
+
+    private enum CodingKeys: String, CodingKey {
+      case apiKey = "api_key"
+      case language
+
     }
   }
 }

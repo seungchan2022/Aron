@@ -39,6 +39,7 @@ extension NowPlayingSideEffect {
       navigator.next(
         linkItem: .init(
           path: Link.Dashboard.Path.movieDetail.rawValue,
+//          items: item.serialized()),
           items: item.serialized()),
         isAnimated: true)
     }
@@ -47,8 +48,6 @@ extension NowPlayingSideEffect {
 
 extension MovieEntity.Movie.NowPlaying.Item {
   fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
-    .init(
-      pathList: .init(movieID: id),
-      queryItemPath: .init())
+    .init(movieID: id)
   }
 }

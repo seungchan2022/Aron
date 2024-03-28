@@ -63,11 +63,11 @@ struct MovieDetailReducer {
     case binding(BindingAction<State>)
     case teardown
 
-    case getDetail
-    case getReview
-    case getCredit
-    case getSimilarMovie
-    case getRecommendedMovie
+    case getDetail(MovieEntity.MovieDetail.MovieCard.Request)
+    case getReview(MovieEntity.MovieDetail.Review.Request)
+    case getCredit(MovieEntity.MovieDetail.Credit.Request)
+    case getSimilarMovie(MovieEntity.MovieDetail.SimilarMovie.Request)
+    case getRecommendedMovie(MovieEntity.MovieDetail.RecommendedMovie.Request)
 
     case fetchDetailItem(Result<MovieEntity.MovieDetail.MovieCard.Response, CompositeErrorRepository>)
     case fetchReviewItem(Result<MovieEntity.MovieDetail.Review.Response, CompositeErrorRepository>)
@@ -98,29 +98,29 @@ struct MovieDetailReducer {
         return .concatenate(
           CancelID.allCases.map { .cancel(pageID: pageID, id: $0) })
 
-      case .getDetail:
+      case .getDetail(let requestModel):
         state.fetchDetailItem.isLoading = true
-        return sideEffect.detail(state.item)
+        return sideEffect.detail(requestModel)
           .cancellable(pageID: pageID, id: CancelID.requestDetail, cancelInFlight: true)
 
-      case .getReview:
+      case .getReview(let requestModel):
         state.fetchReviewItem.isLoading = true
-        return sideEffect.review(state.reviewItem)
+        return sideEffect.review(requestModel)
           .cancellable(pageID: pageID, id: CancelID.requestReview, cancelInFlight: true)
-
-      case .getCredit:
+//
+      case .getCredit(let requestModel):
         state.fetchCreditItem.isLoading = true
-        return sideEffect.credit(state.creditItem)
+        return sideEffect.credit(requestModel)
           .cancellable(pageID: pageID, id: CancelID.requestCredit, cancelInFlight: true)
 
-      case .getSimilarMovie:
+      case .getSimilarMovie(let requestModel):
         state.fetchSimilarMovieItem.isLoading = true
-        return sideEffect.similarMovie(state.similarMovieItem)
+        return sideEffect.similarMovie(requestModel)
           .cancellable(pageID: pageID, id: CancelID.reqeustSimilarMovie, cancelInFlight: true)
 
-      case .getRecommendedMovie:
+      case .getRecommendedMovie(let requestModel):
         state.fetchRecommendedMovieItem.isLoading = true
-        return sideEffect.recommendedMovie(state.recommendedMovieItem)
+        return sideEffect.recommendedMovie(requestModel)
           .cancellable(pageID: pageID, id: CancelID.requestRecommendedMovie, cancelInFlight: true)
 
       case .fetchDetailItem(let result):
@@ -135,6 +135,7 @@ struct MovieDetailReducer {
         }
 
       case .fetchReviewItem(let result):
+        print(result)
         state.fetchReviewItem.isLoading = false
         switch result {
         case .success(let item):
@@ -144,7 +145,6 @@ struct MovieDetailReducer {
         case .failure(let error):
           return .run { await $0(.throwError(error)) }
         }
-
       case .fetchCreditItem(let result):
         state.fetchCreditItem.isLoading = false
         switch result {

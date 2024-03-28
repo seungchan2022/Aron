@@ -12,44 +12,11 @@ extension MovieEntity {
 
 extension MovieEntity.MovieDetail.MovieCard {
 
-  public struct PathList: Equatable, Codable, Sendable {
+  public struct Request: Equatable, Codable, Sendable {
     public let movieID: Int
 
     public init(movieID: Int) {
       self.movieID = movieID
-    }
-  }
-
-  public struct QueryItemPath: Equatable, Codable, Sendable {
-
-    // MARK: Lifecycle
-
-    public init(
-      apiKey: String = "1d9b898a212ea52e283351e521e17871",
-      language: String = "ko-KR",
-      includeImageLanguage: String = "ko,ko,null",
-      appendToResponse: String = "keywords,images")
-    {
-      self.apiKey = apiKey
-      self.language = language
-      self.includeImageLanguage = includeImageLanguage
-      self.appendToResponse = appendToResponse
-    }
-
-    // MARK: Public
-
-    public let apiKey: String
-    public let language: String
-    public let includeImageLanguage: String
-    public let appendToResponse: String
-
-    // MARK: Private
-
-    private enum CodingKeys: String, CodingKey {
-      case apiKey = "api_key"
-      case language
-      case includeImageLanguage = "include_image_language"
-      case appendToResponse = "append_to_response"
     }
   }
 
@@ -68,6 +35,7 @@ extension MovieEntity.MovieDetail.MovieCard {
     public let genreItemList: [GenreItem]
     public let overview: String
     public let keywordBucket: KeywordItemList
+    public let imageBucket: ImageBucket
 
     // MARK: Private
 
@@ -83,6 +51,7 @@ extension MovieEntity.MovieDetail.MovieCard {
       case genreItemList = "genres"
       case overview
       case keywordBucket = "keywords"
+      case imageBucket = "images"
     }
   }
 
@@ -121,58 +90,42 @@ extension MovieEntity.MovieDetail.MovieCard {
       case name
     }
   }
-}
-
-// MARK: - MovieEntity.MovieDetail.MovieCard.Request
-
-extension MovieEntity.MovieDetail.MovieCard {
-  public struct Request: Equatable, Sendable, Codable {
-    public let pathList: MovieEntity.MovieDetail.MovieCard.PathList
-    public let queryItemPath: MovieEntity.MovieDetail.MovieCard.QueryItemPath
-
-    public init(
-      pathList: MovieEntity.MovieDetail.MovieCard.PathList,
-      queryItemPath: MovieEntity.MovieDetail.MovieCard.QueryItemPath)
-    {
-      self.pathList = pathList
-      self.queryItemPath = queryItemPath
+  
+  public struct ImageBucket: Equatable, Codable, Sendable {
+    public let backdropImageList: [BackdropImageItem]?
+    public let otherPosterItemList: [PosterItem]?
+    
+    private enum CodingKeys: String, CodingKey {
+      case backdropImageList = "backdrops"
+      case otherPosterItemList = "posters"
     }
   }
+  
+  public struct BackdropImageItem: Equatable, Codable, Sendable {
+    public let image: String?
+    
+    private enum CodingKeys: String, CodingKey {
+      case image = "file_path"
+    }
+  }
+  
+  public struct PosterItem: Equatable, Codable, Sendable {
+    public let image: String?
+    
+    private enum CodingKeys: String, CodingKey {
+      case image = "file_path"
+    }
+  }
+
 }
 
 extension MovieEntity.MovieDetail.Review {
 
-  public struct PathList: Equatable, Codable, Sendable {
+  public struct Request: Equatable, Codable, Sendable {
     public let movieID: Int
 
     public init(movieID: Int) {
       self.movieID = movieID
-    }
-  }
-
-  public struct QueryItemPath: Equatable, Codable, Sendable {
-
-    // MARK: Lifecycle
-
-    public init(
-      apiKey: String = "1d9b898a212ea52e283351e521e17871",
-      language: String = "en-US")
-    {
-      self.apiKey = apiKey
-      self.language = language
-    }
-
-    // MARK: Public
-
-    public let apiKey: String
-    public let language: String
-
-    // MARK: Private
-
-    private enum CodingKeys: String, CodingKey {
-      case apiKey = "api_key"
-      case language
-
     }
   }
 
@@ -192,26 +145,9 @@ extension MovieEntity.MovieDetail.Review {
   }
 }
 
-// MARK: - MovieEntity.MovieDetail.Review.Request
-
-extension MovieEntity.MovieDetail.Review {
-  public struct Request: Equatable, Sendable, Codable {
-    public let pathList: MovieEntity.MovieDetail.Review.PathList
-    public let queryItemPath: MovieEntity.MovieDetail.Review.QueryItemPath
-
-    public init(
-      pathList: MovieEntity.MovieDetail.Review.PathList,
-      queryItemPath: MovieEntity.MovieDetail.Review.QueryItemPath)
-    {
-      self.pathList = pathList
-      self.queryItemPath = queryItemPath
-    }
-  }
-}
-
 extension MovieEntity.MovieDetail.Credit {
 
-  public struct PathList: Equatable, Codable, Sendable {
+  public struct Request: Equatable, Codable, Sendable {
     public let movieID: Int
 
     public init(movieID: Int) {
@@ -219,30 +155,6 @@ extension MovieEntity.MovieDetail.Credit {
     }
   }
 
-  public struct QueryItemPath: Equatable, Codable, Sendable {
-
-    // MARK: Lifecycle
-
-    public init(
-      apiKey: String = "1d9b898a212ea52e283351e521e17871",
-      language: String = "en-US")
-    {
-      self.apiKey = apiKey
-      self.language = language
-    }
-
-    // MARK: Public
-
-    public let apiKey: String
-    public let language: String
-
-    // MARK: Private
-
-    private enum CodingKeys: String, CodingKey {
-      case apiKey = "api_key"
-      case language
-    }
-  }
 
   public struct Response: Equatable, Codable, Sendable, Identifiable {
 
@@ -288,26 +200,10 @@ extension MovieEntity.MovieDetail.Credit {
   }
 }
 
-// MARK: - MovieEntity.MovieDetail.Credit.Request
-
-extension MovieEntity.MovieDetail.Credit {
-  public struct Request: Equatable, Sendable, Codable {
-    public let pathList: MovieEntity.MovieDetail.Credit.PathList
-    public let queryItemPath: MovieEntity.MovieDetail.Credit.QueryItemPath
-
-    public init(
-      pathList: MovieEntity.MovieDetail.Credit.PathList,
-      queryItemPath: MovieEntity.MovieDetail.Credit.QueryItemPath)
-    {
-      self.pathList = pathList
-      self.queryItemPath = queryItemPath
-    }
-  }
-}
 
 extension MovieEntity.MovieDetail.SimilarMovie {
 
-  public struct PathList: Equatable, Codable, Sendable {
+  public struct Request: Equatable, Codable, Sendable {
     public let movieID: Int
 
     public init(movieID: Int) {
@@ -315,30 +211,7 @@ extension MovieEntity.MovieDetail.SimilarMovie {
     }
   }
 
-  public struct QueryItemPath: Equatable, Codable, Sendable {
-
-    // MARK: Lifecycle
-
-    public init(
-      apiKey: String = "1d9b898a212ea52e283351e521e17871",
-      language: String = "en-US")
-    {
-      self.apiKey = apiKey
-      self.language = language
-    }
-
-    // MARK: Public
-
-    public let apiKey: String
-    public let language: String
-
-    // MARK: Private
-
-    private enum CodingKeys: String, CodingKey {
-      case apiKey = "api_key"
-      case language
-    }
-  }
+  
 
   public struct Response: Equatable, Codable, Sendable {
 
@@ -373,26 +246,10 @@ extension MovieEntity.MovieDetail.SimilarMovie {
   }
 }
 
-// MARK: - MovieEntity.MovieDetail.SimilarMovie.Request
-
-extension MovieEntity.MovieDetail.SimilarMovie {
-  public struct Request: Equatable, Sendable, Codable {
-    public let pathList: MovieEntity.MovieDetail.SimilarMovie.PathList
-    public let queryItemPath: MovieEntity.MovieDetail.SimilarMovie.QueryItemPath
-
-    public init(
-      pathList: MovieEntity.MovieDetail.SimilarMovie.PathList,
-      queryItemPath: MovieEntity.MovieDetail.SimilarMovie.QueryItemPath)
-    {
-      self.pathList = pathList
-      self.queryItemPath = queryItemPath
-    }
-  }
-}
 
 extension MovieEntity.MovieDetail.RecommendedMovie {
 
-  public struct PathList: Equatable, Codable, Sendable {
+  public struct Request: Equatable, Codable, Sendable {
     public let movieID: Int
 
     public init(movieID: Int) {
@@ -400,30 +257,7 @@ extension MovieEntity.MovieDetail.RecommendedMovie {
     }
   }
 
-  public struct QueryItemPath: Equatable, Codable, Sendable {
-
-    // MARK: Lifecycle
-
-    public init(
-      apiKey: String = "1d9b898a212ea52e283351e521e17871",
-      language: String = "en-US")
-    {
-      self.apiKey = apiKey
-      self.language = language
-    }
-
-    // MARK: Public
-
-    public let apiKey: String
-    public let language: String
-
-    // MARK: Private
-
-    private enum CodingKeys: String, CodingKey {
-      case apiKey = "api_key"
-      case language
-    }
-  }
+  
 
   public struct Response: Equatable, Codable, Sendable {
 
@@ -458,19 +292,3 @@ extension MovieEntity.MovieDetail.RecommendedMovie {
   }
 }
 
-// MARK: - MovieEntity.MovieDetail.RecommendedMovie.Request
-
-extension MovieEntity.MovieDetail.RecommendedMovie {
-  public struct Request: Equatable, Sendable, Codable {
-    public let pathList: MovieEntity.MovieDetail.RecommendedMovie.PathList
-    public let queryItemPath: MovieEntity.MovieDetail.RecommendedMovie.QueryItemPath
-
-    public init(
-      pathList: MovieEntity.MovieDetail.RecommendedMovie.PathList,
-      queryItemPath: MovieEntity.MovieDetail.RecommendedMovie.QueryItemPath)
-    {
-      self.pathList = pathList
-      self.queryItemPath = queryItemPath
-    }
-  }
-}

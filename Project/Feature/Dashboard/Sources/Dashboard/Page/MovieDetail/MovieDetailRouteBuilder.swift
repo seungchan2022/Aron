@@ -21,7 +21,8 @@ struct MovieDetailRouteBuilder<RootNavigator: RootNavigatorType> {
             reviewItem: reviewItem,
             creditItem: creditItem,
             similarMovieItem: similarMovieItem,
-            recommendedMovieItem: recommendedMovieItem),
+            recommendedMovieItem: recommendedMovieItem
+          ),
           reducer: {
             MovieDetailReducer(sideEffect: .init(
               useCase: env,

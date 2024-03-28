@@ -1,4 +1,5 @@
 import DesignSystem
+import Domain
 import SwiftUI
 
 // MARK: - MovieDetailPage.OtherPosterItemListComponent
@@ -6,7 +7,7 @@ import SwiftUI
 extension MovieDetailPage {
   struct OtherPosterItemListComponent {
     let viewState: ViewState
-    let tapAction: () -> Void
+    let tapAction: (MovieEntity.MovieDetail.MovieCard.PosterItem) -> Void
 
     @Environment(\.colorScheme) var colorScheme
   }
@@ -34,9 +35,8 @@ extension MovieDetailPage.OtherPosterItemListComponent: View {
 
       ScrollView(.horizontal) {
         LazyHStack(spacing: 32) {
-          ForEach(viewState.imageBucket.posterItemList.prefix(8)) { _ in
-            // 여기서는 모든 아이템이 똑같은 로직이 수행됌
-            Button(action: { }) {
+          ForEach(viewState.item.imageBucket.otherPosterItemList?.prefix(8) ?? [], id: \.image) { item in
+            Button(action: { tapAction(item) }) {
               Rectangle()
                 .fill(DesignSystemColor.palette(.gray(.lv250)).color)
                 .frame(width: 80, height: 120)
@@ -55,15 +55,6 @@ extension MovieDetailPage.OtherPosterItemListComponent: View {
 
 extension MovieDetailPage.OtherPosterItemListComponent {
   struct ViewState: Equatable {
-    let imageBucket: PosterItemList
-  }
-
-  struct PosterItemList: Equatable {
-    let posterItemList: [PosterItem]
-  }
-
-  struct PosterItem: Equatable, Identifiable {
-    let id: Int
-    let image: Image?
+    let item: MovieEntity.MovieDetail.MovieCard.Response
   }
 }

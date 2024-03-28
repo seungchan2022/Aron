@@ -24,9 +24,9 @@ struct MovieDetailSideEffect {
 
 extension MovieDetailSideEffect {
   var detail: (MovieEntity.MovieDetail.MovieCard.Request) -> Effect<MovieDetailReducer.Action> {
-    { item in
+    { request in
       .publisher {
-        useCase.movieDetailUseCase.movieCard(item)
+        useCase.movieDetailUseCase.movieCard(request)
           .receive(on: main)
           .mapToResult()
           .map(MovieDetailReducer.Action.fetchDetailItem)
@@ -35,9 +35,9 @@ extension MovieDetailSideEffect {
   }
 
   var review: (MovieEntity.MovieDetail.Review.Request) -> Effect<MovieDetailReducer.Action> {
-    { item in
+    { request in
       .publisher {
-        useCase.movieDetailUseCase.review(item)
+        useCase.movieDetailUseCase.review(request)
           .receive(on: main)
           .mapToResult()
           .map(MovieDetailReducer.Action.fetchReviewItem)
@@ -46,9 +46,9 @@ extension MovieDetailSideEffect {
   }
 
   var credit: (MovieEntity.MovieDetail.Credit.Request) -> Effect<MovieDetailReducer.Action> {
-    { item in
+    { request in
       .publisher {
-        useCase.movieDetailUseCase.credit(item)
+        useCase.movieDetailUseCase.credit(request)
           .receive(on: main)
           .mapToResult()
           .map(MovieDetailReducer.Action.fetchCreditItem)
@@ -57,9 +57,9 @@ extension MovieDetailSideEffect {
   }
 
   var similarMovie: (MovieEntity.MovieDetail.SimilarMovie.Request) -> Effect<MovieDetailReducer.Action> {
-    { item in
+    { request in
       .publisher {
-        useCase.movieDetailUseCase.similarMovie(item)
+        useCase.movieDetailUseCase.similarMovie(request)
           .receive(on: main)
           .mapToResult()
           .map(MovieDetailReducer.Action.fetchSimilarMovieItem)
@@ -68,9 +68,9 @@ extension MovieDetailSideEffect {
   }
 
   var recommendedMovie: (MovieEntity.MovieDetail.RecommendedMovie.Request) -> Effect<MovieDetailReducer.Action> {
-    { item in
+    { request in
       .publisher {
-        useCase.movieDetailUseCase.recommendedMovie(item)
+        useCase.movieDetailUseCase.recommendedMovie(request)
           .receive(on: main)
           .mapToResult()
           .map(MovieDetailReducer.Action.fetchRecommendedMovieItem)

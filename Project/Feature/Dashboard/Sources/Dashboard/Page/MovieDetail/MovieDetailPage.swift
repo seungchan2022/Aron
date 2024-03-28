@@ -22,40 +22,6 @@ extension MovieDetailPage {
   private var listButtonComponentViewState: ListButtonComponent.ViewState {
     .init()
   }
-
-  private var otherPosterItemListComponentViewState: OtherPosterItemListComponent.ViewState {
-    .init(
-      imageBucket: .init(
-        posterItemList: [
-          .init(id: 1, image: .none),
-          .init(id: 2, image: .none),
-          .init(id: 3, image: .none),
-          .init(id: 4, image: .none),
-          .init(id: 5, image: .none),
-          .init(id: 6, image: .none),
-          .init(id: 7, image: .none),
-          .init(id: 8, image: .none),
-          .init(id: 9, image: .none),
-          .init(id: 10, image: .none),
-        ]))
-  }
-
-  private var imageItemListComponent: ImageItemListComponent.ViewState {
-    .init(
-      imageBucket: .init(
-        backdropImageList: [
-          .init(id: 1, image: .none),
-          .init(id: 2, image: .none),
-          .init(id: 3, image: .none),
-          .init(id: 4, image: .none),
-          .init(id: 5, image: .none),
-          .init(id: 6, image: .none),
-          .init(id: 7, image: .none),
-          .init(id: 8, image: .none),
-          .init(id: 9, image: .none),
-          .init(id: 10, image: .none),
-        ]))
-  }
 }
 
 // MARK: View
@@ -78,15 +44,15 @@ extension MovieDetailPage: View {
           isWishListButtonTapped: self.$isWishListButtonTapped,
           isSeenListButtonTapped: self.$isSeenListButtonTapped,
           isShowingConfirmation: self.$isShowingConfirmation)
-
+//
         // review
         if let item = store.fetchReviewItem.value {
           ReviewComponent(
             viewState: .init(item: item),
             tapAction: { })
         }
-
-        // Overview
+//
+//        // Overview
         if let item = store.fetchDetailItem.value {
           OverviewComponent(
             viewState: .init(item: item),
@@ -99,8 +65,8 @@ extension MovieDetailPage: View {
           : DesignSystemColor.system(.white).color)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .padding(.horizontal, 12) // 그룹의 패딩
-
-      // Section2 (Keyword ~ Images)
+//
+//      // Section2 (Keyword ~ Images)
       VStack {
         if let item = store.fetchDetailItem.value {
           KeywordItemListComponent(viewState: .init(item: item))
@@ -137,13 +103,15 @@ extension MovieDetailPage: View {
             tapAction: { })
         }
 
-        OtherPosterItemListComponent(
-          viewState: otherPosterItemListComponentViewState,
-          tapAction: { })
-
-        ImageItemListComponent(
-          viewState: imageItemListComponent,
-          tapAction: { })
+        if let item = store.fetchDetailItem.value {
+          OtherPosterItemListComponent(
+            viewState: .init(item: item),
+            tapAction: { _ in print(item) })
+        }
+        
+        if let item = store.fetchDetailItem.value {
+          ImageItemListComponent(viewState: .init(item: item))
+        }
       }
       .background(
         colorScheme == .dark
@@ -166,11 +134,11 @@ extension MovieDetailPage: View {
       }
     }
     .onAppear {
-      store.send(.getDetail)
-      store.send(.getReview)
-      store.send(.getCredit)
-      store.send(.getSimilarMovie)
-      store.send(.getRecommendedMovie)
+      store.send(.getDetail(store.item))
+      store.send(.getReview(store.reviewItem))
+      store.send(.getCredit(store.creditItem))
+      store.send(.getSimilarMovie(store.similarMovieItem))
+      store.send(.getRecommendedMovie(store.recommendedMovieItem))
     }
     .onDisappear {
       store.send(.teardown)
