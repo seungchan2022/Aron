@@ -53,6 +53,8 @@ extension MovieDetailPage.OtherPosterItemListComponent: View {
   }
 }
 
+// MARK: - MovieDetailPage.OtherPosterItemListComponent.ViewState
+
 extension MovieDetailPage.OtherPosterItemListComponent {
   struct ViewState: Equatable {
     let item: MovieEntity.MovieDetail.MovieCard.Response

@@ -106,9 +106,9 @@ extension MovieDetailPage: View {
         if let item = store.fetchDetailItem.value {
           OtherPosterItemListComponent(
             viewState: .init(item: item),
-            tapAction: { _ in print(item) })
+            tapAction: { _ in })
         }
-        
+
         if let item = store.fetchDetailItem.value {
           ImageItemListComponent(viewState: .init(item: item))
         }

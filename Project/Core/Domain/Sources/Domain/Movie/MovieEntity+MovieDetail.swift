@@ -90,28 +90,28 @@ extension MovieEntity.MovieDetail.MovieCard {
       case name
     }
   }
-  
+
   public struct ImageBucket: Equatable, Codable, Sendable {
     public let backdropImageList: [BackdropImageItem]?
     public let otherPosterItemList: [PosterItem]?
-    
+
     private enum CodingKeys: String, CodingKey {
       case backdropImageList = "backdrops"
       case otherPosterItemList = "posters"
     }
   }
-  
+
   public struct BackdropImageItem: Equatable, Codable, Sendable {
     public let image: String?
-    
+
     private enum CodingKeys: String, CodingKey {
       case image = "file_path"
     }
   }
-  
+
   public struct PosterItem: Equatable, Codable, Sendable {
     public let image: String?
-    
+
     private enum CodingKeys: String, CodingKey {
       case image = "file_path"
     }
@@ -154,7 +154,6 @@ extension MovieEntity.MovieDetail.Credit {
       self.movieID = movieID
     }
   }
-
 
   public struct Response: Equatable, Codable, Sendable, Identifiable {
 
@@ -200,7 +199,6 @@ extension MovieEntity.MovieDetail.Credit {
   }
 }
 
-
 extension MovieEntity.MovieDetail.SimilarMovie {
 
   public struct Request: Equatable, Codable, Sendable {
@@ -210,8 +208,6 @@ extension MovieEntity.MovieDetail.SimilarMovie {
       self.movieID = movieID
     }
   }
-
-  
 
   public struct Response: Equatable, Codable, Sendable {
 
@@ -245,7 +241,6 @@ extension MovieEntity.MovieDetail.SimilarMovie {
 
   }
 }
-
 
 extension MovieEntity.MovieDetail.RecommendedMovie {
 
@@ -257,8 +252,6 @@ extension MovieEntity.MovieDetail.RecommendedMovie {
     }
   }
 
-  
-
   public struct Response: Equatable, Codable, Sendable {
 
     // MARK: Public
@@ -291,4 +284,3 @@ extension MovieEntity.MovieDetail.RecommendedMovie {
 
   }
 }
-

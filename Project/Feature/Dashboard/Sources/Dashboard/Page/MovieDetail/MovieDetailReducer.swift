@@ -135,7 +135,6 @@ struct MovieDetailReducer {
         }
 
       case .fetchReviewItem(let result):
-        print(result)
         state.fetchReviewItem.isLoading = false
         switch result {
         case .success(let item):

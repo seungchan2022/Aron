@@ -118,7 +118,7 @@ extension MovieDetailUseCasePlatform {
       case appendToResponse = "append_to_response"
     }
   }
-  
+
   fileprivate struct DetailQueryItem: Equatable, Codable, Sendable {
 
     // MARK: Lifecycle

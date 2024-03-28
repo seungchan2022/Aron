@@ -39,7 +39,6 @@ extension NowPlayingSideEffect {
       navigator.next(
         linkItem: .init(
           path: Link.Dashboard.Path.movieDetail.rawValue,
-//          items: item.serialized()),
           items: item.serialized()),
         isAnimated: true)
     }

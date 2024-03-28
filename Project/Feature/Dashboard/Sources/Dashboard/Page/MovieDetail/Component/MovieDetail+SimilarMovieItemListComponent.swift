@@ -61,7 +61,7 @@ extension MovieDetailPage.SimilarMovieItemListComponent: View {
                       colorScheme == .dark
                         ? DesignSystemColor.system(.white).color
                         : DesignSystemColor.system(.black).color)
-                    .lineLimit(1)
+                      .lineLimit(1)
 
                   Text("\(Int(item.voteAverage * 10)) %")
                     .foregroundStyle(

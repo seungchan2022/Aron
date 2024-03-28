@@ -58,7 +58,7 @@ extension MovieEntity.Movie.NowPlaying {
       case totalResultListCount = "total_results"
     }
   }
-  
+
   public struct Item: Equatable, Identifiable, Codable, Sendable {
     public let id: Int
     public let title: String
