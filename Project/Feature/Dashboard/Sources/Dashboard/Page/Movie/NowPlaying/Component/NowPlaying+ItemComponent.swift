@@ -21,6 +21,10 @@ extension NowPlayingPage.ItemComponent {
   private var voteAverage: String {
     "\(Int((viewState.item.voteAverage) * 10))%"
   }
+  
+  private var remoteImageURL: String {
+    return  "https://image.tmdb.org/t/p/w500/\(viewState.item.poster)"
+  }
 }
 
 // MARK: - NowPlayingPage.ItemComponent + View
@@ -30,15 +34,22 @@ extension NowPlayingPage.ItemComponent: View {
     Button(action: { tapAction(viewState.item) }) {
       VStack {
         HStack(spacing: 8) {
-          Rectangle()
-            .fill(.gray)
-            .frame(width: 100, height: 160)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-
+          
+          RemoteImage(
+            url: remoteImageURL,
+            placeholder: {
+              Rectangle()
+                .fill(.gray)
+            })
+          .scaledToFill()
+          .frame(width: 100, height: 160)
+          .clipShape(RoundedRectangle(cornerRadius: 10))
+          
           VStack(alignment: .leading, spacing: 16) {
             Text(viewState.item.title)
               .font(.system(size: 18))
               .foregroundStyle(DesignSystemColor.label(.ocher).color)
+              .multilineTextAlignment(.leading)
 
             HStack {
               Text(voteAverage)

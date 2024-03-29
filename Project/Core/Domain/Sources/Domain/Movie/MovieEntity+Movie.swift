@@ -1,5 +1,7 @@
 // MARK: - MovieEntity.Movie
 
+import Foundation
+
 extension MovieEntity {
   public enum Movie {
     public enum NowPlaying { }
@@ -62,6 +64,7 @@ extension MovieEntity.Movie.NowPlaying {
   public struct Item: Equatable, Identifiable, Codable, Sendable {
     public let id: Int
     public let title: String
+    public let poster: String
     public let voteAverage: Double
     public let releaseDate: String
     public let overview: String?
@@ -69,6 +72,7 @@ extension MovieEntity.Movie.NowPlaying {
     private enum CodingKeys: String, CodingKey {
       case id
       case title
+      case poster = "poster_path"
       case voteAverage = "vote_average"
       case releaseDate = "release_date"
       case overview
