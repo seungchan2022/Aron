@@ -130,6 +130,8 @@ extension DesignSystemColor {
     case purple
     case green
     case red
+    case orange
+    case yellow
 
     var color: Color {
       switch self {
@@ -138,6 +140,10 @@ extension DesignSystemColor {
       case .green: Asset.ColorChip.Tint.tintGreen.swiftUIColor
       case .red:
         Asset.ColorChip.Tint.tintRed.swiftUIColor
+      case .orange:
+        Asset.ColorChip.Tint.tintOrange.swiftUIColor
+      case .yellow:
+        Asset.ColorChip.Tint.tintYellow.swiftUIColor
       }
     }
   }

@@ -14,17 +14,38 @@ extension NowPlayingPage {
 }
 
 extension NowPlayingPage.ItemComponent {
+  private var remoteImageURL: String {
+    return  "https://image.tmdb.org/t/p/w500/\(viewState.item.poster)"
+  }
+
   private var releaseDate: String {
     viewState.item.releaseDate.toDate?.toString ?? ""
   }
 
   private var voteAverage: String {
-    "\(Int((viewState.item.voteAverage) * 10))%"
+    "\(Int((viewState.item.voteAverage ?? .zero) * 10))%"
+  }
+
+  
+  private var voteAveragePercent: Double {
+     Double(Int(viewState.item.voteAverage ?? .zero) * 10) / 100
   }
   
-  private var remoteImageURL: String {
-    return  "https://image.tmdb.org/t/p/w500/\(viewState.item.poster)"
+  private var voteAverageColor: Color {
+    let voteAverage = Int((viewState.item.voteAverage ?? .zero) * 10)
+    
+    switch voteAverage {
+    case 0..<25:
+      return DesignSystemColor.tint(.red).color
+    case 25..<50:
+      return DesignSystemColor.tint(.orange).color
+    case 50..<75:
+      return DesignSystemColor.tint(.yellow).color
+    default:
+      return DesignSystemColor.tint(.green).color
+    }
   }
+
 }
 
 // MARK: - NowPlayingPage.ItemComponent + View
@@ -52,12 +73,30 @@ extension NowPlayingPage.ItemComponent: View {
               .multilineTextAlignment(.leading)
 
             HStack {
-              Text(voteAverage)
-                .font(.system(size: 14))
-                .foregroundStyle(
-                  colorScheme == .dark
-                    ? DesignSystemColor.system(.white).color
-                    : DesignSystemColor.system(.black).color)
+              Circle()
+                .trim(from: .zero, to: voteAveragePercent)
+                .stroke(
+                  voteAverageColor,
+                  style: .init(
+                    lineWidth: 2,
+                    lineCap: .butt,
+                    lineJoin: .miter,
+                    miterLimit: .zero,
+                    dash: [1, 1.5],
+                    dashPhase: .zero))
+                .shadow(color: voteAverageColor, radius: 5)
+                .frame(width: 40, height: 40)
+                .rotationEffect(.degrees(-90))
+                .overlay {
+                  Text(voteAverage)
+                    .font(.system(size: 14))
+                    .foregroundStyle(
+                      colorScheme == .dark
+                        ? DesignSystemColor.system(.white).color
+                        : DesignSystemColor.system(.black).color)
+                }
+              
+
 
               Text(releaseDate)
                 .font(.system(size: 16))

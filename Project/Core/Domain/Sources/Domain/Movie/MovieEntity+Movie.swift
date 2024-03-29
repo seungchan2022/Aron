@@ -65,7 +65,7 @@ extension MovieEntity.Movie.NowPlaying {
     public let id: Int
     public let title: String
     public let poster: String
-    public let voteAverage: Double
+    public let voteAverage: Double?
     public let releaseDate: String
     public let overview: String?
 
