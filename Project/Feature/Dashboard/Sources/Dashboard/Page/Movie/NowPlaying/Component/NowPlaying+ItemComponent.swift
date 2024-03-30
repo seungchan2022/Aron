@@ -15,7 +15,7 @@ extension NowPlayingPage {
 
 extension NowPlayingPage.ItemComponent {
   private var remoteImageURL: String {
-    return  "https://image.tmdb.org/t/p/w500/\(viewState.item.poster)"
+    return  "https://image.tmdb.org/t/p/w500/\(viewState.item.poster ?? "")"
   }
 
   private var releaseDate: String {

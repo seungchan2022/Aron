@@ -2,6 +2,8 @@
 
 import Foundation
 
+// MARK: - MovieEntity.Movie
+
 extension MovieEntity {
   public enum Movie {
     public enum NowPlaying { }
@@ -64,7 +66,7 @@ extension MovieEntity.Movie.NowPlaying {
   public struct Item: Equatable, Identifiable, Codable, Sendable {
     public let id: Int
     public let title: String
-    public let poster: String
+    public let poster: String?
     public let voteAverage: Double?
     public let releaseDate: String
     public let overview: String?
