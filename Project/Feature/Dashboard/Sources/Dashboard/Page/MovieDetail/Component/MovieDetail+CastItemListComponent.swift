@@ -7,7 +7,8 @@ import SwiftUI
 extension MovieDetailPage {
   struct CastItemListComponent {
     let viewState: ViewState
-    let tapAction: () -> Void
+    let tapSeaAllAction: () -> Void
+    let tapCastAction: () -> Void
 
     @Environment(\.colorScheme) var colorScheme
   }
@@ -23,7 +24,9 @@ extension MovieDetailPage.CastItemListComponent: View {
       .padding(.leading, 16)
 
     VStack(spacing: .zero) {
-      Button(action: { tapAction() }) {
+      Button(action: {
+        tapSeaAllAction()
+      }) {
         HStack {
           Text("Cast")
             .font(.system(size: 16))
@@ -51,32 +54,11 @@ extension MovieDetailPage.CastItemListComponent: View {
       ScrollView(.horizontal) {
         LazyHStack {
           ForEach(viewState.item.castItemList) { item in
-            Button(action: { }) {
-              VStack {
-                RemoteImage(
-                  url: "https://image.tmdb.org/t/p/w500/\(item.profile ?? "")",
-                  placeholder: {
-                    Rectangle()
-                      .fill(DesignSystemColor.palette(.gray(.lv250)).color)
-                  })
-                  .scaledToFill()
-                  .frame(width: 80, height: 120)
-                  .clipShape(RoundedRectangle(cornerRadius: 10))
-                Text(item.name)
-                  .font(.system(size: 16))
-                  .foregroundStyle(
-                    colorScheme == .dark
-                      ? DesignSystemColor.system(.white).color
-                      : DesignSystemColor.system(.black).color)
-                    .lineLimit(1)
-
-                Text(item.character)
-                  .font(.system(size: 16))
-                  .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
-                  .lineLimit(1)
-              }
+            Button(action: {
+              tapCastAction()
+            }) {
+              ItemComponent(castItem: item)
             }
-            .frame(width: 120)
           }
         }
         .padding(.leading, 12)
@@ -93,5 +75,52 @@ extension MovieDetailPage.CastItemListComponent: View {
 extension MovieDetailPage.CastItemListComponent {
   struct ViewState: Equatable {
     let item: MovieEntity.MovieDetail.Credit.Response
+  }
+}
+
+// MARK: - MovieDetailPage.CastItemListComponent.ItemComponent
+
+extension MovieDetailPage.CastItemListComponent {
+  fileprivate struct ItemComponent {
+    let castItem: MovieEntity.MovieDetail.Credit.CastItem
+
+    @Environment(\.colorScheme) var colorScheme
+  }
+}
+
+extension MovieDetailPage.CastItemListComponent.ItemComponent {
+  private var profileImageURL: String {
+    "https://image.tmdb.org/t/p/w500/\(castItem.profile ?? "")"
+  }
+}
+
+// MARK: - MovieDetailPage.CastItemListComponent.ItemComponent + View
+
+extension MovieDetailPage.CastItemListComponent.ItemComponent: View {
+  var body: some View {
+    VStack {
+      RemoteImage(
+        url: profileImageURL,
+        placeholder: {
+          Rectangle()
+            .fill(DesignSystemColor.palette(.gray(.lv250)).color)
+        })
+        .scaledToFill()
+        .frame(width: 80, height: 120)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+      Text(castItem.name)
+        .font(.system(size: 16))
+        .foregroundStyle(
+          colorScheme == .dark
+            ? DesignSystemColor.system(.white).color
+            : DesignSystemColor.system(.black).color)
+          .lineLimit(1)
+
+      Text(castItem.character)
+        .font(.system(size: 16))
+        .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
+        .lineLimit(1)
+    }
+    .frame(width: 120)
   }
 }

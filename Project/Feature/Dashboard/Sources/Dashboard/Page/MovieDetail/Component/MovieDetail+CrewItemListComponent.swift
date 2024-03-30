@@ -7,21 +7,22 @@ import SwiftUI
 extension MovieDetailPage {
   struct CrewItemListComponent {
     let viewState: ViewState
-    let tapAction: () -> Void
-    
+    let tapSeeAllAction: () -> Void
+    let tapCrewAction: () -> Void
+
     @Environment(\.colorScheme) var colorScheme
   }
 }
 
 extension MovieDetailPage.CrewItemListComponent {
-  
+
   private var filteredItemList: [MovieEntity.MovieDetail.Credit.CrewItem] {
     viewState.item.crewItemList.reduce(into: [MovieEntity.MovieDetail.Credit.CrewItem]()) { curr, next in
       guard !curr.contains(where: { $0.id == next.id }) else { return }
       curr = curr + [next]
     }
   }
-  
+
 }
 
 // MARK: - MovieDetailPage.CrewItemListComponent + View
@@ -30,23 +31,25 @@ extension MovieDetailPage.CrewItemListComponent: View {
   var body: some View {
     Divider()
       .padding(.leading, 16)
-    
+
     VStack(spacing: .zero) {
-      Button(action: { tapAction() }) {
+      Button(action: {
+        tapSeeAllAction()
+      }) {
         HStack {
           Text("Crew")
             .font(.system(size: 16))
             .foregroundStyle(
               colorScheme == .dark
-              ? DesignSystemColor.system(.white).color
-              : DesignSystemColor.system(.black).color)
-          
+                ? DesignSystemColor.system(.white).color
+                : DesignSystemColor.system(.black).color)
+
           Text("See all")
             .font(.system(size: 16))
             .foregroundStyle(DesignSystemColor.label(.greenSlate).color)
-          
+
           Spacer()
-          
+
           Image(systemName: "chevron.right")
             .resizable()
             .frame(width: 8, height: 12)
@@ -56,36 +59,13 @@ extension MovieDetailPage.CrewItemListComponent: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
       }
-      
+
       ScrollView(.horizontal) {
         LazyHStack {
           ForEach(filteredItemList) { item in
-            Button(action: { }) {
-              VStack {
-                RemoteImage(
-                  url: "https://image.tmdb.org/t/p/w500/\(item.profile ?? "")",
-                  placeholder: {
-                    Rectangle()
-                      .fill(DesignSystemColor.palette(.gray(.lv250)).color)
-                  })
-                .scaledToFill()
-                .frame(width: 80, height: 120)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                Text(item.name)
-                  .font(.system(size: 16))
-                  .foregroundStyle(
-                    colorScheme == .dark
-                    ? DesignSystemColor.system(.white).color
-                    : DesignSystemColor.system(.black).color)
-                  .lineLimit(1)
-                
-                Text(item.department)
-                  .font(.system(size: 16))
-                  .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
-                  .lineLimit(1)
-              }
+            Button(action: { tapCrewAction() }) {
+              ItemComponent(crewItem: item)
             }
-            .frame(width: 120)
           }
         }
         .padding(.leading, 12)
@@ -102,5 +82,52 @@ extension MovieDetailPage.CrewItemListComponent: View {
 extension MovieDetailPage.CrewItemListComponent {
   struct ViewState: Equatable {
     let item: MovieEntity.MovieDetail.Credit.Response
+  }
+}
+
+// MARK: - MovieDetailPage.CrewItemListComponent.ItemComponent
+
+extension MovieDetailPage.CrewItemListComponent {
+  fileprivate struct ItemComponent {
+    let crewItem: MovieEntity.MovieDetail.Credit.CrewItem
+
+    @Environment(\.colorScheme) var colorScheme
+  }
+}
+
+extension MovieDetailPage.CrewItemListComponent.ItemComponent {
+  private var profileImageURL: String {
+    "https://image.tmdb.org/t/p/w500/\(crewItem.profile ?? "")"
+  }
+}
+
+// MARK: - MovieDetailPage.CrewItemListComponent.ItemComponent + View
+
+extension MovieDetailPage.CrewItemListComponent.ItemComponent: View {
+  var body: some View {
+    VStack {
+      RemoteImage(
+        url: profileImageURL,
+        placeholder: {
+          Rectangle()
+            .fill(DesignSystemColor.palette(.gray(.lv250)).color)
+        })
+        .scaledToFill()
+        .frame(width: 80, height: 120)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+      Text(crewItem.name)
+        .font(.system(size: 16))
+        .foregroundStyle(
+          colorScheme == .dark
+            ? DesignSystemColor.system(.white).color
+            : DesignSystemColor.system(.black).color)
+          .lineLimit(1)
+
+      Text(crewItem.department)
+        .font(.system(size: 16))
+        .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
+        .lineLimit(1)
+    }
+    .frame(width: 120)
   }
 }

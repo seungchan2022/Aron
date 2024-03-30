@@ -7,6 +7,7 @@ import SwiftUI
 extension MovieDetailPage {
   struct KeywordItemListComponent {
     let viewState: ViewState
+    let tapAction: () -> Void
 
     @Environment(\.colorScheme) var colorScheme
   }
@@ -26,20 +27,8 @@ extension MovieDetailPage.KeywordItemListComponent: View {
         ScrollView(.horizontal) {
           LazyHStack {
             ForEach(viewState.item.keywordBucket.keywordItem ?? []) { item in
-              Button(action: { }) {
-                HStack {
-                  Text(item.name)
-                    .font(.system(size: 16))
-
-                  Image(systemName: "chevron.right")
-                    .resizable()
-                    .frame(width: 8, height: 12)
-                    .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
-                }
-                .foregroundStyle(
-                  colorScheme == .dark
-                    ? DesignSystemColor.system(.white).color
-                    : DesignSystemColor.system(.black).color)
+              Button(action: { tapAction() }) {
+                ItemComponent(keywordItem: item)
               }
               .buttonStyle(.bordered)
               .buttonBorderShape(.capsule)
@@ -61,5 +50,34 @@ extension MovieDetailPage.KeywordItemListComponent: View {
 extension MovieDetailPage.KeywordItemListComponent {
   struct ViewState: Equatable {
     let item: MovieEntity.MovieDetail.MovieCard.Response
+  }
+}
+
+// MARK: - MovieDetailPage.KeywordItemListComponent.ItemComponent
+
+extension MovieDetailPage.KeywordItemListComponent {
+  fileprivate struct ItemComponent {
+    let keywordItem: MovieEntity.MovieDetail.MovieCard.KeywordItem
+    @Environment(\.colorScheme) var colorScheme
+  }
+}
+
+// MARK: - MovieDetailPage.KeywordItemListComponent.ItemComponent + View
+
+extension MovieDetailPage.KeywordItemListComponent.ItemComponent: View {
+  var body: some View {
+    HStack {
+      Text(keywordItem.name)
+        .font(.system(size: 16))
+
+      Image(systemName: "chevron.right")
+        .resizable()
+        .frame(width: 8, height: 12)
+        .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
+    }
+    .foregroundStyle(
+      colorScheme == .dark
+        ? DesignSystemColor.system(.white).color
+        : DesignSystemColor.system(.black).color)
   }
 }

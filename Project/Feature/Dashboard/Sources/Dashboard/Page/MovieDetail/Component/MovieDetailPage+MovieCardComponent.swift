@@ -7,7 +7,7 @@ import SwiftUI
 extension MovieDetailPage {
   struct MovieCardComponent {
     let viewState: ViewState
-    let genreTapAction: () -> Void
+    let tapGenreAction: () -> Void
     @Environment(\.colorScheme) var colorScheme
 
   }
@@ -120,19 +120,8 @@ extension MovieDetailPage.MovieCardComponent: View {
       ScrollView(.horizontal) {
         LazyHStack {
           ForEach(viewState.item.genreItemList) { item in
-            Button(action: { }) {
-              HStack {
-                Text(item.name)
-                  .font(.system(size: 16))
-
-                Image(systemName: "chevron.right")
-                  .resizable()
-                  .frame(width: 8, height: 12)
-              }
-              .foregroundStyle(
-                colorScheme == .dark
-                  ? DesignSystemColor.system(.white).color
-                  : DesignSystemColor.system(.black).color)
+            Button(action: { tapGenreAction() }) {
+              ItemComponent(genreItem: item)
             }
             .tint(
               colorScheme == .dark
@@ -169,6 +158,35 @@ extension MovieDetailPage.MovieCardComponent: View {
 extension MovieDetailPage.MovieCardComponent {
   struct ViewState: Equatable {
     let item: MovieEntity.MovieDetail.MovieCard.Response
+  }
+}
+
+// MARK: - MovieDetailPage.MovieCardComponent.ItemComponent
+
+extension MovieDetailPage.MovieCardComponent {
+  fileprivate struct ItemComponent {
+    let genreItem: MovieEntity.MovieDetail.MovieCard.GenreItem
+    @Environment(\.colorScheme) var colorScheme
+
+  }
+}
+
+// MARK: - MovieDetailPage.MovieCardComponent.ItemComponent + View
+
+extension MovieDetailPage.MovieCardComponent.ItemComponent: View {
+  var body: some View {
+    HStack {
+      Text(genreItem.name)
+        .font(.system(size: 16))
+
+      Image(systemName: "chevron.right")
+        .resizable()
+        .frame(width: 8, height: 12)
+    }
+    .foregroundStyle(
+      colorScheme == .dark
+        ? DesignSystemColor.system(.white).color
+        : DesignSystemColor.system(.black).color)
   }
 }
 

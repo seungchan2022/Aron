@@ -35,7 +35,7 @@ extension MovieDetailPage: View {
         if let item = store.fetchDetailItem.value {
           MovieCardComponent(
             viewState: .init(item: item),
-            genreTapAction: { })
+            tapGenreAction: { })
         }
 
         // List 버튼들
@@ -69,14 +69,17 @@ extension MovieDetailPage: View {
 //      // Section2 (Keyword ~ Images)
       VStack {
         if let item = store.fetchDetailItem.value {
-          KeywordItemListComponent(viewState: .init(item: item))
+          KeywordItemListComponent(
+            viewState: .init(item: item),
+            tapAction: { })
         }
 
         // cast
         if let item = store.fetchCreditItem.value {
           CastItemListComponent(
             viewState: .init(item: item),
-            tapAction: { })
+            tapSeaAllAction: { },
+            tapCastAction: { })
         }
 
         if let item = store.fetchCreditItem.value {
@@ -88,19 +91,22 @@ extension MovieDetailPage: View {
         if let item = store.fetchCreditItem.value {
           CrewItemListComponent(
             viewState: .init(item: item),
-            tapAction: { })
+            tapSeeAllAction: { },
+            tapCrewAction: { })
         }
 
         if let item = store.fetchSimilarMovieItem.value {
           SimilarMovieItemListComponent(
             viewState: .init(item: item),
-            tapAction: { })
+            tapSeeAllAction: { },
+            tapSimilarMovieAction: { })
         }
 
         if let item = store.fetchRecommendedMovieItem.value {
           RecommendedMovieItemListComponent(
             viewState: .init(item: item),
-            tapAction: { })
+            tapSeeAllAction: { },
+            tapRecommendedMovieAction: { })
         }
 
         if let item = store.fetchDetailItem.value {

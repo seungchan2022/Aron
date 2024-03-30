@@ -7,7 +7,8 @@ import SwiftUI
 extension MovieDetailPage {
   struct SimilarMovieItemListComponent {
     let viewState: ViewState
-    let tapAction: () -> Void
+    let tapSeeAllAction: () -> Void
+    let tapSimilarMovieAction: () -> Void
 
     @Environment(\.colorScheme) var colorScheme
   }
@@ -24,7 +25,7 @@ extension MovieDetailPage.SimilarMovieItemListComponent: View {
         .padding(.leading, 16)
 
       VStack(spacing: .zero) {
-        Button(action: { tapAction() }) {
+        Button(action: { tapSeeAllAction() }) {
           HStack {
             Text("Similar Movies")
               .foregroundStyle(
@@ -49,9 +50,9 @@ extension MovieDetailPage.SimilarMovieItemListComponent: View {
         ScrollView(.horizontal) {
           LazyHStack {
             ForEach(viewState.item.itemList) { item in
-              ItemComponent(
-                similarItem: item,
-                tapAction: { })
+              Button(action: { tapSimilarMovieAction() }) {
+                ItemComponent(similarItem: item)
+              }
             }
           }
           .padding(.leading, 12)
@@ -78,7 +79,6 @@ extension MovieDetailPage.SimilarMovieItemListComponent {
 extension MovieDetailPage.SimilarMovieItemListComponent {
   fileprivate struct ItemComponent {
     let similarItem: MovieEntity.MovieDetail.SimilarMovie.Response.Item
-    let tapAction: () -> Void
 
     @Environment(\.colorScheme) var colorScheme
   }
@@ -117,53 +117,51 @@ extension MovieDetailPage.SimilarMovieItemListComponent.ItemComponent {
 
 extension MovieDetailPage.SimilarMovieItemListComponent.ItemComponent: View {
   var body: some View {
-    Button(action: { tapAction() }) {
-      VStack {
-        RemoteImage(
-          url: posterImageURL,
-          placeholder: {
-            Rectangle()
-              .fill(DesignSystemColor.palette(.gray(.lv250)).color)
-          })
-          .scaledToFill()
-          .frame(width: 100, height: 160)
-          .clipShape(RoundedRectangle(cornerRadius: 10))
-          .shadow(radius: 5)
-          .padding(.top, 8)
+    VStack {
+      RemoteImage(
+        url: posterImageURL,
+        placeholder: {
+          Rectangle()
+            .fill(DesignSystemColor.palette(.gray(.lv250)).color)
+        })
+        .scaledToFill()
+        .frame(width: 100, height: 160)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .shadow(radius: 5)
+        .padding(.top, 8)
 
-        Text(similarItem.title)
-          .foregroundStyle(
-            colorScheme == .dark
-              ? DesignSystemColor.system(.white).color
-              : DesignSystemColor.system(.black).color)
-            .lineLimit(1)
+      Text(similarItem.title)
+        .foregroundStyle(
+          colorScheme == .dark
+            ? DesignSystemColor.system(.white).color
+            : DesignSystemColor.system(.black).color)
+          .lineLimit(1)
 
-        Circle()
-          .trim(
-            from: .zero,
-            to: voteAveragePercent)
-          .stroke(
-            voteAverageColor,
-            style: .init(
-              lineWidth: 2,
-              lineCap: .butt,
-              lineJoin: .miter,
-              miterLimit: .zero,
-              dash: [1, 1.5],
-              dashPhase: .zero))
-          .shadow(color: voteAverageColor, radius: 5)
-          .frame(width: 40, height: 40)
-          .rotationEffect(.degrees(-90))
-          .overlay {
-            Text(voteAverage)
-              .font(.system(size: 12))
-              .foregroundStyle(
-                colorScheme == .dark
-                  ? DesignSystemColor.system(.white).color
-                  : DesignSystemColor.system(.black).color)
-          }
-          .padding(.bottom, 8)
-      }
+      Circle()
+        .trim(
+          from: .zero,
+          to: voteAveragePercent)
+        .stroke(
+          voteAverageColor,
+          style: .init(
+            lineWidth: 2,
+            lineCap: .butt,
+            lineJoin: .miter,
+            miterLimit: .zero,
+            dash: [1, 1.5],
+            dashPhase: .zero))
+        .shadow(color: voteAverageColor, radius: 5)
+        .frame(width: 40, height: 40)
+        .rotationEffect(.degrees(-90))
+        .overlay {
+          Text(voteAverage)
+            .font(.system(size: 12))
+            .foregroundStyle(
+              colorScheme == .dark
+                ? DesignSystemColor.system(.white).color
+                : DesignSystemColor.system(.black).color)
+        }
+        .padding(.bottom, 8)
     }
     .frame(width: 140)
   }
