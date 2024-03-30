@@ -125,7 +125,7 @@ extension MovieDetailUseCasePlatform {
 
     public init(
       apiKey: String = "1d9b898a212ea52e283351e521e17871",
-      language: String = "en-US")
+      language: String = "ko-KR")
     {
       self.apiKey = apiKey
       self.language = language

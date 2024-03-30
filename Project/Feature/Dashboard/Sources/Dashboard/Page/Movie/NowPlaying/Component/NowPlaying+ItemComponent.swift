@@ -15,7 +15,7 @@ extension NowPlayingPage {
 
 extension NowPlayingPage.ItemComponent {
   private var remoteImageURL: String {
-    return  "https://image.tmdb.org/t/p/w500/\(viewState.item.poster ?? "")"
+    "https://image.tmdb.org/t/p/w500/\(viewState.item.poster ?? "")"
   }
 
   private var releaseDate: String {
@@ -26,14 +26,13 @@ extension NowPlayingPage.ItemComponent {
     "\(Int((viewState.item.voteAverage ?? .zero) * 10))%"
   }
 
-  
   private var voteAveragePercent: Double {
-     Double(Int(viewState.item.voteAverage ?? .zero) * 10) / 100
+    Double(Int(viewState.item.voteAverage ?? .zero) * 10) / 100
   }
-  
+
   private var voteAverageColor: Color {
     let voteAverage = Int((viewState.item.voteAverage ?? .zero) * 10)
-    
+
     switch voteAverage {
     case 0..<25:
       return DesignSystemColor.tint(.red).color
@@ -55,17 +54,17 @@ extension NowPlayingPage.ItemComponent: View {
     Button(action: { tapAction(viewState.item) }) {
       VStack {
         HStack(spacing: 8) {
-          
           RemoteImage(
             url: remoteImageURL,
             placeholder: {
               Rectangle()
                 .fill(.gray)
             })
-          .scaledToFill()
-          .frame(width: 100, height: 160)
-          .clipShape(RoundedRectangle(cornerRadius: 10))
-          
+            .scaledToFill()
+            .frame(width: 100, height: 160)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .shadow(radius: 5)
+
           VStack(alignment: .leading, spacing: 16) {
             Text(viewState.item.title)
               .font(.system(size: 18))
@@ -95,8 +94,6 @@ extension NowPlayingPage.ItemComponent: View {
                         ? DesignSystemColor.system(.white).color
                         : DesignSystemColor.system(.black).color)
                 }
-              
-
 
               Text(releaseDate)
                 .font(.system(size: 16))

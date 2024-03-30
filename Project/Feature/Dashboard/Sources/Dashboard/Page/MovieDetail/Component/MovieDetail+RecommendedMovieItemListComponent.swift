@@ -51,10 +51,17 @@ extension MovieDetailPage.RecommendedMovieItemListComponent: View {
             ForEach(viewState.item.itemList) { item in
               Button(action: { }) {
                 VStack {
-                  Rectangle()
-                    .fill(DesignSystemColor.palette(.gray(.lv250)).color)
+                  RemoteImage(
+                    url: "https://image.tmdb.org/t/p/w500/\(item.poster ?? "")",
+                    placeholder: {
+                      Rectangle()
+                        .fill(DesignSystemColor.palette(.gray(.lv250)).color)
+                    })
+                    .scaledToFill()
                     .frame(width: 80, height: 120)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .shadow(radius: 5)
+                    .padding(.top, 8)
 
                   Text(item.title)
                     .foregroundStyle(

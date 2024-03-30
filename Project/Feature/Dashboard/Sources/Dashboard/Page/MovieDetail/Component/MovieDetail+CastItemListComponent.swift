@@ -53,11 +53,15 @@ extension MovieDetailPage.CastItemListComponent: View {
           ForEach(viewState.item.castItemList) { item in
             Button(action: { }) {
               VStack {
-                Rectangle()
-                  .fill(DesignSystemColor.palette(.gray(.lv250)).color)
+                RemoteImage(
+                  url: "https://image.tmdb.org/t/p/w500/\(item.profile ?? "")",
+                  placeholder: {
+                    Rectangle()
+                      .fill(DesignSystemColor.palette(.gray(.lv250)).color)
+                  })
+                  .scaledToFill()
                   .frame(width: 80, height: 120)
                   .clipShape(RoundedRectangle(cornerRadius: 10))
-
                 Text(item.name)
                   .font(.system(size: 16))
                   .foregroundStyle(
@@ -89,14 +93,5 @@ extension MovieDetailPage.CastItemListComponent: View {
 extension MovieDetailPage.CastItemListComponent {
   struct ViewState: Equatable {
     let item: MovieEntity.MovieDetail.Credit.Response
-
-//    let castItemList: [CastItem]
   }
-
-//  struct CastItem: Equatable, Identifiable {
-//    let id: Int
-//    let name: String
-//    let character: String
-//    let profileImage: Image?
-//  }
 }

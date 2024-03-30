@@ -37,10 +37,17 @@ extension MovieDetailPage.OtherPosterItemListComponent: View {
         LazyHStack(spacing: 32) {
           ForEach(viewState.item.imageBucket.otherPosterItemList?.prefix(8) ?? [], id: \.image) { item in
             Button(action: { tapAction(item) }) {
-              Rectangle()
-                .fill(DesignSystemColor.palette(.gray(.lv250)).color)
-                .frame(width: 80, height: 120)
+              RemoteImage(
+                url: "https://image.tmdb.org/t/p/w500/\(item.image ?? "")",
+                placeholder: {
+                  Rectangle()
+                    .fill(DesignSystemColor.palette(.gray(.lv250)).color)
+                })
+                .scaledToFill()
+                .frame(width: 100, height: 160)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
+                .shadow(radius: 5)
+                .padding(.top, 8)
             }
           }
         }

@@ -133,6 +133,8 @@ extension DesignSystemColor {
     case orange
     case yellow
 
+    // MARK: Internal
+
     var color: Color {
       switch self {
       case .sand: Asset.ColorChip.Tint.tintSand.swiftUIColor

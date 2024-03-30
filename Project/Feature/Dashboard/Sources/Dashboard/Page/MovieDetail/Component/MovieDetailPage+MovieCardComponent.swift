@@ -14,12 +14,44 @@ extension MovieDetailPage {
 }
 
 extension MovieDetailPage.MovieCardComponent {
+
+  // MARK: Public
+
+  public var backImageURL: String {
+    "https://image.tmdb.org/t/p/w500/\(viewState.item.backdrop ?? "")"
+  }
+
+  // MARK: Private
+
+  private var remoteImageURL: String {
+    "https://image.tmdb.org/t/p/w500/\(viewState.item.poster ?? "")"
+  }
+
   private var releaseDate: String {
     viewState.item.releaseDate.toDate?.toString ?? ""
   }
 
   private var voteAverage: String {
-    "\(Int(viewState.item.voteAverage * 10))%"
+    "\(Int((viewState.item.voteAverage ?? .zero) * 10))%"
+  }
+
+  private var voteAveragePercent: Double {
+    Double(Int(viewState.item.voteAverage ?? .zero) * 10) / 100
+  }
+
+  private var voteAverageColor: Color {
+    let voteAverage = Int((viewState.item.voteAverage ?? .zero) * 10)
+
+    switch voteAverage {
+    case 0..<25:
+      return DesignSystemColor.tint(.red).color
+    case 25..<50:
+      return DesignSystemColor.tint(.orange).color
+    case 50..<75:
+      return DesignSystemColor.tint(.yellow).color
+    default:
+      return DesignSystemColor.tint(.green).color
+    }
   }
 }
 
@@ -29,9 +61,14 @@ extension MovieDetailPage.MovieCardComponent: View {
   var body: some View {
     VStack {
       HStack {
-        Rectangle()
-          .fill(DesignSystemColor.palette(.gray(.lv250)).color)
-          .frame(width: 100, height: 140)
+        RemoteImage(
+          url: remoteImageURL,
+          placeholder: {
+            Rectangle()
+              .fill(DesignSystemColor.palette(.gray(.lv250)).color)
+          })
+          .scaledToFill()
+          .frame(width: 100, height: 160)
           .clipShape(RoundedRectangle(cornerRadius: 10))
 
         VStack(alignment: .leading, spacing: 8) {
@@ -40,9 +77,11 @@ extension MovieDetailPage.MovieCardComponent: View {
               .font(.system(size: 16))
 
             Text(" • \(viewState.item.runtime) minutes")
+              .lineLimit(1)
               .font(.system(size: 16))
 
             Text(" • \(viewState.item.status)")
+              .lineLimit(1)
               .font(.system(size: 16))
           }
 
@@ -50,8 +89,24 @@ extension MovieDetailPage.MovieCardComponent: View {
             .font(.system(size: 16))
 
           HStack {
-            Text(voteAverage)
-              .font(.system(size: 14))
+            Circle()
+              .trim(from: .zero, to: voteAveragePercent)
+              .stroke(
+                voteAverageColor,
+                style: .init(
+                  lineWidth: 2,
+                  lineCap: .butt,
+                  lineJoin: .miter,
+                  miterLimit: .zero,
+                  dash: [1, 1.5],
+                  dashPhase: .zero))
+              .shadow(color: voteAverageColor, radius: 5)
+              .frame(width: 40, height: 40)
+              .rotationEffect(.degrees(-90))
+              .overlay {
+                Text(voteAverage)
+                  .font(.system(size: 12))
+              }
 
             Text("\(viewState.item.voteCount) ratings")
               .font(.system(size: 18))
@@ -96,7 +151,16 @@ extension MovieDetailPage.MovieCardComponent: View {
     }
     .padding(.vertical, 16)
     .frame(maxWidth: .infinity)
-    .background(.gray.opacity(0.8))
+    .background {
+      RemoteImage(
+        url: backImageURL,
+        placeholder: {
+          Rectangle()
+            .fill(.gray)
+        })
+      Rectangle()
+        .background(.ultraThinMaterial)
+    }
   }
 }
 

@@ -26,11 +26,13 @@ extension MovieEntity.MovieDetail.MovieCard {
 
     public let id: Int
     public let title: String
+    public let poster: String?
+    public let backdrop: String?
     public let releaseDate: String
     public let runtime: Int
     public let status: String
     public let productionCountryList: [ProductionCountryItem]
-    public let voteAverage: Double
+    public let voteAverage: Double?
     public let voteCount: Int
     public let genreItemList: [GenreItem]
     public let overview: String
@@ -42,6 +44,8 @@ extension MovieEntity.MovieDetail.MovieCard {
     private enum CodingKeys: String, CodingKey {
       case id
       case title
+      case poster = "poster_path"
+      case backdrop = "backdrop_path"
       case releaseDate = "release_date"
       case runtime
       case status
@@ -175,11 +179,13 @@ extension MovieEntity.MovieDetail.Credit {
   public struct CastItem: Equatable, Codable, Sendable, Identifiable {
     public let id: Int
     public let name: String
+    public let profile: String?
     public let character: String
 
     private enum CodingKeys: String, CodingKey {
       case id
       case name
+      case profile = "profile_path"
       case character
     }
   }
@@ -187,12 +193,14 @@ extension MovieEntity.MovieDetail.Credit {
   public struct CrewItem: Equatable, Codable, Sendable, Identifiable {
     public let id: Int
     public let name: String
+    public let profile: String?
     public let department: String
     public let job: String
 
     private enum CodingKeys: String, CodingKey {
       case id
       case name
+      case profile = "profile_path"
       case department = "known_for_department"
       case job
     }
@@ -216,11 +224,13 @@ extension MovieEntity.MovieDetail.SimilarMovie {
     public struct Item: Equatable, Identifiable, Codable, Sendable {
       public let id: Int
       public let title: String
+      public let poster: String?
       public let voteAverage: Double
 
       private enum CodingKeys: String, CodingKey {
         case id
         case title
+        case poster = "poster_path"
         case voteAverage = "vote_average"
       }
     }
@@ -259,11 +269,13 @@ extension MovieEntity.MovieDetail.RecommendedMovie {
     public struct Item: Equatable, Identifiable, Codable, Sendable {
       public let id: Int
       public let title: String
+      public let poster: String?
       public let voteAverage: Double
 
       private enum CodingKeys: String, CodingKey {
         case id
         case title
+        case poster = "poster_path"
         case voteAverage = "vote_average"
       }
     }

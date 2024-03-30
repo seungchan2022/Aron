@@ -34,11 +34,15 @@ extension MovieDetailPage.ImageItemListComponent: View {
 
         ScrollView(.horizontal) {
           LazyHStack(spacing: 16) {
-            ForEach(viewState.item.imageBucket.backdropImageList?.prefix(8) ?? [], id: \.image) { _ in
-              Rectangle()
-                .fill(DesignSystemColor.palette(.gray(.lv250)).color)
+            ForEach(viewState.item.imageBucket.backdropImageList?.prefix(8) ?? [], id: \.image) { item in
+              RemoteImage(
+                url: "https://image.tmdb.org/t/p/w500/\(item.image ?? "")",
+                placeholder: {
+                  Rectangle()
+                    .fill(DesignSystemColor.palette(.gray(.lv250)).color)
+                })
+                .scaledToFill()
                 .frame(width: 300, height: 140)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
             }
           }
           .padding(.leading, 20)
