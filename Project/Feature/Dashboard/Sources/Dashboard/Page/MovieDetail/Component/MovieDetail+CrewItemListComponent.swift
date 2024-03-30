@@ -8,12 +8,21 @@ extension MovieDetailPage {
   struct CrewItemListComponent {
     let viewState: ViewState
     let tapAction: () -> Void
-
+    
     @Environment(\.colorScheme) var colorScheme
   }
 }
 
-extension MovieDetailPage.CrewItemListComponent { }
+extension MovieDetailPage.CrewItemListComponent {
+  
+  private var filteredItemList: [MovieEntity.MovieDetail.Credit.CrewItem] {
+    viewState.item.crewItemList.reduce(into: [MovieEntity.MovieDetail.Credit.CrewItem]()) { curr, next in
+      guard !curr.contains(where: { $0.id == next.id }) else { return }
+      curr = curr + [next]
+    }
+  }
+  
+}
 
 // MARK: - MovieDetailPage.CrewItemListComponent + View
 
@@ -21,7 +30,7 @@ extension MovieDetailPage.CrewItemListComponent: View {
   var body: some View {
     Divider()
       .padding(.leading, 16)
-
+    
     VStack(spacing: .zero) {
       Button(action: { tapAction() }) {
         HStack {
@@ -29,15 +38,15 @@ extension MovieDetailPage.CrewItemListComponent: View {
             .font(.system(size: 16))
             .foregroundStyle(
               colorScheme == .dark
-                ? DesignSystemColor.system(.white).color
-                : DesignSystemColor.system(.black).color)
-
+              ? DesignSystemColor.system(.white).color
+              : DesignSystemColor.system(.black).color)
+          
           Text("See all")
             .font(.system(size: 16))
             .foregroundStyle(DesignSystemColor.label(.greenSlate).color)
-
+          
           Spacer()
-
+          
           Image(systemName: "chevron.right")
             .resizable()
             .frame(width: 8, height: 12)
@@ -47,10 +56,10 @@ extension MovieDetailPage.CrewItemListComponent: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
       }
-
+      
       ScrollView(.horizontal) {
         LazyHStack {
-          ForEach(viewState.item.crewItemList) { item in
+          ForEach(filteredItemList) { item in
             Button(action: { }) {
               VStack {
                 RemoteImage(
@@ -59,17 +68,17 @@ extension MovieDetailPage.CrewItemListComponent: View {
                     Rectangle()
                       .fill(DesignSystemColor.palette(.gray(.lv250)).color)
                   })
-                  .scaledToFill()
-                  .frame(width: 80, height: 120)
-                  .clipShape(RoundedRectangle(cornerRadius: 10))
+                .scaledToFill()
+                .frame(width: 80, height: 120)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
                 Text(item.name)
                   .font(.system(size: 16))
                   .foregroundStyle(
                     colorScheme == .dark
-                      ? DesignSystemColor.system(.white).color
-                      : DesignSystemColor.system(.black).color)
-                    .lineLimit(1)
-
+                    ? DesignSystemColor.system(.white).color
+                    : DesignSystemColor.system(.black).color)
+                  .lineLimit(1)
+                
                 Text(item.department)
                   .font(.system(size: 16))
                   .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
