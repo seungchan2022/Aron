@@ -15,5 +15,6 @@ extension Link.Dashboard {
     case discover
     case fanClub
     case myList
+    case newList
   }
 }

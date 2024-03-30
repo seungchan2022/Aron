@@ -2,11 +2,11 @@ import Architecture
 import ComposableArchitecture
 import Foundation
 
-struct MyListSideEffect {
+struct NewListSideEffect {
   let useCase: DashboardEnvironmentUsable
   let main: AnySchedulerOf<DispatchQueue>
   let navigator: RootNavigatorType
-
+  
   init(
     useCase: DashboardEnvironmentUsable,
     main: AnySchedulerOf<DispatchQueue> = .main,
@@ -18,12 +18,10 @@ struct MyListSideEffect {
   }
 }
 
-extension MyListSideEffect {
-  var routeToNewList: () -> Void {
+extension NewListSideEffect {
+  var routeToBack: () -> Void {
     {
-      navigator.sheet(
-        linkItem: .init(path: Link.Dashboard.Path.newList.rawValue),
-        isAnimated: true)
+      navigator.close(isAnimated: true, completeAction: { })
     }
   }
 }
