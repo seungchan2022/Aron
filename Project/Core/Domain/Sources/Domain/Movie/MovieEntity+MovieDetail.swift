@@ -225,7 +225,7 @@ extension MovieEntity.MovieDetail.SimilarMovie {
       public let id: Int
       public let title: String
       public let poster: String?
-      public let voteAverage: Double
+      public let voteAverage: Double?
 
       private enum CodingKeys: String, CodingKey {
         case id
@@ -270,7 +270,7 @@ extension MovieEntity.MovieDetail.RecommendedMovie {
       public let id: Int
       public let title: String
       public let poster: String?
-      public let voteAverage: Double
+      public let voteAverage: Double?
 
       private enum CodingKeys: String, CodingKey {
         case id
