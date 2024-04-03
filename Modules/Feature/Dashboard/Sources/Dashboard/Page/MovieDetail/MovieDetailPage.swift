@@ -44,15 +44,15 @@ extension MovieDetailPage: View {
           isWishListButtonTapped: self.$isWishListButtonTapped,
           isSeenListButtonTapped: self.$isSeenListButtonTapped,
           isShowingConfirmation: self.$isShowingConfirmation)
-//
-        // review
+
+        // Review
         if let item = store.fetchReviewItem.value {
           ReviewComponent(
             viewState: .init(item: item),
-            tapAction: { })
+            tapAction: { store.send(.routeToReview($0)) })
         }
-//
-//        // Overview
+
+        // Overview
         if let item = store.fetchDetailItem.value {
           OverviewComponent(
             viewState: .init(item: item),
@@ -65,9 +65,10 @@ extension MovieDetailPage: View {
           : DesignSystemColor.system(.white).color)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .padding(.horizontal, 12) // 그룹의 패딩
-//
-//      // Section2 (Keyword ~ Images)
+
+      // Section2 (Keyword ~ Images)
       VStack {
+        // Keyword
         if let item = store.fetchDetailItem.value {
           KeywordItemListComponent(
             viewState: .init(item: item),
@@ -79,22 +80,25 @@ extension MovieDetailPage: View {
           CastItemListComponent(
             viewState: .init(item: item),
             tapSeaAllAction: { },
-            tapCastAction: { })
+            tapCastAction: { store.send(.routeToProfile) })
         }
 
+        // Director
         if let item = store.fetchCreditItem.value {
           DirectorComponent(
             viewState: .init(item: item),
-            tapAction: { })
+            tapAction: { store.send(.routeToProfile) })
         }
 
+        // Crew
         if let item = store.fetchCreditItem.value {
           CrewItemListComponent(
             viewState: .init(item: item),
             tapSeeAllAction: { },
-            tapCrewAction: { })
+            tapCrewAction: { store.send(.routeToProfile) })
         }
 
+        // SimilarMovie
         if let item = store.fetchSimilarMovieItem.value {
           SimilarMovieItemListComponent(
             viewState: .init(item: item),
@@ -102,6 +106,7 @@ extension MovieDetailPage: View {
             tapSimilarMovieAction: { })
         }
 
+        // RecommendedMovie
         if let item = store.fetchRecommendedMovieItem.value {
           RecommendedMovieItemListComponent(
             viewState: .init(item: item),
@@ -109,12 +114,14 @@ extension MovieDetailPage: View {
             tapRecommendedMovieAction: { })
         }
 
+        // OtherPoster
         if let item = store.fetchDetailItem.value {
           OtherPosterItemListComponent(
             viewState: .init(item: item),
             tapAction: { _ in })
         }
 
+        // Image
         if let item = store.fetchDetailItem.value {
           ImageItemListComponent(viewState: .init(item: item))
         }

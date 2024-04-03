@@ -77,4 +77,20 @@ extension MovieDetailSideEffect {
       }
     }
   }
+  
+  var routeToReview: (MovieEntity.MovieDetail.Review.Response) -> Void {
+    { item in
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.review.rawValue,
+          items: item.serialized()),
+        isAnimated: true)
+    }
+  }
+}
+
+extension MovieEntity.MovieDetail.Review.Response {
+  fileprivate func serialized() -> MovieEntity.MovieDetail.Review.Request {
+    .init(movieID: self.id)
+  }
 }

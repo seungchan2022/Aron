@@ -138,14 +138,21 @@ extension MovieEntity.MovieDetail.Review {
     // MARK: Public
 
     public let id: Int
+    public let itemList: [Item]
     public let totalItemListCount: Int
 
     // MARK: Private
 
     private enum CodingKeys: String, CodingKey {
       case id
+      case itemList = "results"
       case totalItemListCount = "total_results"
     }
+  }
+  
+  public struct Item: Equatable, Codable, Sendable {
+    public let author: String
+    public let content: String
   }
 }
 

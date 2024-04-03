@@ -75,6 +75,8 @@ struct MovieDetailReducer {
     case fetchSimilarMovieItem(Result<MovieEntity.MovieDetail.SimilarMovie.Response, CompositeErrorRepository>)
     case fetchRecommendedMovieItem(Result<MovieEntity.MovieDetail.RecommendedMovie.Response, CompositeErrorRepository>)
 
+    case routeToReview(MovieEntity.MovieDetail.Review.Response)
+    
     case throwError(CompositeErrorRepository)
   }
 
@@ -177,6 +179,11 @@ struct MovieDetailReducer {
           return .run { await $0(.throwError(error)) }
         }
 
+      case .routeToReview(let response):
+        sideEffect.routeToReview(response)
+        return .none
+
+        
       case .throwError(let error):
         sideEffect.useCase.toastViewModel.send(errorMessage: error.displayMessage)
         return .none

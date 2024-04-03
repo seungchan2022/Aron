@@ -7,7 +7,7 @@ import SwiftUI
 extension MovieDetailPage {
   struct ReviewComponent {
     let viewState: ViewState
-    let tapAction: () -> Void
+    let tapAction: (MovieEntity.MovieDetail.Review.Response) -> Void
   }
 }
 
@@ -21,7 +21,7 @@ extension MovieDetailPage.ReviewComponent: View {
       Divider()
         .padding(.leading, 48)
 
-      Button(action: { }) {
+      Button(action: { tapAction(viewState.item) }) {
         HStack {
           Text("\(viewState.item.totalItemListCount) reviews")
             .foregroundStyle(DesignSystemColor.label(.greenSlate).color)
