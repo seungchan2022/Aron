@@ -8,6 +8,7 @@ struct MyListPage {
   @Bindable var store: StoreOf<MyListReducer>
 
   @State private var listType: ListType = .wishList
+  @State private var isShowingConfirmation = false
 
   @Environment(\.colorScheme) var colorScheme
 }
@@ -207,10 +208,32 @@ extension MyListPage: View {
     .navigationTitle("My Lists")
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
-        Button(action: { }) {
+        Button(action: { self.isShowingConfirmation = true }) {
           Image(systemName: "line.3.horizontal.decrease.circle")
         }
       }
+    }
+    .confirmationDialog(
+      "",
+      isPresented: $isShowingConfirmation)
+    {
+      Button(action: { }) {
+        Text("Sort by added date")
+      }
+
+      Button(action: { }) {
+        Text("Sort by release date")
+      }
+
+      Button(action: { }) {
+        Text("Sort by ratings")
+      }
+
+      Button(action: { }) {
+        Text("Sort by popularity")
+      }
+    } message: {
+      Text("Sort movies by")
     }
   }
 }
