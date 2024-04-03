@@ -149,7 +149,7 @@ extension MovieEntity.MovieDetail.Review {
       case totalItemListCount = "total_results"
     }
   }
-  
+
   public struct Item: Equatable, Codable, Sendable {
     public let author: String
     public let content: String

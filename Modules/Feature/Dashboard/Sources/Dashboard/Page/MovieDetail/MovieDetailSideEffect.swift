@@ -95,10 +95,37 @@ extension MovieDetailSideEffect {
         isAnimated: true)
     }
   }
+  
+  var routeToCast: (MovieEntity.MovieDetail.Credit.Response) -> Void {
+    { item in
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.cast.rawValue,
+          items: item.serialized()),
+        isAnimated: true)
+    }
+  }
+  
+  var routeToCrew: (MovieEntity.MovieDetail.Credit.Response) -> Void {
+    { item in
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.crew.rawValue,
+          items: item.serialized()),
+        isAnimated: true)
+    }
+  }
+
 }
 
 extension MovieEntity.MovieDetail.Review.Response {
   fileprivate func serialized() -> MovieEntity.MovieDetail.Review.Request {
     .init(movieID: id)
+  }
+}
+
+extension MovieEntity.MovieDetail.Credit.Response {
+  fileprivate func serialized() -> MovieEntity.MovieDetail.Credit.Request {
+    .init(movieID: self.id)
   }
 }

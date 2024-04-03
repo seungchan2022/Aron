@@ -7,7 +7,7 @@ import SwiftUI
 extension MovieDetailPage {
   struct CrewItemListComponent {
     let viewState: ViewState
-    let tapSeeAllAction: () -> Void
+    let tapSeeAllAction: (MovieEntity.MovieDetail.Credit.Response) -> Void
     let tapCrewAction: () -> Void
 
     @Environment(\.colorScheme) var colorScheme
@@ -34,7 +34,7 @@ extension MovieDetailPage.CrewItemListComponent: View {
 
     VStack(spacing: .zero) {
       Button(action: {
-        tapSeeAllAction()
+        tapSeeAllAction(viewState.item)
       }) {
         HStack {
           Text("Crew")

@@ -110,10 +110,6 @@ extension MovieDetailPage.ListButtonComponent: View {
         Button(action: { }) {
           Text("Create List")
         }
-
-        Button(role: .cancel, action: { }) {
-          Text("Cancel")
-        }
       } message: {
         Text("Add or Remove movie name from your lists")
       }

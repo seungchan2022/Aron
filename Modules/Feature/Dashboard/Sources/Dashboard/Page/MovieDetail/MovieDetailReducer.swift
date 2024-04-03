@@ -77,6 +77,8 @@ struct MovieDetailReducer {
 
     case routeToReview(MovieEntity.MovieDetail.Review.Response)
     case routeToProfile
+    case routeToCast(MovieEntity.MovieDetail.Credit.Response)
+    case routeToCrew(MovieEntity.MovieDetail.Credit.Response)
 
     case throwError(CompositeErrorRepository)
   }
@@ -187,6 +189,15 @@ struct MovieDetailReducer {
       case .routeToProfile:
         sideEffect.routeToProfile()
         return .none
+        
+      case .routeToCast(let response):
+        sideEffect.routeToCast(response)
+        return .none
+        
+      case .routeToCrew(let response):
+        sideEffect.routeToCrew(response)
+        return .none
+
 
       case .throwError(let error):
         sideEffect.useCase.toastViewModel.send(errorMessage: error.displayMessage)

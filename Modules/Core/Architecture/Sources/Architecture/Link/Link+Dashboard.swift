@@ -13,6 +13,8 @@ extension Link.Dashboard {
     case nowPlaying
     case movieDetail
     case review
+    case cast
+    case crew
     case discover
     case fanClub
     case profile

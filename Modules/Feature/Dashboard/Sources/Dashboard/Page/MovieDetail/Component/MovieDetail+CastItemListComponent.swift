@@ -7,7 +7,7 @@ import SwiftUI
 extension MovieDetailPage {
   struct CastItemListComponent {
     let viewState: ViewState
-    let tapSeaAllAction: () -> Void
+    let tapSeaAllAction: (MovieEntity.MovieDetail.Credit.Response) -> Void
     let tapCastAction: () -> Void
 
     @Environment(\.colorScheme) var colorScheme
@@ -25,7 +25,7 @@ extension MovieDetailPage.CastItemListComponent: View {
 
     VStack(spacing: .zero) {
       Button(action: {
-        tapSeaAllAction()
+        tapSeaAllAction(viewState.item)
       }) {
         HStack {
           Text("Cast")

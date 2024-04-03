@@ -79,7 +79,7 @@ extension MovieDetailPage: View {
         if let item = store.fetchCreditItem.value {
           CastItemListComponent(
             viewState: .init(item: item),
-            tapSeaAllAction: { },
+            tapSeaAllAction: { store.send(.routeToCast($0)) },
             tapCastAction: { store.send(.routeToProfile) })
         }
 
@@ -94,7 +94,7 @@ extension MovieDetailPage: View {
         if let item = store.fetchCreditItem.value {
           CrewItemListComponent(
             viewState: .init(item: item),
-            tapSeeAllAction: { },
+            tapSeeAllAction: { store.send(.routeToCrew($0)) },
             tapCrewAction: { store.send(.routeToProfile) })
         }
 
