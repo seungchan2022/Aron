@@ -1,20 +1,22 @@
-import SwiftUI
 import DesignSystem
 import Domain
+import SwiftUI
+
+// MARK: - CrewPage.ItemComponent
 
 extension CrewPage {
   struct ItemComponent {
     let viewState: ViewState
     let tapAction: () -> Void
-    
+
     @Environment(\.colorScheme) var colorScheme
 
   }
 }
 
-extension CrewPage.ItemComponent {
-  
-}
+extension CrewPage.ItemComponent { }
+
+// MARK: - CrewPage.ItemComponent + View
 
 extension CrewPage.ItemComponent: View {
   var body: some View {
@@ -29,7 +31,7 @@ extension CrewPage.ItemComponent: View {
                   Rectangle()
                     .fill(.gray)
                 })
-              .scaledToFill()
+                .scaledToFill()
 
                 .frame(width: 60, height: 80)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -77,6 +79,8 @@ extension CrewPage.ItemComponent: View {
       .padding(.horizontal, 12)
   }
 }
+
+// MARK: - CrewPage.ItemComponent.ViewState
 
 extension CrewPage.ItemComponent {
   struct ViewState: Equatable {

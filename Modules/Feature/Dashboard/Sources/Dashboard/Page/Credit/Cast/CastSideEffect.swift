@@ -3,11 +3,13 @@ import ComposableArchitecture
 import Domain
 import Foundation
 
+// MARK: - CastSideEffect
+
 struct CastSideEffect {
   let useCase: DashboardEnvironmentUsable
   let main: AnySchedulerOf<DispatchQueue>
   let navigator: RootNavigatorType
-  
+
   init(
     useCase: DashboardEnvironmentUsable,
     main: AnySchedulerOf<DispatchQueue> = .main,
@@ -22,12 +24,12 @@ struct CastSideEffect {
 extension CastSideEffect {
   var cast: (MovieEntity.MovieDetail.Credit.Request) -> Effect<CastReducer.Action> {
     { request in
-        .publisher {
-          useCase.movieDetailUseCase.credit(request)
-            .receive(on: main)
-            .mapToResult()
-            .map(CastReducer.Action.fetchCastItem)
-        }
+      .publisher {
+        useCase.movieDetailUseCase.credit(request)
+          .receive(on: main)
+          .mapToResult()
+          .map(CastReducer.Action.fetchCastItem)
+      }
     }
   }
 }

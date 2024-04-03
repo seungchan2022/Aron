@@ -1,12 +1,12 @@
 import ComposableArchitecture
-import SwiftUI
 import DesignSystem
+import SwiftUI
 
 // MARK: - FanClubPage
 
 struct FanClubPage {
   @Bindable var store: StoreOf<FanClubReducer>
-  
+
   @Environment(\.colorScheme) var colorScheme
 
 }
@@ -15,7 +15,6 @@ struct FanClubPage {
 
 extension FanClubPage: View {
   var body: some View {
-    
     ScrollView {
       VStack(alignment: .leading, spacing: .zero) {
         Text("POPULAR PEOPLE TO ADD TO YOUR FAN CLUB")
@@ -23,7 +22,7 @@ extension FanClubPage: View {
           .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
           .padding(.horizontal, 16)
           .padding(.vertical, 8)
-        
+
         LazyVStack {
           ForEach(0..<5, id: \.self) { _ in
             Button(action: { }) {
@@ -33,19 +32,19 @@ extension FanClubPage: View {
                     .fill(.gray)
                     .frame(width: 60, height: 80)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                  
-                  VStack(alignment: .leading, spacing: 16) {
+
+                  VStack(alignment: .leading, spacing: 8) {
                     Text("이름")
                       .foregroundStyle(DesignSystemColor.label(.ocher).color)
-                    
+
                     Text("overView,overView,overView,overView,overView, overView, overView,overView, overView,")
                       .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
                       .lineLimit(2)
                       .multilineTextAlignment(.leading)
                   }
-                  
+
                   Spacer()
-                  
+
                   Image(systemName: "chevron.right")
                     .resizable()
                     .frame(width: 8, height: 12)
@@ -53,27 +52,26 @@ extension FanClubPage: View {
                 }
                 .padding(.vertical, 16)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 Divider()
                   .padding(.leading, 120)
               }
             }
           }
           .padding(.horizontal, 16)
-          
+
           .background(
             colorScheme == .dark
-            ? DesignSystemColor.background(.black).color
-            : DesignSystemColor.system(.white).color)
+              ? DesignSystemColor.background(.black).color
+              : DesignSystemColor.system(.white).color)
         }
         .background(
           colorScheme == .dark
-          ? DesignSystemColor.background(.black).color
-          : DesignSystemColor.system(.white).color)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-        .padding(.horizontal, 12)
+            ? DesignSystemColor.background(.black).color
+            : DesignSystemColor.system(.white).color)
+          .clipShape(RoundedRectangle(cornerRadius: 10))
+          .padding(.horizontal, 12)
       }
-
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .background(

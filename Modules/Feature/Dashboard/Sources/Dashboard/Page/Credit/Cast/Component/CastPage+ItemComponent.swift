@@ -1,20 +1,22 @@
-import SwiftUI
 import DesignSystem
 import Domain
+import SwiftUI
+
+// MARK: - CastPage.ItemComponent
 
 extension CastPage {
   struct ItemComponent {
     let viewState: ViewState
     let tapAction: () -> Void
-    
+
     @Environment(\.colorScheme) var colorScheme
 
   }
 }
 
-extension CastPage.ItemComponent {
-  
-}
+extension CastPage.ItemComponent { }
+
+// MARK: - CastPage.ItemComponent + View
 
 extension CastPage.ItemComponent: View {
   var body: some View {
@@ -29,7 +31,7 @@ extension CastPage.ItemComponent: View {
                   Rectangle()
                     .fill(.gray)
                 })
-              .scaledToFill()
+                .scaledToFill()
 
                 .frame(width: 60, height: 80)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -77,6 +79,8 @@ extension CastPage.ItemComponent: View {
       .padding(.horizontal, 12)
   }
 }
+
+// MARK: - CastPage.ItemComponent.ViewState
 
 extension CastPage.ItemComponent {
   struct ViewState: Equatable {

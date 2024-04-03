@@ -1,12 +1,16 @@
 import ComposableArchitecture
-import SwiftUI
 import DesignSystem
+import SwiftUI
+
+// MARK: - CastPage
 
 struct CastPage {
   @Bindable var store: StoreOf<CastReducer>
   @Environment(\.colorScheme) var colorScheme
 
 }
+
+// MARK: View
 
 extension CastPage: View {
   var body: some View {

@@ -1,14 +1,16 @@
 import Architecture
+import CombineExt
 import ComposableArchitecture
 import Domain
 import Foundation
-import CombineExt
+
+// MARK: - ReviewSideEffect
 
 struct ReviewSideEffect {
   let useCase: DashboardEnvironmentUsable
   let main: AnySchedulerOf<DispatchQueue>
   let navigator: RootNavigatorType
-  
+
   init(
     useCase: DashboardEnvironmentUsable,
     main: AnySchedulerOf<DispatchQueue> = .main,
@@ -20,7 +22,7 @@ struct ReviewSideEffect {
   }
 }
 
-extension ReviewSideEffect { 
+extension ReviewSideEffect {
   var review: (MovieEntity.MovieDetail.Review.Request) -> Effect<ReviewReducer.Action> {
     { request in
       .publisher {

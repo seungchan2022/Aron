@@ -1,13 +1,15 @@
 import Architecture
-import Foundation
-import Domain
 import ComposableArchitecture
+import Domain
+import Foundation
+
+// MARK: - CrewSideEffect
 
 struct CrewSideEffect {
   let useCase: DashboardEnvironmentUsable
   let main: AnySchedulerOf<DispatchQueue>
   let navigator: RootNavigatorType
-  
+
   init(
     useCase: DashboardEnvironmentUsable,
     main: AnySchedulerOf<DispatchQueue> = .main,
@@ -22,12 +24,12 @@ struct CrewSideEffect {
 extension CrewSideEffect {
   var crew: (MovieEntity.MovieDetail.Credit.Request) -> Effect<CrewReducer.Action> {
     { request in
-        .publisher {
-          useCase.movieDetailUseCase.credit(request)
-            .receive(on: main)
-            .mapToResult()
-            .map(CrewReducer.Action.fetchCrewItem)
-        }
+      .publisher {
+        useCase.movieDetailUseCase.credit(request)
+          .receive(on: main)
+          .mapToResult()
+          .map(CrewReducer.Action.fetchCrewItem)
+      }
     }
   }
 }

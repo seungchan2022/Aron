@@ -5,9 +5,9 @@ import Foundation
 
 @Reducer
 struct ReviewReducer {
-  private let pageID: String
-  private let sideEffect: ReviewSideEffect
-  
+
+  // MARK: Lifecycle
+
   init(
     pageID: String = UUID().uuidString,
     sideEffect: ReviewSideEffect)
@@ -15,45 +15,47 @@ struct ReviewReducer {
     self.pageID = pageID
     self.sideEffect = sideEffect
   }
-  
+
+  // MARK: Internal
+
   @ObservableState
   struct State: Equatable, Identifiable {
     let id: UUID
 
     let reviewItem: MovieEntity.MovieDetail.Review.Request
     var fetchReviewItem: FetchState.Data<MovieEntity.MovieDetail.Review.Response?> = .init(isLoading: false, value: .none)
-    
+
     init(
       id: UUID = UUID(),
-      reviewItem: MovieEntity.MovieDetail.Review.Request) 
+      reviewItem: MovieEntity.MovieDetail.Review.Request)
     {
       self.id = id
       self.reviewItem = reviewItem
     }
   }
-  
+
   enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
     case teardown
 
     case getReview(MovieEntity.MovieDetail.Review.Request)
     case fetchReviewItem(Result<MovieEntity.MovieDetail.Review.Response, CompositeErrorRepository>)
-    
+
     case throwError(CompositeErrorRepository)
   }
-  
+
   enum CancelID: Equatable, CaseIterable {
     case teardown
     case requestReview
   }
-  
+
   var body: some Reducer<State, Action> {
     BindingReducer()
     Reduce { state, action in
       switch action {
       case .binding:
         return .none
-        
+
       case .teardown:
         return .concatenate(
           CancelID.allCases.map { .cancel(pageID: pageID, id: $0) })
@@ -62,7 +64,7 @@ struct ReviewReducer {
         state.fetchReviewItem.isLoading = true
         return sideEffect.review(requestModel)
           .cancellable(pageID: pageID, id: CancelID.requestReview, cancelInFlight: true)
-        
+
       case .fetchReviewItem(let result):
         state.fetchReviewItem.isLoading = false
         switch result {
@@ -73,7 +75,6 @@ struct ReviewReducer {
         case .failure(let error):
           return .run { await $0(.throwError(error)) }
         }
-        
 
       case .throwError(let error):
         sideEffect.useCase.toastViewModel.send(errorMessage: error.displayMessage)
@@ -81,4 +82,9 @@ struct ReviewReducer {
       }
     }
   }
+
+  // MARK: Private
+
+  private let pageID: String
+  private let sideEffect: ReviewSideEffect
 }

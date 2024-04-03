@@ -95,7 +95,7 @@ extension MovieDetailSideEffect {
         isAnimated: true)
     }
   }
-  
+
   var routeToCast: (MovieEntity.MovieDetail.Credit.Response) -> Void {
     { item in
       navigator.next(
@@ -105,7 +105,7 @@ extension MovieDetailSideEffect {
         isAnimated: true)
     }
   }
-  
+
   var routeToCrew: (MovieEntity.MovieDetail.Credit.Response) -> Void {
     { item in
       navigator.next(
@@ -126,6 +126,6 @@ extension MovieEntity.MovieDetail.Review.Response {
 
 extension MovieEntity.MovieDetail.Credit.Response {
   fileprivate func serialized() -> MovieEntity.MovieDetail.Credit.Request {
-    .init(movieID: self.id)
+    .init(movieID: id)
   }
 }

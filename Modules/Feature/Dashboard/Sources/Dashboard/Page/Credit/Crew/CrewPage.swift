@@ -1,12 +1,16 @@
 import ComposableArchitecture
-import SwiftUI
 import DesignSystem
+import SwiftUI
+
+// MARK: - CrewPage
 
 struct CrewPage {
   @Bindable var store: StoreOf<CrewReducer>
   @Environment(\.colorScheme) var colorScheme
 
 }
+
+// MARK: View
 
 extension CrewPage: View {
   var body: some View {
