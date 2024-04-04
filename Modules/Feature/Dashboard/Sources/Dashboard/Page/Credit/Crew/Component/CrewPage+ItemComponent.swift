@@ -14,14 +14,21 @@ extension CrewPage {
   }
 }
 
-extension CrewPage.ItemComponent { }
+extension CrewPage.ItemComponent { 
+  private var filteredItemList: [MovieEntity.MovieDetail.Credit.CrewItem] {
+    viewState.item.crewItemList.reduce(into: [MovieEntity.MovieDetail.Credit.CrewItem]()) { curr, next in
+      guard !curr.contains(where: { $0.id == next.id }) else { return }
+      curr = curr + [next]
+    }
+  }
+}
 
 // MARK: - CrewPage.ItemComponent + View
 
 extension CrewPage.ItemComponent: View {
   var body: some View {
     LazyVStack {
-      ForEach(viewState.item.crewItemList) { item in
+      ForEach(filteredItemList) { item in
         Button(action: { tapAction(item) }) {
           VStack {
             HStack(spacing: 8) {
