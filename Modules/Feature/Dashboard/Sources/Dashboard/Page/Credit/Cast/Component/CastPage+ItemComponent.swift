@@ -7,7 +7,7 @@ import SwiftUI
 extension CastPage {
   struct ItemComponent {
     let viewState: ViewState
-    let tapAction: () -> Void
+    let tapAction: (MovieEntity.MovieDetail.Credit.CastItem) -> Void
 
     @Environment(\.colorScheme) var colorScheme
 
@@ -22,7 +22,7 @@ extension CastPage.ItemComponent: View {
   var body: some View {
     LazyVStack {
       ForEach(viewState.item.castItemList) { item in
-        Button(action: { tapAction() }) {
+        Button(action: { tapAction(item) }) {
           VStack {
             HStack(spacing: 8) {
               RemoteImage(

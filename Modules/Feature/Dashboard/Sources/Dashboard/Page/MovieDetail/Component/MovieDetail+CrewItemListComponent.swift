@@ -8,7 +8,7 @@ extension MovieDetailPage {
   struct CrewItemListComponent {
     let viewState: ViewState
     let tapSeeAllAction: (MovieEntity.MovieDetail.Credit.Response) -> Void
-    let tapCrewAction: () -> Void
+    let tapCrewAction: (MovieEntity.MovieDetail.Credit.CrewItem) -> Void
 
     @Environment(\.colorScheme) var colorScheme
   }
@@ -63,7 +63,7 @@ extension MovieDetailPage.CrewItemListComponent: View {
       ScrollView(.horizontal) {
         LazyHStack {
           ForEach(filteredItemList) { item in
-            Button(action: { tapCrewAction() }) {
+            Button(action: { tapCrewAction(item) }) {
               ItemComponent(crewItem: item)
             }
           }

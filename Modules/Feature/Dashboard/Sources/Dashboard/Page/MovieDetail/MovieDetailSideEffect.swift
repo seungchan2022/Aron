@@ -83,35 +83,47 @@ extension MovieDetailSideEffect {
       navigator.next(
         linkItem: .init(
           path: Link.Dashboard.Path.review.rawValue,
-          items: item.serialized()),
+          items: item.serializedReview()),
         isAnimated: true)
     }
   }
 
-  var routeToProfile: () -> Void {
-    {
+  var routeToCastItem: (MovieEntity.MovieDetail.Credit.CastItem) -> Void {
+    { item in
       navigator.next(
-        linkItem: .init(path: Link.Dashboard.Path.profile.rawValue),
+        linkItem: .init(
+          path: Link.Dashboard.Path.profile.rawValue,
+          items: item.serializedCast()),
         isAnimated: true)
     }
   }
 
-  var routeToCast: (MovieEntity.MovieDetail.Credit.Response) -> Void {
+  var routeToCrewItem: (MovieEntity.MovieDetail.Credit.CrewItem) -> Void {
+    { item in
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.profile.rawValue,
+          items: item.serializedCrew()),
+        isAnimated: true)
+    }
+  }
+
+  var routeToCastList: (MovieEntity.MovieDetail.Credit.Response) -> Void {
     { item in
       navigator.next(
         linkItem: .init(
           path: Link.Dashboard.Path.cast.rawValue,
-          items: item.serialized()),
+          items: item.serializedCredit()),
         isAnimated: true)
     }
   }
 
-  var routeToCrew: (MovieEntity.MovieDetail.Credit.Response) -> Void {
+  var routeToCrewList: (MovieEntity.MovieDetail.Credit.Response) -> Void {
     { item in
       navigator.next(
         linkItem: .init(
           path: Link.Dashboard.Path.crew.rawValue,
-          items: item.serialized()),
+          items: item.serializedCredit()),
         isAnimated: true)
     }
   }
@@ -119,13 +131,25 @@ extension MovieDetailSideEffect {
 }
 
 extension MovieEntity.MovieDetail.Review.Response {
-  fileprivate func serialized() -> MovieEntity.MovieDetail.Review.Request {
+  fileprivate func serializedReview() -> MovieEntity.MovieDetail.Review.Request {
     .init(movieID: id)
   }
 }
 
 extension MovieEntity.MovieDetail.Credit.Response {
-  fileprivate func serialized() -> MovieEntity.MovieDetail.Credit.Request {
+  fileprivate func serializedCredit() -> MovieEntity.MovieDetail.Credit.Request {
     .init(movieID: id)
+  }
+}
+
+extension MovieEntity.MovieDetail.Credit.CastItem {
+  fileprivate func serializedCast() -> MovieEntity.Person.Request {
+    .init(personID: id)
+  }
+}
+
+extension MovieEntity.MovieDetail.Credit.CrewItem {
+  fileprivate func serializedCrew() -> MovieEntity.Person.Request {
+    .init(personID: id)
   }
 }

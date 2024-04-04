@@ -11,6 +11,14 @@ struct ProfilePage {
 
 extension ProfilePage: View {
   var body: some View {
-    Text("Profile Page")
+    VStack {
+      Text("Profile Page")
+    }
+    .onAppear {
+      store.send(.getItem(store.item))
+    }
+    .onDisappear {
+      store.send(.teardown)
+    }
   }
 }

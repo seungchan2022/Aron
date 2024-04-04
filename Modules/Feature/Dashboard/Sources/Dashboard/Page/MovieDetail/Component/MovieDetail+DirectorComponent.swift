@@ -7,7 +7,7 @@ import SwiftUI
 extension MovieDetailPage {
   struct DirectorComponent {
     let viewState: ViewState
-    let tapAction: () -> Void
+    let tapAction: (MovieEntity.MovieDetail.Credit.CrewItem) -> Void
 
     @Environment(\.colorScheme) var colorScheme
   }
@@ -24,7 +24,7 @@ extension MovieDetailPage.DirectorComponent: View {
         .padding(.leading, 16)
 
       Button(action: {
-        tapAction()
+        tapAction(director)
       }) {
         HStack {
           Text("Director: ")

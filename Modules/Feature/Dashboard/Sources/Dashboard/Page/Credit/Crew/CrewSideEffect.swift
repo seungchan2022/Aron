@@ -32,4 +32,20 @@ extension CrewSideEffect {
       }
     }
   }
+
+  var routeToProfile: (MovieEntity.MovieDetail.Credit.CrewItem) -> Void {
+    { item in
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.profile.rawValue,
+          items: item.serialized()),
+        isAnimated: true)
+    }
+  }
+}
+
+extension MovieEntity.MovieDetail.Credit.CrewItem {
+  fileprivate func serialized() -> MovieEntity.Person.Request {
+    .init(personID: id)
+  }
 }

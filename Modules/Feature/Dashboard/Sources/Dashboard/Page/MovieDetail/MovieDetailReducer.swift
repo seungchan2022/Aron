@@ -76,9 +76,10 @@ struct MovieDetailReducer {
     case fetchRecommendedMovieItem(Result<MovieEntity.MovieDetail.RecommendedMovie.Response, CompositeErrorRepository>)
 
     case routeToReview(MovieEntity.MovieDetail.Review.Response)
-    case routeToProfile
-    case routeToCast(MovieEntity.MovieDetail.Credit.Response)
-    case routeToCrew(MovieEntity.MovieDetail.Credit.Response)
+    case routeToCastItem(MovieEntity.MovieDetail.Credit.CastItem)
+    case routeToCrewItem(MovieEntity.MovieDetail.Credit.CrewItem)
+    case routeToCastList(MovieEntity.MovieDetail.Credit.Response)
+    case routeToCrewList(MovieEntity.MovieDetail.Credit.Response)
 
     case throwError(CompositeErrorRepository)
   }
@@ -186,16 +187,20 @@ struct MovieDetailReducer {
         sideEffect.routeToReview(response)
         return .none
 
-      case .routeToProfile:
-        sideEffect.routeToProfile()
+      case .routeToCastItem(let response):
+        sideEffect.routeToCastItem(response)
         return .none
 
-      case .routeToCast(let response):
-        sideEffect.routeToCast(response)
+      case .routeToCrewItem(let response):
+        sideEffect.routeToCrewItem(response)
         return .none
 
-      case .routeToCrew(let response):
-        sideEffect.routeToCrew(response)
+      case .routeToCastList(let response):
+        sideEffect.routeToCastList(response)
+        return .none
+
+      case .routeToCrewList(let response):
+        sideEffect.routeToCrewList(response)
         return .none
 
       case .throwError(let error):

@@ -7,7 +7,7 @@ import SwiftUI
 extension CrewPage {
   struct ItemComponent {
     let viewState: ViewState
-    let tapAction: () -> Void
+    let tapAction: (MovieEntity.MovieDetail.Credit.CrewItem) -> Void
 
     @Environment(\.colorScheme) var colorScheme
 
@@ -22,7 +22,7 @@ extension CrewPage.ItemComponent: View {
   var body: some View {
     LazyVStack {
       ForEach(viewState.item.crewItemList) { item in
-        Button(action: { tapAction() }) {
+        Button(action: { tapAction(item) }) {
           VStack {
             HStack(spacing: 8) {
               RemoteImage(

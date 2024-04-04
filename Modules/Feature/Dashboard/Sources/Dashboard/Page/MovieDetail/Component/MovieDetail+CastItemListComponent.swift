@@ -8,7 +8,7 @@ extension MovieDetailPage {
   struct CastItemListComponent {
     let viewState: ViewState
     let tapSeaAllAction: (MovieEntity.MovieDetail.Credit.Response) -> Void
-    let tapCastAction: () -> Void
+    let tapCastAction: (MovieEntity.MovieDetail.Credit.CastItem) -> Void
 
     @Environment(\.colorScheme) var colorScheme
   }
@@ -55,7 +55,7 @@ extension MovieDetailPage.CastItemListComponent: View {
         LazyHStack {
           ForEach(viewState.item.castItemList) { item in
             Button(action: {
-              tapCastAction()
+              tapCastAction(item)
             }) {
               ItemComponent(castItem: item)
             }

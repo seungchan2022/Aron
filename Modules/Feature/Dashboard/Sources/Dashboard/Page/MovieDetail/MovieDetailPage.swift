@@ -79,23 +79,23 @@ extension MovieDetailPage: View {
         if let item = store.fetchCreditItem.value {
           CastItemListComponent(
             viewState: .init(item: item),
-            tapSeaAllAction: { store.send(.routeToCast($0)) },
-            tapCastAction: { store.send(.routeToProfile) })
+            tapSeaAllAction: { store.send(.routeToCastList($0)) },
+            tapCastAction: { store.send(.routeToCastItem($0)) })
         }
 
         // Director
         if let item = store.fetchCreditItem.value {
           DirectorComponent(
             viewState: .init(item: item),
-            tapAction: { store.send(.routeToProfile) })
+            tapAction: { store.send(.routeToCrewItem($0)) })
         }
 
         // Crew
         if let item = store.fetchCreditItem.value {
           CrewItemListComponent(
             viewState: .init(item: item),
-            tapSeeAllAction: { store.send(.routeToCrew($0)) },
-            tapCrewAction: { store.send(.routeToProfile) })
+            tapSeeAllAction: { store.send(.routeToCrewList($0)) },
+            tapCrewAction: { store.send(.routeToCrewItem($0)) })
         }
 
         // SimilarMovie

@@ -18,7 +18,7 @@ extension CastPage: View {
       if let item = store.fetchCastItem.value {
         ItemComponent(
           viewState: .init(item: item),
-          tapAction: { })
+          tapAction: { store.send(.routeToProfile($0)) })
       }
     }
     .frame(maxWidth: .infinity, alignment: .leading)

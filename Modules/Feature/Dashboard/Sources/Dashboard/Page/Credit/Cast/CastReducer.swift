@@ -41,6 +41,8 @@ struct CastReducer {
     case getCastItem(MovieEntity.MovieDetail.Credit.Request)
     case fetchCastItem(Result<MovieEntity.MovieDetail.Credit.Response, CompositeErrorRepository>)
 
+    case routeToProfile(MovieEntity.MovieDetail.Credit.CastItem)
+
     case throwError(CompositeErrorRepository)
   }
 
@@ -75,6 +77,10 @@ struct CastReducer {
         case .failure(let error):
           return .run { await $0(.throwError(error)) }
         }
+
+      case .routeToProfile(let response):
+        sideEffect.routeToProfile(response)
+        return .none
 
       case .throwError(let error):
         sideEffect.useCase.toastViewModel.send(errorMessage: error.displayMessage)
