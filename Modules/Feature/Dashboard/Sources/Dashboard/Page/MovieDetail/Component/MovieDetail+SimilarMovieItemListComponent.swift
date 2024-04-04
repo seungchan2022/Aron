@@ -8,7 +8,7 @@ extension MovieDetailPage {
   struct SimilarMovieItemListComponent {
     let viewState: ViewState
     let tapSeeAllAction: () -> Void
-    let tapSimilarMovieAction: () -> Void
+    let tapSimilarMovieAction: (MovieEntity.MovieDetail.SimilarMovie.Response.Item) -> Void
 
     @Environment(\.colorScheme) var colorScheme
   }
@@ -50,7 +50,7 @@ extension MovieDetailPage.SimilarMovieItemListComponent: View {
         ScrollView(.horizontal) {
           LazyHStack {
             ForEach(viewState.item.itemList) { item in
-              Button(action: { tapSimilarMovieAction() }) {
+              Button(action: { tapSimilarMovieAction(item) }) {
                 ItemComponent(similarItem: item)
               }
             }

@@ -128,11 +128,22 @@ extension MovieDetailSideEffect {
     }
   }
 
-  var routeToSimilarMovieList: () -> Void {
-    {
+  var routeToSimilarMovie: (MovieEntity.MovieDetail.SimilarMovie.Response.Item) -> Void {
+    { item in
       navigator.next(
         linkItem: .init(
-          path: Link.Dashboard.Path.similar.rawValue),
+          path: Link.Dashboard.Path.movieDetail.rawValue,
+          items: item.serializedSimilarMovie()),
+        isAnimated: true)
+    }
+  }
+
+  var routeToRecommendedMovie: (MovieEntity.MovieDetail.RecommendedMovie.Response.Item) -> Void {
+    { item in
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.movieDetail.rawValue,
+          items: item.serilaizedRecommendedMovie()),
         isAnimated: true)
     }
   }
@@ -159,5 +170,17 @@ extension MovieEntity.MovieDetail.Credit.CastItem {
 extension MovieEntity.MovieDetail.Credit.CrewItem {
   fileprivate func serializedCrew() -> MovieEntity.Person.Request {
     .init(personID: id)
+  }
+}
+
+extension MovieEntity.MovieDetail.SimilarMovie.Response.Item {
+  fileprivate func serializedSimilarMovie() -> MovieEntity.MovieDetail.SimilarMovie.Request {
+    .init(movieID: id)
+  }
+}
+
+extension MovieEntity.MovieDetail.RecommendedMovie.Response.Item {
+  fileprivate func serilaizedRecommendedMovie() -> MovieEntity.MovieDetail.RecommendedMovie.Request {
+    .init(movieID: id)
   }
 }

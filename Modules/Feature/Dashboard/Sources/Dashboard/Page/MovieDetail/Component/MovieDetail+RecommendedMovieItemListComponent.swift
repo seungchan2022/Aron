@@ -8,7 +8,7 @@ extension MovieDetailPage {
   struct RecommendedMovieItemListComponent {
     let viewState: ViewState
     let tapSeeAllAction: () -> Void
-    let tapRecommendedMovieAction: () -> Void
+    let tapRecommendedMovieAction: (MovieEntity.MovieDetail.RecommendedMovie.Response.Item) -> Void
 
     @Environment(\.colorScheme) var colorScheme
   }
@@ -50,7 +50,7 @@ extension MovieDetailPage.RecommendedMovieItemListComponent: View {
         ScrollView(.horizontal) {
           LazyHStack {
             ForEach(viewState.item.itemList) { item in
-              Button(action: { tapRecommendedMovieAction() }) {
+              Button(action: { tapRecommendedMovieAction(item) }) {
                 ItemComponent(recommendedItem: item)
               }
             }
