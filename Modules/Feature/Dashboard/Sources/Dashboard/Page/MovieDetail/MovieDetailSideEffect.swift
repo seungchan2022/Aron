@@ -128,6 +128,14 @@ extension MovieDetailSideEffect {
     }
   }
 
+  var routeToSimilarMovieList: () -> Void {
+    {
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.similar.rawValue),
+        isAnimated: true)
+    }
+  }
 }
 
 extension MovieEntity.MovieDetail.Review.Response {

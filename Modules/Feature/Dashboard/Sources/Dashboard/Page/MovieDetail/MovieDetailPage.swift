@@ -102,7 +102,7 @@ extension MovieDetailPage: View {
         if let item = store.fetchSimilarMovieItem.value {
           SimilarMovieItemListComponent(
             viewState: .init(item: item),
-            tapSeeAllAction: { },
+            tapSeeAllAction: { store.send(.routeToSimilarMovieList) },
             tapSimilarMovieAction: { })
         }
 
