@@ -58,9 +58,9 @@ struct FanClubReducer {
           CancelID.allCases.map { .cancel(pageID: pageID, id: $0) })
 
       case .getItem:
-
+        let page = Int(state.itemList.count / 20) + 1
         state.fetchItem.isLoading = true
-        return sideEffect.getItem(.init())
+        return sideEffect.getItem(.init(page: page))
           .cancellable(pageID: pageID, id: CancelID.requestItemList, cancelInFlight: true)
 
       case .fetchItem(let result):
@@ -68,7 +68,7 @@ struct FanClubReducer {
         switch result {
         case .success(let item):
           state.fetchItem.value = item
-          state.itemList = state.itemList + item.itemList
+          state.itemList = state.itemList.merge(item.itemList)
           return .none
 
         case .failure(let error):
@@ -86,4 +86,17 @@ struct FanClubReducer {
 
   private let pageID: String
   private let sideEffect: FanClubSideEffect
+}
+
+
+extension [MovieEntity.FanClub.Item] {
+
+  fileprivate func merge(_ target: Self) -> Self {
+    let new = target.reduce(self) { curr, next in
+      guard !self.contains(where: { $0.id == next.id }) else { return curr }
+      return curr + [next]
+    }
+
+    return new
+  }
 }

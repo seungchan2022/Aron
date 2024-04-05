@@ -24,7 +24,7 @@ extension FanClubPage: View {
           .padding(.vertical, 8)
 
         LazyVStack {
-          ForEach(0..<5, id: \.self) { _ in
+          ForEach(store.itemList) { item in
             Button(action: { }) {
               VStack {
                 HStack(spacing: 8) {
@@ -56,6 +56,11 @@ extension FanClubPage: View {
                 Divider()
                   .padding(.leading, 120)
               }
+            }
+            .onAppear {
+              guard let last = store.itemList.last, last.id == item.id else { return }
+              guard !store.fetchItem.isLoading else { return }
+              store.send(.getItem)
             }
           }
           .padding(.horizontal, 16)
