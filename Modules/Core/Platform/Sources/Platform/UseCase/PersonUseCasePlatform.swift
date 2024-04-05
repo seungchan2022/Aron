@@ -14,11 +14,25 @@ public struct PersonUseCasePlatform {
 // MARK: PersonUseCase
 
 extension PersonUseCasePlatform: PersonUseCase {
-  public var person: (MovieEntity.Person.Request) -> AnyPublisher<MovieEntity.Person.Response, CompositeErrorRepository> {
+  public var info: (MovieEntity.Person.Info.Request) -> AnyPublisher<MovieEntity.Person.Info.Response, CompositeErrorRepository> {
     { item in
       Endpoint(
         baseURL: baseURL,
         pathList: ["\(item.personID)"],
+        httpMethod: .get,
+        content: .queryItemPath(PersonQueryItem()))
+        .fetch(isDebug: true)
+    }
+  }
+
+  public var image: (MovieEntity.Person.Image.Request) -> AnyPublisher<
+    MovieEntity.Person.Image.Response,
+    CompositeErrorRepository
+  > {
+    { item in
+      Endpoint(
+        baseURL: baseURL,
+        pathList: ["\(item.personID)", "images"],
         httpMethod: .get,
         content: .queryItemPath(PersonQueryItem()))
         .fetch(isDebug: true)

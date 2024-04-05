@@ -45,7 +45,7 @@ extension CastSideEffect {
 }
 
 extension MovieEntity.MovieDetail.Credit.CastItem {
-  fileprivate func serialized() -> MovieEntity.Person.Request {
+  fileprivate func serialized() -> MovieEntity.Person.Info.Request {
     .init(personID: id)
   }
 }

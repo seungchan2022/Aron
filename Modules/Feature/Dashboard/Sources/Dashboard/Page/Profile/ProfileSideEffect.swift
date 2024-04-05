@@ -22,13 +22,24 @@ struct ProfileSideEffect {
 }
 
 extension ProfileSideEffect {
-  var item: (MovieEntity.Person.Request) -> Effect<ProfileReducer.Action> {
+  var item: (MovieEntity.Person.Info.Request) -> Effect<ProfileReducer.Action> {
     { request in
       .publisher {
-        useCase.personUseCase.person(request)
+        useCase.personUseCase.info(request)
           .receive(on: main)
           .mapToResult()
           .map(ProfileReducer.Action.fetchItem)
+      }
+    }
+  }
+
+  var profileImage: (MovieEntity.Person.Image.Request) -> Effect<ProfileReducer.Action> {
+    { request in
+      .publisher {
+        useCase.personUseCase.image(request)
+          .receive(on: main)
+          .mapToResult()
+          .map(ProfileReducer.Action.fetchProfileImage)
       }
     }
   }

@@ -1,5 +1,7 @@
 import Combine
 
 public protocol PersonUseCase {
-  var person: (MovieEntity.Person.Request) -> AnyPublisher<MovieEntity.Person.Response, CompositeErrorRepository> { get }
+  var info: (MovieEntity.Person.Info.Request) -> AnyPublisher<MovieEntity.Person.Info.Response, CompositeErrorRepository> { get }
+  var image: (MovieEntity.Person.Image.Request)
+    -> AnyPublisher<MovieEntity.Person.Image.Response, CompositeErrorRepository> { get }
 }

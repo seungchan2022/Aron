@@ -45,7 +45,7 @@ extension CrewSideEffect {
 }
 
 extension MovieEntity.MovieDetail.Credit.CrewItem {
-  fileprivate func serialized() -> MovieEntity.Person.Request {
+  fileprivate func serialized() -> MovieEntity.Person.Info.Request {
     .init(personID: id)
   }
 }

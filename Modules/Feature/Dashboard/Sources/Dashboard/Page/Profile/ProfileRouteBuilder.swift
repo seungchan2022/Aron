@@ -8,11 +8,14 @@ struct ProfileRouteBuilder<RootNavigator: RootNavigatorType> {
 
     return .init(matchPath: matchPath) { navigator, items, diContainer -> RouteViewController? in
       guard let env: DashboardEnvironmentUsable = diContainer.resolve() else { return .none }
-      guard let item: MovieEntity.Person.Request = items.decoded() else { return .none }
+      guard let item: MovieEntity.Person.Info.Request = items.decoded() else { return .none }
+      guard let profileImageItem: MovieEntity.Person.Image.Request = items.decoded() else { return .none }
 
       return DebugWrappingController(matchPath: matchPath) {
         ProfilePage(store: .init(
-          initialState: ProfileReducer.State(item: item),
+          initialState: ProfileReducer.State(
+            item: item,
+            profileImageItem: profileImageItem),
           reducer: {
             ProfileReducer(sideEffect: .init(
               useCase: env,

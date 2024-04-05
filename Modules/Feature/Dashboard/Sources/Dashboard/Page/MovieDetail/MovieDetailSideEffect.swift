@@ -162,13 +162,13 @@ extension MovieEntity.MovieDetail.Credit.Response {
 }
 
 extension MovieEntity.MovieDetail.Credit.CastItem {
-  fileprivate func serializedCast() -> MovieEntity.Person.Request {
+  fileprivate func serializedCast() -> MovieEntity.Person.Info.Request {
     .init(personID: id)
   }
 }
 
 extension MovieEntity.MovieDetail.Credit.CrewItem {
-  fileprivate func serializedCrew() -> MovieEntity.Person.Request {
+  fileprivate func serializedCrew() -> MovieEntity.Person.Info.Request {
     .init(personID: id)
   }
 }
