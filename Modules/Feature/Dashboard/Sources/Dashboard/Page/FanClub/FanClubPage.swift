@@ -20,7 +20,7 @@ extension FanClubPage: View {
         Text("POPULAR PEOPLE TO ADD TO YOUR FAN CLUB")
           .font(.system(size: 12, weight: .regular))
           .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
-          .padding(.horizontal, 16)
+          .padding(.leading, 24)
           .padding(.vertical, 8)
 
         LazyVStack {
@@ -78,5 +78,11 @@ extension FanClubPage: View {
       colorScheme == .dark ? DesignSystemColor.system(.black).color : DesignSystemColor.palette(.gray(.lv200)).color)
     .navigationTitle("Fan Club")
     .navigationBarTitleDisplayMode(.large)
+    .onAppear {
+      store.send(.getItem)
+    }
+    .onDisappear {
+      store.send(.teardown)
+    }
   }
 }

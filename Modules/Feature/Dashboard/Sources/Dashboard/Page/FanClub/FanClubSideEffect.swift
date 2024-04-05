@@ -1,6 +1,10 @@
 import Architecture
+import CombineExt
 import ComposableArchitecture
+import Domain
 import Foundation
+
+// MARK: - FanClubSideEffect
 
 struct FanClubSideEffect {
   let useCase: DashboardEnvironmentUsable
@@ -15,5 +19,18 @@ struct FanClubSideEffect {
     self.useCase = useCase
     self.main = main
     self.navigator = navigator
+  }
+}
+
+extension FanClubSideEffect {
+  var getItem: (MovieEntity.FanClub.Request) -> Effect<FanClubReducer.Action> {
+    { item in
+      .publisher {
+        useCase.fanClubUseCase.fanClub(item)
+          .receive(on: main)
+          .mapToResult()
+          .map(FanClubReducer.Action.fetchItem)
+      }
+    }
   }
 }

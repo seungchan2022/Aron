@@ -26,7 +26,8 @@ extension AppContainer {
       toastViewModel: .init(),
       movieUseCase: MovieUseCasePlatform(),
       movieDetailUseCase: MovieDetailUseCasePlatform(),
-      personUseCase: PersonUseCasePlatform())
+      personUseCase: PersonUseCasePlatform(),
+      fanClubUseCase: FanClubUseCasePlatform())
 
     return .init(
       dependency: sideEffect,

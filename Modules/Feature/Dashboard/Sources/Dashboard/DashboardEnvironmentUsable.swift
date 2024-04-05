@@ -6,4 +6,5 @@ public protocol DashboardEnvironmentUsable {
   var movieUseCase: MovieUseCase { get }
   var movieDetailUseCase: MovieDetailUseCase { get }
   var personUseCase: PersonUseCase { get }
+  var fanClubUseCase: FanClubUseCase { get }
 }

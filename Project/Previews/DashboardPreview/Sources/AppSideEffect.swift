@@ -12,4 +12,5 @@ struct AppSideEffect: DependencyType, DashboardEnvironmentUsable {
   let movieUseCase: MovieUseCase
   let movieDetailUseCase: MovieDetailUseCase
   let personUseCase: PersonUseCase
+  let fanClubUseCase: FanClubUseCase
 }
