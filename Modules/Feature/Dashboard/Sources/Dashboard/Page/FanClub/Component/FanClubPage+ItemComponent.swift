@@ -5,7 +5,7 @@ import DesignSystem
 extension FanClubPage {
   struct ItemComponent {
     let viewState: ViewState
-    let tapAction: () -> Void
+    let tapAction: (MovieEntity.FanClub.Item) -> Void
   }
 }
 
@@ -17,7 +17,7 @@ extension FanClubPage.ItemComponent {
 
 extension FanClubPage.ItemComponent: View {
   var body: some View {
-    Button(action: { tapAction() }) {
+    Button(action: { tapAction(viewState.item) }) {
       VStack {
         HStack(spacing: 8) {
           RemoteImage(

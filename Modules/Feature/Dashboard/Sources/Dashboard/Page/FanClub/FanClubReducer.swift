@@ -37,6 +37,8 @@ struct FanClubReducer {
 
     case getItem
     case fetchItem(Result<MovieEntity.FanClub.Response, CompositeErrorRepository>)
+    
+    case routeToDetail(MovieEntity.FanClub.Item)
 
     case throwError(CompositeErrorRepository)
   }
@@ -64,7 +66,6 @@ struct FanClubReducer {
           .cancellable(pageID: pageID, id: CancelID.requestItemList, cancelInFlight: true)
 
       case .fetchItem(let result):
-        print(result)
         state.fetchItem.isLoading = false
         switch result {
         case .success(let item):
@@ -76,6 +77,10 @@ struct FanClubReducer {
           return .run { await $0(.throwError(error)) }
         }
 
+      case .routeToDetail(let item):
+        sideEffect.routeToDetail(item)
+        return .none
+        
       case .throwError(let error):
         sideEffect.useCase.toastViewModel.send(errorMessage: error.displayMessage)
         return .none

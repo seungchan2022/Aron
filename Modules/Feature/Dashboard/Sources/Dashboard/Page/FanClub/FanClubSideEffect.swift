@@ -33,4 +33,20 @@ extension FanClubSideEffect {
       }
     }
   }
+  
+  var routeToDetail: (MovieEntity.FanClub.Item) -> Void {
+    { item in
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.profile.rawValue,
+          items: item.serialized()),
+        isAnimated: true)
+    }
+  }
+}
+
+extension MovieEntity.FanClub.Item {
+  fileprivate func serialized() -> MovieEntity.Person.Info.Request {
+    .init(personID: self.id)
+  }
 }
