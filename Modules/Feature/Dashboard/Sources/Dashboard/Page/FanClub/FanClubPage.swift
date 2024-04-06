@@ -6,9 +6,9 @@ import SwiftUI
 
 struct FanClubPage {
   @Bindable var store: StoreOf<FanClubReducer>
-  
+
   @Environment(\.colorScheme) var colorScheme
-  
+
 }
 
 // MARK: View
@@ -22,35 +22,34 @@ extension FanClubPage: View {
           .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
           .padding(.leading, 24)
           .padding(.vertical, 8)
-        
+
         if !store.itemList.isEmpty {
           LazyVStack {
             ForEach(store.itemList) { item in
               ItemComponent(
                 viewState: .init(item: item),
-                tapAction: { store.send(.routeToDetail($0)) }
-              )
-              
-              .onAppear {
-                guard let last = store.itemList.last, last.id == item.id else { return }
-                guard !store.fetchItem.isLoading else { return }
-                store.send(.getItem)
-              }
+                tapAction: { store.send(.routeToDetail($0)) })
+
+                .onAppear {
+                  guard let last = store.itemList.last, last.id == item.id else { return }
+                  guard !store.fetchItem.isLoading else { return }
+                  store.send(.getItem)
+                }
             }
             .padding(.horizontal, 16)
-            
+
             .background(
               colorScheme == .dark
-              ? DesignSystemColor.background(.black).color
-              : DesignSystemColor.system(.white).color)
+                ? DesignSystemColor.background(.black).color
+                : DesignSystemColor.system(.white).color)
           }
-          
+
           .background(
             colorScheme == .dark
-            ? DesignSystemColor.background(.black).color
-            : DesignSystemColor.system(.white).color)
-          .clipShape(RoundedRectangle(cornerRadius: 10))
-          .padding(.horizontal, 12)
+              ? DesignSystemColor.background(.black).color
+              : DesignSystemColor.system(.white).color)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .padding(.horizontal, 12)
         }
       }
     }

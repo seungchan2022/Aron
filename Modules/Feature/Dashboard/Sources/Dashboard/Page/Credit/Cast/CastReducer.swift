@@ -78,8 +78,8 @@ struct CastReducer {
           return .run { await $0(.throwError(error)) }
         }
 
-      case .routeToProfile(let response):
-        sideEffect.routeToProfile(response)
+      case .routeToProfile(let item):
+        sideEffect.routeToProfile(item)
         return .none
 
       case .throwError(let error):

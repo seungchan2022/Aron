@@ -67,11 +67,11 @@ extension MovieEntity.FanClub {
       case filmList = "known_for"
     }
   }
-  
+
   public struct FilmItem: Equatable, Identifiable, Codable, Sendable {
     public let id: Int
     public let title: String?
-    
+
     private enum CodingKeys: String, CodingKey {
       case id
       case title

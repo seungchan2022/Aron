@@ -40,6 +40,7 @@ extension ProfilePage.InfoComponent: View {
 
           Text("\(viewState.item.knownAsList.joined(separator: "\n"))")
             .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
+            .lineLimit(3)
         }
       }
       Divider()

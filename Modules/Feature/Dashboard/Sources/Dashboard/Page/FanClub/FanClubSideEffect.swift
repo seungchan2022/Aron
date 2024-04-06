@@ -33,7 +33,7 @@ extension FanClubSideEffect {
       }
     }
   }
-  
+
   var routeToDetail: (MovieEntity.FanClub.Item) -> Void {
     { item in
       navigator.next(
@@ -47,6 +47,6 @@ extension FanClubSideEffect {
 
 extension MovieEntity.FanClub.Item {
   fileprivate func serialized() -> MovieEntity.Person.Info.Request {
-    .init(personID: self.id)
+    .init(personID: id)
   }
 }

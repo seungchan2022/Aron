@@ -185,32 +185,32 @@ struct MovieDetailReducer {
           return .run { await $0(.throwError(error)) }
         }
 
-      case .routeToReview(let response):
-        sideEffect.routeToReview(response)
+      case .routeToReview(let item):
+        sideEffect.routeToReview(item)
         return .none
 
-      case .routeToCastItem(let response):
-        sideEffect.routeToCastItem(response)
+      case .routeToCastItem(let item):
+        sideEffect.routeToCastItem(item)
         return .none
 
-      case .routeToCrewItem(let response):
-        sideEffect.routeToCrewItem(response)
+      case .routeToCrewItem(let item):
+        sideEffect.routeToCrewItem(item)
         return .none
 
-      case .routeToCastList(let response):
-        sideEffect.routeToCastList(response)
+      case .routeToCastList(let item):
+        sideEffect.routeToCastList(item)
         return .none
 
-      case .routeToCrewList(let response):
-        sideEffect.routeToCrewList(response)
+      case .routeToCrewList(let item):
+        sideEffect.routeToCrewList(item)
         return .none
 
-      case .routeToSimilarMovie(let response):
-        sideEffect.routeToSimilarMovie(response)
+      case .routeToSimilarMovie(let item):
+        sideEffect.routeToSimilarMovie(item)
         return .none
 
-      case .routeToRecommendedMovie(let response):
-        sideEffect.routeToRecommendedMovie(response)
+      case .routeToRecommendedMovie(let item):
+        sideEffect.routeToRecommendedMovie(item)
         return .none
 
       case .throwError(let error):
