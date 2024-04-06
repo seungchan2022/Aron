@@ -58,11 +58,23 @@ extension MovieEntity.FanClub {
     public let id: Int
     public let name: String
     public let profileImageURL: String?
+    public let filmList: [FilmItem]
 
     private enum CodingKeys: String, CodingKey {
       case id
       case name
       case profileImageURL = "profile_path"
+      case filmList = "known_for"
+    }
+  }
+  
+  public struct FilmItem: Equatable, Identifiable, Codable, Sendable {
+    public let id: Int
+    public let title: String?
+    
+    private enum CodingKeys: String, CodingKey {
+      case id
+      case title
     }
   }
 }

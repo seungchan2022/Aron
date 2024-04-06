@@ -64,6 +64,7 @@ struct FanClubReducer {
           .cancellable(pageID: pageID, id: CancelID.requestItemList, cancelInFlight: true)
 
       case .fetchItem(let result):
+        print(result)
         state.fetchItem.isLoading = false
         switch result {
         case .success(let item):
