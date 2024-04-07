@@ -117,7 +117,7 @@ extension MovieDetailPage: View {
         if let item = store.fetchDetailItem.value {
           OtherPosterItemListComponent(
             viewState: .init(item: item),
-            tapAction: { _ in })
+            tapAction: { store.send(.routeToOtherPoster($0)) })
         }
 
         // Image

@@ -7,7 +7,8 @@ import SwiftUI
 extension MovieDetailPage {
   struct OtherPosterItemListComponent {
     let viewState: ViewState
-    let tapAction: (MovieEntity.MovieDetail.MovieCard.PosterItem) -> Void
+    let tapAction: (MovieEntity.MovieDetail.MovieCard.Response) -> Void
+//    let tapAction: () -> Void
 
     @Environment(\.colorScheme) var colorScheme
   }
@@ -36,19 +37,22 @@ extension MovieDetailPage.OtherPosterItemListComponent: View {
       ScrollView(.horizontal) {
         LazyHStack(spacing: 32) {
           ForEach(viewState.item.imageBucket.otherPosterItemList?.prefix(8) ?? [], id: \.image) { item in
-            Button(action: { tapAction(item) }) {
-              RemoteImage(
-                url: "https://image.tmdb.org/t/p/w500/\(item.image ?? "")",
-                placeholder: {
-                  Rectangle()
-                    .fill(DesignSystemColor.palette(.gray(.lv250)).color)
-                })
-                .scaledToFill()
-                .frame(width: 100, height: 160)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .shadow(radius: 5)
-                .padding(.top, 8)
-            }
+//            Button(action: {  }) {
+            RemoteImage(
+              url: "https://image.tmdb.org/t/p/w500/\(item.image ?? "")",
+              placeholder: {
+                Rectangle()
+                  .fill(DesignSystemColor.palette(.gray(.lv250)).color)
+              })
+              .scaledToFill()
+              .frame(width: 100, height: 160)
+              .clipShape(RoundedRectangle(cornerRadius: 10))
+              .shadow(radius: 5)
+              .padding(.top, 8)
+//            }
+          }
+          .onTapGesture {
+            tapAction(viewState.item)
           }
         }
         .padding(.leading, 20)

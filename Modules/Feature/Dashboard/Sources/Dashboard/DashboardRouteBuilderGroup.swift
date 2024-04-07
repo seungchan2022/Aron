@@ -16,6 +16,7 @@ extension DashboardRouteBuilderGroup {
       ReviewRouteBuilder.generate(),
       CastRouteBuilder.generate(),
       CrewRouteBuilder.generate(),
+      OtherPosterRouteBuilder.generate(),
       DiscoverRouteBuilder.generate(),
       FanClubRouteBuilder.generate(),
       ProfileRouteBuilder.generate(),

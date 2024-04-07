@@ -33,7 +33,7 @@ extension MovieDetailPage.ImageItemListComponent: View {
             .padding(.top, 8)
 
         ScrollView(.horizontal) {
-          LazyHStack(spacing: 16) {
+          LazyHStack(spacing: .zero) {
             ForEach(viewState.item.imageBucket.backdropImageList?.prefix(8) ?? [], id: \.image) { item in
               RemoteImage(
                 url: "https://image.tmdb.org/t/p/w500/\(item.image ?? "")",
@@ -41,14 +41,15 @@ extension MovieDetailPage.ImageItemListComponent: View {
                   Rectangle()
                     .fill(DesignSystemColor.palette(.gray(.lv250)).color)
                 })
-                .scaledToFill()
-                .frame(width: 300, height: 140)
+                .frame(height: 140)
+                .clipShape(RoundedRectangle(cornerRadius: 5))
+                .containerRelativeFrame(.horizontal)
             }
           }
-          .padding(.leading, 20)
         }
         .padding(.top, 12)
         .scrollIndicators(.hidden)
+        .scrollTargetBehavior(.paging)
       }
       .padding(.bottom, 12)
     }
