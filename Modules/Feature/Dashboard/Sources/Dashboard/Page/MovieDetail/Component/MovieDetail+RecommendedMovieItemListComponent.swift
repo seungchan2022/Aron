@@ -7,7 +7,7 @@ import SwiftUI
 extension MovieDetailPage {
   struct RecommendedMovieItemListComponent {
     let viewState: ViewState
-    let tapSeeAllAction: () -> Void
+    let tapSeeAllAction: (MovieEntity.MovieDetail.MovieCard.Response) -> Void
     let tapRecommendedMovieAction: (MovieEntity.MovieDetail.RecommendedMovie.Response.Item) -> Void
 
     @Environment(\.colorScheme) var colorScheme
@@ -25,7 +25,7 @@ extension MovieDetailPage.RecommendedMovieItemListComponent: View {
         .padding(.leading, 16)
 
       VStack(spacing: .zero) {
-        Button(action: { tapSeeAllAction() }) {
+        Button(action: { tapSeeAllAction(viewState.movieID) }) {
           HStack {
             Text("Recommended Movie")
               .foregroundStyle(
@@ -69,6 +69,9 @@ extension MovieDetailPage.RecommendedMovieItemListComponent: View {
 extension MovieDetailPage.RecommendedMovieItemListComponent {
   struct ViewState: Equatable {
     let item: MovieEntity.MovieDetail.RecommendedMovie.Response
+
+    let movieID: MovieEntity.MovieDetail.MovieCard.Response
+
   }
 }
 

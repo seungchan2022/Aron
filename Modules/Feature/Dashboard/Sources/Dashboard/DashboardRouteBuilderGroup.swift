@@ -12,6 +12,7 @@ extension DashboardRouteBuilderGroup {
     [
       NowPlayingRouteBuilder.generate(),
       SimilarRouteBuilder.generate(),
+      RecommendedRouteBuilder.generate(),
       MovieDetailRouteBuilder.generate(),
       ReviewRouteBuilder.generate(),
       CastRouteBuilder.generate(),

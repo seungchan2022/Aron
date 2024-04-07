@@ -158,6 +158,16 @@ extension MovieDetailSideEffect {
     }
   }
 
+  var routeToRecommendedMovieList: (MovieEntity.MovieDetail.MovieCard.Response) -> Void {
+    { item in
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.recommended.rawValue,
+          items: item.serializedRecommendedMovieList()),
+        isAnimated: true)
+    }
+  }
+
   var routeToOtherPoster: (MovieEntity.MovieDetail.MovieCard.Response) -> Void {
     { item in
       navigator.fullSheet(
@@ -212,6 +222,10 @@ extension MovieEntity.MovieDetail.MovieCard.Response {
   }
 
   fileprivate func serializedSimilarMovieList() -> MovieEntity.MovieDetail.SimilarMovie.Request {
+    .init(movieID: id)
+  }
+
+  fileprivate func serializedRecommendedMovieList() -> MovieEntity.MovieDetail.RecommendedMovie.Request {
     .init(movieID: id)
   }
 }

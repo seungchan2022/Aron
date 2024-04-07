@@ -1,15 +1,15 @@
 import ComposableArchitecture
 import SwiftUI
 
-// MARK: - SimilarPage
+// MARK: - RecommendedPage
 
-struct SimilarPage {
-  @Bindable var store: StoreOf<SimilarReducer>
+struct RecommendedPage {
+  @Bindable var store: StoreOf<RecommendedReducer>
 }
 
 // MARK: View
 
-extension SimilarPage: View {
+extension RecommendedPage: View {
   var body: some View {
     ScrollView {
       // MovieItemComponent
@@ -31,7 +31,7 @@ extension SimilarPage: View {
         .padding(.top, 12)
       }
     }
-    .navigationTitle("Similar Movies")
+    .navigationTitle("Recommended Movies")
     .navigationBarTitleDisplayMode(.large)
     .onAppear {
       store.send(.getItem(store.item))

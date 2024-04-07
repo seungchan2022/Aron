@@ -110,10 +110,13 @@ extension MovieDetailPage: View {
         }
 
         // RecommendedMovie
-        if let item = store.fetchRecommendedMovieItem.value {
+        if
+          let movieID = store.fetchDetailItem.value,
+          let item = store.fetchRecommendedMovieItem.value
+        {
           RecommendedMovieItemListComponent(
-            viewState: .init(item: item),
-            tapSeeAllAction: { },
+            viewState: .init(item: item, movieID: movieID),
+            tapSeeAllAction: { store.send(.routeToRecommendedMovieList($0)) },
             tapRecommendedMovieAction: { store.send(.routeToRecommendedMovie($0)) })
         }
 

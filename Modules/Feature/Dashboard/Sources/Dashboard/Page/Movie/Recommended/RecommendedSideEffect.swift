@@ -3,9 +3,9 @@ import ComposableArchitecture
 import Domain
 import Foundation
 
-// MARK: - SimilarSideEffect
+// MARK: - RecommendedSideEffect
 
-struct SimilarSideEffect {
+struct RecommendedSideEffect {
   let useCase: DashboardEnvironmentUsable
   let main: AnySchedulerOf<DispatchQueue>
   let navigator: RootNavigatorType
@@ -21,19 +21,19 @@ struct SimilarSideEffect {
   }
 }
 
-extension SimilarSideEffect {
-  var similar: (MovieEntity.MovieDetail.SimilarMovie.Request) -> Effect<SimilarReducer.Action> {
+extension RecommendedSideEffect {
+  var recommended: (MovieEntity.MovieDetail.RecommendedMovie.Request) -> Effect<RecommendedReducer.Action> {
     { request in
       .publisher {
-        useCase.movieDetailUseCase.similarMovie(request)
+        useCase.movieDetailUseCase.recommendedMovie(request)
           .receive(on: main)
           .mapToResult()
-          .map(SimilarReducer.Action.fetchItem)
+          .map(RecommendedReducer.Action.fetchItem)
       }
     }
   }
 
-  var routeToDetail: (MovieEntity.MovieDetail.SimilarMovie.Response.Item) -> Void {
+  var routeToDetail: (MovieEntity.MovieDetail.RecommendedMovie.Response.Item) -> Void {
     { item in
       navigator.next(
         linkItem: .init(
@@ -44,8 +44,8 @@ extension SimilarSideEffect {
   }
 }
 
-extension MovieEntity.MovieDetail.SimilarMovie.Response.Item {
-  fileprivate func serialized() -> MovieEntity.MovieDetail.SimilarMovie.Request {
+extension MovieEntity.MovieDetail.RecommendedMovie.Response.Item {
+  fileprivate func serialized() -> MovieEntity.MovieDetail.RecommendedMovie.Request {
     .init(movieID: id)
   }
 }

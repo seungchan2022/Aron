@@ -2,20 +2,20 @@ import DesignSystem
 import Domain
 import SwiftUI
 
-// MARK: - SimilarPage.ItemComponent
+// MARK: - RecommendedPage.ItemComponent
 
-extension SimilarPage {
+extension RecommendedPage {
   struct ItemComponent {
     let viewState: ViewState
 
-    let tapAction: (MovieEntity.MovieDetail.SimilarMovie.Response.Item) -> Void
+    let tapAction: (MovieEntity.MovieDetail.RecommendedMovie.Response.Item) -> Void
 
     @Environment(\.colorScheme) var colorScheme
 
   }
 }
 
-extension SimilarPage.ItemComponent {
+extension RecommendedPage.ItemComponent {
   private var remoteImageURL: String {
     "https://image.tmdb.org/t/p/w500/\(viewState.item.poster ?? "")"
   }
@@ -49,9 +49,9 @@ extension SimilarPage.ItemComponent {
 
 }
 
-// MARK: - SimilarPage.ItemComponent + View
+// MARK: - RecommendedPage.ItemComponent + View
 
-extension SimilarPage.ItemComponent: View {
+extension RecommendedPage.ItemComponent: View {
   var body: some View {
     Button(action: { tapAction(viewState.item) }) {
       VStack {
@@ -130,11 +130,11 @@ extension SimilarPage.ItemComponent: View {
   }
 }
 
-// MARK: - SimilarPage.ItemComponent.ViewState
+// MARK: - RecommendedPage.ItemComponent.ViewState
 
-extension SimilarPage.ItemComponent {
+extension RecommendedPage.ItemComponent {
   struct ViewState: Equatable {
-    let item: MovieEntity.MovieDetail.SimilarMovie.Response.Item
+    let item: MovieEntity.MovieDetail.RecommendedMovie.Response.Item
   }
 }
 

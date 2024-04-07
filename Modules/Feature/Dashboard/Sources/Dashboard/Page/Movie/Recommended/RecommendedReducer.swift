@@ -4,13 +4,13 @@ import Domain
 import Foundation
 
 @Reducer
-struct SimilarReducer {
+struct RecommendedReducer {
 
   // MARK: Lifecycle
 
   init(
     pageID: String = UUID().uuidString,
-    sideEffect: SimilarSideEffect)
+    sideEffect: RecommendedSideEffect)
   {
     self.pageID = pageID
     self.sideEffect = sideEffect
@@ -22,13 +22,13 @@ struct SimilarReducer {
   struct State: Equatable, Identifiable {
     let id: UUID
 
-    let item: MovieEntity.MovieDetail.SimilarMovie.Request
+    let item: MovieEntity.MovieDetail.RecommendedMovie.Request
 
-    var fetchItem: FetchState.Data<MovieEntity.MovieDetail.SimilarMovie.Response?> = .init(isLoading: false, value: .none)
+    var fetchItem: FetchState.Data<MovieEntity.MovieDetail.RecommendedMovie.Response?> = .init(isLoading: false, value: .none)
 
     init(
       id: UUID = UUID(),
-      item: MovieEntity.MovieDetail.SimilarMovie.Request)
+      item: MovieEntity.MovieDetail.RecommendedMovie.Request)
     {
       self.id = id
       self.item = item
@@ -39,10 +39,10 @@ struct SimilarReducer {
     case binding(BindingAction<State>)
     case teardown
 
-    case getItem(MovieEntity.MovieDetail.SimilarMovie.Request)
-    case fetchItem(Result<MovieEntity.MovieDetail.SimilarMovie.Response, CompositeErrorRepository>)
+    case getItem(MovieEntity.MovieDetail.RecommendedMovie.Request)
+    case fetchItem(Result<MovieEntity.MovieDetail.RecommendedMovie.Response, CompositeErrorRepository>)
 
-    case routeToDetail(MovieEntity.MovieDetail.SimilarMovie.Response.Item)
+    case routeToDetail(MovieEntity.MovieDetail.RecommendedMovie.Response.Item)
 
     case throwError(CompositeErrorRepository)
   }
@@ -65,7 +65,7 @@ struct SimilarReducer {
 
       case .getItem(let request):
         state.fetchItem.isLoading = true
-        return sideEffect.similar(request)
+        return sideEffect.recommended(request)
           .cancellable(pageID: pageID, id: CancelID.requestItem, cancelInFlight: true)
 
       case .fetchItem(let result):
@@ -93,5 +93,5 @@ struct SimilarReducer {
   // MARK: Private
 
   private let pageID: String
-  private let sideEffect: SimilarSideEffect
+  private let sideEffect: RecommendedSideEffect
 }
