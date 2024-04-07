@@ -232,13 +232,17 @@ extension MovieEntity.MovieDetail.SimilarMovie {
       public let id: Int
       public let title: String
       public let poster: String?
+      public let releaseDate: String
       public let voteAverage: Double?
+      public let overview: String?
 
       private enum CodingKeys: String, CodingKey {
         case id
         case title
         case poster = "poster_path"
+        case releaseDate = "release_date"
         case voteAverage = "vote_average"
+        case overview
       }
     }
 

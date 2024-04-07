@@ -138,6 +138,16 @@ extension MovieDetailSideEffect {
     }
   }
 
+  var routeToSimilarMovieList: (MovieEntity.MovieDetail.MovieCard.Response) -> Void {
+    { item in
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.similar.rawValue,
+          items: item.serializedSimilarMovieList()),
+        isAnimated: true)
+    }
+  }
+
   var routeToRecommendedMovie: (MovieEntity.MovieDetail.RecommendedMovie.Response.Item) -> Void {
     { item in
       navigator.next(
@@ -153,7 +163,7 @@ extension MovieDetailSideEffect {
       navigator.fullSheet(
         linkItem: .init(
           path: Link.Dashboard.Path.otherPoster.rawValue,
-          items: item.serializedSimilarOtherPoster()),
+          items: item.serializedOtherPoster()),
         isAnimated: false,
         prefersLargeTitles: false)
     }
@@ -197,7 +207,11 @@ extension MovieEntity.MovieDetail.RecommendedMovie.Response.Item {
 }
 
 extension MovieEntity.MovieDetail.MovieCard.Response {
-  fileprivate func serializedSimilarOtherPoster() -> MovieEntity.MovieDetail.MovieCard.Request {
+  fileprivate func serializedOtherPoster() -> MovieEntity.MovieDetail.MovieCard.Request {
+    .init(movieID: id)
+  }
+
+  fileprivate func serializedSimilarMovieList() -> MovieEntity.MovieDetail.SimilarMovie.Request {
     .init(movieID: id)
   }
 }

@@ -81,6 +81,9 @@ struct MovieDetailReducer {
     case routeToCastList(MovieEntity.MovieDetail.Credit.Response)
     case routeToCrewList(MovieEntity.MovieDetail.Credit.Response)
     case routeToSimilarMovie(MovieEntity.MovieDetail.SimilarMovie.Response.Item)
+
+    case routeToSimilarMovieList(MovieEntity.MovieDetail.MovieCard.Response)
+
     case routeToRecommendedMovie(MovieEntity.MovieDetail.RecommendedMovie.Response.Item)
 
     case routeToOtherPoster(MovieEntity.MovieDetail.MovieCard.Response)
@@ -209,6 +212,10 @@ struct MovieDetailReducer {
 
       case .routeToSimilarMovie(let item):
         sideEffect.routeToSimilarMovie(item)
+        return .none
+
+      case .routeToSimilarMovieList(let item):
+        sideEffect.routeToSimilarMovieList(item)
         return .none
 
       case .routeToRecommendedMovie(let item):
