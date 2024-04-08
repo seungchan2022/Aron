@@ -1,13 +1,15 @@
 import Architecture
+import ComposableArchitecture
 import Domain
 import Foundation
-import ComposableArchitecture
+
+// MARK: - HomeSideEffect
 
 struct HomeSideEffect {
   let useCase: DashboardEnvironmentUsable
   let main: AnySchedulerOf<DispatchQueue>
   let navigator: RootNavigatorType
-  
+
   init(
     useCase: DashboardEnvironmentUsable,
     main: AnySchedulerOf<DispatchQueue> = .main,
@@ -19,6 +21,4 @@ struct HomeSideEffect {
   }
 }
 
-extension HomeSideEffect {
-  
-}
+extension HomeSideEffect { }

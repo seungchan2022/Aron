@@ -1,13 +1,15 @@
 import Architecture
+import ComposableArchitecture
 import Domain
 import Foundation
-import ComposableArchitecture
+
+// MARK: - UpcomingSideEffect
 
 struct UpcomingSideEffect {
   let useCase: DashboardEnvironmentUsable
   let main: AnySchedulerOf<DispatchQueue>
   let navigator: RootNavigatorType
-  
+
   init(
     useCase: DashboardEnvironmentUsable,
     main: AnySchedulerOf<DispatchQueue> = .main,
@@ -22,15 +24,15 @@ struct UpcomingSideEffect {
 extension UpcomingSideEffect {
   var getItem: (MovieEntity.Movie.Upcoming.Request) -> Effect<UpcomingReducer.Action> {
     { item in
-        .publisher {
-          useCase.movieUseCase.upcoming(item)
-            .receive(on: main)
-            .mapToResult()
-            .map(UpcomingReducer.Action.fetchItem)
-        }
+      .publisher {
+        useCase.movieUseCase.upcoming(item)
+          .receive(on: main)
+          .mapToResult()
+          .map(UpcomingReducer.Action.fetchItem)
+      }
     }
   }
-  
+
   var routeToDetail: (MovieEntity.Movie.Upcoming.Item) -> Void {
     { item in
       navigator.next(
@@ -44,6 +46,6 @@ extension UpcomingSideEffect {
 
 extension MovieEntity.Movie.Upcoming.Item {
   fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
-    .init(movieID: self.id)
+    .init(movieID: id)
   }
 }

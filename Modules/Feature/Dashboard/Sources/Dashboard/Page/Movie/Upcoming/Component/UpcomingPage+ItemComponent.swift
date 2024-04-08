@@ -2,7 +2,7 @@ import DesignSystem
 import Domain
 import SwiftUI
 
-// MARK: - NowPlayingPage.ItemComponent
+// MARK: - UpcomingPage.ItemComponent
 
 extension UpcomingPage {
   struct ItemComponent {
@@ -47,7 +47,7 @@ extension UpcomingPage.ItemComponent {
 
 }
 
-// MARK: - NowPlayingPage.ItemComponent + View
+// MARK: - UpcomingPage.ItemComponent + View
 
 extension UpcomingPage.ItemComponent: View {
   var body: some View {
@@ -128,7 +128,7 @@ extension UpcomingPage.ItemComponent: View {
   }
 }
 
-// MARK: - NowPlayingPage.ItemComponent.ViewState
+// MARK: - UpcomingPage.ItemComponent.ViewState
 
 extension UpcomingPage.ItemComponent {
   struct ViewState: Equatable {

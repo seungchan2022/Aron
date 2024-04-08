@@ -13,7 +13,6 @@ struct AppMain {
 extension AppMain: View {
 
   var body: some View {
-
     TabLinkNavigationView(
       linkNavigator: viewModel.linkNavigator,
       isHiddenDefaultTabbar: false,

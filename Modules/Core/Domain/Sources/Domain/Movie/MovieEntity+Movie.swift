@@ -83,7 +83,6 @@ extension MovieEntity.Movie.NowPlaying {
   }
 }
 
-
 extension MovieEntity.Movie.Upcoming {
   public struct Request: Equatable, Codable, Sendable {
 

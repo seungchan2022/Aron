@@ -1,7 +1,7 @@
 import ComposableArchitecture
 import SwiftUI
 
-// MARK: - NowPlayingPage.SearchComponent
+// MARK: - UpcomingPage.SearchComponent
 
 extension UpcomingPage {
   struct SearchComponent {
@@ -13,7 +13,7 @@ extension UpcomingPage {
 
 extension UpcomingPage.SearchComponent { }
 
-// MARK: - NowPlayingPage.SearchComponent + View
+// MARK: - UpcomingPage.SearchComponent + View
 
 extension UpcomingPage.SearchComponent: View {
   var body: some View {
@@ -48,7 +48,7 @@ extension UpcomingPage.SearchComponent: View {
   }
 }
 
-// MARK: - NowPlayingPage.SearchComponent.ViewState
+// MARK: - UpcomingPage.SearchComponent.ViewState
 
 extension UpcomingPage.SearchComponent {
   struct ViewState: Equatable { }

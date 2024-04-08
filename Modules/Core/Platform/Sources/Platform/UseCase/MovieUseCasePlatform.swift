@@ -28,15 +28,18 @@ extension MovieUseCasePlatform: MovieUseCase {
         .fetch(isDebug: true)
     }
   }
-  
-  public var upcoming: (MovieEntity.Movie.Upcoming.Request) -> AnyPublisher<MovieEntity.Movie.Upcoming.Response, CompositeErrorRepository> {
+
+  public var upcoming: (MovieEntity.Movie.Upcoming.Request) -> AnyPublisher<
+    MovieEntity.Movie.Upcoming.Response,
+    CompositeErrorRepository
+  > {
     {
       Endpoint(
         baseURL: baseURL,
         pathList: ["upcoming"],
         httpMethod: .get,
         content: .queryItemPath($0))
-      .fetch(isDebug: true)
+        .fetch(isDebug: true)
     }
   }
 }

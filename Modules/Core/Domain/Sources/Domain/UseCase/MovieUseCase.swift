@@ -5,7 +5,7 @@ public protocol MovieUseCase {
     MovieEntity.Movie.NowPlaying.Response,
     CompositeErrorRepository
   > { get }
-  
+
   var upcoming: (MovieEntity.Movie.Upcoming.Request) -> AnyPublisher<
     MovieEntity.Movie.Upcoming.Response,
     CompositeErrorRepository

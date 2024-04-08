@@ -188,7 +188,7 @@ extension MovieEntity.MovieDetail.Review.Response {
 
 extension MovieEntity.MovieDetail.MovieCard.Response {
   fileprivate func serializedCredit() -> MovieEntity.MovieDetail.Credit.Request {
-    .init(movieID: self.id)
+    .init(movieID: id)
   }
 }
 
