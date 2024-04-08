@@ -78,8 +78,8 @@ struct MovieDetailReducer {
     case routeToReview(MovieEntity.MovieDetail.Review.Response)
     case routeToCastItem(MovieEntity.MovieDetail.Credit.CastItem)
     case routeToCrewItem(MovieEntity.MovieDetail.Credit.CrewItem)
-    case routeToCastList(MovieEntity.MovieDetail.Credit.Response)
-    case routeToCrewList(MovieEntity.MovieDetail.Credit.Response)
+    case routeToCastList(MovieEntity.MovieDetail.MovieCard.Response)
+    case routeToCrewList(MovieEntity.MovieDetail.MovieCard.Response)
     case routeToSimilarMovie(MovieEntity.MovieDetail.SimilarMovie.Response.Item)
 
     case routeToSimilarMovieList(MovieEntity.MovieDetail.MovieCard.Response)
@@ -121,7 +121,7 @@ struct MovieDetailReducer {
         state.fetchReviewItem.isLoading = true
         return sideEffect.review(requestModel)
           .cancellable(pageID: pageID, id: CancelID.requestReview, cancelInFlight: true)
-//
+
       case .getCredit(let requestModel):
         state.fetchCreditItem.isLoading = true
         return sideEffect.credit(requestModel)

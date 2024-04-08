@@ -108,7 +108,7 @@ extension MovieDetailSideEffect {
     }
   }
 
-  var routeToCastList: (MovieEntity.MovieDetail.Credit.Response) -> Void {
+  var routeToCastList: (MovieEntity.MovieDetail.MovieCard.Response) -> Void {
     { item in
       navigator.next(
         linkItem: .init(
@@ -118,7 +118,7 @@ extension MovieDetailSideEffect {
     }
   }
 
-  var routeToCrewList: (MovieEntity.MovieDetail.Credit.Response) -> Void {
+  var routeToCrewList: (MovieEntity.MovieDetail.MovieCard.Response) -> Void {
     { item in
       navigator.next(
         linkItem: .init(
@@ -186,9 +186,9 @@ extension MovieEntity.MovieDetail.Review.Response {
   }
 }
 
-extension MovieEntity.MovieDetail.Credit.Response {
+extension MovieEntity.MovieDetail.MovieCard.Response {
   fileprivate func serializedCredit() -> MovieEntity.MovieDetail.Credit.Request {
-    .init(movieID: id)
+    .init(movieID: self.id)
   }
 }
 
