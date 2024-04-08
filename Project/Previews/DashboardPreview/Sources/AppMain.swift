@@ -13,6 +13,7 @@ struct AppMain {
 extension AppMain: View {
 
   var body: some View {
+
     TabLinkNavigationView(
       linkNavigator: viewModel.linkNavigator,
       isHiddenDefaultTabbar: false,
@@ -23,7 +24,7 @@ extension AppMain: View {
             title: "Movie",
             image: .init(systemName: "film.fill"),
             tag: .zero),
-          linkItem: .init(path: Link.Dashboard.Path.nowPlaying.rawValue),
+          linkItem: .init(path: Link.Dashboard.Path.home.rawValue),
           prefersLargeTitles: true),
 
         .init(
