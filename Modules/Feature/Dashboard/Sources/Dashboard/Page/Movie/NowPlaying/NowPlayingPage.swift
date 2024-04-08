@@ -5,9 +5,9 @@ import SwiftUI
 
 struct NowPlayingPage {
   @Bindable var store: StoreOf<NowPlayingReducer>
-
+  
   @State private var searchResult: SearchResult = .movie
-
+  
 }
 
 extension NowPlayingPage {
@@ -51,10 +51,10 @@ extension NowPlayingPage {
           voteAverage: 7.788,
           releaseDate: "2024-02-09",
           overView: "10191년, 아트레이데스 가문의 후계자인 폴은 시간과 공간을 초월해 과거와 미래를 모두 볼 수 있고, 더 나은 미래를 만들 유일한 구원자인 예지된 자의 운명을 타고났다. 그리고 어떤 계시처럼 매일 꿈에서 아라키스의 행성에 있는 한 여인을 만난다. 귀족들이 지지하는 아트레이데스 가문에 대한 황제의 질투는 폴과 그 일족들을 죽음이 기다리는 아라키스로 이끄는데..."),
-
+        
       ])
   }
-
+  
   private var searchResultPersonListComponentViewState: SearchResultPersonComponent.ViewState {
     .init(personItemList: [
       .init(
@@ -62,39 +62,39 @@ extension NowPlayingPage {
         name: "서치 프로필 테스트1",
         workList: [
         ]),
-
-      .init(
-        id: 23,
-        name: "서치 프로필 테스트2",
-        workList: [
-          "1212",
-          "125125521",
-          "125125524",
-          "1251255267",
-          "1251255233",
-          "125125524",
-          "1251255267",
-          "1251255233",
-        ]),
-
-      .init(
-        id: 33,
-        name: "서치 프로필 테스트3",
-        workList: [
-        ]),
-
-      .init(
-        id: 43,
-        name: "서치 프로필 테스트4",
-        workList: [
-        ]),
-
-      .init(
-        id: 53,
-        name: "서치 프로필 테스트5",
-        workList: [
-        ]),
-
+      
+        .init(
+          id: 23,
+          name: "서치 프로필 테스트2",
+          workList: [
+            "1212",
+            "125125521",
+            "125125524",
+            "1251255267",
+            "1251255233",
+            "125125524",
+            "1251255267",
+            "1251255233",
+          ]),
+      
+        .init(
+          id: 33,
+          name: "서치 프로필 테스트3",
+          workList: [
+          ]),
+      
+        .init(
+          id: 43,
+          name: "서치 프로필 테스트4",
+          workList: [
+          ]),
+      
+        .init(
+          id: 53,
+          name: "서치 프로필 테스트5",
+          workList: [
+          ]),
+      
     ])
   }
 }
@@ -107,9 +107,9 @@ extension NowPlayingPage: View {
       SearchComponent(
         viewState: .init(),
         store: store)
-
+      
       // query에 따라서 보이는 Component 다르게
-
+      
       if store.query.isEmpty {
         // MovieItemComponent
         LazyVStack(spacing: 16) {
@@ -119,11 +119,11 @@ extension NowPlayingPage: View {
               tapAction: {
                 store.send(.routeToDetail($0))
               })
-              .onAppear {
-                guard let last = store.itemList.last, last.id == item.id else { return }
-                guard !store.fetchItem.isLoading else { return }
-                store.send(.getItem)
-              }
+            .onAppear {
+              guard let last = store.itemList.last, last.id == item.id else { return }
+              guard !store.fetchItem.isLoading else { return }
+              store.send(.getItem)
+            }
           }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -137,24 +137,24 @@ extension NowPlayingPage: View {
           {
             Text("Movie")
               .tag(SearchResult.movie)
-
+            
             Text("People")
               .tag(SearchResult.person)
           }
           .pickerStyle(.segmented)
           .padding(.horizontal, 16)
-
+          
           Divider()
             .padding(.leading, 16)
-
+          
           switch self.searchResult {
           case .movie:
-
+            
             SearchResultMovieComponent(
               viewState: searchResultMovieListComponentViewState,
               tapAction: { },
               store: store)
-
+            
           case .person:
             SearchResultPersonComponent(
               viewState: searchResultPersonListComponentViewState,
@@ -164,23 +164,7 @@ extension NowPlayingPage: View {
         }
       }
     }
-    .navigationTitle("Now Playing")
-    .navigationBarTitleDisplayMode(.inline)
     .scrollDismissesKeyboard(.immediately)
-    .toolbar {
-      ToolbarItem(placement: .topBarTrailing) {
-        Button(action: { }) {
-          Image(systemName: "rectangle.3.group.fill")
-        }
-      }
-
-      ToolbarItem(placement: .topBarTrailing) {
-        Button(action: { }) {
-          Image(systemName: "gearshape")
-        }
-      }
-    }
-
     .onAppear {
       store.send(.getItem)
     }
