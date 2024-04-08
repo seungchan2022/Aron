@@ -10,7 +10,9 @@ extension Link {
 
 extension Link.Dashboard {
   public enum Path: String, Equatable {
+    case home
     case nowPlaying
+    case upcoming
     case similar
     case recommended
     case movieDetail
