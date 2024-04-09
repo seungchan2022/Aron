@@ -44,7 +44,7 @@ extension HomePage: View {
     .indexViewStyle(.page(backgroundDisplayMode: .always))
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
-        Button(action: { }) {
+        Button(action: { store.send(.routeToMovieList) }) {
           Image(systemName: "rectangle.3.group.fill")
         }
       }

@@ -11,6 +11,7 @@ extension DashboardRouteBuilderGroup {
   public static var release: [RouteBuilderOf<RootNavigator>] {
     [
       HomeRouteBuilder.generate(),
+      MovieListRouteBuilder.generate(),
       NowPlayingRouteBuilder.generate(),
       UpcomingRouteBuilder.generate(),
       TrendingRouteBuilder.generate(),

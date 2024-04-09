@@ -32,6 +32,8 @@ struct HomeReducer {
     case binding(BindingAction<State>)
     case teardown
 
+    case routeToMovieList
+
     case throwError(CompositeErrorRepository)
   }
 
@@ -49,6 +51,10 @@ struct HomeReducer {
       case .teardown:
         return .concatenate(
           CancelID.allCases.map { .cancel(pageID: pageID, id: $0) })
+
+      case .routeToMovieList:
+        sideEffect.routeToMovieList()
+        return .none
 
       case .throwError(let error):
         sideEffect.useCase.toastViewModel.send(errorMessage: error.displayMessage)

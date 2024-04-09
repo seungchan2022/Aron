@@ -21,4 +21,12 @@ struct HomeSideEffect {
   }
 }
 
-extension HomeSideEffect { }
+extension HomeSideEffect {
+  var routeToMovieList: () -> Void {
+    {
+      navigator.next(
+        linkItem: .init(path: Link.Dashboard.Path.movieList.rawValue),
+        isAnimated: false)
+    }
+  }
+}
