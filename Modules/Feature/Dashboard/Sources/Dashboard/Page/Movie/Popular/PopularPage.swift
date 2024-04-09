@@ -1,24 +1,21 @@
 import ComposableArchitecture
 import SwiftUI
 
-// MARK: - UpcomingPage
+// MARK: - PopularPage
 
-struct UpcomingPage {
-  @Bindable var store: StoreOf<UpcomingReducer>
-
+struct PopularPage {
+  @Bindable var store: StoreOf<PopularReducer>
 }
 
 // MARK: View
 
-extension UpcomingPage: View {
+extension PopularPage: View {
   var body: some View {
     ScrollView {
       SearchComponent(
         viewState: .init(),
         store: store)
-      // query에 따라서 보이는 Component 다르게
 
-      // MovieItemComponent
       LazyVStack(spacing: 16) {
         ForEach(store.itemList) { item in
           ItemComponent(

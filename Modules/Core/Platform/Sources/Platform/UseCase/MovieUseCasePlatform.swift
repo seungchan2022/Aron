@@ -42,4 +42,46 @@ extension MovieUseCasePlatform: MovieUseCase {
         .fetch(isDebug: true)
     }
   }
+
+  public var trending: (MovieEntity.Movie.Trending.Request) -> AnyPublisher<
+    MovieEntity.Movie.Trending.Response,
+    CompositeErrorRepository
+  > {
+    {
+      Endpoint(
+        baseURL: "https://api.themoviedb.org/3/",
+        pathList: ["trending", "movie", "day"],
+        httpMethod: .get,
+        content: .queryItemPath($0))
+        .fetch(isDebug: true)
+    }
+  }
+
+  public var popular: (MovieEntity.Movie.Popular.Request) -> AnyPublisher<
+    MovieEntity.Movie.Popular.Response,
+    CompositeErrorRepository
+  > {
+    {
+      Endpoint(
+        baseURL: baseURL,
+        pathList: ["popular"],
+        httpMethod: .get,
+        content: .queryItemPath($0))
+        .fetch(isDebug: true)
+    }
+  }
+
+  public var topRated: (MovieEntity.Movie.TopRated.Request) -> AnyPublisher<
+    MovieEntity.Movie.TopRated.Response,
+    CompositeErrorRepository
+  > {
+    {
+      Endpoint(
+        baseURL: baseURL,
+        pathList: ["top_rated"],
+        httpMethod: .get,
+        content: .queryItemPath($0))
+        .fetch(isDebug: true)
+    }
+  }
 }

@@ -10,4 +10,17 @@ public protocol MovieUseCase {
     MovieEntity.Movie.Upcoming.Response,
     CompositeErrorRepository
   > { get }
+
+  var trending: (MovieEntity.Movie.Trending.Request) -> AnyPublisher<
+    MovieEntity.Movie.Trending.Response,
+    CompositeErrorRepository
+  > { get }
+
+  var popular: (MovieEntity.Movie.Popular.Request)
+    -> AnyPublisher<MovieEntity.Movie.Popular.Response,CompositeErrorRepository> { get }
+
+  var topRated: (MovieEntity.Movie.TopRated.Request) -> AnyPublisher<
+    MovieEntity.Movie.TopRated.Response,
+    CompositeErrorRepository
+  > { get }
 }

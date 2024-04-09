@@ -31,6 +31,27 @@ struct HomeRouteBuilder<RootNavigator: RootNavigatorType> {
               UpcomingReducer(sideEffect: .init(
                 useCase: env,
                 navigator: navigator))
+            }),
+          trendingStore: .init(
+            initialState: TrendingReducer.State(),
+            reducer: {
+              TrendingReducer(sideEffect: .init(
+                useCase: env,
+                navigator: navigator))
+            }),
+          popularStore: .init(
+            initialState: PopularReducer.State(),
+            reducer: {
+              PopularReducer(sideEffect: .init(
+                useCase: env,
+                navigator: navigator))
+            }),
+          topRatedStore: .init(
+            initialState: TopRatedReducer.State(),
+            reducer: {
+              TopRatedReducer(sideEffect: .init(
+                useCase: env,
+                navigator: navigator))
             }))
       }
     }

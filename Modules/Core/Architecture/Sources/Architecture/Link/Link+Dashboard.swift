@@ -13,6 +13,9 @@ extension Link.Dashboard {
     case home
     case nowPlaying
     case upcoming
+    case trending
+    case popular
+    case topRated
     case similar
     case recommended
     case movieDetail
