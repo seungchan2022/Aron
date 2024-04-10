@@ -78,6 +78,62 @@ extension MovieDetailSideEffect {
     }
   }
 
+  var isWishLike: (MovieEntity.MovieDetail.MovieCard.Response) -> Effect<MovieDetailReducer.Action> {
+    { item in
+      .publisher {
+        useCase.movieListUseCase.getIsWishLike()
+          .map {
+            $0.wishList.first(where: { $0 == item }) != .none
+          }
+          .receive(on: main)
+          .mapToResult()
+          .map(MovieDetailReducer.Action.fetchIsWish)
+      }
+    }
+  }
+
+  var updateIsWish: (MovieEntity.MovieDetail.MovieCard.Response) -> Effect<MovieDetailReducer.Action> {
+    { item in
+      .publisher {
+        useCase.movieListUseCase.saveWishList(item)
+          .map {
+            $0.wishList.first(where: { $0 == item }) != .none
+          }
+          .receive(on: main)
+          .mapToResult()
+          .map(MovieDetailReducer.Action.fetchIsWish)
+      }
+    }
+  }
+
+  var isSeenLike: (MovieEntity.MovieDetail.MovieCard.Response) -> Effect<MovieDetailReducer.Action> {
+    { item in
+      .publisher {
+        useCase.movieListUseCase.getIsSeenLike()
+          .map {
+            $0.seenList.first(where: { $0 == item }) != .none
+          }
+          .receive(on: main)
+          .mapToResult()
+          .map(MovieDetailReducer.Action.fetchIsSeen)
+      }
+    }
+  }
+
+  var updateIsSeen: (MovieEntity.MovieDetail.MovieCard.Response) -> Effect<MovieDetailReducer.Action> {
+    { item in
+      .publisher {
+        useCase.movieListUseCase.saveSeenList(item)
+          .map {
+            $0.seenList.first(where: { $0 == item }) != .none
+          }
+          .receive(on: main)
+          .mapToResult()
+          .map(MovieDetailReducer.Action.fetchIsSeen)
+      }
+    }
+  }
+
   var routeToReview: (MovieEntity.MovieDetail.Review.Response) -> Void {
     { item in
       navigator.next(

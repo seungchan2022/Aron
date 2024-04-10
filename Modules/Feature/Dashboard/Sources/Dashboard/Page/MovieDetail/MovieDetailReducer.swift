@@ -57,6 +57,10 @@ struct MovieDetailReducer {
     var fetchRecommendedMovieItem: FetchState.Data<MovieEntity.MovieDetail.RecommendedMovie.Response?> = .init(
       isLoading: false,
       value: .none)
+
+    var fetchIsWish: FetchState.Data<Bool> = .init(isLoading: false, value: false)
+
+    var fetchIsSeen: FetchState.Data<Bool> = .init(isLoading: false, value: false)
   }
 
   enum Action: Equatable, BindableAction {
@@ -69,11 +73,20 @@ struct MovieDetailReducer {
     case getSimilarMovie(MovieEntity.MovieDetail.SimilarMovie.Request)
     case getRecommendedMovie(MovieEntity.MovieDetail.RecommendedMovie.Request)
 
+    case getIsWishLike(MovieEntity.MovieDetail.MovieCard.Response?)
+    case updateIsWish(MovieEntity.MovieDetail.MovieCard.Response)
+
+    case getIsSeenLike(MovieEntity.MovieDetail.MovieCard.Response?)
+    case updateIsSeen(MovieEntity.MovieDetail.MovieCard.Response)
+
     case fetchDetailItem(Result<MovieEntity.MovieDetail.MovieCard.Response, CompositeErrorRepository>)
     case fetchReviewItem(Result<MovieEntity.MovieDetail.Review.Response, CompositeErrorRepository>)
     case fetchCreditItem(Result<MovieEntity.MovieDetail.Credit.Response, CompositeErrorRepository>)
     case fetchSimilarMovieItem(Result<MovieEntity.MovieDetail.SimilarMovie.Response, CompositeErrorRepository>)
     case fetchRecommendedMovieItem(Result<MovieEntity.MovieDetail.RecommendedMovie.Response, CompositeErrorRepository>)
+
+    case fetchIsWish(Result<Bool, CompositeErrorRepository>)
+    case fetchIsSeen(Result<Bool, CompositeErrorRepository>)
 
     case routeToReview(MovieEntity.MovieDetail.Review.Response)
     case routeToCastItem(MovieEntity.MovieDetail.Credit.CastItem)
@@ -99,6 +112,8 @@ struct MovieDetailReducer {
     case requestCredit
     case reqeustSimilarMovie
     case requestRecommendedMovie
+    case requestIsWish
+    case requestIsSeen
   }
 
   var body: some Reducer<State, Action> {
@@ -136,6 +151,28 @@ struct MovieDetailReducer {
         state.fetchRecommendedMovieItem.isLoading = true
         return sideEffect.recommendedMovie(requestModel)
           .cancellable(pageID: pageID, id: CancelID.requestRecommendedMovie, cancelInFlight: true)
+
+      case .getIsWishLike(let item):
+        guard let item else { return .none }
+        state.fetchIsWish.isLoading = true
+        return sideEffect.isWishLike(item)
+          .cancellable(pageID: pageID, id: CancelID.requestIsWish, cancelInFlight: true)
+
+      case .updateIsWish(let item):
+        state.fetchIsWish.isLoading = true
+        return sideEffect.updateIsWish(item)
+          .cancellable(pageID: pageID, id: CancelID.requestIsWish, cancelInFlight: true)
+
+      case .getIsSeenLike(let item):
+        guard let item else { return .none }
+        state.fetchIsSeen.isLoading = true
+        return sideEffect.isSeenLike(item)
+          .cancellable(pageID: pageID, id: CancelID.requestIsSeen, cancelInFlight: true)
+
+      case .updateIsSeen(let item):
+        state.fetchIsSeen.isLoading = true
+        return sideEffect.updateIsSeen(item)
+          .cancellable(pageID: pageID, id: CancelID.requestIsSeen, cancelInFlight: true)
 
       case .fetchDetailItem(let result):
         state.fetchDetailItem.isLoading = false
@@ -185,6 +222,28 @@ struct MovieDetailReducer {
         switch result {
         case .success(let item):
           state.fetchRecommendedMovieItem.value = item
+          return .none
+
+        case .failure(let error):
+          return .run { await $0(.throwError(error)) }
+        }
+
+      case .fetchIsWish(let result):
+        state.fetchIsWish.isLoading = false
+        switch result {
+        case .success(let item):
+          state.fetchIsWish.value = item
+          return .none
+
+        case .failure(let error):
+          return .run { await $0(.throwError(error)) }
+        }
+
+      case .fetchIsSeen(let result):
+        state.fetchIsSeen.isLoading = false
+        switch result {
+        case .success(let item):
+          state.fetchIsSeen.value = item
           return .none
 
         case .failure(let error):

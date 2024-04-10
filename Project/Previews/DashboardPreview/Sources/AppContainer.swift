@@ -27,7 +27,8 @@ extension AppContainer {
       movieUseCase: MovieUseCasePlatform(),
       movieDetailUseCase: MovieDetailUseCasePlatform(),
       personUseCase: PersonUseCasePlatform(),
-      fanClubUseCase: FanClubUseCasePlatform())
+      fanClubUseCase: FanClubUseCasePlatform(),
+      movieListUseCase: MovieListUseCasePlatform())
 
     return .init(
       dependency: sideEffect,

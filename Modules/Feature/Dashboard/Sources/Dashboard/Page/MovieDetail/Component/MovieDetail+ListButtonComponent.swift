@@ -1,4 +1,5 @@
 import DesignSystem
+import Domain
 import SwiftUI
 
 // MARK: - MovieDetailPage.ListButtonComponent
@@ -6,14 +7,41 @@ import SwiftUI
 extension MovieDetailPage {
   struct ListButtonComponent {
     let viewState: ViewState
-
-    @Binding var isWishListButtonTapped: Bool
-    @Binding var isSeenListButtonTapped: Bool
-    @Binding var isShowingConfirmation: Bool
+    let wishAction: (MovieEntity.MovieDetail.MovieCard.Response) -> Void
+    let seenAction: (MovieEntity.MovieDetail.MovieCard.Response) -> Void
   }
 }
 
-extension MovieDetailPage.ListButtonComponent { }
+extension MovieDetailPage.ListButtonComponent {
+  private var wishButtonImage: Image {
+    Image(systemName: viewState.isWish ? "heart.fill" : "heart")
+  }
+
+  private var wishButtonText: String {
+    viewState.isWish ? "In wishlist" : "Wishlist"
+  }
+
+  private var wishButtonColor: Color {
+    viewState.isWish
+      ? DesignSystemColor.system(.white).color
+      : DesignSystemColor.tint(.red).color
+  }
+
+  private var seenButtonImage: Image {
+    Image(systemName: viewState.isSeen ? "eye.fill" : "heart")
+  }
+
+  private var seenButtonText: String {
+    viewState.isSeen ? "Seen" : "Seenlist"
+  }
+
+  private var seenButtonColor: Color {
+    viewState.isSeen
+      ? DesignSystemColor.system(.white).color
+      : DesignSystemColor.tint(.green).color
+  }
+
+}
 
 // MARK: - MovieDetailPage.ListButtonComponent + View
 
@@ -21,97 +49,45 @@ extension MovieDetailPage.ListButtonComponent: View {
   var body: some View {
     HStack(spacing: 12) {
       Button(action: {
-        self.isWishListButtonTapped.toggle()
-        self.isSeenListButtonTapped = false
+        wishAction(viewState.item)
       }) {
         HStack {
-          Image(systemName: "heart")
+          wishButtonImage
             .resizable()
             .frame(width: 16, height: 16)
 
-          Text(isWishListButtonTapped ? "In wishlist" : "Wishlist")
+          Text(wishButtonText)
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 4)
-        .foregroundStyle(
-          isWishListButtonTapped
-            ? DesignSystemColor.system(.white).color
-            : DesignSystemColor.tint(.red).color)
-          .background(
-            RoundedRectangle(cornerRadius: 5)
-              .fill(isWishListButtonTapped ? DesignSystemColor.tint(.red).color : Color.clear))
-          .overlay {
-            RoundedRectangle(cornerRadius: 5).stroke(DesignSystemColor.tint(.red).color, lineWidth: 1)
-          }
+        .foregroundStyle(wishButtonColor)
+        .background(
+          RoundedRectangle(cornerRadius: 5)
+            .fill(viewState.isWish ? DesignSystemColor.tint(.red).color : Color.clear))
+        .overlay {
+          RoundedRectangle(cornerRadius: 5).stroke(DesignSystemColor.tint(.red).color, lineWidth: 1)
+        }
       }
-
+//
       Button(action: {
-        self.isWishListButtonTapped = false
-        self.isSeenListButtonTapped.toggle()
+        seenAction(viewState.item)
       }) {
         HStack {
-          Image(systemName: "eye")
+          seenButtonImage
             .resizable()
             .frame(width: 20, height: 16)
 
-          Text(isSeenListButtonTapped ? "Seen" : "Seenlist")
+          Text(seenButtonText)
         }
       }
       .padding(.horizontal, 8)
       .padding(.vertical, 4)
-      .foregroundStyle(
-        isSeenListButtonTapped
-          ? DesignSystemColor.system(.white).color
-          : DesignSystemColor.tint(.green).color)
-        .background(
-          RoundedRectangle(cornerRadius: 5)
-            .fill(isSeenListButtonTapped ? DesignSystemColor.tint(.green).color : Color.clear))
-        .overlay {
-          RoundedRectangle(cornerRadius: 5).stroke(DesignSystemColor.tint(.green).color, lineWidth: 1)
-        }
-
-      Button(action: {
-        self.isShowingConfirmation = true
-      }) {
-        HStack {
-          Image(systemName: "pin")
-            .resizable()
-            .frame(width: 12, height: 16)
-
-          Text("List")
-        }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 4)
-        .foregroundStyle(DesignSystemColor.label(.ocher).color)
-        .overlay {
-          RoundedRectangle(cornerRadius: 5).stroke(DesignSystemColor.label(.ocher).color, lineWidth: 1)
-        }
-      }
-      .confirmationDialog(
-        "",
-        isPresented: $isShowingConfirmation)
-      {
-        Button(
-          role: isWishListButtonTapped ? .destructive : .none,
-          action: {
-            self.isWishListButtonTapped.toggle()
-            self.isSeenListButtonTapped = false
-          }) {
-            Text(isWishListButtonTapped ? "Remove from wishlist" : "Add to wishlist")
-          }
-        Button(
-          role: isSeenListButtonTapped ? .destructive : .none,
-          action: {
-            self.isSeenListButtonTapped.toggle()
-            self.isWishListButtonTapped = false
-          }) {
-            Text(isSeenListButtonTapped ? "Remove from seenlist" : "Add to seenlist")
-          }
-        Button(action: { }) {
-          Text("Create List")
-        }
-      } message: {
-        Text("Add or Remove movie name from your lists")
+      .foregroundStyle(seenButtonColor)
+      .background(
+        RoundedRectangle(cornerRadius: 5)
+          .fill(viewState.isSeen ? DesignSystemColor.tint(.green).color : Color.clear))
+      .overlay {
+        RoundedRectangle(cornerRadius: 5).stroke(DesignSystemColor.tint(.green).color, lineWidth: 1)
       }
       Spacer()
     }
@@ -123,5 +99,9 @@ extension MovieDetailPage.ListButtonComponent: View {
 // MARK: - MovieDetailPage.ListButtonComponent.ViewState
 
 extension MovieDetailPage.ListButtonComponent {
-  struct ViewState: Equatable { }
+  struct ViewState: Equatable {
+    let isWish: Bool
+    let isSeen: Bool
+    let item: MovieEntity.MovieDetail.MovieCard.Response
+  }
 }

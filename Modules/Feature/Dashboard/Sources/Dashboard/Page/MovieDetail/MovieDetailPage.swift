@@ -9,9 +9,9 @@ struct MovieDetailPage {
   @Environment(\.colorScheme) var colorScheme
 
   @State private var isReadMoreTapped = false
-  @State private var isWishListButtonTapped = false
-  @State private var isSeenListButtonTapped = false
-  @State private var isShowingConfirmation = false
+//  @State private var isWishListButtonTapped = false
+//  @State private var isSeenListButtonTapped = false
+//  @State private var isShowingConfirmation = false
 }
 
 extension MovieDetailPage {
@@ -19,9 +19,9 @@ extension MovieDetailPage {
     store.state.fetchDetailItem.value?.title ?? ""
   }
 
-  private var listButtonComponentViewState: ListButtonComponent.ViewState {
-    .init()
-  }
+//  private var listButtonComponentViewState: ListButtonComponent.ViewState {
+//    .init()
+//  }
 }
 
 // MARK: View
@@ -39,11 +39,15 @@ extension MovieDetailPage: View {
         }
 
         // List 버튼들
-        ListButtonComponent(
-          viewState: listButtonComponentViewState,
-          isWishListButtonTapped: self.$isWishListButtonTapped,
-          isSeenListButtonTapped: self.$isSeenListButtonTapped,
-          isShowingConfirmation: self.$isShowingConfirmation)
+        if let item = store.fetchDetailItem.value {
+          ListButtonComponent(
+            viewState: .init(
+              isWish: store.fetchIsWish.value,
+              isSeen: store.fetchIsSeen.value,
+              item: item),
+            wishAction: { store.send(.updateIsWish($0)) },
+            seenAction: { store.send(.updateIsSeen($0)) })
+        }
 
         // Review
         if let item = store.fetchReviewItem.value {
@@ -157,6 +161,10 @@ extension MovieDetailPage: View {
           Image(systemName: "text.badge.plus")
         }
       }
+    }
+    .onChange(of: store.fetchDetailItem.value) { _, new in
+      store.send(.getIsWishLike(new))
+      store.send(.getIsSeenLike(new))
     }
     .onAppear {
       store.send(.getDetail(store.item))
