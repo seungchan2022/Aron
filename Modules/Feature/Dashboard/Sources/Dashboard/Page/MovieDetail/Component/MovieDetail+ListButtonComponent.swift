@@ -1,14 +1,17 @@
 import DesignSystem
 import Domain
 import SwiftUI
+import ComposableArchitecture
 
 // MARK: - MovieDetailPage.ListButtonComponent
 
 extension MovieDetailPage {
   struct ListButtonComponent {
-    let viewState: ViewState
-    let wishAction: (MovieEntity.MovieDetail.MovieCard.Response) -> Void
-    let seenAction: (MovieEntity.MovieDetail.MovieCard.Response) -> Void
+    var viewState: ViewState
+    let tapWishAction: (MovieEntity.MovieDetail.MovieCard.Response) -> Void
+    let tapSeenAction: (MovieEntity.MovieDetail.MovieCard.Response) -> Void
+        
+    @Bindable var store: StoreOf<MovieDetailReducer>
   }
 }
 
@@ -40,7 +43,6 @@ extension MovieDetailPage.ListButtonComponent {
       ? DesignSystemColor.system(.white).color
       : DesignSystemColor.tint(.green).color
   }
-
 }
 
 // MARK: - MovieDetailPage.ListButtonComponent + View
@@ -49,7 +51,8 @@ extension MovieDetailPage.ListButtonComponent: View {
   var body: some View {
     HStack(spacing: 12) {
       Button(action: {
-        wishAction(viewState.item)
+        tapWishAction(viewState.item)
+        store.fetchIsSeen.value = false
       }) {
         HStack {
           wishButtonImage
@@ -70,7 +73,8 @@ extension MovieDetailPage.ListButtonComponent: View {
       }
 
       Button(action: {
-        seenAction(viewState.item)
+        tapSeenAction(viewState.item)
+        store.fetchIsWish.value = false
       }) {
         HStack {
           seenButtonImage
@@ -89,6 +93,49 @@ extension MovieDetailPage.ListButtonComponent: View {
       .overlay {
         RoundedRectangle(cornerRadius: 5).stroke(DesignSystemColor.tint(.green).color, lineWidth: 1)
       }
+      
+      Button(action: {
+        store.isShowingConfirmation = true
+      }) {
+        HStack {
+          Image(systemName: "pin")
+            .resizable()
+            .frame(width: 12, height: 16)
+
+          Text("List")
+        }
+        .padding(.horizontal, 8)
+        .padding(.vertical, 4)
+        .foregroundStyle(DesignSystemColor.label(.ocher).color)
+        .overlay {
+          RoundedRectangle(cornerRadius: 5).stroke(DesignSystemColor.label(.ocher).color, lineWidth: 1)
+        }
+      }
+      .confirmationDialog(
+        "",
+        isPresented: $store.isShowingConfirmation
+      )
+      {
+        Button(
+          role: viewState.isWish ? .destructive : .none,
+          action: {
+            tapWishAction(viewState.item)
+            store.fetchIsSeen.value = false
+          }) {
+            Text(viewState.isWish ? "Remove from wishlist" : "Add to wishlist")
+          }
+        Button(
+          role: viewState.isSeen ? .destructive : .none,
+          action: {
+            tapSeenAction(viewState.item)
+            store.fetchIsWish.value = false
+          }) {
+            Text(viewState.isSeen ? "Remove from seenlist" : "Add to seenlist")
+          }
+      } message: {
+        Text("Add or Remove movie name from your lists")
+      }
+      
       Spacer()
     }
     .padding(.vertical, 12)

@@ -1,5 +1,6 @@
 import DesignSystem
 import Domain
+import ComposableArchitecture
 import SwiftUI
 
 // MARK: - MovieDetailPage.OverviewComponent
@@ -8,7 +9,9 @@ extension MovieDetailPage {
   struct OverviewComponent {
     let viewState: ViewState
 
-    @Binding var isReadMoreTapped: Bool
+//    @Binding var isReadMoreTapped: Bool
+    
+    @Bindable var store: StoreOf<MovieDetailReducer>
   }
 }
 
@@ -29,10 +32,10 @@ extension MovieDetailPage.OverviewComponent: View {
           .font(.system(size: 16))
           .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
           .multilineTextAlignment(.leading)
-          .lineLimit(self.isReadMoreTapped ? .none : 4)
+          .lineLimit(store.isShowingReadMore ? .none : 4)
 
-        Button(action: { self.isReadMoreTapped.toggle() }) {
-          Text(self.isReadMoreTapped ? "Less" : "Read More")
+        Button(action: { store.isShowingReadMore.toggle() }) {
+          Text(store.isShowingReadMore ? "Less" : "Read More")
             .foregroundStyle(DesignSystemColor.label(.greenSlate).color)
         }
       }

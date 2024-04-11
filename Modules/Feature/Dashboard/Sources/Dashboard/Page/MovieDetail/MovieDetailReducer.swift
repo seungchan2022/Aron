@@ -41,6 +41,9 @@ struct MovieDetailReducer {
 
     // MARK: Internal
 
+    var isShowingConfirmation = false
+    var isShowingReadMore = false
+    
     let id: UUID
     let item: MovieEntity.MovieDetail.MovieCard.Request
     let reviewItem: MovieEntity.MovieDetail.Review.Request

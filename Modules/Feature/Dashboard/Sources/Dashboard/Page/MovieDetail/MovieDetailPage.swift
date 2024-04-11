@@ -8,7 +8,8 @@ struct MovieDetailPage {
   @Bindable var store: StoreOf<MovieDetailReducer>
   @Environment(\.colorScheme) var colorScheme
 
-  @State private var isReadMoreTapped = false
+//  @State private var isReadMoreTapped = false
+  
 }
 
 extension MovieDetailPage {
@@ -38,8 +39,9 @@ extension MovieDetailPage: View {
               isWish: store.fetchIsWish.value,
               isSeen: store.fetchIsSeen.value,
               item: item),
-            wishAction: { store.send(.updateIsWish($0)) },
-            seenAction: { store.send(.updateIsSeen($0)) })
+            tapWishAction: { store.send(.updateIsWish($0)) },
+            tapSeenAction: { store.send(.updateIsSeen($0)) },
+            store: store)
         }
 
         // Review
@@ -53,7 +55,7 @@ extension MovieDetailPage: View {
         if let item = store.fetchDetailItem.value {
           OverviewComponent(
             viewState: .init(item: item),
-            isReadMoreTapped: self.$isReadMoreTapped)
+            store: store)
         }
       }
       .background(
@@ -150,7 +152,9 @@ extension MovieDetailPage: View {
     .navigationBarTitleDisplayMode(.large)
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
-        Button(action: { }) {
+        Button(action: { 
+          store.isShowingConfirmation = true
+        }) {
           Image(systemName: "text.badge.plus")
         }
       }
