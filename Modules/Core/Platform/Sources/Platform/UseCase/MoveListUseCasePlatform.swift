@@ -55,6 +55,14 @@ extension MovieListUseCasePlatform: MovieListUseCase {
         .eraseToAnyPublisher()
     }
   }
+
+  public var getItemList: () -> AnyPublisher<MovieEntity.List, CompositeErrorRepository> {
+    {
+      Just(store)
+        .setFailureType(to: CompositeErrorRepository.self)
+        .eraseToAnyPublisher()
+    }
+  }
 }
 
 extension MovieEntity.List {

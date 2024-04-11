@@ -7,7 +7,6 @@ import SwiftUI
 struct MyListPage {
   @Bindable var store: StoreOf<MyListReducer>
 
-  @State private var listType: ListType = .wishList
   @State private var isShowingConfirmation = false
 
   @Environment(\.colorScheme) var colorScheme
@@ -46,13 +45,13 @@ extension MyListPage: View {
       VStack {
         Picker(
           "",
-          selection: self.$listType)
+          selection: $store.state.selectedLikeList)
         {
-          Text("Wishlist")
-            .tag(ListType.wishList)
+          Text(LikeList.wishList.rawValue)
+            .tag(LikeList.wishList)
 
-          Text("Seenlist")
-            .tag(ListType.seenList)
+          Text(LikeList.seenList.rawValue)
+            .tag(LikeList.seenList)
         }
         .pickerStyle(.segmented)
         .padding(.vertical, 8)
@@ -62,143 +61,52 @@ extension MyListPage: View {
             ? DesignSystemColor.background(.black).color
             : DesignSystemColor.system(.white).color)
 
-        switch self.listType {
+        switch store.state.selectedLikeList {
         case .wishList:
-
           LazyVStack(alignment: .leading, spacing: .zero) {
-            Text("1 MOVIES IN WISHLIST")
+            Text("\(store.itemList.wishList.count) MOVIES IN WISHLIST")
               .font(.system(size: 14, weight: .regular))
               .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
               .padding(.horizontal, 16)
               .padding(.vertical, 8)
 
-            ForEach(0..<5, id: \.self) { _ in
-              Button(action: { }) {
-                VStack {
-                  HStack(spacing: 8) {
-                    Rectangle()
-                      .fill(.gray)
-                      .frame(width: 100, height: 160)
-                      .clipShape(RoundedRectangle(cornerRadius: 10))
-
-                    VStack(alignment: .leading, spacing: 16) {
-                      Text("제목")
-                        .font(.system(size: 18))
-                        .foregroundStyle(DesignSystemColor.label(.ocher).color)
-
-                      HStack {
-                        Text("66%")
-                          .font(.system(size: 18))
-                          .foregroundStyle(
-                            colorScheme == .dark
-                              ? DesignSystemColor.system(.white).color
-                              : DesignSystemColor.system(.black).color)
-
-                        Text("Feb 14, 2024")
-                          .font(.system(size: 16))
-                          .foregroundStyle(
-                            colorScheme == .dark
-                              ? DesignSystemColor.system(.white).color
-                              : DesignSystemColor.system(.black).color)
-                      }
-                      Text("overView")
-                        .font(.system(size: 18))
-                        .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(3)
-                    }
-
-                    Spacer()
-
-                    Image(systemName: "chevron.right")
-                      .resizable()
-                      .frame(width: 8, height: 12)
-                      .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
-                  }
-                  .padding(.vertical, 16)
-                  .frame(maxWidth: .infinity, alignment: .leading)
-
-                  Divider()
-                    .padding(.leading, 120)
-                }
+            if !store.itemList.wishList.isEmpty {
+              ForEach(store.itemList.wishList) { item in
+                ItemComponent(
+                  viewState: .init(item: item),
+                  tapAction: { store.send(.routeToDetail($0)) })
               }
+              .padding(.horizontal, 16)
+              .padding(.top, 16)
+              .background(
+                colorScheme == .dark
+                  ? DesignSystemColor.background(.black).color
+                  : DesignSystemColor.system(.white).color)
             }
-            .padding(.horizontal, 16)
-
-            .background(
-              colorScheme == .dark
-                ? DesignSystemColor.background(.black).color
-                : DesignSystemColor.system(.white).color)
           }
-          .padding(.top, 16)
 
         case .seenList:
           LazyVStack(alignment: .leading, spacing: .zero) {
-            Text("1 MOVIES IN SEENLIST")
+            Text("\(store.itemList.seenList.count) MOVIES IN SEENLIST")
               .font(.system(size: 14, weight: .regular))
               .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
               .padding(.horizontal, 16)
               .padding(.vertical, 8)
 
-            ForEach(0..<1, id: \.self) { _ in
-              Button(action: { }) {
-                VStack {
-                  HStack(spacing: 8) {
-                    Rectangle()
-                      .fill(.gray)
-                      .frame(width: 100, height: 160)
-                      .clipShape(RoundedRectangle(cornerRadius: 10))
-
-                    VStack(alignment: .leading, spacing: 16) {
-                      Text("제목")
-                        .font(.system(size: 18))
-                        .foregroundStyle(DesignSystemColor.label(.ocher).color)
-
-                      HStack {
-                        Text("66%")
-                          .font(.system(size: 18))
-                          .foregroundStyle(
-                            colorScheme == .dark
-                              ? DesignSystemColor.system(.white).color
-                              : DesignSystemColor.system(.black).color)
-
-                        Text("Feb 14, 2024")
-                          .font(.system(size: 16))
-                          .foregroundStyle(
-                            colorScheme == .dark
-                              ? DesignSystemColor.system(.white).color
-                              : DesignSystemColor.system(.black).color)
-                      }
-
-                      Text("overView")
-                        .font(.system(size: 18))
-                        .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(3)
-                    }
-
-                    Spacer()
-
-                    Image(systemName: "chevron.right")
-                      .resizable()
-                      .frame(width: 8, height: 12)
-                      .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
-                  }
-                  .padding(.vertical, 16)
-                  .frame(maxWidth: .infinity, alignment: .leading)
-
-                  Divider()
-                    .padding(.leading, 120)
-                }
+            if !store.itemList.seenList.isEmpty {
+              ForEach(store.itemList.seenList) { item in
+                ItemComponent(
+                  viewState: .init(item: item),
+                  tapAction: { store.send(.routeToDetail($0)) })
               }
+              .padding(.horizontal, 16)
+              .padding(.top, 16)
+              .background(
+                colorScheme == .dark
+                  ? DesignSystemColor.background(.black).color
+                  : DesignSystemColor.system(.white).color)
             }
-            .padding(.horizontal, 16)
-            .background(
-              colorScheme == .dark
-                ? DesignSystemColor.background(.black).color
-                : DesignSystemColor.system(.white).color)
           }
-          .padding(.top, 16)
         }
       }
     }
@@ -235,12 +143,11 @@ extension MyListPage: View {
     } message: {
       Text("Sort movies by")
     }
+    .onAppear {
+      store.send(.getItemList)
+    }
+    .onDisappear {
+      store.send(.teardown)
+    }
   }
-}
-
-// MARK: - ListType
-
-enum ListType {
-  case wishList
-  case seenList
 }

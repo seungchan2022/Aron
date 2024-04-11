@@ -9,19 +9,12 @@ struct MovieDetailPage {
   @Environment(\.colorScheme) var colorScheme
 
   @State private var isReadMoreTapped = false
-//  @State private var isWishListButtonTapped = false
-//  @State private var isSeenListButtonTapped = false
-//  @State private var isShowingConfirmation = false
 }
 
 extension MovieDetailPage {
   private var navigationTitle: String {
     store.state.fetchDetailItem.value?.title ?? ""
   }
-
-//  private var listButtonComponentViewState: ListButtonComponent.ViewState {
-//    .init()
-//  }
 }
 
 // MARK: View

@@ -68,7 +68,7 @@ extension MovieDetailPage.ListButtonComponent: View {
           RoundedRectangle(cornerRadius: 5).stroke(DesignSystemColor.tint(.red).color, lineWidth: 1)
         }
       }
-//
+
       Button(action: {
         seenAction(viewState.item)
       }) {

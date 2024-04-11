@@ -18,14 +18,14 @@ extension MovieDetailPage.OverviewComponent { }
 
 extension MovieDetailPage.OverviewComponent: View {
   var body: some View {
-    if !viewState.item.overview.isEmpty {
+    if let overview = viewState.item.overview {
       Divider()
         .padding(.leading, 16)
 
       VStack(alignment: .leading, spacing: 8) {
         Text("Overview:")
 
-        Text(viewState.item.overview)
+        Text(overview)
           .font(.system(size: 16))
           .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
           .multilineTextAlignment(.leading)

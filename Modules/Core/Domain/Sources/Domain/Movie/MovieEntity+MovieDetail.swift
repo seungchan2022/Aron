@@ -35,7 +35,7 @@ extension MovieEntity.MovieDetail.MovieCard {
     public let voteAverage: Double?
     public let voteCount: Int
     public let genreItemList: [GenreItem]
-    public let overview: String
+    public let overview: String?
     public let keywordBucket: KeywordItemList
     public let imageBucket: ImageBucket
 

@@ -9,4 +9,6 @@ public protocol MovieListUseCase {
 
   var saveSeenList: (MovieEntity.MovieDetail.MovieCard.Response)
     -> AnyPublisher<MovieEntity.List, CompositeErrorRepository> { get }
+
+  var getItemList: () -> AnyPublisher<MovieEntity.List, CompositeErrorRepository> { get }
 }
