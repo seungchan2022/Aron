@@ -52,6 +52,13 @@ struct HomeRouteBuilder<RootNavigator: RootNavigatorType> {
               TopRatedReducer(sideEffect: .init(
                 useCase: env,
                 navigator: navigator))
+            }), 
+          genreListStore: .init(
+            initialState: GenreListReducer.State(),
+            reducer: {
+              GenreListReducer(sideEffect: .init(
+                useCase: env,
+                navigator: navigator))
             }))
       }
     }

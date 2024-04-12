@@ -11,6 +11,7 @@ extension MovieEntity {
     public enum Trending { }
     public enum Popular { }
     public enum TopRated { }
+    public enum GenreList { }
   }
 }
 
@@ -370,6 +371,65 @@ extension MovieEntity.Movie.TopRated {
       case voteAverage = "vote_average"
       case releaseDate = "release_date"
       case overview
+    }
+  }
+}
+
+extension MovieEntity.Movie.GenreList {
+  public struct Request: Equatable, Codable, Sendable {
+
+    // MARK: Lifecycle
+
+    public init(
+      apiKey: String = "1d9b898a212ea52e283351e521e17871",
+      language: String = "ko-KR",
+      region: String = "KR",
+      page: Int = 1)
+    {
+      self.apiKey = apiKey
+      self.language = language
+      self.region = region
+      self.page = page
+    }
+
+    // MARK: Public
+
+    public let apiKey: String
+    public let language: String
+    public let region: String
+    public let page: Int
+
+    // MARK: Private
+
+    private enum CodingKeys: String, CodingKey {
+      case apiKey = "api_key"
+      case language
+      case region
+      case page
+    }
+  }
+
+  public struct Response: Equatable, Codable, Sendable {
+
+    // MARK: Public
+    public let itemList: [Item]
+
+    // MARK: Private
+
+    private enum CodingKeys: String, CodingKey {
+      case itemList = "genres"
+
+    }
+  }
+
+  public struct Item: Equatable, Identifiable, Codable, Sendable {
+    public let id: Int
+    public let name: String
+
+    private enum CodingKeys: String, CodingKey {
+      case id
+      case name
+
     }
   }
 }
