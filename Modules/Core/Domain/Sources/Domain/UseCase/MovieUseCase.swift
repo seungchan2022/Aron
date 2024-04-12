@@ -23,6 +23,9 @@ public protocol MovieUseCase {
     MovieEntity.Movie.TopRated.Response,
     CompositeErrorRepository
   > { get }
-  
-  var genreList: (MovieEntity.Movie.GenreList.Request) -> AnyPublisher<MovieEntity.Movie.GenreList.Response, CompositeErrorRepository> { get }
+
+  var genreList: (MovieEntity.Movie.GenreList.Request) -> AnyPublisher<
+    MovieEntity.Movie.GenreList.Response,
+    CompositeErrorRepository
+  > { get }
 }

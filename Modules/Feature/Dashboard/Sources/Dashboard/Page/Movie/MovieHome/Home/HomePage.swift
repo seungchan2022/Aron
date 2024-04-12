@@ -21,10 +21,6 @@ struct HomePage {
 extension HomePage: View {
   var body: some View {
     TabView {
-      GenreListPage(store: genreListStore)
-        .navigationTitle("GenreList")
-        .navigationBarTitleDisplayMode(.inline)
-      
       NowPlayingPage(store: nowPlayingStore)
         .navigationTitle("Now Playing")
         .navigationBarTitleDisplayMode(.inline)
@@ -43,6 +39,10 @@ extension HomePage: View {
 
       TopRatedPage(store: topRatedStore)
         .navigationTitle("Top Rated")
+        .navigationBarTitleDisplayMode(.inline)
+
+      GenreListPage(store: genreListStore)
+        .navigationTitle("GenreList")
         .navigationBarTitleDisplayMode(.inline)
     }
     .tabViewStyle(.page)

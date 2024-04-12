@@ -2,7 +2,7 @@ import DesignSystem
 import Domain
 import SwiftUI
 
-// MARK: - SimilarPage.ItemComponent
+// MARK: - GenrePage.ItemComponent
 
 extension GenrePage {
   struct ItemComponent {
@@ -49,7 +49,7 @@ extension GenrePage.ItemComponent {
 
 }
 
-// MARK: - SimilarPage.ItemComponent + View
+// MARK: - GenrePage.ItemComponent + View
 
 extension GenrePage.ItemComponent: View {
   var body: some View {
@@ -130,7 +130,7 @@ extension GenrePage.ItemComponent: View {
   }
 }
 
-// MARK: - SimilarPage.ItemComponent.ViewState
+// MARK: - GenrePage.ItemComponent.ViewState
 
 extension GenrePage.ItemComponent {
   struct ViewState: Equatable {

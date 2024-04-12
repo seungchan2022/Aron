@@ -1,6 +1,6 @@
+import ComposableArchitecture
 import DesignSystem
 import Domain
-import ComposableArchitecture
 import SwiftUI
 
 // MARK: - MovieDetailPage.OverviewComponent
@@ -10,7 +10,7 @@ extension MovieDetailPage {
     let viewState: ViewState
 
 //    @Binding var isReadMoreTapped: Bool
-    
+
     @Bindable var store: StoreOf<MovieDetailReducer>
   }
 }

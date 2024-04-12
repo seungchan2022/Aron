@@ -76,15 +76,15 @@ extension MovieListSideEffect {
       }
     }
   }
-  
+
   var getGenreItem: (MovieEntity.Movie.GenreList.Request) -> Effect<MovieListReducer.Action> {
     { item in
-        .publisher {
-          useCase.movieUseCase.genreList(item)
-            .receive(on: main)
-            .mapToResult()
-            .map(MovieListReducer.Action.fetchGenreItem)
-        }
+      .publisher {
+        useCase.movieUseCase.genreList(item)
+          .receive(on: main)
+          .mapToResult()
+          .map(MovieListReducer.Action.fetchGenreItem)
+      }
     }
   }
 
@@ -143,7 +143,7 @@ extension MovieListSideEffect {
         isAnimated: true)
     }
   }
-  
+
   var routeToGenreDetail: (MovieEntity.Movie.GenreList.Item) -> Void {
     { item in
       navigator.next(
@@ -169,7 +169,7 @@ extension MovieListSideEffect {
         isAnimated: true)
     }
   }
-  
+
   var routeToTrending: () -> Void {
     {
       navigator.next(
@@ -185,7 +185,7 @@ extension MovieListSideEffect {
         isAnimated: true)
     }
   }
-  
+
   var routeToTopRated: () -> Void {
     {
       navigator.next(
@@ -227,6 +227,6 @@ extension MovieEntity.Movie.TopRated.Item {
 
 extension MovieEntity.Movie.GenreList.Item {
   fileprivate func serialized() -> MovieEntity.MovieDetail.Genre.Request {
-    .init(genreID: self.id)
+    .init(genreID: id)
   }
 }

@@ -35,7 +35,7 @@ struct MovieListReducer {
     var fetchPopularItem: FetchState.Data<MovieEntity.Movie.Popular.Response?> = .init(isLoading: false, value: .none)
     var fetchTopRatedItem: FetchState.Data<MovieEntity.Movie.TopRated.Response?> = .init(isLoading: false, value: .none)
     var fetchGenreItem: FetchState.Data<MovieEntity.Movie.GenreList.Response?> = .init(isLoading: false, value: .none)
-    
+
     init(id: UUID = UUID()) {
       self.id = id
     }
@@ -67,7 +67,7 @@ struct MovieListReducer {
     case routeToPopularDetail(MovieEntity.Movie.Popular.Item)
     case routeToTopRatedDetail(MovieEntity.Movie.TopRated.Item)
     case routeToGenreDetail(MovieEntity.Movie.GenreList.Item)
-    
+
     case routeToNowPlaying
     case routeToUpcoming
     case routeToTrending
@@ -122,7 +122,7 @@ struct MovieListReducer {
         state.fetchTopRatedItem.isLoading = true
         return sideEffect.getTopRatedItem(.init())
           .cancellable(pageID: pageID, id: CancelID.requestTopRatedItem, cancelInFlight: true)
-        
+
       case .getGenreItem:
         state.fetchGenreItem.isLoading = true
         return sideEffect.getGenreItem(.init())
@@ -187,7 +187,7 @@ struct MovieListReducer {
         case .failure(let error):
           return .run { await $0(.throwError(error)) }
         }
-        
+
       case .fetchGenreItem(let result):
         state.fetchGenreItem.isLoading = false
         switch result {
@@ -195,7 +195,7 @@ struct MovieListReducer {
           state.fetchGenreItem.value = item
           state.genreItemList = state.genreItemList + item.itemList
           return .none
-          
+
         case .failure(let error):
           return .run { await $0(.throwError(error)) }
         }
@@ -227,7 +227,7 @@ struct MovieListReducer {
       case .routeToGenreDetail(let item):
         sideEffect.routeToGenreDetail(item)
         return .none
-        
+
       case .routeToNowPlaying:
         sideEffect.routeToNowPlaying()
         return .none
@@ -235,7 +235,7 @@ struct MovieListReducer {
       case .routeToUpcoming:
         sideEffect.routeToUpcoming()
         return .none
-        
+
       case .routeToTrending:
         sideEffect.routeToTrending()
         return .none
@@ -243,7 +243,7 @@ struct MovieListReducer {
       case .routeToPopular:
         sideEffect.routeToPopular()
         return .none
-        
+
       case .routeToTopRated:
         sideEffect.routeToTopRated()
         return .none

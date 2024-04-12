@@ -3,11 +3,13 @@ import ComposableArchitecture
 import Domain
 import Foundation
 
+// MARK: - GenreSideEffect
+
 struct GenreSideEffect {
   let useCase: DashboardEnvironmentUsable
   let main: AnySchedulerOf<DispatchQueue>
   let navigator: RootNavigatorType
-  
+
   init(
     useCase: DashboardEnvironmentUsable,
     main: AnySchedulerOf<DispatchQueue> = .main,
@@ -22,15 +24,15 @@ struct GenreSideEffect {
 extension GenreSideEffect {
   var getItem: (MovieEntity.MovieDetail.Genre.Request) -> Effect<GenreReducer.Action> {
     { request in
-        .publisher {
-          useCase.movieDetailUseCase.genre(request)
-            .receive(on: main)
-            .mapToResult()
-            .map(GenreReducer.Action.fetchItem)
-        }
+      .publisher {
+        useCase.movieDetailUseCase.genre(request)
+          .receive(on: main)
+          .mapToResult()
+          .map(GenreReducer.Action.fetchItem)
+      }
     }
   }
-  
+
   var routeToDetail: (MovieEntity.MovieDetail.Genre.Response.Item) -> Void {
     { item in
       navigator.next(
@@ -42,9 +44,8 @@ extension GenreSideEffect {
   }
 }
 
-
 extension MovieEntity.MovieDetail.Genre.Response.Item {
   fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
-    .init(movieID: self.id)
+    .init(movieID: id)
   }
 }

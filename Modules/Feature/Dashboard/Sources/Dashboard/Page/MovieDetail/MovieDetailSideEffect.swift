@@ -143,7 +143,7 @@ extension MovieDetailSideEffect {
         isAnimated: true)
     }
   }
-  
+
   var routeToReview: (MovieEntity.MovieDetail.Review.Response) -> Void {
     { item in
       navigator.next(
@@ -248,10 +248,9 @@ extension MovieDetailSideEffect {
 
 extension MovieEntity.MovieDetail.MovieCard.GenreItem {
   fileprivate func serialized() -> MovieEntity.MovieDetail.Genre.Request {
-    .init(genreID: self.id)
+    .init(genreID: id)
   }
 }
-
 
 extension MovieEntity.MovieDetail.Review.Response {
   fileprivate func serializedReview() -> MovieEntity.MovieDetail.Review.Request {

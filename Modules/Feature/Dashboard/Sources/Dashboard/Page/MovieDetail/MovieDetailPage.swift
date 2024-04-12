@@ -8,7 +8,6 @@ struct MovieDetailPage {
   @Bindable var store: StoreOf<MovieDetailReducer>
   @Environment(\.colorScheme) var colorScheme
 
-  
 }
 
 extension MovieDetailPage {
@@ -151,7 +150,7 @@ extension MovieDetailPage: View {
     .navigationBarTitleDisplayMode(.large)
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
-        Button(action: { 
+        Button(action: {
           store.isShowingConfirmation = true
         }) {
           Image(systemName: "text.badge.plus")

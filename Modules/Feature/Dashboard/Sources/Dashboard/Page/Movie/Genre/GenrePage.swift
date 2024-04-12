@@ -1,6 +1,8 @@
-import SwiftUI
 import ComposableArchitecture
 import DesignSystem
+import SwiftUI
+
+// MARK: - GenrePage
 
 struct GenrePage {
   @Bindable var store: StoreOf<GenreReducer>
@@ -12,6 +14,8 @@ extension GenrePage {
 //
 //  }
 }
+
+// MARK: View
 
 extension GenrePage: View {
   var body: some View {
@@ -25,7 +29,7 @@ extension GenrePage: View {
           ForEach(itemList) { item in
             ItemComponent(
               viewState: .init(item: item),
-              tapAction: { 
+              tapAction: {
                 store.send(.routeToDetail($0))
               })
           }

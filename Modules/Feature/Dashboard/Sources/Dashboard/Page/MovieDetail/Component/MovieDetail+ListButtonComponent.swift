@@ -1,7 +1,7 @@
+import ComposableArchitecture
 import DesignSystem
 import Domain
 import SwiftUI
-import ComposableArchitecture
 
 // MARK: - MovieDetailPage.ListButtonComponent
 
@@ -10,7 +10,7 @@ extension MovieDetailPage {
     var viewState: ViewState
     let tapWishAction: (MovieEntity.MovieDetail.MovieCard.Response) -> Void
     let tapSeenAction: (MovieEntity.MovieDetail.MovieCard.Response) -> Void
-        
+
     @Bindable var store: StoreOf<MovieDetailReducer>
   }
 }
@@ -93,7 +93,7 @@ extension MovieDetailPage.ListButtonComponent: View {
       .overlay {
         RoundedRectangle(cornerRadius: 5).stroke(DesignSystemColor.tint(.green).color, lineWidth: 1)
       }
-      
+
       Button(action: {
         store.isShowingConfirmation = true
       }) {
@@ -113,8 +113,7 @@ extension MovieDetailPage.ListButtonComponent: View {
       }
       .confirmationDialog(
         "",
-        isPresented: $store.isShowingConfirmation
-      )
+        isPresented: $store.isShowingConfirmation)
       {
         Button(
           role: viewState.isWish ? .destructive : .none,
@@ -135,7 +134,7 @@ extension MovieDetailPage.ListButtonComponent: View {
       } message: {
         Text("Add or Remove movie name from your lists")
       }
-      
+
       Spacer()
     }
     .padding(.vertical, 12)

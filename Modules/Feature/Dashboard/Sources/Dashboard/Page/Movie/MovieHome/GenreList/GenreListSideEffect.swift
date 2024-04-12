@@ -3,33 +3,36 @@ import ComposableArchitecture
 import Domain
 import Foundation
 
+// MARK: - GenreListSideEffect
+
 struct GenreListSideEffect {
   let useCase: DashboardEnvironmentUsable
   let main: AnySchedulerOf<DispatchQueue>
   let navigator: RootNavigatorType
-  
+
   init(
     useCase: DashboardEnvironmentUsable,
     main: AnySchedulerOf<DispatchQueue> = .main,
-    navigator: RootNavigatorType) {
-      self.useCase = useCase
-      self.main = main
-      self.navigator = navigator
-    }
+    navigator: RootNavigatorType)
+  {
+    self.useCase = useCase
+    self.main = main
+    self.navigator = navigator
+  }
 }
 
 extension GenreListSideEffect {
   var getItem: (MovieEntity.Movie.GenreList.Request) -> Effect<GenreListReducer.Action> {
     { item in
-        .publisher {
-          useCase.movieUseCase.genreList(item)
-            .receive(on: main)
-            .mapToResult()
-            .map(GenreListReducer.Action.fetchItem)
-        }
+      .publisher {
+        useCase.movieUseCase.genreList(item)
+          .receive(on: main)
+          .mapToResult()
+          .map(GenreListReducer.Action.fetchItem)
+      }
     }
   }
-  
+
   var routeToDetail: (MovieEntity.Movie.GenreList.Item) -> Void {
     { item in
       navigator.next(
@@ -43,6 +46,6 @@ extension GenreListSideEffect {
 
 extension MovieEntity.Movie.GenreList.Item {
   fileprivate func serialized() -> MovieEntity.MovieDetail.Genre.Request {
-    .init(genreID: self.id)
+    .init(genreID: id)
   }
 }

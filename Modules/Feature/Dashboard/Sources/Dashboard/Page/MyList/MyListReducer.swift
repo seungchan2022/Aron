@@ -32,7 +32,7 @@ struct MyListReducer {
     let id: UUID
 
     var isShowingConfirmation = false
-    
+
     var selectedLikeList: LikeList = .wishList
     var itemList: MovieEntity.List = .init()
     var fetchItemList: FetchState.Data<MovieEntity.List?> = .init(isLoading: false, value: .none)

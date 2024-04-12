@@ -43,7 +43,7 @@ struct MovieDetailReducer {
 
     var isShowingConfirmation = false
     var isShowingReadMore = false
-    
+
     let id: UUID
     let item: MovieEntity.MovieDetail.MovieCard.Request
     let reviewItem: MovieEntity.MovieDetail.Review.Request
@@ -90,7 +90,7 @@ struct MovieDetailReducer {
 
     case fetchIsWish(Result<Bool, CompositeErrorRepository>)
     case fetchIsSeen(Result<Bool, CompositeErrorRepository>)
-    
+
     case routeToGenre(MovieEntity.MovieDetail.MovieCard.GenreItem)
 
     case routeToReview(MovieEntity.MovieDetail.Review.Response)
@@ -258,7 +258,7 @@ struct MovieDetailReducer {
       case .routeToGenre(let item):
         sideEffect.routeToGenre(item)
         return .none
-        
+
       case .routeToReview(let item):
         sideEffect.routeToReview(item)
         return .none

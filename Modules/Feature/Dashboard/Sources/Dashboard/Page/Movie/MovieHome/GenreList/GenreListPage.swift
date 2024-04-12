@@ -1,11 +1,15 @@
-import SwiftUI
 import ComposableArchitecture
 import DesignSystem
+import SwiftUI
+
+// MARK: - GenreListPage
 
 struct GenreListPage {
   @Bindable var store: StoreOf<GenreListReducer>
 
 }
+
+// MARK: View
 
 extension GenreListPage: View {
   var body: some View {

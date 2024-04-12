@@ -48,11 +48,11 @@ extension MovieListPage: View {
             tapSeeAllAction: { store.send(.routeToTopRated) },
             tapItemAction: { store.send(.routeToTopRatedDetail($0)) })
         }
-        
+
         if let item = store.fetchGenreItem.value {
           GenreItemComponent(
             viewState: .init(item: item),
-            tapAction: { store.send(.routeToGenreDetail($0))})
+            tapAction: { store.send(.routeToGenreDetail($0)) })
         }
       }
     }

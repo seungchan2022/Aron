@@ -84,15 +84,18 @@ extension MovieUseCasePlatform: MovieUseCase {
         .fetch(isDebug: true)
     }
   }
-  
-  public var genreList: (MovieEntity.Movie.GenreList.Request) -> AnyPublisher<MovieEntity.Movie.GenreList.Response, CompositeErrorRepository> {
+
+  public var genreList: (MovieEntity.Movie.GenreList.Request) -> AnyPublisher<
+    MovieEntity.Movie.GenreList.Response,
+    CompositeErrorRepository
+  > {
     {
       Endpoint(
         baseURL: "https://api.themoviedb.org/3/",
         pathList: ["genre", "movie", "list"],
         httpMethod: .get,
         content: .queryItemPath($0))
-      .fetch(isDebug: true)
+        .fetch(isDebug: true)
     }
   }
 }

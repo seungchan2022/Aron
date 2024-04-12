@@ -1,17 +1,17 @@
 import ComposableArchitecture
 import DesignSystem
-import SwiftUI
 import Domain
+import SwiftUI
 
 // MARK: - MyListPage
 
 struct MyListPage {
   @Bindable var store: StoreOf<MyListReducer>
-  
+
 //  @State private var isShowingConfirmation = false
-  
+
   @Environment(\.colorScheme) var colorScheme
-  
+
 }
 
 // MARK: View
@@ -25,7 +25,7 @@ extension MyListPage: View {
           .font(.system(size: 14, weight: .regular))
           .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
           .padding(.horizontal, 16)
-        
+
         Button(action: { store.send(.routeToNewList) }) {
           HStack {
             Text("Create custom list")
@@ -36,13 +36,13 @@ extension MyListPage: View {
         .padding(16)
         .background(
           colorScheme == .dark
-          ? DesignSystemColor.background(.black).color
-          : DesignSystemColor.system(.white).color)
+            ? DesignSystemColor.background(.black).color
+            : DesignSystemColor.system(.white).color)
       }
       .padding(.vertical, 16)
       .padding(.bottom, 16)
       .frame(maxWidth: .infinity)
-      
+
       // Section2: segmented, 아이템 표현
       VStack {
         Picker(
@@ -51,7 +51,7 @@ extension MyListPage: View {
         {
           Text(LikeList.wishList.rawValue)
             .tag(LikeList.wishList)
-          
+
           Text(LikeList.seenList.rawValue)
             .tag(LikeList.seenList)
         }
@@ -60,9 +60,9 @@ extension MyListPage: View {
         .padding(.horizontal, 16)
         .background(
           colorScheme == .dark
-          ? DesignSystemColor.background(.black).color
-          : DesignSystemColor.system(.white).color)
-        
+            ? DesignSystemColor.background(.black).color
+            : DesignSystemColor.system(.white).color)
+
         switch store.state.selectedLikeList {
         case .wishList:
           LazyVStack(alignment: .leading, spacing: .zero) {
@@ -71,7 +71,7 @@ extension MyListPage: View {
               .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
               .padding(.horizontal, 16)
               .padding(.vertical, 8)
-            
+
             if !store.itemList.wishList.isEmpty {
               ForEach(store.itemList.wishList) { item in
                 ItemComponent(
@@ -82,11 +82,11 @@ extension MyListPage: View {
               .padding(.top, 16)
               .background(
                 colorScheme == .dark
-                ? DesignSystemColor.background(.black).color
-                : DesignSystemColor.system(.white).color)
+                  ? DesignSystemColor.background(.black).color
+                  : DesignSystemColor.system(.white).color)
             }
           }
-          
+
         case .seenList:
           LazyVStack(alignment: .leading, spacing: .zero) {
             Text("\(store.itemList.seenList.count) MOVIES IN SEENLIST")
@@ -94,7 +94,7 @@ extension MyListPage: View {
               .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
               .padding(.horizontal, 16)
               .padding(.vertical, 8)
-            
+
             if !store.itemList.seenList.isEmpty {
               ForEach(store.itemList.seenList) { item in
                 ItemComponent(
@@ -105,8 +105,8 @@ extension MyListPage: View {
               .padding(.top, 16)
               .background(
                 colorScheme == .dark
-                ? DesignSystemColor.background(.black).color
-                : DesignSystemColor.system(.white).color)
+                  ? DesignSystemColor.background(.black).color
+                  : DesignSystemColor.system(.white).color)
             }
           }
         }
@@ -127,27 +127,19 @@ extension MyListPage: View {
       "",
       isPresented: $store.isShowingConfirmation)
     {
-      Button(action: {
-
-      }) {
+      Button(action: { }) {
         Text("Sort by added date")
       }
-      
-      Button(action: { 
-        
-      }) {
+
+      Button(action: { }) {
         Text("Sort by release date")
       }
-      
-      Button(action: {
 
-      }) {
+      Button(action: { }) {
         Text("Sort by ratings")
       }
-      
-      Button(action: {
 
-      }) {
+      Button(action: { }) {
         Text("Sort by popularity")
       }
     } message: {

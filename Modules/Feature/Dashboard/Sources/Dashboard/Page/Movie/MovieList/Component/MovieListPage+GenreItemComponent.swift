@@ -1,19 +1,21 @@
-import SwiftUI
 import DesignSystem
 import Domain
+import SwiftUI
+
+// MARK: - MovieListPage.GenreItemComponent
 
 extension MovieListPage {
   struct GenreItemComponent {
     let viewState: ViewState
     let tapAction: (MovieEntity.Movie.GenreList.Item) -> Void
-    
+
     @Environment(\.colorScheme) var colorScheme
   }
 }
 
-extension MovieListPage.GenreItemComponent {
-  
-}
+extension MovieListPage.GenreItemComponent { }
+
+// MARK: - MovieListPage.GenreItemComponent + View
 
 extension MovieListPage.GenreItemComponent: View {
   var body: some View {
@@ -26,19 +28,18 @@ extension MovieListPage.GenreItemComponent: View {
                 Text(item.name)
                   .foregroundStyle(
                     colorScheme == .dark
-                    ? DesignSystemColor.system(.white).color
-                    : DesignSystemColor.system(.black).color
-                  )
-                
+                      ? DesignSystemColor.system(.white).color
+                      : DesignSystemColor.system(.black).color)
+
                 Spacer()
-                
+
                 Image(systemName: "chevron.right")
                   .resizable()
                   .frame(width: 8, height: 12)
                   .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
                   .padding(.trailing, 16)
               }
-              
+
               Divider()
             }
             .padding(.leading, 16)
@@ -49,6 +50,8 @@ extension MovieListPage.GenreItemComponent: View {
     }
   }
 }
+
+// MARK: - MovieListPage.GenreItemComponent.ViewState
 
 extension MovieListPage.GenreItemComponent {
   struct ViewState: Equatable {
