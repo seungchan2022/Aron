@@ -31,22 +31,28 @@ extension MovieListPage: View {
         if let item = store.fetchTrendingItem.value {
           TrendingItemComponent(
             viewState: .init(item: item),
-            tapSeeAllAction: { },
+            tapSeeAllAction: { store.send(.routeToTrending) },
             tapItemAction: { store.send(.routeToTrendingDetail($0)) })
         }
 
         if let item = store.fetchPopularItem.value {
           PopularItemComponent(
             viewState: .init(item: item),
-            tapSeeAllAction: { },
+            tapSeeAllAction: { store.send(.routeToPopular) },
             tapItemAction: { store.send(.routeToPopularDetail($0)) })
         }
 
         if let item = store.fetchTopRatedItem.value {
           TopRatedItemComponent(
             viewState: .init(item: item),
-            tapSeeAllAction: { },
+            tapSeeAllAction: { store.send(.routeToTopRated) },
             tapItemAction: { store.send(.routeToTopRatedDetail($0)) })
+        }
+        
+        if let item = store.fetchGenreItem.value {
+          GenreItemComponent(
+            viewState: .init(item: item),
+            tapAction: { store.send(.routeToGenreDetail($0))})
         }
       }
     }
@@ -72,6 +78,7 @@ extension MovieListPage: View {
       store.send(.getTrendingItem)
       store.send(.getPopularItem)
       store.send(.getTopRatedItem)
+      store.send(.getGenreItem)
     }
     .onDisappear {
       store.send(.teardown)

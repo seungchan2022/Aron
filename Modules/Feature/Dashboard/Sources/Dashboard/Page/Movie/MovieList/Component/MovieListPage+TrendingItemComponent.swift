@@ -28,7 +28,7 @@ extension MovieListPage.TrendingItemComponent: View {
 
       VStack(spacing: .zero) {
         Button(action: {
-          // See All
+          tapSeeAllAction()
         }) {
           HStack {
             Text("Trending")

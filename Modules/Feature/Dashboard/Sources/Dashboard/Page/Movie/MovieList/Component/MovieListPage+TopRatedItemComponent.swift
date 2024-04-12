@@ -29,6 +29,7 @@ extension MovieListPage.TopRatedItemComponent: View {
       VStack(spacing: .zero) {
         Button(action: {
           // See All
+          tapSeeAllAction()
         }) {
           HStack {
             Text("Top Rated")

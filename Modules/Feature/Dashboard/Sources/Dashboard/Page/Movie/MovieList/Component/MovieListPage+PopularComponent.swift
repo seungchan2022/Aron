@@ -29,6 +29,7 @@ extension MovieListPage.PopularItemComponent: View {
       VStack(spacing: .zero) {
         Button(action: {
           // See All
+          tapSeeAllAction()
         }) {
           HStack {
             Text("Popular")

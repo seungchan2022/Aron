@@ -27,13 +27,15 @@ struct MovieListReducer {
     var trendingItemList: [MovieEntity.Movie.Trending.Item] = []
     var popularItemList: [MovieEntity.Movie.Popular.Item] = []
     var topRatedItemList: [MovieEntity.Movie.TopRated.Item] = []
+    var genreItemList: [MovieEntity.Movie.GenreList.Item] = []
 
     var fetchNowPlayingItem: FetchState.Data<MovieEntity.Movie.NowPlaying.Response?> = .init(isLoading: false, value: .none)
     var fetchUpcomingItem: FetchState.Data<MovieEntity.Movie.Upcoming.Response?> = .init(isLoading: false, value: .none)
     var fetchTrendingItem: FetchState.Data<MovieEntity.Movie.Trending.Response?> = .init(isLoading: false, value: .none)
     var fetchPopularItem: FetchState.Data<MovieEntity.Movie.Popular.Response?> = .init(isLoading: false, value: .none)
     var fetchTopRatedItem: FetchState.Data<MovieEntity.Movie.TopRated.Response?> = .init(isLoading: false, value: .none)
-
+    var fetchGenreItem: FetchState.Data<MovieEntity.Movie.GenreList.Response?> = .init(isLoading: false, value: .none)
+    
     init(id: UUID = UUID()) {
       self.id = id
     }
@@ -48,12 +50,14 @@ struct MovieListReducer {
     case getTrendingItem
     case getPopularItem
     case getTopRatedItem
+    case getGenreItem
 
     case fetchNowPlayingItem(Result<MovieEntity.Movie.NowPlaying.Response, CompositeErrorRepository>)
     case fetchUpcomingItem(Result<MovieEntity.Movie.Upcoming.Response, CompositeErrorRepository>)
     case fetchTrendingItem(Result<MovieEntity.Movie.Trending.Response, CompositeErrorRepository>)
     case fetchPopularItem(Result<MovieEntity.Movie.Popular.Response, CompositeErrorRepository>)
     case fetchTopRatedItem(Result<MovieEntity.Movie.TopRated.Response, CompositeErrorRepository>)
+    case fetchGenreItem(Result<MovieEntity.Movie.GenreList.Response, CompositeErrorRepository>)
 
     case routeToMovieHome
 
@@ -62,9 +66,13 @@ struct MovieListReducer {
     case routeToTrendingDetail(MovieEntity.Movie.Trending.Item)
     case routeToPopularDetail(MovieEntity.Movie.Popular.Item)
     case routeToTopRatedDetail(MovieEntity.Movie.TopRated.Item)
-
+    case routeToGenreDetail(MovieEntity.Movie.GenreList.Item)
+    
     case routeToNowPlaying
     case routeToUpcoming
+    case routeToTrending
+    case routeToPopular
+    case routeToTopRated
 
     case throwError(CompositeErrorRepository)
   }
@@ -76,6 +84,7 @@ struct MovieListReducer {
     case requestTrendingItem
     case requestPopularItem
     case requestTopRatedItem
+    case requestGenreItem
   }
 
   var body: some Reducer<State, Action> {
@@ -113,6 +122,11 @@ struct MovieListReducer {
         state.fetchTopRatedItem.isLoading = true
         return sideEffect.getTopRatedItem(.init())
           .cancellable(pageID: pageID, id: CancelID.requestTopRatedItem, cancelInFlight: true)
+        
+      case .getGenreItem:
+        state.fetchGenreItem.isLoading = true
+        return sideEffect.getGenreItem(.init())
+          .cancellable(pageID: pageID, id: CancelID.requestGenreItem, cancelInFlight: true)
 
       case .fetchNowPlayingItem(let result):
         state.fetchNowPlayingItem.isLoading = false
@@ -173,6 +187,18 @@ struct MovieListReducer {
         case .failure(let error):
           return .run { await $0(.throwError(error)) }
         }
+        
+      case .fetchGenreItem(let result):
+        state.fetchGenreItem.isLoading = false
+        switch result {
+        case .success(let item):
+          state.fetchGenreItem.value = item
+          state.genreItemList = state.genreItemList + item.itemList
+          return .none
+          
+        case .failure(let error):
+          return .run { await $0(.throwError(error)) }
+        }
 
       case .routeToMovieHome:
         sideEffect.routeToMovieHome()
@@ -198,12 +224,28 @@ struct MovieListReducer {
         sideEffect.routeToTopRatedDetail(item)
         return .none
 
+      case .routeToGenreDetail(let item):
+        sideEffect.routeToGenreDetail(item)
+        return .none
+        
       case .routeToNowPlaying:
         sideEffect.routeToNowPlaying()
         return .none
 
       case .routeToUpcoming:
         sideEffect.routeToUpcoming()
+        return .none
+        
+      case .routeToTrending:
+        sideEffect.routeToTrending()
+        return .none
+
+      case .routeToPopular:
+        sideEffect.routeToPopular()
+        return .none
+        
+      case .routeToTopRated:
+        sideEffect.routeToTopRated()
         return .none
 
       case .throwError(let error):

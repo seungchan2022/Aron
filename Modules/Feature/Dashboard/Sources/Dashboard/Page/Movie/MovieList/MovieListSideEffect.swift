@@ -76,6 +76,17 @@ extension MovieListSideEffect {
       }
     }
   }
+  
+  var getGenreItem: (MovieEntity.Movie.GenreList.Request) -> Effect<MovieListReducer.Action> {
+    { item in
+        .publisher {
+          useCase.movieUseCase.genreList(item)
+            .receive(on: main)
+            .mapToResult()
+            .map(MovieListReducer.Action.fetchGenreItem)
+        }
+    }
+  }
 
   var routeToMovieHome: () -> Void {
     {
@@ -132,6 +143,16 @@ extension MovieListSideEffect {
         isAnimated: true)
     }
   }
+  
+  var routeToGenreDetail: (MovieEntity.Movie.GenreList.Item) -> Void {
+    { item in
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.genre.rawValue,
+          items: item.serialized()),
+        isAnimated: true)
+    }
+  }
 
   var routeToNowPlaying: () -> Void {
     {
@@ -145,6 +166,30 @@ extension MovieListSideEffect {
     {
       navigator.next(
         linkItem: .init(path: Link.Dashboard.Path.upcoming.rawValue),
+        isAnimated: true)
+    }
+  }
+  
+  var routeToTrending: () -> Void {
+    {
+      navigator.next(
+        linkItem: .init(path: Link.Dashboard.Path.trending.rawValue),
+        isAnimated: true)
+    }
+  }
+
+  var routeToPopular: () -> Void {
+    {
+      navigator.next(
+        linkItem: .init(path: Link.Dashboard.Path.popular.rawValue),
+        isAnimated: true)
+    }
+  }
+  
+  var routeToTopRated: () -> Void {
+    {
+      navigator.next(
+        linkItem: .init(path: Link.Dashboard.Path.topRated.rawValue),
         isAnimated: true)
     }
   }
@@ -177,5 +222,11 @@ extension MovieEntity.Movie.Popular.Item {
 extension MovieEntity.Movie.TopRated.Item {
   fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
     .init(movieID: id)
+  }
+}
+
+extension MovieEntity.Movie.GenreList.Item {
+  fileprivate func serialized() -> MovieEntity.MovieDetail.Genre.Request {
+    .init(genreID: self.id)
   }
 }
