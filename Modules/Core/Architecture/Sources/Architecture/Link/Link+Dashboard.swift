@@ -18,6 +18,7 @@ extension Link.Dashboard {
     case popular
     case topRated
     case genreList
+    case genre
     case similar
     case recommended
     case movieDetail

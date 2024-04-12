@@ -14,7 +14,7 @@ extension GenreListPage: View {
         ForEach(store.itemList) { item in
           ItemComponent(
             viewState: .init(item: item),
-            tapAction: { _ in })
+            tapAction: { store.send(.routeToDetail($0)) })
         }
       }
     }

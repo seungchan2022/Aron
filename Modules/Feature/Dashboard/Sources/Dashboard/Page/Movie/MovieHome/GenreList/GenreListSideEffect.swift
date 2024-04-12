@@ -29,4 +29,20 @@ extension GenreListSideEffect {
         }
     }
   }
+  
+  var routeToDetail: (MovieEntity.Movie.GenreList.Item) -> Void {
+    { item in
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.genre.rawValue,
+          items: item.serialized()),
+        isAnimated: true)
+    }
+  }
+}
+
+extension MovieEntity.Movie.GenreList.Item {
+  fileprivate func serialized() -> MovieEntity.MovieDetail.Genre.Request {
+    .init(genreID: self.id)
+  }
 }
