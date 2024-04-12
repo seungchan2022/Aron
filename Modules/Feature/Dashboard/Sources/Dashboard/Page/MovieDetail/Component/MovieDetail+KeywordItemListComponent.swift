@@ -7,7 +7,7 @@ import SwiftUI
 extension MovieDetailPage {
   struct KeywordItemListComponent {
     let viewState: ViewState
-    let tapAction: () -> Void
+    let tapAction: (MovieEntity.MovieDetail.MovieCard.KeywordItem) -> Void
 
     @Environment(\.colorScheme) var colorScheme
   }
@@ -27,7 +27,7 @@ extension MovieDetailPage.KeywordItemListComponent: View {
         ScrollView(.horizontal) {
           LazyHStack {
             ForEach(viewState.item.keywordBucket.keywordItem ?? []) { item in
-              Button(action: { tapAction() }) {
+              Button(action: { tapAction(item) }) {
                 ItemComponent(keywordItem: item)
               }
               .buttonStyle(.bordered)

@@ -2,18 +2,18 @@ import ComposableArchitecture
 import DesignSystem
 import SwiftUI
 
-// MARK: - GenrePage
+// MARK: - KeywordPage
 
-struct GenrePage {
-  @Bindable var store: StoreOf<GenreReducer>
+struct KeywordPage {
+  @Bindable var store: StoreOf<KeywordReducer>
 
 }
 
-extension GenrePage { }
+extension KeywordPage { }
 
 // MARK: View
 
-extension GenrePage: View {
+extension KeywordPage: View {
   var body: some View {
     ScrollView {
       // MovieItemComponent

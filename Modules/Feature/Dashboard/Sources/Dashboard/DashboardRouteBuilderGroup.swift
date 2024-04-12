@@ -19,6 +19,7 @@ extension DashboardRouteBuilderGroup {
       TopRatedRouteBuilder.generate(),
       GenreListRouteBuilder.generate(),
       GenreRouteBuilder.generate(),
+      KeywordRouteBuilder.generate(),
       SimilarRouteBuilder.generate(),
       RecommendedRouteBuilder.generate(),
       MovieDetailRouteBuilder.generate(),

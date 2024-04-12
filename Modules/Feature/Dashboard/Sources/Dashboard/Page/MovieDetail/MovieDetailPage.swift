@@ -69,7 +69,7 @@ extension MovieDetailPage: View {
         if let item = store.fetchDetailItem.value {
           KeywordItemListComponent(
             viewState: .init(item: item),
-            tapAction: { })
+            tapAction: { store.send(.routeToKeyword($0)) })
         }
 
         // cast

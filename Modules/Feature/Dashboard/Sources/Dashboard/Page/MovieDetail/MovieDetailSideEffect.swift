@@ -144,6 +144,16 @@ extension MovieDetailSideEffect {
     }
   }
 
+  var routeToKeyword: (MovieEntity.MovieDetail.MovieCard.KeywordItem) -> Void {
+    { item in
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.keyword.rawValue,
+          items: item.serialized()),
+        isAnimated: true)
+    }
+  }
+
   var routeToReview: (MovieEntity.MovieDetail.Review.Response) -> Void {
     { item in
       navigator.next(
@@ -249,6 +259,12 @@ extension MovieDetailSideEffect {
 extension MovieEntity.MovieDetail.MovieCard.GenreItem {
   fileprivate func serialized() -> MovieEntity.MovieDetail.Genre.Request {
     .init(genreID: id)
+  }
+}
+
+extension MovieEntity.MovieDetail.MovieCard.KeywordItem {
+  fileprivate func serialized() -> MovieEntity.MovieDetail.Keyword.Request {
+    .init(keywordID: id)
   }
 }
 

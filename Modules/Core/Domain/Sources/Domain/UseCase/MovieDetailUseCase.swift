@@ -30,4 +30,9 @@ public protocol MovieDetailUseCase {
     MovieEntity.MovieDetail.Genre.Response,
     CompositeErrorRepository
   > { get }
+
+  var keyword: (MovieEntity.MovieDetail.Keyword.Request) -> AnyPublisher<
+    MovieEntity.MovieDetail.Keyword.Response,
+    CompositeErrorRepository
+  > { get }
 }
