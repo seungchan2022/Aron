@@ -8,7 +8,6 @@ struct MovieDetailPage {
   @Bindable var store: StoreOf<MovieDetailReducer>
   @Environment(\.colorScheme) var colorScheme
 
-//  @State private var isReadMoreTapped = false
   
 }
 
@@ -29,7 +28,7 @@ extension MovieDetailPage: View {
         if let item = store.fetchDetailItem.value {
           MovieCardComponent(
             viewState: .init(item: item),
-            tapGenreAction: { })
+            tapGenreAction: { store.send(.routeToGenre($0)) })
         }
 
         // List 버튼들

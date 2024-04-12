@@ -90,6 +90,8 @@ struct MovieDetailReducer {
 
     case fetchIsWish(Result<Bool, CompositeErrorRepository>)
     case fetchIsSeen(Result<Bool, CompositeErrorRepository>)
+    
+    case routeToGenre(MovieEntity.MovieDetail.MovieCard.GenreItem)
 
     case routeToReview(MovieEntity.MovieDetail.Review.Response)
     case routeToCastItem(MovieEntity.MovieDetail.Credit.CastItem)
@@ -253,6 +255,10 @@ struct MovieDetailReducer {
           return .run { await $0(.throwError(error)) }
         }
 
+      case .routeToGenre(let item):
+        sideEffect.routeToGenre(item)
+        return .none
+        
       case .routeToReview(let item):
         sideEffect.routeToReview(item)
         return .none

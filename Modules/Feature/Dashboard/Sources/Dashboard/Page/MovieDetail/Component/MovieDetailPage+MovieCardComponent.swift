@@ -7,7 +7,7 @@ import SwiftUI
 extension MovieDetailPage {
   struct MovieCardComponent {
     let viewState: ViewState
-    let tapGenreAction: () -> Void
+    let tapGenreAction: (MovieEntity.MovieDetail.MovieCard.GenreItem) -> Void
     @Environment(\.colorScheme) var colorScheme
 
   }
@@ -120,7 +120,7 @@ extension MovieDetailPage.MovieCardComponent: View {
       ScrollView(.horizontal) {
         LazyHStack {
           ForEach(viewState.item.genreItemList) { item in
-            Button(action: { tapGenreAction() }) {
+            Button(action: { tapGenreAction(item) }) {
               ItemComponent(genreItem: item)
             }
             .tint(
