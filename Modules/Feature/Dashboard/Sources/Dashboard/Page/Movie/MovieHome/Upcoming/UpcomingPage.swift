@@ -6,6 +6,7 @@ import SwiftUI
 struct UpcomingPage {
   @Bindable var store: StoreOf<UpcomingReducer>
 
+  let isNavigationBarLargeTitle: Bool
 }
 
 // MARK: View
@@ -37,6 +38,8 @@ extension UpcomingPage: View {
       .padding(.horizontal, 16)
       .padding(.top, 12)
     }
+    .navigationTitle("Upcoming")
+    .navigationBarTitleDisplayMode(isNavigationBarLargeTitle ? .large : .inline)
     .scrollDismissesKeyboard(.immediately)
     .onAppear {
       store.send(.getItem)

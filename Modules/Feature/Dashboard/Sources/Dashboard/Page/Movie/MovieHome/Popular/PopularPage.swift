@@ -5,6 +5,8 @@ import SwiftUI
 
 struct PopularPage {
   @Bindable var store: StoreOf<PopularReducer>
+  
+  let isNavigationBarLargeTitle: Bool
 }
 
 // MARK: View
@@ -34,6 +36,8 @@ extension PopularPage: View {
       .padding(.horizontal, 16)
       .padding(.top, 12)
     }
+    .navigationTitle("Popular")
+    .navigationBarTitleDisplayMode(isNavigationBarLargeTitle ? .large : .inline)
     .scrollDismissesKeyboard(.immediately)
     .onAppear {
       store.send(.getItem)

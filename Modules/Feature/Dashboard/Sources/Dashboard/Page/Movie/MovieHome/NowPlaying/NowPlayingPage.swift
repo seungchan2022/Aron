@@ -7,6 +7,8 @@ struct NowPlayingPage {
   @Bindable var store: StoreOf<NowPlayingReducer>
 
   @State private var searchResult: SearchResult = .movie
+  
+  let isNavigationBarLargeTitle: Bool
 
 }
 
@@ -164,6 +166,8 @@ extension NowPlayingPage: View {
         }
       }
     }
+    .navigationTitle("Now Playing")
+    .navigationBarTitleDisplayMode(isNavigationBarLargeTitle ? .large : .inline)
     .scrollDismissesKeyboard(.immediately)
     .onAppear {
       store.send(.getItem)

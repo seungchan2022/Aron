@@ -21,29 +21,17 @@ struct HomePage {
 extension HomePage: View {
   var body: some View {
     TabView {
-      NowPlayingPage(store: nowPlayingStore)
-        .navigationTitle("Now Playing")
-        .navigationBarTitleDisplayMode(.inline)
+      NowPlayingPage(store: nowPlayingStore, isNavigationBarLargeTitle: false)
 
-      UpcomingPage(store: upcomingStore)
-        .navigationTitle("Upcoming")
-        .navigationBarTitleDisplayMode(.inline)
+      UpcomingPage(store: upcomingStore, isNavigationBarLargeTitle: false)
 
-      TrendingPage(store: trendingStore)
-        .navigationTitle("Trending")
-        .navigationBarTitleDisplayMode(.inline)
+      TrendingPage(store: trendingStore, isNavigationBarLargeTitle: false)
 
-      PopularPage(store: popularStore)
-        .navigationTitle("Popular")
-        .navigationBarTitleDisplayMode(.inline)
+      PopularPage(store: popularStore, isNavigationBarLargeTitle: false)
 
-      TopRatedPage(store: topRatedStore)
-        .navigationTitle("Top Rated")
-        .navigationBarTitleDisplayMode(.inline)
+      TopRatedPage(store: topRatedStore, isNavigationBarLargeTitle: false)
 
       GenreListPage(store: genreListStore)
-        .navigationTitle("GenreList")
-        .navigationBarTitleDisplayMode(.inline)
     }
     .tabViewStyle(.page)
     .indexViewStyle(.page(backgroundDisplayMode: .always))

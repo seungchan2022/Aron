@@ -5,6 +5,9 @@ import SwiftUI
 
 struct TopRatedPage {
   @Bindable var store: StoreOf<TopRatedReducer>
+  
+  let isNavigationBarLargeTitle: Bool
+
 }
 
 // MARK: View
@@ -34,6 +37,8 @@ extension TopRatedPage: View {
       .padding(.horizontal, 16)
       .padding(.top, 12)
     }
+    .navigationTitle("TopRated")
+    .navigationBarTitleDisplayMode(isNavigationBarLargeTitle ? .large : .inline)
     .scrollDismissesKeyboard(.immediately)
     .onAppear {
       store.send(.getItem)

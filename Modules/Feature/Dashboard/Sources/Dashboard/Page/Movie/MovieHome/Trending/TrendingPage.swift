@@ -5,6 +5,9 @@ import SwiftUI
 
 struct TrendingPage {
   @Bindable var store: StoreOf<TrendingReducer>
+  
+  let isNavigationBarLargeTitle: Bool
+
 }
 
 // MARK: View
@@ -34,6 +37,8 @@ extension TrendingPage: View {
       .padding(.horizontal, 16)
       .padding(.top, 12)
     }
+    .navigationTitle("Trending")
+    .navigationBarTitleDisplayMode(isNavigationBarLargeTitle ? .large : .inline)
     .scrollDismissesKeyboard(.immediately)
     .onAppear {
       store.send(.getItem)
