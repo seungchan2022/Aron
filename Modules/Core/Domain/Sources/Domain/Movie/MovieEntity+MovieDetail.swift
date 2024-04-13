@@ -35,6 +35,7 @@ extension MovieEntity.MovieDetail.MovieCard {
     public let status: String
     public let productionCountryList: [ProductionCountryItem]
     public let voteAverage: Double?
+    public let popularity: Double
     public let voteCount: Int
     public let genreItemList: [GenreItem]
     public let overview: String?
@@ -53,6 +54,7 @@ extension MovieEntity.MovieDetail.MovieCard {
       case status
       case productionCountryList = "production_countries"
       case voteAverage = "vote_average"
+      case popularity
       case voteCount = "vote_count"
       case genreItemList = "genres"
       case overview

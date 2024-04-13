@@ -7,7 +7,8 @@ import SwiftUI
 extension MovieDetailPage {
   struct ReviewComponent {
     let viewState: ViewState
-    let tapAction: (MovieEntity.MovieDetail.Review.Response) -> Void
+//    let tapAction: (MovieEntity.MovieDetail.Review.Response) -> Void
+    let tapAction: (MovieEntity.MovieDetail.MovieCard.Response) -> Void
   }
 }
 
@@ -21,7 +22,7 @@ extension MovieDetailPage.ReviewComponent: View {
       Divider()
         .padding(.leading, 48)
 
-      Button(action: { tapAction(viewState.item) }) {
+      Button(action: { tapAction(viewState.movieID) }) {
         HStack {
           Text("\(viewState.item.totalItemListCount) reviews")
             .foregroundStyle(DesignSystemColor.label(.greenSlate).color)
@@ -45,5 +46,6 @@ extension MovieDetailPage.ReviewComponent: View {
 extension MovieDetailPage.ReviewComponent {
   struct ViewState: Equatable {
     let item: MovieEntity.MovieDetail.Review.Response
+    let movieID: MovieEntity.MovieDetail.MovieCard.Response
   }
 }

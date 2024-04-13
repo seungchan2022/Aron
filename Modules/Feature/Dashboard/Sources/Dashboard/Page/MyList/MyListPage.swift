@@ -127,19 +127,27 @@ extension MyListPage: View {
       "",
       isPresented: $store.isShowingConfirmation)
     {
-      Button(action: { }) {
+      Button(action: { 
+        store.send(.getItemList)
+      }) {
         Text("Sort by added date")
       }
 
-      Button(action: { }) {
+      Button(action: { 
+        store.send(.sortedByReleaseDate)
+      }) {
         Text("Sort by release date")
       }
 
-      Button(action: { }) {
+      Button(action: { 
+        store.send(.sortedByRating)
+      }) {
         Text("Sort by ratings")
       }
 
-      Button(action: { }) {
+      Button(action: {
+        store.send(.sortedByPopularity)
+      }) {
         Text("Sort by popularity")
       }
     } message: {

@@ -48,6 +48,10 @@ struct MyListReducer {
 
     case getItemList
     case fetchItemList(Result<MovieEntity.List, CompositeErrorRepository>)
+    
+    case sortedByReleaseDate
+    case sortedByRating
+    case sortedByPopularity
 
     case routeToNewList
     case routeToDetail(MovieEntity.MovieDetail.MovieCard.Response)
@@ -88,6 +92,24 @@ struct MyListReducer {
           return .run { await $0(.throwError(error)) }
         }
 
+      case .sortedByReleaseDate:
+        let sortedWishList = state.itemList.wishList.sorted(by: { $0.releaseDate.toDate ?? Date() > $1.releaseDate.toDate ?? Date()})
+        let sortedSeenList = state.itemList.seenList.sorted(by: { $0.releaseDate.toDate ?? Date() > $1.releaseDate.toDate ?? Date() })
+        state.itemList = .init(wishList: sortedWishList, seenList: sortedSeenList)
+        return .none
+        
+      case .sortedByRating:
+        let sortedWishList = state.itemList.wishList.sorted(by: { $0.voteAverage ?? 0 > $1.voteAverage ?? 0})
+        let sortedSeenList = state.itemList.seenList.sorted(by: { $0.voteAverage ?? 0 > $1.voteAverage ?? 0})
+        state.itemList = .init(wishList: sortedWishList, seenList: sortedSeenList)
+        return .none
+        
+      case .sortedByPopularity:
+        let sortedWishList = state.itemList.wishList.sorted(by: { $0.popularity > $1.popularity})
+        let sortedSeenList = state.itemList.seenList.sorted(by: { $0.popularity > $1.popularity})
+        state.itemList = .init(wishList: sortedWishList, seenList: sortedSeenList)
+        return .none
+        
       case .routeToNewList:
         sideEffect.routeToNewList()
         return .none
@@ -107,4 +129,12 @@ struct MyListReducer {
 
   private let pageID: String
   private let sideEffect: MyListSideEffect
+}
+
+extension String {
+  fileprivate var toDate: Date? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    return dateFormatter.date(from: self)
+  }
 }

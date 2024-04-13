@@ -43,9 +43,11 @@ extension MovieDetailPage: View {
         }
 
         // Review
-        if let item = store.fetchReviewItem.value {
+        if let item = store.fetchReviewItem.value, let movieID = store.fetchDetailItem.value {
           ReviewComponent(
-            viewState: .init(item: item),
+            viewState: .init(
+              item: item,
+              movieID: movieID),
             tapAction: { store.send(.routeToReview($0)) })
         }
 

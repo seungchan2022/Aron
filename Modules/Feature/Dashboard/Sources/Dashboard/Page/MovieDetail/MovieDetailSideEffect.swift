@@ -153,8 +153,19 @@ extension MovieDetailSideEffect {
         isAnimated: true)
     }
   }
+  // Review에 대한 Request를 보낼때 Review의 Response에 대한 데이터를 보낸다는 것이 모순 적인거 같음
+  //  var routeToReview: (MovieEntity.MovieDetail.Review.Response) -> Void {
+  //    { item in
+  //      navigator.next(
+  //        linkItem: .init(
+  //          path: Link.Dashboard.Path.review.rawValue,
+  //          items: item.serializedReview()),
+  //        isAnimated: true)
+  //    }
+  //  }
 
-  var routeToReview: (MovieEntity.MovieDetail.Review.Response) -> Void {
+  
+  var routeToReview: (MovieEntity.MovieDetail.MovieCard.Response) -> Void {
     { item in
       navigator.next(
         linkItem: .init(
@@ -268,9 +279,10 @@ extension MovieEntity.MovieDetail.MovieCard.KeywordItem {
   }
 }
 
-extension MovieEntity.MovieDetail.Review.Response {
+extension MovieEntity.MovieDetail.MovieCard.Response {
   fileprivate func serializedReview() -> MovieEntity.MovieDetail.Review.Request {
-    .init(movieID: id)
+//    .init(movieID: id)
+    .init(movieID: self.id)
   }
 }
 
