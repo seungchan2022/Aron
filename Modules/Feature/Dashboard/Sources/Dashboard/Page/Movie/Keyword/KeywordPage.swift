@@ -9,7 +9,11 @@ struct KeywordPage {
 
 }
 
-extension KeywordPage { }
+extension KeywordPage { 
+  private var navigationTitle: String {
+    store.item.name
+  }
+}
 
 // MARK: View
 
@@ -35,7 +39,7 @@ extension KeywordPage: View {
         .padding(.top, 12)
       }
     }
-    .navigationTitle("")
+    .navigationTitle(navigationTitle)
     .navigationBarTitleDisplayMode(.inline)
     .onAppear {
       store.send(.getItem(store.item))

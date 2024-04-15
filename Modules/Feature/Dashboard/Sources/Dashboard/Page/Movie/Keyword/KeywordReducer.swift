@@ -22,13 +22,13 @@ struct KeywordReducer {
   struct State: Equatable, Identifiable {
     let id: UUID
 
-    let item: MovieEntity.MovieDetail.Keyword.Request
+    let item: MovieEntity.MovieDetail.MovieCard.KeywordItem
 
     var fetchItem: FetchState.Data<MovieEntity.MovieDetail.Keyword.Response?> = .init(isLoading: false, value: .none)
 
     init(
       id: UUID = UUID(),
-      item: MovieEntity.MovieDetail.Keyword.Request)
+      item: MovieEntity.MovieDetail.MovieCard.KeywordItem)
     {
       self.id = id
       self.item = item
@@ -39,7 +39,7 @@ struct KeywordReducer {
     case binding(BindingAction<State>)
     case teardown
 
-    case getItem(MovieEntity.MovieDetail.Keyword.Request)
+    case getItem(MovieEntity.MovieDetail.MovieCard.KeywordItem)
     case fetchItem(Result<MovieEntity.MovieDetail.Keyword.Response, CompositeErrorRepository>)
 
     case routeToDetail(MovieEntity.MovieDetail.Keyword.Response.Item)
@@ -63,9 +63,9 @@ struct KeywordReducer {
         return .concatenate(
           CancelID.allCases.map { .cancel(pageID: pageID, id: $0) })
 
-      case .getItem(let request):
+      case .getItem(let item):
         state.fetchItem.isLoading = true
-        return sideEffect.getItem(request)
+        return sideEffect.getItem(item)
           .cancellable(pageID: pageID, id: CancelID.requestItem, cancelInFlight: true)
 
       case .fetchItem(let result):

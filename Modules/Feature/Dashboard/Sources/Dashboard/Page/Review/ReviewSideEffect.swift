@@ -23,14 +23,20 @@ struct ReviewSideEffect {
 }
 
 extension ReviewSideEffect {
-  var review: (MovieEntity.MovieDetail.Review.Request) -> Effect<ReviewReducer.Action> {
-    { request in
+  var review: (MovieEntity.MovieDetail.MovieCard.Response) -> Effect<ReviewReducer.Action> {
+    { item in
       .publisher {
-        useCase.movieDetailUseCase.review(request)
+        useCase.movieDetailUseCase.review(item.serialized())
           .receive(on: main)
           .mapToResult()
           .map(ReviewReducer.Action.fetchReviewItem)
       }
     }
+  }
+}
+
+extension MovieEntity.MovieDetail.MovieCard.Response {
+  fileprivate func serialized() -> MovieEntity.MovieDetail.Review.Request {
+    .init(movieID: self.id)
   }
 }

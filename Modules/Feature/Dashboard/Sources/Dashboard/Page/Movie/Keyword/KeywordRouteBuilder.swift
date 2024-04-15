@@ -8,7 +8,7 @@ struct KeywordRouteBuilder<RootNavigator: RootNavigatorType> {
 
     return .init(matchPath: matchPath) { navigator, items, diContainer -> RouteViewController? in
       guard let env: DashboardEnvironmentUsable = diContainer.resolve() else { return .none }
-      guard let item: MovieEntity.MovieDetail.Keyword.Request = items.decoded() else { return .none }
+      guard let item: MovieEntity.MovieDetail.MovieCard.KeywordItem = items.decoded() else { return .none }
 
       return DebugWrappingController(matchPath: matchPath) {
         KeywordPage(store: .init(

@@ -22,10 +22,11 @@ struct KeywordSideEffect {
 }
 
 extension KeywordSideEffect {
-  var getItem: (MovieEntity.MovieDetail.Keyword.Request) -> Effect<KeywordReducer.Action> {
-    { request in
+
+  var getItem: (MovieEntity.MovieDetail.MovieCard.KeywordItem) -> Effect<KeywordReducer.Action> {
+    { item in
       .publisher {
-        useCase.movieDetailUseCase.keyword(request)
+        useCase.movieDetailUseCase.keyword(item.serialized())
           .receive(on: main)
           .mapToResult()
           .map(KeywordReducer.Action.fetchItem)
@@ -47,5 +48,11 @@ extension KeywordSideEffect {
 extension MovieEntity.MovieDetail.Keyword.Response.Item {
   fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
     .init(movieID: id)
+  }
+}
+
+extension MovieEntity.MovieDetail.MovieCard.KeywordItem {
+  fileprivate func serialized() -> MovieEntity.MovieDetail.Keyword.Request {
+    .init(keywordID: id)
   }
 }

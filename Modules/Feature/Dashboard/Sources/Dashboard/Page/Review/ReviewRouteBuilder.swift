@@ -8,7 +8,7 @@ struct ReviewRouteBuilder<RootNavigator: RootNavigatorType> {
 
     return .init(matchPath: matchPath) { navigator, items, diContainer -> RouteViewController? in
       guard let env: DashboardEnvironmentUsable = diContainer.resolve() else { return .none }
-      guard let item: MovieEntity.MovieDetail.Review.Request = items.decoded() else { return .none }
+      guard let item: MovieEntity.MovieDetail.MovieCard.Response = items.decoded() else { return .none }
 
       return DebugWrappingController(matchPath: matchPath) {
         ReviewPage(store: .init(

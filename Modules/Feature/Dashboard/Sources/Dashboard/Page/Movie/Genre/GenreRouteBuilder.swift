@@ -8,7 +8,7 @@ struct GenreRouteBuilder<RootNavigator: RootNavigatorType> {
 
     return .init(matchPath: matchPath) { navigator, items, diContainer -> RouteViewController? in
       guard let env: DashboardEnvironmentUsable = diContainer.resolve() else { return .none }
-      guard let item: MovieEntity.MovieDetail.Genre.Request = items.decoded() else { return .none }
+      guard let item: MovieEntity.MovieDetail.MovieCard.GenreItem = items.decoded() else { return .none }
 
       return DebugWrappingController(matchPath: matchPath) {
         GenrePage(store: .init(

@@ -22,10 +22,10 @@ struct GenreSideEffect {
 }
 
 extension GenreSideEffect {
-  var getItem: (MovieEntity.MovieDetail.Genre.Request) -> Effect<GenreReducer.Action> {
-    { request in
+  var getItem: (MovieEntity.MovieDetail.MovieCard.GenreItem) -> Effect<GenreReducer.Action> {
+    { item in
       .publisher {
-        useCase.movieDetailUseCase.genre(request)
+        useCase.movieDetailUseCase.genre(item.serialized())
           .receive(on: main)
           .mapToResult()
           .map(GenreReducer.Action.fetchItem)
@@ -47,5 +47,12 @@ extension GenreSideEffect {
 extension MovieEntity.MovieDetail.Genre.Response.Item {
   fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
     .init(movieID: id)
+  }
+}
+
+
+extension MovieEntity.MovieDetail.MovieCard.GenreItem {
+  fileprivate func serialized() -> MovieEntity.MovieDetail.Genre.Request {
+    .init(genreID: id)
   }
 }

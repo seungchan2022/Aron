@@ -139,7 +139,7 @@ extension MovieDetailSideEffect {
       navigator.next(
         linkItem: .init(
           path: Link.Dashboard.Path.genre.rawValue,
-          items: item.serialized()),
+          items: item),
         isAnimated: true)
     }
   }
@@ -149,28 +149,17 @@ extension MovieDetailSideEffect {
       navigator.next(
         linkItem: .init(
           path: Link.Dashboard.Path.keyword.rawValue,
-          items: item.serialized()),
+          items: item),
         isAnimated: true)
     }
   }
-  // Review에 대한 Request를 보낼때 Review의 Response에 대한 데이터를 보낸다는 것이 모순 적인거 같음
-  //  var routeToReview: (MovieEntity.MovieDetail.Review.Response) -> Void {
-  //    { item in
-  //      navigator.next(
-  //        linkItem: .init(
-  //          path: Link.Dashboard.Path.review.rawValue,
-  //          items: item.serializedReview()),
-  //        isAnimated: true)
-  //    }
-  //  }
-
   
   var routeToReview: (MovieEntity.MovieDetail.MovieCard.Response) -> Void {
     { item in
       navigator.next(
         linkItem: .init(
           path: Link.Dashboard.Path.review.rawValue,
-          items: item.serializedReview()),
+          items: item),
         isAnimated: true)
     }
   }
@@ -267,22 +256,9 @@ extension MovieDetailSideEffect {
   }
 }
 
-extension MovieEntity.MovieDetail.MovieCard.GenreItem {
-  fileprivate func serialized() -> MovieEntity.MovieDetail.Genre.Request {
-    .init(genreID: id)
-  }
-}
-
-extension MovieEntity.MovieDetail.MovieCard.KeywordItem {
-  fileprivate func serialized() -> MovieEntity.MovieDetail.Keyword.Request {
-    .init(keywordID: id)
-  }
-}
-
 extension MovieEntity.MovieDetail.MovieCard.Response {
   fileprivate func serializedReview() -> MovieEntity.MovieDetail.Review.Request {
-//    .init(movieID: id)
-    .init(movieID: self.id)
+    .init(movieID: id)
   }
 }
 

@@ -38,14 +38,9 @@ extension GenreListSideEffect {
       navigator.next(
         linkItem: .init(
           path: Link.Dashboard.Path.genre.rawValue,
-          items: item.serialized()),
+          items: item),
         isAnimated: true)
     }
   }
 }
 
-extension MovieEntity.Movie.GenreList.Item {
-  fileprivate func serialized() -> MovieEntity.MovieDetail.Genre.Request {
-    .init(genreID: id)
-  }
-}

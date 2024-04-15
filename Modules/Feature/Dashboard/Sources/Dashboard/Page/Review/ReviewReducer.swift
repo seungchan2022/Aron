@@ -22,12 +22,13 @@ struct ReviewReducer {
   struct State: Equatable, Identifiable {
     let id: UUID
 
-    let reviewItem: MovieEntity.MovieDetail.Review.Request
+    let reviewItem: MovieEntity.MovieDetail.MovieCard.Response
+    
     var fetchReviewItem: FetchState.Data<MovieEntity.MovieDetail.Review.Response?> = .init(isLoading: false, value: .none)
 
     init(
       id: UUID = UUID(),
-      reviewItem: MovieEntity.MovieDetail.Review.Request)
+      reviewItem: MovieEntity.MovieDetail.MovieCard.Response)
     {
       self.id = id
       self.reviewItem = reviewItem
@@ -38,7 +39,7 @@ struct ReviewReducer {
     case binding(BindingAction<State>)
     case teardown
 
-    case getReview(MovieEntity.MovieDetail.Review.Request)
+    case getReview(MovieEntity.MovieDetail.MovieCard.Response)
     case fetchReviewItem(Result<MovieEntity.MovieDetail.Review.Response, CompositeErrorRepository>)
 
     case throwError(CompositeErrorRepository)
@@ -60,9 +61,9 @@ struct ReviewReducer {
         return .concatenate(
           CancelID.allCases.map { .cancel(pageID: pageID, id: $0) })
 
-      case .getReview(let requestModel):
+      case .getReview(let item):
         state.fetchReviewItem.isLoading = true
-        return sideEffect.review(requestModel)
+        return sideEffect.review(item)
           .cancellable(pageID: pageID, id: CancelID.requestReview, cancelInFlight: true)
 
       case .fetchReviewItem(let result):
