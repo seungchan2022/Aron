@@ -2,6 +2,8 @@ import Architecture
 import Domain
 import LinkNavigator
 
+// MARK: - UpcomingRouteBuilder
+
 struct UpcomingRouteBuilder<RootNavigator: RootNavigatorType> {
   static func generate() -> RouteBuilderOf<RootNavigator> {
     let matchPath = Link.Dashboard.Path.upcoming.rawValue
@@ -10,24 +12,27 @@ struct UpcomingRouteBuilder<RootNavigator: RootNavigatorType> {
       guard let env: DashboardEnvironmentUsable = diContainer.resolve() else { return .none }
 
       let query: UpcomingRouteItem = items.decoded() ?? .init()
-      
+
       return DebugWrappingController(matchPath: matchPath) {
-        UpcomingPage(store: .init(
-          initialState: UpcomingReducer.State(),
-          reducer: {
-            UpcomingReducer(sideEffect: .init(
-              useCase: env,
-              navigator: navigator))
-          }),
-                     isNavigationBarLargeTitle: query.isNavigationBarLargeTitle)
+        UpcomingPage(
+          store: .init(
+            initialState: UpcomingReducer.State(),
+            reducer: {
+              UpcomingReducer(sideEffect: .init(
+                useCase: env,
+                navigator: navigator))
+            }),
+          isNavigationBarLargeTitle: query.isNavigationBarLargeTitle)
       }
     }
   }
 }
 
-struct  UpcomingRouteItem: Equatable, Codable, Sendable {
+// MARK: - UpcomingRouteItem
+
+struct UpcomingRouteItem: Equatable, Codable, Sendable {
   let isNavigationBarLargeTitle: Bool
-  
+
   init(isNavigationBarLargeTitle: Bool = true) {
     self.isNavigationBarLargeTitle = isNavigationBarLargeTitle
   }

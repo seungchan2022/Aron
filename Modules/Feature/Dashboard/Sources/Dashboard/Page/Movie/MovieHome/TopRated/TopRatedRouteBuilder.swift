@@ -2,6 +2,8 @@ import Architecture
 import Domain
 import LinkNavigator
 
+// MARK: - TopRatedRouteBuilder
+
 struct TopRatedRouteBuilder<RootNavigator: RootNavigatorType> {
   static func generate() -> RouteBuilderOf<RootNavigator> {
     let matchPath = Link.Dashboard.Path.topRated.rawValue
@@ -12,22 +14,26 @@ struct TopRatedRouteBuilder<RootNavigator: RootNavigatorType> {
       let query: TopRatedRouteItem = items.decoded() ?? .init()
 
       return DebugWrappingController(matchPath: matchPath) {
-        TopRatedPage(store: .init(
-          initialState: TopRatedReducer.State(),
-          reducer: {
-            TopRatedReducer(sideEffect: .init(
-              useCase: env,
-              navigator: navigator))
-          }), 
-                     isNavigationBarLargeTitle: query.isNavigationBarLargeTitle)
+        TopRatedPage(
+          store: .init(
+            initialState: TopRatedReducer.State(),
+            reducer: {
+              TopRatedReducer(sideEffect: .init(
+                useCase: env,
+                navigator: navigator))
+            }),
+
+          isNavigationBarLargeTitle: query.isNavigationBarLargeTitle)
       }
     }
   }
 }
 
-struct  TopRatedRouteItem: Equatable, Codable, Sendable {
+// MARK: - TopRatedRouteItem
+
+struct TopRatedRouteItem: Equatable, Codable, Sendable {
   let isNavigationBarLargeTitle: Bool
-  
+
   init(isNavigationBarLargeTitle: Bool = true) {
     self.isNavigationBarLargeTitle = isNavigationBarLargeTitle
   }

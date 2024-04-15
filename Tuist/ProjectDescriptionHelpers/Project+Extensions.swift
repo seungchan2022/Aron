@@ -25,10 +25,10 @@ extension InfoPlist {
   public static var defaultInfoPlist: Self {
     extendingDefault(with: extraInfoPlist)
   }
-  
+
   public static var extraInfoPlist: [String: Plist.Value] {
     [
-      "UILaunchScreen": .dictionary([:])
+      "UILaunchScreen": .dictionary([:]),
     ]
   }
 }

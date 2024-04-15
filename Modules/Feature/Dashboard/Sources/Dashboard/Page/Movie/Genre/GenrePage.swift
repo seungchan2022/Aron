@@ -9,7 +9,7 @@ struct GenrePage {
 
 }
 
-extension GenrePage { 
+extension GenrePage {
   private var navigationTitle: String {
     store.item.name
   }

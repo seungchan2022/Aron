@@ -95,9 +95,9 @@ struct MovieDetailReducer {
     case routeToKeyword(MovieEntity.MovieDetail.MovieCard.KeywordItem)
 
 //    case routeToReview(MovieEntity.MovieDetail.Review.Response)
-    
+
     case routeToReview(MovieEntity.MovieDetail.MovieCard.Response)
-    
+
     case routeToCastItem(MovieEntity.MovieDetail.Credit.CastItem)
     case routeToCrewItem(MovieEntity.MovieDetail.Credit.CrewItem)
     case routeToCastList(MovieEntity.MovieDetail.MovieCard.Response)

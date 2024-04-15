@@ -2,6 +2,8 @@ import Architecture
 import Domain
 import LinkNavigator
 
+// MARK: - TrendingRouteBuilder
+
 struct TrendingRouteBuilder<RootNavigator: RootNavigatorType> {
   static func generate() -> RouteBuilderOf<RootNavigator> {
     let matchPath = Link.Dashboard.Path.trending.rawValue
@@ -12,22 +14,26 @@ struct TrendingRouteBuilder<RootNavigator: RootNavigatorType> {
       let query: TrendingRouteItem = items.decoded() ?? .init()
 
       return DebugWrappingController(matchPath: matchPath) {
-        TrendingPage(store: .init(
-          initialState: TrendingReducer.State(),
-          reducer: {
-            TrendingReducer(sideEffect: .init(
-              useCase: env,
-              navigator: navigator))
-          }), 
-                     isNavigationBarLargeTitle: query.isNavigationBarLargeTitle)
+        TrendingPage(
+          store: .init(
+            initialState: TrendingReducer.State(),
+            reducer: {
+              TrendingReducer(sideEffect: .init(
+                useCase: env,
+                navigator: navigator))
+            }),
+
+          isNavigationBarLargeTitle: query.isNavigationBarLargeTitle)
       }
     }
   }
 }
 
-struct  TrendingRouteItem: Equatable, Codable, Sendable {
+// MARK: - TrendingRouteItem
+
+struct TrendingRouteItem: Equatable, Codable, Sendable {
   let isNavigationBarLargeTitle: Bool
-  
+
   init(isNavigationBarLargeTitle: Bool = true) {
     self.isNavigationBarLargeTitle = isNavigationBarLargeTitle
   }

@@ -5,7 +5,7 @@ import SwiftUI
 
 struct TopRatedPage {
   @Bindable var store: StoreOf<TopRatedReducer>
-  
+
   let isNavigationBarLargeTitle: Bool
 
 }

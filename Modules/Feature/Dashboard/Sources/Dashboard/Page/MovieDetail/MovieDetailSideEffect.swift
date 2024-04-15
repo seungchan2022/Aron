@@ -153,7 +153,7 @@ extension MovieDetailSideEffect {
         isAnimated: true)
     }
   }
-  
+
   var routeToReview: (MovieEntity.MovieDetail.MovieCard.Response) -> Void {
     { item in
       navigator.next(

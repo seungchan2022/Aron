@@ -50,7 +50,6 @@ extension MovieEntity.MovieDetail.Genre.Response.Item {
   }
 }
 
-
 extension MovieEntity.MovieDetail.MovieCard.GenreItem {
   fileprivate func serialized() -> MovieEntity.MovieDetail.Genre.Request {
     .init(genreID: id)

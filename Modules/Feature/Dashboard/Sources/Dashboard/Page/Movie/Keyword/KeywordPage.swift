@@ -9,7 +9,7 @@ struct KeywordPage {
 
 }
 
-extension KeywordPage { 
+extension KeywordPage {
   private var navigationTitle: String {
     store.item.name
   }

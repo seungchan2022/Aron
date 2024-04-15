@@ -5,7 +5,7 @@ import SwiftUI
 
 struct PopularPage {
   @Bindable var store: StoreOf<PopularReducer>
-  
+
   let isNavigationBarLargeTitle: Bool
 }
 

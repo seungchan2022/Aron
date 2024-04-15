@@ -37,6 +37,6 @@ extension ReviewSideEffect {
 
 extension MovieEntity.MovieDetail.MovieCard.Response {
   fileprivate func serialized() -> MovieEntity.MovieDetail.Review.Request {
-    .init(movieID: self.id)
+    .init(movieID: id)
   }
 }

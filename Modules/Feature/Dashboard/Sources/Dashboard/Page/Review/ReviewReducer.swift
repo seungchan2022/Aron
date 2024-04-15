@@ -23,7 +23,7 @@ struct ReviewReducer {
     let id: UUID
 
     let reviewItem: MovieEntity.MovieDetail.MovieCard.Response
-    
+
     var fetchReviewItem: FetchState.Data<MovieEntity.MovieDetail.Review.Response?> = .init(isLoading: false, value: .none)
 
     init(

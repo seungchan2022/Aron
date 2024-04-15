@@ -7,7 +7,7 @@ struct NowPlayingPage {
   @Bindable var store: StoreOf<NowPlayingReducer>
 
   @State private var searchResult: SearchResult = .movie
-  
+
   let isNavigationBarLargeTitle: Bool
 
 }

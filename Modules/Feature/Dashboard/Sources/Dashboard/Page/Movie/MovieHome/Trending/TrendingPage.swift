@@ -5,7 +5,7 @@ import SwiftUI
 
 struct TrendingPage {
   @Bindable var store: StoreOf<TrendingReducer>
-  
+
   let isNavigationBarLargeTitle: Bool
 
 }
