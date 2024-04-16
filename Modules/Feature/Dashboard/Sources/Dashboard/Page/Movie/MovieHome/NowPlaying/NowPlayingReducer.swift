@@ -22,13 +22,13 @@ struct NowPlayingReducer {
   struct State: Equatable, Identifiable {
     let id: UUID
     var query = ""
-    
+
     var searchMovieItemList: [MovieEntity.Search.Movie.Item] = []
     var fetchSearchMovieItem: FetchState.Data<MovieEntity.Search.Movie.Composite?> = .init(isLoading: false, value: .none)
-    
+
     var searchKeywordItemList: [MovieEntity.Search.Keyword.Item] = []
     var fetchSearchKeywordItem: FetchState.Data<MovieEntity.Search.Keyword.Composite?> = .init(isLoading: false, value: .none)
-    
+
     var itemList: [MovieEntity.Movie.NowPlaying.Item] = []
     var fetchItem: FetchState.Data<MovieEntity.Movie.NowPlaying.Response?> = .init(isLoading: false, value: .none)
 
@@ -43,10 +43,10 @@ struct NowPlayingReducer {
 
     case searchMovie(String)
     case fetchSearchMovieItem(Result<MovieEntity.Search.Movie.Composite, CompositeErrorRepository>)
-    
+
     case searchKeyword(String)
     case fetchSearchKeywordItem(Result<MovieEntity.Search.Keyword.Composite, CompositeErrorRepository>)
-    
+
     case getItem
     case fetchItem(Result<MovieEntity.Movie.NowPlaying.Response, CompositeErrorRepository>)
 
@@ -78,75 +78,81 @@ struct NowPlayingReducer {
           state.searchMovieItemList = []
           return .none
         }
-          
+
         if state.query != state.fetchSearchMovieItem.value?.request.query {
-          state.searchMovieItemList  = []
+          state.searchMovieItemList = []
         }
-        
-        if let totalResultListCount = state.fetchSearchMovieItem.value?.response.totalResultListCount, totalResultListCount < state.searchMovieItemList.count {
+
+        if
+          let totalResultListCount = state.fetchSearchMovieItem.value?.response.totalResultListCount,
+          totalResultListCount < state.searchMovieItemList.count
+        {
           return .none
         }
-        
+
         let page = Int(state.searchMovieItemList.count / 20) + 1
-        
+
         state.fetchSearchMovieItem.isLoading = true
         return sideEffect.searchMovieItem(.init(page: page, query: query))
           .cancellable(pageID: pageID, id: CancelID.requestSearchMovie, cancelInFlight: true)
-        
+
       case .fetchSearchMovieItem(let result):
         state.fetchSearchMovieItem.isLoading = false
-        
+
         guard !state.query.isEmpty else {
           state.searchMovieItemList = []
           return .none
         }
-        
+
         switch result {
         case .success(let item):
           state.fetchSearchMovieItem.value = item
-          state.searchMovieItemList = state.searchMovieItemList +  item.response.itemList
+          state.searchMovieItemList = state.searchMovieItemList + item.response.itemList
           return .none
-          
+
         case .failure(let error):
           return .run { await $0(.throwError(error)) }
         }
-        
+
       case .searchKeyword(let query):
         guard !query.isEmpty else {
           state.searchKeywordItemList = []
           return .none
         }
-        
+
         if state.query != state.fetchSearchKeywordItem.value?.request.query {
           state.searchKeywordItemList = []
         }
-        
-        if let totalResultListCount = state.fetchSearchKeywordItem.value?.response.totalResultListCount, totalResultListCount < state.searchKeywordItemList.count {
+
+        if
+          let totalResultListCount = state.fetchSearchKeywordItem.value?.response.totalResultListCount,
+          totalResultListCount < state.searchKeywordItemList.count
+        {
           return .none
         }
-        
+
         state.fetchSearchKeywordItem.isLoading = true
         return sideEffect.searchKeywordItem(.init(query: query))
           .cancellable(pageID: pageID, id: CancelID.requestSearchKeyword, cancelInFlight: true)
-        
+
       case .fetchSearchKeywordItem(let result):
         state.fetchSearchKeywordItem.isLoading = false
-        
+
         guard !state.query.isEmpty else {
           state.searchMovieItemList = []
           return .none
         }
-        
+
         switch result {
         case .success(let item):
           state.fetchSearchKeywordItem.value = item
-          state.searchKeywordItemList = state.searchKeywordItemList +  item.response.itemList
+          state.searchKeywordItemList = state.searchKeywordItemList + item.response.itemList
           return .none
-          
+
         case .failure(let error):
           return .run { await $0(.throwError(error)) }
         }
-        
+
       case .getItem:
         let page = Int(state.itemList.count / 20) + 1
         state.fetchItem.isLoading = true

@@ -1,6 +1,6 @@
-import Domain
 import ComposableArchitecture
 import DesignSystem
+import Domain
 import SwiftUI
 
 // MARK: - NowPlayingPage.SearchResultMovieComponent
@@ -86,6 +86,8 @@ extension NowPlayingPage.SearchResultMovieComponent: View {
     }
   }
 }
+
+// MARK: - NowPlayingPage.SearchResultMovieComponent.ViewState
 
 extension NowPlayingPage.SearchResultMovieComponent {
   struct ViewState: Equatable {

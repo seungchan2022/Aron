@@ -1,19 +1,19 @@
 import ComposableArchitecture
-import SwiftUI
-import Functor
 import DesignSystem
+import Functor
+import SwiftUI
 
 // MARK: - NowPlayingPage
 
 struct NowPlayingPage {
   @Bindable var store: StoreOf<NowPlayingReducer>
-  
+
   @State var throttleEvent: ThrottleEvent = .init(value: "", delaySeconds: 1.5)
-  
+
   @State private var searchResult: SearchResult = .movie
-  
+
   let isNavigationBarLargeTitle: Bool
-  
+
 }
 
 extension NowPlayingPage {
@@ -60,7 +60,7 @@ extension NowPlayingPage {
   //
   //      ])
   //  }
-  
+
   private var searchResultPersonListComponentViewState: SearchResultPersonComponent.ViewState {
     .init(personItemList: [
       .init(
@@ -68,39 +68,39 @@ extension NowPlayingPage {
         name: "서치 프로필 테스트1",
         workList: [
         ]),
-      
-        .init(
-          id: 23,
-          name: "서치 프로필 테스트2",
-          workList: [
-            "1212",
-            "125125521",
-            "125125524",
-            "1251255267",
-            "1251255233",
-            "125125524",
-            "1251255267",
-            "1251255233",
-          ]),
-      
-        .init(
-          id: 33,
-          name: "서치 프로필 테스트3",
-          workList: [
-          ]),
-      
-        .init(
-          id: 43,
-          name: "서치 프로필 테스트4",
-          workList: [
-          ]),
-      
-        .init(
-          id: 53,
-          name: "서치 프로필 테스트5",
-          workList: [
-          ]),
-      
+
+      .init(
+        id: 23,
+        name: "서치 프로필 테스트2",
+        workList: [
+          "1212",
+          "125125521",
+          "125125524",
+          "1251255267",
+          "1251255233",
+          "125125524",
+          "1251255267",
+          "1251255233",
+        ]),
+
+      .init(
+        id: 33,
+        name: "서치 프로필 테스트3",
+        workList: [
+        ]),
+
+      .init(
+        id: 43,
+        name: "서치 프로필 테스트4",
+        workList: [
+        ]),
+
+      .init(
+        id: 53,
+        name: "서치 프로필 테스트5",
+        workList: [
+        ]),
+
     ])
   }
 }
@@ -113,9 +113,9 @@ extension NowPlayingPage: View {
       SearchComponent(
         viewState: .init(),
         store: store)
-      
+
       // query에 따라서 보이는 Component 다르게
-      
+
       if store.query.isEmpty {
         // MovieItemComponent
         LazyVStack(spacing: 16) {
@@ -125,11 +125,11 @@ extension NowPlayingPage: View {
               tapAction: {
                 store.send(.routeToDetail($0))
               })
-            .onAppear {
-              guard let last = store.itemList.last, last.id == item.id else { return }
-              guard !store.fetchItem.isLoading else { return }
-              store.send(.getItem)
-            }
+              .onAppear {
+                guard let last = store.itemList.last, last.id == item.id else { return }
+                guard !store.fetchItem.isLoading else { return }
+                store.send(.getItem)
+              }
           }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -143,24 +143,24 @@ extension NowPlayingPage: View {
           {
             Text("Movie")
               .tag(SearchResult.movie)
-            
+
             Text("People")
               .tag(SearchResult.person)
           }
           .pickerStyle(.segmented)
           .padding(.horizontal, 16)
-          
+
           Divider()
             .padding(.leading, 16)
-          
+
           switch self.searchResult {
-          case .movie:  // Keyword + Movie
-            
+          case .movie: // Keyword + Movie
+
             LazyVStack(alignment: .leading) {
               Text("Keywords")
                 .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
                 .padding(.top, 16)
-              
+
               ForEach(store.searchKeywordItemList.prefix(5)) { item in
                 SearchResultKeywordComponent(
                   viewState: .init(item: item),
@@ -170,30 +170,30 @@ extension NowPlayingPage: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.leading, 16)
-            
+
             // Movie
             LazyVStack(alignment: .leading, spacing: 16) {
               Text("Result for \(store.query)")
                 .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
                 .padding(.top, 16)
-              
+
               Divider()
                 .padding(.top, -8)
-              
+
               ForEach(store.searchMovieItemList) { item in
                 SearchResultMovieComponent(
                   viewState: .init(item: item),
                   tapAction: { },
                   store: store)
-                .onAppear {
-                  guard let last = store.searchMovieItemList.last, last.id == item.id else { return }
-                  guard !store.fetchSearchMovieItem.isLoading else { return }
-                  store.send(.searchMovie(store.query))
-                }
+                  .onAppear {
+                    guard let last = store.searchMovieItemList.last, last.id == item.id else { return }
+                    guard !store.fetchSearchMovieItem.isLoading else { return }
+                    store.send(.searchMovie(store.query))
+                  }
               }
             }
             .padding(.leading, 16)
-            
+
           case .person:
             SearchResultPersonComponent(
               viewState: searchResultPersonListComponentViewState,
@@ -211,7 +211,7 @@ extension NowPlayingPage: View {
     }
     .onAppear {
       store.send(.getItem)
-      
+
       throttleEvent.apply { _ in
         store.send(.searchMovie(store.query))
         store.send(.searchKeyword(store.query))
@@ -230,4 +230,3 @@ enum SearchResult {
   case movie
   case person
 }
-

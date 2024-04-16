@@ -1,3 +1,5 @@
+// MARK: - MovieEntity.Search
+
 extension MovieEntity {
   public enum Search {
     public enum Movie { }
@@ -8,11 +10,9 @@ extension MovieEntity {
 
 extension MovieEntity.Search.Movie {
   public struct Request: Equatable, Codable, Sendable {
-    public let apiKey: String
-    public let language: String
-    public let page: Int
-    public let query: String
-    
+
+    // MARK: Lifecycle
+
     public init(
       apiKey: String = "1d9b898a212ea52e283351e521e17871",
       language: String = "ko-KR",
@@ -24,7 +24,16 @@ extension MovieEntity.Search.Movie {
       self.page = page
       self.query = query
     }
-    
+
+    // MARK: Public
+
+    public let apiKey: String
+    public let language: String
+    public let page: Int
+    public let query: String
+
+    // MARK: Private
+
     private enum CodingKeys: String, CodingKey {
       case apiKey = "api_key"
       case language
@@ -32,8 +41,7 @@ extension MovieEntity.Search.Movie {
       case query
     }
   }
-  
-  
+
   public struct Response: Equatable, Codable, Sendable {
 
     // MARK: Public
@@ -72,11 +80,13 @@ extension MovieEntity.Search.Movie {
   }
 }
 
+// MARK: - MovieEntity.Search.Movie.Composite
+
 extension MovieEntity.Search.Movie {
   public struct Composite: Equatable, Sendable {
     public let request: MovieEntity.Search.Movie.Request
     public let response: MovieEntity.Search.Movie.Response
-    
+
     public init(
       request: MovieEntity.Search.Movie.Request,
       response: MovieEntity.Search.Movie.Response)
@@ -92,7 +102,7 @@ extension MovieEntity.Search.Keyword {
     public let apiKey: String
     public let language: String
     public let query: String
-    
+
     public init(
       apiKey: String = "1d9b898a212ea52e283351e521e17871",
       language: String = "ko-KR",
@@ -102,14 +112,14 @@ extension MovieEntity.Search.Keyword {
       self.language = language
       self.query = query
     }
-    
+
     private enum CodingKeys: String, CodingKey {
       case apiKey = "api_key"
       case language
       case query
     }
   }
-  
+
   public struct Response: Equatable, Codable, Sendable {
 
     // MARK: Public
@@ -140,11 +150,13 @@ extension MovieEntity.Search.Keyword {
   }
 }
 
+// MARK: - MovieEntity.Search.Keyword.Composite
+
 extension MovieEntity.Search.Keyword {
   public struct Composite: Equatable, Sendable {
     public let request: MovieEntity.Search.Keyword.Request
     public let response: MovieEntity.Search.Keyword.Response
-    
+
     public init(
       request: MovieEntity.Search.Keyword.Request,
       response: MovieEntity.Search.Keyword.Response)

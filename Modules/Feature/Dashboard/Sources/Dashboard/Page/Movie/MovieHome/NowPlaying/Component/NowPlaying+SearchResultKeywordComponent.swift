@@ -1,26 +1,25 @@
-import Domain
 import ComposableArchitecture
 import DesignSystem
+import Domain
 import SwiftUI
+
+// MARK: - NowPlayingPage.SearchResultKeywordComponent
 
 extension NowPlayingPage {
   struct SearchResultKeywordComponent {
     let viewState: ViewState
     let tapAction: () -> Void
-    
+
     @Environment(\.colorScheme) var colorScheme
   }
 }
 
+extension NowPlayingPage.SearchResultKeywordComponent { }
 
-extension NowPlayingPage.SearchResultKeywordComponent {
-  
-}
-
+// MARK: - NowPlayingPage.SearchResultKeywordComponent + View
 
 extension NowPlayingPage.SearchResultKeywordComponent: View {
   var body: some View {
-    
     Button(action: { tapAction() }) {
       HStack {
         Text(viewState.item.name)
@@ -39,10 +38,10 @@ extension NowPlayingPage.SearchResultKeywordComponent: View {
           .padding(.trailing, 16)
       }
     }
-    
   }
 }
 
+// MARK: - NowPlayingPage.SearchResultKeywordComponent.ViewState
 
 extension NowPlayingPage.SearchResultKeywordComponent {
   struct ViewState: Equatable {
