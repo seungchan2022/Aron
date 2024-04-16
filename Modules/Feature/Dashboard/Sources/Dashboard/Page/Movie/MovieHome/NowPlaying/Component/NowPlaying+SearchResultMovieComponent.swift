@@ -1,3 +1,4 @@
+import Domain
 import ComposableArchitecture
 import DesignSystem
 import SwiftUI
@@ -14,134 +15,73 @@ extension NowPlayingPage {
   }
 }
 
-extension NowPlayingPage.SearchResultMovieComponent { }
+extension NowPlayingPage.SearchResultMovieComponent {
+  private var remoteImageURL: String {
+    "https://image.tmdb.org/t/p/w500/\(viewState.item.poster ?? "")"
+  }
+}
 
 // MARK: - NowPlayingPage.SearchResultMovieComponent + View
 
 extension NowPlayingPage.SearchResultMovieComponent: View {
 
-  @ViewBuilder
-  var keyword: some View {
-    LazyVStack(alignment: .leading) {
-      Text("Keywords")
-        .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
-        .padding(.top, 16)
-
-      if !viewState.keywordItemList.isEmpty {
-        Divider()
-      }
-
-      ForEach(viewState.keywordItemList, id: \.keyword) { item in
-        Button(action: { tapAction() }) {
-          HStack {
-            Text(item.keyword)
-              .font(.system(size: 16))
-              .foregroundStyle(
-                colorScheme == .dark
-                  ? DesignSystemColor.system(.white).color
-                  : DesignSystemColor.system(.black).color)
-
-            Spacer()
-
-            Image(systemName: "chevron.right")
-              .resizable()
-              .frame(width: 8, height: 12)
-              .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
-              .padding(.trailing, 16)
-          }
-        }
-        Divider()
-      }
-    }
-    .frame(maxWidth: .infinity, alignment: .leading)
-    .padding(.leading, 16)
-  }
-
-  @ViewBuilder
-  var movie: some View {
-    LazyVStack(alignment: .leading, spacing: 16) {
-      Text("Result for \(store.query)")
-        .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
-        .padding(.top, 16)
-
-      Divider()
-        .padding(.top, -8)
-
-      if viewState.movieItemList.isEmpty {
-        Text("No Results")
-          .font(.system(size: 18))
-          .foregroundStyle(colorScheme == .dark ? DesignSystemColor.system(.white).color : DesignSystemColor.system(.black).color)
-          .padding(.top, -8)
-
-        Divider()
-
-        Divider()
-          .padding(.top, 24)
-      }
-
-      ForEach(viewState.movieItemList) { item in
-        Button(action: { }) {
-          VStack {
-            HStack(spacing: 8) {
+  var body: some View {
+    Button(action: { }) {
+      VStack {
+        HStack(spacing: 8) {
+          RemoteImage(
+            url: remoteImageURL,
+            placeholder: {
               Rectangle()
                 .fill(.gray)
-                .frame(width: 100, height: 160)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+            })
+            .scaledToFill()
+            .frame(width: 100, height: 160)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .shadow(radius: 5)
 
-              VStack(alignment: .leading, spacing: 16) {
-                Text(item.title)
-                  .font(.system(size: 18))
-                  .foregroundStyle(DesignSystemColor.label(.ocher).color)
+          VStack(alignment: .leading, spacing: 16) {
+            Text(viewState.item.title)
+              .font(.system(size: 18))
+              .foregroundStyle(DesignSystemColor.label(.ocher).color)
 
-                HStack {
-                  Text("\(Int(item.voteAverage * 10))%")
-                    .font(.system(size: 18))
-                    .foregroundStyle(
-                      colorScheme == .dark
-                        ? DesignSystemColor.system(.white).color
-                        : DesignSystemColor.system(.black).color)
+            HStack {
+              Text("\(Int(viewState.item.voteAverage ?? 0 * 10))%")
+                .font(.system(size: 18))
+                .foregroundStyle(
+                  colorScheme == .dark
+                    ? DesignSystemColor.system(.white).color
+                    : DesignSystemColor.system(.black).color)
 
-                  Text(item.releaseDate.toDate?.toString ?? "")
-                    .font(.system(size: 16))
-                    .foregroundStyle(
-                      colorScheme == .dark
-                        ? DesignSystemColor.system(.white).color
-                        : DesignSystemColor.system(.black).color)
-                }
-
-                if let overView = item.overView {
-                  Text(overView)
-                    .font(.system(size: 18))
-                    .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(3)
-                }
-              }
-
-              Spacer()
-
-              Image(systemName: "chevron.right")
-                .resizable()
-                .frame(width: 8, height: 12)
-                .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
-                .padding(.trailing, 16)
+              Text(viewState.item.releaseDate.toDate?.toString ?? "")
+                .font(.system(size: 16))
+                .foregroundStyle(
+                  colorScheme == .dark
+                    ? DesignSystemColor.system(.white).color
+                    : DesignSystemColor.system(.black).color)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
 
-            Divider()
-              .padding(.leading, 120)
+            if let overView = viewState.item.overview {
+              Text(overView)
+                .font(.system(size: 18))
+                .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
+                .multilineTextAlignment(.leading)
+                .lineLimit(3)
+            }
           }
-        }
-      }
-    }
-    .padding(.leading, 16)
-  }
 
-  var body: some View {
-    ScrollView {
-      VStack {
-        keyword
-        movie
+          Spacer()
+
+          Image(systemName: "chevron.right")
+            .resizable()
+            .frame(width: 8, height: 12)
+            .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
+            .padding(.trailing, 16)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+
+        Divider()
+          .padding(.leading, 120)
       }
     }
   }
@@ -149,20 +89,7 @@ extension NowPlayingPage.SearchResultMovieComponent: View {
 
 extension NowPlayingPage.SearchResultMovieComponent {
   struct ViewState: Equatable {
-    let keywordItemList: [KeywordItem]
-    let movieItemList: [MovieItem]
-  }
-
-  struct KeywordItem: Equatable {
-    let keyword: String
-  }
-
-  struct MovieItem: Equatable, Identifiable {
-    let id: Int
-    let title: String
-    let voteAverage: Double
-    let releaseDate: String
-    let overView: String?
+    let item: MovieEntity.Search.Movie.Item
   }
 }
 

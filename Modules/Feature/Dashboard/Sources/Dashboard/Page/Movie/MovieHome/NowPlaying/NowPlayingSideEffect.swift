@@ -10,7 +10,7 @@ struct NowPlayingSideEffect {
   let useCase: DashboardEnvironmentUsable
   let main: AnySchedulerOf<DispatchQueue>
   let navigator: RootNavigatorType
-
+  
   init(
     useCase: DashboardEnvironmentUsable,
     main: AnySchedulerOf<DispatchQueue> = .main,
@@ -25,15 +25,31 @@ struct NowPlayingSideEffect {
 extension NowPlayingSideEffect {
   var getItem: (MovieEntity.Movie.NowPlaying.Request) -> Effect<NowPlayingReducer.Action> {
     { item in
-      .publisher {
-        useCase.movieUseCase.nowPlaying(item)
-          .receive(on: main)
-          .mapToResult()
-          .map(NowPlayingReducer.Action.fetchItem)
-      }
+        .publisher {
+          useCase.movieUseCase.nowPlaying(item)
+            .receive(on: main)
+            .mapToResult()
+            .map(NowPlayingReducer.Action.fetchItem)
+        }
     }
   }
-
+  
+  var searchMovieItem: (MovieEntity.Search.Movie.Request) -> Effect<NowPlayingReducer.Action> {
+    { item in
+        .publisher {
+          useCase.searchUseCase.searchMovie(item)
+            .receive(on: main)
+            .map {
+              MovieEntity.Search.Movie.Composite(
+                request: item,
+                response: $0)
+            }
+            .mapToResult()
+            .map(NowPlayingReducer.Action.fetchSearchMovieItem)
+        }
+    }
+  }
+  
   var routeToDetail: (MovieEntity.Movie.NowPlaying.Item) -> Void {
     { item in
       navigator.next(
