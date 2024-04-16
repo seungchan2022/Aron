@@ -50,6 +50,22 @@ extension NowPlayingSideEffect {
     }
   }
   
+  var searchKeywordItem: (MovieEntity.Search.Keyword.Request) -> Effect<NowPlayingReducer.Action> {
+    { item in
+        .publisher {
+          useCase.searchUseCase.searchKeyword(item)
+            .receive(on: main)
+            .map {
+              MovieEntity.Search.Keyword.Composite(
+                request: item,
+                response: $0)
+            }
+            .mapToResult()
+            .map(NowPlayingReducer.Action.fetchSearchKeywordItem)
+        }
+    }
+  }
+  
   var routeToDetail: (MovieEntity.Movie.NowPlaying.Item) -> Void {
     { item in
       navigator.next(

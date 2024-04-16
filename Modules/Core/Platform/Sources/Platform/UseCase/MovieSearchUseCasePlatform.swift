@@ -20,5 +20,15 @@ extension SearchUseCasePlatform: SearchUseCase {
       .fetch(isDebug: true)
     }
   }
+  
+  public var searchKeyword: (MovieEntity.Search.Keyword.Request) -> AnyPublisher<MovieEntity.Search.Keyword.Response, CompositeErrorRepository> {
+    {
+      Endpoint(
+        baseURL: baseURL,
+        pathList: ["keyword"],
+        httpMethod: .get,
+        content: .queryItemPath($0))
+      .fetch(isDebug: true)
+    }
+  }
 }
-

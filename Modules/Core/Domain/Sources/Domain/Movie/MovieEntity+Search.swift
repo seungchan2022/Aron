@@ -86,3 +86,71 @@ extension MovieEntity.Search.Movie {
     }
   }
 }
+
+extension MovieEntity.Search.Keyword {
+  public struct Request: Equatable, Codable, Sendable {
+    public let apiKey: String
+    public let language: String
+    public let query: String
+    
+    public init(
+      apiKey: String = "1d9b898a212ea52e283351e521e17871",
+      language: String = "ko-KR",
+      query: String)
+    {
+      self.apiKey = apiKey
+      self.language = language
+      self.query = query
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+      case apiKey = "api_key"
+      case language
+      case query
+    }
+  }
+  
+  public struct Response: Equatable, Codable, Sendable {
+
+    // MARK: Public
+
+    public let page: Int
+    public let itemList: [Item]
+    public let totalPage: Int
+    public let totalResultListCount: Int
+
+    // MARK: Private
+
+    private enum CodingKeys: String, CodingKey {
+      case page
+      case itemList = "results"
+      case totalPage = "total_pages"
+      case totalResultListCount = "total_results"
+    }
+  }
+
+  public struct Item: Equatable, Identifiable, Codable, Sendable {
+    public let id: Int
+    public let name: String
+
+    private enum CodingKeys: String, CodingKey {
+      case id
+      case name
+    }
+  }
+}
+
+extension MovieEntity.Search.Keyword {
+  public struct Composite: Equatable, Sendable {
+    public let request: MovieEntity.Search.Keyword.Request
+    public let response: MovieEntity.Search.Keyword.Response
+    
+    public init(
+      request: MovieEntity.Search.Keyword.Request,
+      response: MovieEntity.Search.Keyword.Response)
+    {
+      self.request = request
+      self.response = response
+    }
+  }
+}
