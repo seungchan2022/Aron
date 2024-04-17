@@ -26,11 +26,8 @@ extension NowPlayingPage: View {
       SearchComponent(
         viewState: .init(),
         store: store)
-      
-      // query에 따라서 보이는 Component 다르게
-      
+            
       if store.query.isEmpty {
-        // MovieItemComponent
         LazyVStack(spacing: 16) {
           ForEach(store.itemList) { item in
             ItemComponent(
@@ -164,7 +161,7 @@ extension NowPlayingPage: View {
 
 // MARK: - SearchResult
 
-enum SearchResult {
+fileprivate enum SearchResult {
   case movie
   case person
 }
