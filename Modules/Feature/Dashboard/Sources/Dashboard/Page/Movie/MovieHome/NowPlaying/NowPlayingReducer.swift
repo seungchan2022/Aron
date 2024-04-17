@@ -114,7 +114,7 @@ struct NowPlayingReducer {
         switch result {
         case .success(let item):
           state.fetchSearchMovieItem.value = item
-          state.searchMovieItemList = state.searchMovieItemList + item.response.itemList
+          state.searchMovieItemList = state.searchMovieItemList.merge(item.response.itemList)
           
           return .none
           
@@ -154,7 +154,7 @@ struct NowPlayingReducer {
         switch result {
         case .success(let item):
           state.fetchSearchKeywordItem.value = item
-          state.searchKeywordItemList = state.searchKeywordItemList + item.response.itemList
+          state.searchKeywordItemList = state.searchKeywordItemList.merge(item.response.itemList)
           
           return .none
           
@@ -195,7 +195,7 @@ struct NowPlayingReducer {
         switch result {
         case .success(let item):
           state.fetchSearchPersonItem.value = item
-          state.searchPersonItemList = state.searchPersonItemList + item.response.itemList
+          state.searchPersonItemList = state.searchPersonItemList.merge(item.response.itemList)
           return .none
           
         case .failure(let error):
@@ -235,4 +235,38 @@ struct NowPlayingReducer {
   
   private let pageID: String
   private let sideEffect: NowPlayingSideEffect
+}
+
+
+extension [MovieEntity.Search.Movie.Item] {
+  fileprivate func merge(_ target: Self) -> Self {
+    let new = target.reduce(self) { curr, next in
+      guard !self.contains(where: { $0.id == next.id }) else { return curr }
+      return curr + [next]
+    }
+    
+    return new
+  }
+}
+
+extension [MovieEntity.Search.Keyword.Item] {
+  fileprivate func merge(_ target: Self) -> Self {
+    let new = target.reduce(self) { curr, next in
+      guard !self.contains(where: { $0.id == next.id }) else { return curr }
+      return curr + [next]
+    }
+    
+    return new
+  }
+}
+
+extension [MovieEntity.Search.Person.Item] {
+  fileprivate func merge(_ target: Self) -> Self {
+    let new = target.reduce(self) { curr, next in
+      guard !self.contains(where: { $0.id == next.id }) else { return curr }
+      return curr + [next]
+    }
+    
+    return new
+  }
 }
