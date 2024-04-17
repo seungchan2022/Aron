@@ -65,6 +65,22 @@ extension NowPlayingSideEffect {
       }
     }
   }
+  
+  var searchPersonItem: (MovieEntity.Search.Person.Request) -> Effect<NowPlayingReducer.Action> {
+    { item in
+        .publisher {
+          useCase.searchUseCase.searchPerson(item)
+            .receive(on: main)
+            .map {
+              MovieEntity.Search.Person.Composite(
+                request: item,
+                response: $0)
+            }
+            .mapToResult()
+            .map(NowPlayingReducer.Action.fetchSearchPersonItem)
+        }
+    }
+  }
 
   var routeToDetail: (MovieEntity.Movie.NowPlaying.Item) -> Void {
     { item in

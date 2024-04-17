@@ -10,7 +10,6 @@ extension NowPlayingPage {
     let viewState: ViewState
     let tapAction: () -> Void
 
-    @Bindable var store: StoreOf<NowPlayingReducer>
     @Environment(\.colorScheme) var colorScheme
   }
 }

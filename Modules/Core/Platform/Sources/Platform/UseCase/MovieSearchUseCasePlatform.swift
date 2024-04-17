@@ -41,4 +41,15 @@ extension SearchUseCasePlatform: SearchUseCase {
         .fetch(isDebug: true)
     }
   }
+  
+  public var searchPerson: (MovieEntity.Search.Person.Request) -> AnyPublisher<MovieEntity.Search.Person.Response, CompositeErrorRepository> {
+    {
+      Endpoint(
+        baseURL: baseURL,
+        pathList: ["person"],
+        httpMethod: .get,
+        content: .queryItemPath($0))
+      .fetch(isDebug: true)
+    }
+  }
 }
