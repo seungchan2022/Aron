@@ -8,7 +8,7 @@ import SwiftUI
 extension NowPlayingPage {
   struct SearchResultKeywordComponent {
     let viewState: ViewState
-    let tapAction: () -> Void
+    let tapAction: (MovieEntity.Search.Keyword.Item) -> Void
 
     @Environment(\.colorScheme) var colorScheme
   }
@@ -20,7 +20,7 @@ extension NowPlayingPage.SearchResultKeywordComponent { }
 
 extension NowPlayingPage.SearchResultKeywordComponent: View {
   var body: some View {
-    Button(action: { tapAction() }) {
+    Button(action: { tapAction(viewState.item) }) {
       HStack {
         Text(viewState.item.name)
           .font(.system(size: 16))

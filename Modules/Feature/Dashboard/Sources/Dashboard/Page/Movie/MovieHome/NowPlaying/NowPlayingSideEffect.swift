@@ -91,10 +91,52 @@ extension NowPlayingSideEffect {
         isAnimated: true)
     }
   }
+  
+  var routeToSearchMovieDetail: (MovieEntity.Search.Movie.Item) -> Void {
+    { item in
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.movieDetail.rawValue,
+          items: item.serialized()),
+        isAnimated: true)
+    }
+  }
+  
+  var routeToSearchKeyword: (MovieEntity.Search.Keyword.Item) -> Void {
+    { item in
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.keyword.rawValue,
+          items: item),
+        isAnimated: true)
+    }
+  }
+  
+  var routeToSearchPerson: (MovieEntity.Search.Person.Item) -> Void {
+    { item in
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.profile.rawValue,
+          items: item.serialized()),
+        isAnimated: true)
+    }
+  }
 }
 
 extension MovieEntity.Movie.NowPlaying.Item {
   fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
     .init(movieID: id)
+  }
+}
+
+extension MovieEntity.Search.Movie.Item {
+  fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
+    .init(movieID: id)
+  }
+}
+
+extension MovieEntity.Search.Person.Item {
+  fileprivate func serialized() -> MovieEntity.Person.Info.Request {
+    .init(personID: id)
   }
 }

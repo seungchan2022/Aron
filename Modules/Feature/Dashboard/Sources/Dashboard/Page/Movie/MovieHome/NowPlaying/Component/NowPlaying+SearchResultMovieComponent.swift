@@ -8,7 +8,7 @@ import SwiftUI
 extension NowPlayingPage {
   struct SearchResultMovieComponent {
     let viewState: ViewState
-    let tapAction: () -> Void
+    let tapAction: (MovieEntity.Search.Movie.Item) -> Void
 
     @Environment(\.colorScheme) var colorScheme
   }
@@ -25,7 +25,7 @@ extension NowPlayingPage.SearchResultMovieComponent {
 extension NowPlayingPage.SearchResultMovieComponent: View {
 
   var body: some View {
-    Button(action: { }) {
+    Button(action: { tapAction(viewState.item) }) {
       VStack {
         HStack(spacing: 8) {
           RemoteImage(

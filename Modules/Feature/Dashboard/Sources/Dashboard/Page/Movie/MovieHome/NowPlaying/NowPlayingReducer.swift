@@ -23,17 +23,16 @@ struct NowPlayingReducer {
     let id: UUID
     var query = ""
     
+    var itemList: [MovieEntity.Movie.NowPlaying.Item] = []
     var searchMovieItemList: [MovieEntity.Search.Movie.Item] = []
-    var fetchSearchMovieItem: FetchState.Data<MovieEntity.Search.Movie.Composite?> = .init(isLoading: false, value: .none)
-    
     var searchKeywordItemList: [MovieEntity.Search.Keyword.Item] = []
+    var searchPersonItemList: [MovieEntity.Search.Person.Item] = []
+    
+    var fetchItem: FetchState.Data<MovieEntity.Movie.NowPlaying.Response?> = .init(isLoading: false, value: .none)
+    var fetchSearchPersonItem: FetchState.Data<MovieEntity.Search.Person.Composite?> = .init(isLoading: false, value: .none)
+    var fetchSearchMovieItem: FetchState.Data<MovieEntity.Search.Movie.Composite?> = .init(isLoading: false, value: .none)
     var fetchSearchKeywordItem: FetchState.Data<MovieEntity.Search.Keyword.Composite?> = .init(isLoading: false, value: .none)
     
-    var searchPersonItemList: [MovieEntity.Search.Person.Item] = []
-    var fetchSearchPersonItem: FetchState.Data<MovieEntity.Search.Person.Composite?> = .init(isLoading: false, value: .none)
-    
-    var itemList: [MovieEntity.Movie.NowPlaying.Item] = []
-    var fetchItem: FetchState.Data<MovieEntity.Movie.NowPlaying.Response?> = .init(isLoading: false, value: .none)
     
     init(id: UUID = UUID()) {
       self.id = id
@@ -44,19 +43,24 @@ struct NowPlayingReducer {
     case binding(BindingAction<State>)
     case teardown
     
-    case searchMovie(String)
-    case fetchSearchMovieItem(Result<MovieEntity.Search.Movie.Composite, CompositeErrorRepository>)
-    
-    case searchKeyword(String)
-    case fetchSearchKeywordItem(Result<MovieEntity.Search.Keyword.Composite, CompositeErrorRepository>)
-    
-    case searchPerson(String)
-    case fetchSearchPersonItem(Result<MovieEntity.Search.Person.Composite, CompositeErrorRepository>)
-    
     case getItem
+    
+    case searchMovie(String)
+    case searchKeyword(String)
+    case searchPerson(String)
+    
     case fetchItem(Result<MovieEntity.Movie.NowPlaying.Response, CompositeErrorRepository>)
     
+    case fetchSearchMovieItem(Result<MovieEntity.Search.Movie.Composite, CompositeErrorRepository>)
+    case fetchSearchKeywordItem(Result<MovieEntity.Search.Keyword.Composite, CompositeErrorRepository>)
+    case fetchSearchPersonItem(Result<MovieEntity.Search.Person.Composite, CompositeErrorRepository>)
+    
+    
     case routeToDetail(MovieEntity.Movie.NowPlaying.Item)
+    
+    case routeToSearchMovieDetail(MovieEntity.Search.Movie.Item)
+    case routeToSearchKeyword(MovieEntity.Search.Keyword.Item)
+    case routeToSearchPerson(MovieEntity.Search.Person.Item)
     
     case throwError(CompositeErrorRepository)
   }
@@ -79,6 +83,13 @@ struct NowPlayingReducer {
       case .teardown:
         return .concatenate(
           CancelID.allCases.map { .cancel(pageID: pageID, id: $0) })
+        
+        
+      case .getItem:
+        let page = Int(state.itemList.count / 20) + 1
+        state.fetchItem.isLoading = true
+        return sideEffect.getItem(.init(page: page))
+          .cancellable(pageID: pageID, id: CancelID.requestItemList, cancelInFlight: true)
         
       case .searchMovie(let query):
         guard !query.isEmpty else {
@@ -103,24 +114,6 @@ struct NowPlayingReducer {
         return sideEffect.searchMovieItem(.init(page: page, query: query))
           .cancellable(pageID: pageID, id: CancelID.requestSearchMovie, cancelInFlight: true)
         
-      case .fetchSearchMovieItem(let result):
-        state.fetchSearchMovieItem.isLoading = false
-        
-        guard !state.query.isEmpty else {
-          state.searchMovieItemList = []
-          return .none
-        }
-        
-        switch result {
-        case .success(let item):
-          state.fetchSearchMovieItem.value = item
-          state.searchMovieItemList = state.searchMovieItemList.merge(item.response.itemList)
-          
-          return .none
-          
-        case .failure(let error):
-          return .run { await $0(.throwError(error)) }
-        }
         
       case .searchKeyword(let query):
         guard !query.isEmpty else {
@@ -142,25 +135,6 @@ struct NowPlayingReducer {
         state.fetchSearchKeywordItem.isLoading = true
         return sideEffect.searchKeywordItem(.init(query: query))
           .cancellable(pageID: pageID, id: CancelID.requestSearchKeyword, cancelInFlight: true)
-        
-      case .fetchSearchKeywordItem(let result):
-        state.fetchSearchKeywordItem.isLoading = false
-        
-        guard !state.query.isEmpty else {
-          state.searchMovieItemList = []
-          return .none
-        }
-        
-        switch result {
-        case .success(let item):
-          state.fetchSearchKeywordItem.value = item
-          state.searchKeywordItemList = state.searchKeywordItemList.merge(item.response.itemList)
-          
-          return .none
-          
-        case .failure(let error):
-          return .run { await $0(.throwError(error)) }
-        }
         
       case .searchPerson(let query):
         guard !query.isEmpty else {
@@ -184,6 +158,56 @@ struct NowPlayingReducer {
         return sideEffect.searchPersonItem(.init(query: query, page: page))
           .cancellable(pageID: pageID, id: CancelID.requestSearchPerson, cancelInFlight: true)
         
+      case .fetchItem(let result):
+        state.fetchItem.isLoading = false
+        switch result {
+        case .success(let item):
+          state.fetchItem.value = item
+          state.itemList = state.itemList + item.itemList
+          return .none
+          
+        case .failure(let error):
+          return .run { await $0(.throwError(error)) }
+        }
+        
+      case .fetchSearchMovieItem(let result):
+        state.fetchSearchMovieItem.isLoading = false
+        
+        guard !state.query.isEmpty else {
+          state.searchMovieItemList = []
+          return .none
+        }
+        
+        switch result {
+        case .success(let item):
+          state.fetchSearchMovieItem.value = item
+          state.searchMovieItemList = state.searchMovieItemList.merge(item.response.itemList)
+          
+          return .none
+          
+        case .failure(let error):
+          return .run { await $0(.throwError(error)) }
+        }
+        
+      case .fetchSearchKeywordItem(let result):
+        state.fetchSearchKeywordItem.isLoading = false
+        
+        guard !state.query.isEmpty else {
+          state.searchMovieItemList = []
+          return .none
+        }
+        
+        switch result {
+        case .success(let item):
+          state.fetchSearchKeywordItem.value = item
+          state.searchKeywordItemList = state.searchKeywordItemList.merge(item.response.itemList)
+          
+          return .none
+          
+        case .failure(let error):
+          return .run { await $0(.throwError(error)) }
+        }
+        
       case .fetchSearchPersonItem(let result):
         state.fetchSearchPersonItem.isLoading = false
         
@@ -202,26 +226,20 @@ struct NowPlayingReducer {
           return .run { await $0(.throwError(error)) }
         }
         
-      case .getItem:
-        let page = Int(state.itemList.count / 20) + 1
-        state.fetchItem.isLoading = true
-        return sideEffect.getItem(.init(page: page))
-          .cancellable(pageID: pageID, id: CancelID.requestItemList, cancelInFlight: true)
-        
-      case .fetchItem(let result):
-        state.fetchItem.isLoading = false
-        switch result {
-        case .success(let item):
-          state.fetchItem.value = item
-          state.itemList = state.itemList + item.itemList
-          return .none
-          
-        case .failure(let error):
-          return .run { await $0(.throwError(error)) }
-        }
-        
       case .routeToDetail(let item):
         sideEffect.routeToDetail(item)
+        return .none
+        
+      case .routeToSearchMovieDetail(let item):
+        sideEffect.routeToSearchMovieDetail(item)
+        return .none
+        
+      case .routeToSearchKeyword(let item):
+        sideEffect.routeToSearchKeyword(item)
+        return .none
+        
+      case .routeToSearchPerson(let item):
+        sideEffect.routeToSearchPerson(item)
         return .none
         
       case .throwError(let error):

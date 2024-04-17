@@ -77,7 +77,7 @@ extension NowPlayingPage: View {
               ForEach(store.searchKeywordItemList.prefix(5)) { item in
                 SearchResultKeywordComponent(
                   viewState: .init(item: item),
-                  tapAction: { })
+                  tapAction: { store.send(.routeToSearchKeyword($0)) })
                 Divider()
               }
             }
@@ -100,7 +100,7 @@ extension NowPlayingPage: View {
               ForEach(store.searchMovieItemList) { item in
                 SearchResultMovieComponent(
                   viewState: .init(item: item),
-                  tapAction: { })
+                  tapAction: { store.send(.routeToSearchMovieDetail($0)) })
                 .onAppear {
                   guard let last = store.searchMovieItemList.last, last.id == item.id else { return }
                   guard !store.fetchSearchMovieItem.isLoading else { return }
@@ -120,7 +120,7 @@ extension NowPlayingPage: View {
               ForEach(store.searchPersonItemList) { item in
                 SearchResultPersonComponent(
                   viewState: .init(item: item),
-                  tapAction: { })
+                  tapAction: { store.send(.routeToSearchPerson($0)) })
                 .onAppear {
                   guard let last = store.searchPersonItemList.last, last.id == item.id else { return }
                   guard !store.fetchSearchPersonItem.isLoading else { return }
