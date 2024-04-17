@@ -10,6 +10,9 @@ public protocol SearchUseCase {
     MovieEntity.Search.Keyword.Response,
     CompositeErrorRepository
   > { get }
-  
-  var searchPerson: (MovieEntity.Search.Person.Request) -> AnyPublisher<MovieEntity.Search.Person.Response, CompositeErrorRepository> { get }
+
+  var searchPerson: (MovieEntity.Search.Person.Request) -> AnyPublisher<
+    MovieEntity.Search.Person.Response,
+    CompositeErrorRepository
+  > { get }
 }

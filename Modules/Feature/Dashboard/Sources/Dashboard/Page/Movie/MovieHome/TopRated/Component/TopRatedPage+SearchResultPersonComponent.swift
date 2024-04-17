@@ -3,15 +3,15 @@ import DesignSystem
 import Domain
 import SwiftUI
 
-// MARK: - NowPlayingPage.SearchResultPersonComponent
+// MARK: - TopRatedPage.SearchResultPersonComponent
 
 extension TopRatedPage {
   struct SearchResultPersonComponent {
     let viewState: ViewState
     let tapAction: (MovieEntity.Search.Person.Item) -> Void
-    
+
     @Environment(\.colorScheme) var colorScheme
-    
+
   }
 }
 
@@ -21,7 +21,7 @@ extension TopRatedPage.SearchResultPersonComponent {
   }
 }
 
-// MARK: - NowPlayingPage.SearchResultPersonComponent + View
+// MARK: - TopRatedPage.SearchResultPersonComponent + View
 
 extension TopRatedPage.SearchResultPersonComponent: View {
   var body: some View {
@@ -37,27 +37,27 @@ extension TopRatedPage.SearchResultPersonComponent: View {
           .frame(width: 80, height: 100)
           .clipShape(RoundedRectangle(cornerRadius: 10))
           .shadow(radius: 5)
-        
+
         VStack(alignment: .leading) {
           Spacer()
-          
+
           Text(viewState.item.name)
             .font(.system(size: 18))
             .foregroundStyle(DesignSystemColor.label(.ocher).color)
-          
+
           Spacer()
-          
+
           Text(viewState.item.filmList.map { $0.title ?? "" }.joined())
             .font(.system(size: 16))
             .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
             .multilineTextAlignment(.leading)
             .lineLimit(3)
-          
+
           Spacer()
         }
-        
+
         Spacer()
-        
+
         Image(systemName: "chevron.right")
           .resizable()
           .frame(width: 8, height: 12)
@@ -65,13 +65,14 @@ extension TopRatedPage.SearchResultPersonComponent: View {
           .padding(.trailing, 16)
       }
     }
-    
   }
 }
+
+// MARK: - TopRatedPage.SearchResultPersonComponent.ViewState
 
 extension TopRatedPage.SearchResultPersonComponent {
   struct ViewState: Equatable {
     let item: MovieEntity.Search.Person.Item
-    
+
   }
 }

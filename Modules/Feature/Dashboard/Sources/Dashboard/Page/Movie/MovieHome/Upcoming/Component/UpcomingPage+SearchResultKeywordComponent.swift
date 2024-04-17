@@ -3,7 +3,7 @@ import DesignSystem
 import Domain
 import SwiftUI
 
-// MARK: - NowPlayingPage.SearchResultKeywordComponent
+// MARK: - UpcomingPage.SearchResultKeywordComponent
 
 extension UpcomingPage {
   struct SearchResultKeywordComponent {
@@ -16,7 +16,7 @@ extension UpcomingPage {
 
 extension UpcomingPage.SearchResultKeywordComponent { }
 
-// MARK: - NowPlayingPage.SearchResultKeywordComponent + View
+// MARK: - UpcomingPage.SearchResultKeywordComponent + View
 
 extension UpcomingPage.SearchResultKeywordComponent: View {
   var body: some View {
@@ -41,7 +41,7 @@ extension UpcomingPage.SearchResultKeywordComponent: View {
   }
 }
 
-// MARK: - NowPlayingPage.SearchResultKeywordComponent.ViewState
+// MARK: - UpcomingPage.SearchResultKeywordComponent.ViewState
 
 extension UpcomingPage.SearchResultKeywordComponent {
   struct ViewState: Equatable {

@@ -3,7 +3,7 @@ import DesignSystem
 import Domain
 import SwiftUI
 
-// MARK: - NowPlayingPage.SearchResultMovieComponent
+// MARK: - PopularPage.SearchResultMovieComponent
 
 extension PopularPage {
   struct SearchResultMovieComponent {
@@ -20,7 +20,7 @@ extension PopularPage.SearchResultMovieComponent {
   }
 }
 
-// MARK: - NowPlayingPage.SearchResultMovieComponent + View
+// MARK: - PopularPage.SearchResultMovieComponent + View
 
 extension PopularPage.SearchResultMovieComponent: View {
 
@@ -86,7 +86,7 @@ extension PopularPage.SearchResultMovieComponent: View {
   }
 }
 
-// MARK: - NowPlayingPage.SearchResultMovieComponent.ViewState
+// MARK: - PopularPage.SearchResultMovieComponent.ViewState
 
 extension PopularPage.SearchResultMovieComponent {
   struct ViewState: Equatable {

@@ -3,7 +3,7 @@ import ComposableArchitecture
 import Domain
 import Foundation
 
-// MARK: - PopularSideEffect
+// MARK: - TopRatedSideEffect
 
 struct TopRatedSideEffect {
   let useCase: DashboardEnvironmentUsable
@@ -32,7 +32,7 @@ extension TopRatedSideEffect {
       }
     }
   }
-  
+
   var searchMovieItem: (MovieEntity.Search.Movie.Request) -> Effect<TopRatedReducer.Action> {
     { item in
       .publisher {
@@ -64,23 +64,22 @@ extension TopRatedSideEffect {
       }
     }
   }
-  
+
   var searchPersonItem: (MovieEntity.Search.Person.Request) -> Effect<TopRatedReducer.Action> {
     { item in
-        .publisher {
-          useCase.searchUseCase.searchPerson(item)
-            .receive(on: main)
-            .map {
-              MovieEntity.Search.Person.Composite(
-                request: item,
-                response: $0)
-            }
-            .mapToResult()
-            .map(TopRatedReducer.Action.fetchSearchPersonItem)
-        }
+      .publisher {
+        useCase.searchUseCase.searchPerson(item)
+          .receive(on: main)
+          .map {
+            MovieEntity.Search.Person.Composite(
+              request: item,
+              response: $0)
+          }
+          .mapToResult()
+          .map(TopRatedReducer.Action.fetchSearchPersonItem)
+      }
     }
   }
-
 
   var routeToDetail: (MovieEntity.Movie.TopRated.Item) -> Void {
     { item in
@@ -91,7 +90,7 @@ extension TopRatedSideEffect {
         isAnimated: true)
     }
   }
-  
+
   var routeToSearchMovieDetail: (MovieEntity.Search.Movie.Item) -> Void {
     { item in
       navigator.next(
@@ -101,7 +100,7 @@ extension TopRatedSideEffect {
         isAnimated: true)
     }
   }
-  
+
   var routeToSearchKeyword: (MovieEntity.Search.Keyword.Item) -> Void {
     { item in
       navigator.next(
@@ -111,7 +110,7 @@ extension TopRatedSideEffect {
         isAnimated: true)
     }
   }
-  
+
   var routeToSearchPerson: (MovieEntity.Search.Person.Item) -> Void {
     { item in
       navigator.next(

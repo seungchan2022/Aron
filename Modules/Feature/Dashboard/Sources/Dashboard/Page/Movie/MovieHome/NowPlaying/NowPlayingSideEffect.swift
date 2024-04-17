@@ -65,20 +65,20 @@ extension NowPlayingSideEffect {
       }
     }
   }
-  
+
   var searchPersonItem: (MovieEntity.Search.Person.Request) -> Effect<NowPlayingReducer.Action> {
     { item in
-        .publisher {
-          useCase.searchUseCase.searchPerson(item)
-            .receive(on: main)
-            .map {
-              MovieEntity.Search.Person.Composite(
-                request: item,
-                response: $0)
-            }
-            .mapToResult()
-            .map(NowPlayingReducer.Action.fetchSearchPersonItem)
-        }
+      .publisher {
+        useCase.searchUseCase.searchPerson(item)
+          .receive(on: main)
+          .map {
+            MovieEntity.Search.Person.Composite(
+              request: item,
+              response: $0)
+          }
+          .mapToResult()
+          .map(NowPlayingReducer.Action.fetchSearchPersonItem)
+      }
     }
   }
 
@@ -91,7 +91,7 @@ extension NowPlayingSideEffect {
         isAnimated: true)
     }
   }
-  
+
   var routeToSearchMovieDetail: (MovieEntity.Search.Movie.Item) -> Void {
     { item in
       navigator.next(
@@ -101,7 +101,7 @@ extension NowPlayingSideEffect {
         isAnimated: true)
     }
   }
-  
+
   var routeToSearchKeyword: (MovieEntity.Search.Keyword.Item) -> Void {
     { item in
       navigator.next(
@@ -111,7 +111,7 @@ extension NowPlayingSideEffect {
         isAnimated: true)
     }
   }
-  
+
   var routeToSearchPerson: (MovieEntity.Search.Person.Item) -> Void {
     { item in
       navigator.next(

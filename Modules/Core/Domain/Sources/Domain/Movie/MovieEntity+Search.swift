@@ -214,7 +214,7 @@ extension MovieEntity.Search.Person {
       case totalResultListCount = "total_results"
     }
   }
-  
+
   public struct Item: Equatable, Identifiable, Codable, Sendable {
     public let id: Int
     public let name: String
@@ -228,7 +228,7 @@ extension MovieEntity.Search.Person {
       case filmList = "known_for"
     }
   }
-  
+
   public struct FilmItem: Equatable, Identifiable, Codable, Sendable {
     public let id: Int
     public let title: String?
@@ -240,11 +240,13 @@ extension MovieEntity.Search.Person {
   }
 }
 
+// MARK: - MovieEntity.Search.Person.Composite
+
 extension MovieEntity.Search.Person {
   public struct Composite: Equatable, Sendable {
     public let request: MovieEntity.Search.Person.Request
     public let response: MovieEntity.Search.Person.Response
-    
+
     public init(
       request: MovieEntity.Search.Person.Request,
       response: MovieEntity.Search.Person.Response)
