@@ -38,6 +38,17 @@ extension PersonUseCasePlatform: PersonUseCase {
         .fetch(isDebug: true)
     }
   }
+  
+  public var movieCredit: (MovieEntity.Person.MovieCredit.Request) -> AnyPublisher<MovieEntity.Person.MovieCredit.Response, CompositeErrorRepository> {
+    { item in
+      Endpoint(
+        baseURL: baseURL,
+        pathList: ["\(item.personID)", "movie_credits"],
+        httpMethod: .get,
+        content: .queryItemPath(PersonQueryItem()))
+      .fetch(isDebug: true)
+    }
+  }
 }
 
 // MARK: PersonUseCasePlatform.PersonQueryItem
@@ -49,7 +60,7 @@ extension PersonUseCasePlatform {
 
     public init(
       apiKey: String = "1d9b898a212ea52e283351e521e17871",
-      language: String = "ko-US")
+      language: String = "ko-KR")
     {
       self.apiKey = apiKey
       self.language = language

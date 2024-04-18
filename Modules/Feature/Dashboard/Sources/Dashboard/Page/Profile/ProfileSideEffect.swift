@@ -43,4 +43,15 @@ extension ProfileSideEffect {
       }
     }
   }
+  
+  var movieCredit: (MovieEntity.Person.MovieCredit.Request) -> Effect<ProfileReducer.Action> {
+    { request in
+        .publisher {
+          useCase.personUseCase.movieCredit(request)
+            .receive(on: main)
+            .mapToResult()
+            .map(ProfileReducer.Action.fetchMovieCreditItem)
+        }
+    }
+  }
 }

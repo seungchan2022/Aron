@@ -6,9 +6,9 @@ import SwiftUI
 
 struct ProfilePage {
   @Bindable var store: StoreOf<ProfileReducer>
-
+  
   @Environment(\.colorScheme) var colorScheme
-
+  
 }
 
 extension ProfilePage {
@@ -26,9 +26,11 @@ extension ProfilePage: View {
       VStack(alignment: .leading, spacing: .zero) {
         // profile ~ birth까지
         if let item = store.fetchItem.value {
-          InfoComponent(viewState: .init(item: item))
+          InfoComponent(
+            viewState: .init(item: item),
+            store: store)
         }
-
+        
         // 이미지 컴포넌트 따로 분리
         if let item = store.fetchProfileImageItem.value {
           ImageComponent(viewState: .init(item: item))
@@ -37,10 +39,13 @@ extension ProfilePage: View {
       .padding(.vertical, 16)
       .background(
         colorScheme == .dark
-          ? DesignSystemColor.background(.black).color
-          : DesignSystemColor.system(.white).color)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-        .padding(.horizontal, 12) // 그룹의 패딩
+        ? DesignSystemColor.background(.black).color
+        : DesignSystemColor.system(.white).color)
+      .clipShape(RoundedRectangle(cornerRadius: 10))
+      .padding(.horizontal, 12) // 그룹의 패딩
+      
+      // Section2 해당 유저의 무비 리스트?
+      
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .background(
@@ -50,6 +55,7 @@ extension ProfilePage: View {
     .onAppear {
       store.send(.getItem(store.item))
       store.send(.getProfileImage(store.profileImageItem))
+      store.send(.getMovieCreditItem(store.movieCreditItem))
     }
     .onDisappear {
       store.send(.teardown)

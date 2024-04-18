@@ -9,8 +9,6 @@ extension MovieDetailPage {
   struct OverviewComponent {
     let viewState: ViewState
 
-//    @Binding var isReadMoreTapped: Bool
-
     @Bindable var store: StoreOf<MovieDetailReducer>
   }
 }
