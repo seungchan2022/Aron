@@ -7,7 +7,7 @@ import SwiftUI
 extension MovieDetailPage {
   struct ImageItemListComponent {
     let viewState: ViewState
-
+    
     @Environment(\.colorScheme) var colorScheme
   }
 }
@@ -21,17 +21,17 @@ extension MovieDetailPage.ImageItemListComponent: View {
     if !(viewState.item.imageBucket.backdropImageList?.isEmpty ?? true) {
       Divider()
         .padding(.leading, 16)
-
+      
       VStack(alignment: .leading) {
         Text("Images")
           .font(.system(size: 16))
           .foregroundStyle(
             colorScheme == .dark
-              ? DesignSystemColor.system(.white).color
-              : DesignSystemColor.system(.black).color)
-            .padding(.leading, 12)
-            .padding(.top, 8)
-
+            ? DesignSystemColor.system(.white).color
+            : DesignSystemColor.system(.black).color)
+          .padding(.leading, 12)
+          .padding(.top, 8)
+        
         ScrollView(.horizontal) {
           LazyHStack(spacing: .zero) {
             ForEach(viewState.item.imageBucket.backdropImageList?.prefix(8) ?? [], id: \.image) { item in
@@ -41,15 +41,12 @@ extension MovieDetailPage.ImageItemListComponent: View {
                   Rectangle()
                     .fill(DesignSystemColor.palette(.gray(.lv250)).color)
                 })
-                .frame(height: 140)
-                .clipShape(RoundedRectangle(cornerRadius: 5))
-                .containerRelativeFrame(.horizontal)
+              .frame(width: 300, height: 140)
             }
           }
         }
         .padding(.top, 12)
         .scrollIndicators(.hidden)
-        .scrollTargetBehavior(.paging)
       }
       .padding(.bottom, 12)
     }

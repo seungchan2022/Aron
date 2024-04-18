@@ -25,8 +25,9 @@ extension ProfilePage.InfoComponent: View {
         RemoteImage(
           url: profileImageURL,
           placeholder: {
-            Rectangle()
-              .fill(DesignSystemColor.palette(.gray(.lv250)).color)
+            Image(systemName: "person.fill")
+              .resizable()
+              .foregroundStyle(DesignSystemColor.palette(.gray(.lv250)).color)
           })
           .scaledToFill()
           .frame(width: 100, height: 140)
@@ -44,16 +45,20 @@ extension ProfilePage.InfoComponent: View {
         }
       }
       Divider()
-
-      Text("Place of birth")
-        .fontWeight(.bold)
+        .padding(.leading, 120)
 
       if let birth = viewState.item.birth {
-        Text(birth)
-          .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
-      }
+        if !birth.isEmpty {
+          
+          Text("Place of birth")
+            .fontWeight(.bold)
 
-      Divider()
+            Text(birth)
+              .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
+          
+          Divider()
+        }
+      }
     }
     .padding(.leading, 16)
   }

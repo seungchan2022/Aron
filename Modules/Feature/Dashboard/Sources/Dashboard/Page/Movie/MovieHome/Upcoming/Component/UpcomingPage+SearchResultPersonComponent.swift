@@ -30,13 +30,12 @@ extension UpcomingPage.SearchResultPersonComponent: View {
         RemoteImage(
           url: remoteImageURL,
           placeholder: {
-            Rectangle()
-              .fill(.gray)
+            Image(systemName: "person.fill")
+              .resizable()
+              .foregroundStyle(DesignSystemColor.palette(.gray(.lv250)).color)
           })
-          .scaledToFill()
-          .frame(width: 80, height: 100)
-          .clipShape(RoundedRectangle(cornerRadius: 10))
-          .shadow(radius: 5)
+        .clipShape(RoundedRectangle(cornerRadius: 5))
+        .frame(width: 80, height: 100)
 
         VStack(alignment: .leading) {
           Spacer()

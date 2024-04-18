@@ -27,12 +27,12 @@ extension FanClubPage.ItemComponent: View {
           RemoteImage(
             url: profileImageURL,
             placeholder: {
-              Rectangle()
-                .fill(.gray)
+              Image(systemName: "person.fill")
+                .resizable()
+                .foregroundStyle(DesignSystemColor.palette(.gray(.lv250)).color)
             })
-            .scaledToFill()
-            .frame(width: 60, height: 80)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+          .clipShape(RoundedRectangle(cornerRadius: 5))
+          .frame(width: 80, height: 100)
 
           VStack(alignment: .leading, spacing: 8) {
             Text(viewState.item.name)

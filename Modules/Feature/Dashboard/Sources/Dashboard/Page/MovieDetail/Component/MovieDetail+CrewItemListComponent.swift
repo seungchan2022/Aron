@@ -9,71 +9,75 @@ extension MovieDetailPage {
     let viewState: ViewState
     let tapSeeAllAction: (MovieEntity.MovieDetail.MovieCard.Response) -> Void
     let tapCrewAction: (MovieEntity.MovieDetail.Credit.CrewItem) -> Void
-
+    
     @Environment(\.colorScheme) var colorScheme
   }
 }
 
 extension MovieDetailPage.CrewItemListComponent {
-
+  
   private var filteredItemList: [MovieEntity.MovieDetail.Credit.CrewItem] {
     viewState.item.crewItemList.reduce(into: [MovieEntity.MovieDetail.Credit.CrewItem]()) { curr, next in
       guard !curr.contains(where: { $0.id == next.id }) else { return }
       curr = curr + [next]
     }
   }
-
+  
 }
 
 // MARK: - MovieDetailPage.CrewItemListComponent + View
 
 extension MovieDetailPage.CrewItemListComponent: View {
   var body: some View {
-    Divider()
-      .padding(.leading, 16)
-
-    VStack(spacing: .zero) {
-      Button(action: {
-        tapSeeAllAction(viewState.movieID)
-      }) {
-        HStack {
-          Text("Crew")
-            .font(.system(size: 16))
-            .foregroundStyle(
-              colorScheme == .dark
+    if !viewState.item.crewItemList.isEmpty {
+      
+      Divider()
+        .padding(.leading, 16)
+      
+      VStack(spacing: .zero) {
+        Button(action: {
+          tapSeeAllAction(viewState.movieID)
+        }) {
+          HStack {
+            Text("Crew")
+              .font(.system(size: 16))
+              .foregroundStyle(
+                colorScheme == .dark
                 ? DesignSystemColor.system(.white).color
                 : DesignSystemColor.system(.black).color)
-
-          Text("See all")
-            .font(.system(size: 16))
-            .foregroundStyle(DesignSystemColor.label(.greenSlate).color)
-
-          Spacer()
-
-          Image(systemName: "chevron.right")
-            .resizable()
-            .frame(width: 8, height: 12)
-            .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
+            
+            Text("See all")
+              .font(.system(size: 16))
+              .foregroundStyle(DesignSystemColor.label(.greenSlate).color)
+            
+            Spacer()
+            
+            Image(systemName: "chevron.right")
+              .resizable()
+              .frame(width: 8, height: 12)
+              .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
+          }
+          .padding(.top, 4)
+          .padding(.horizontal, 16)
+          .padding(.vertical, 8)
         }
-        .padding(.top, 4)
-        .padding(.horizontal, 16)
-        .padding(.vertical, 8)
-      }
-
-      ScrollView(.horizontal) {
-        LazyHStack {
-          ForEach(filteredItemList) { item in
-            Button(action: { tapCrewAction(item) }) {
-              ItemComponent(crewItem: item)
+        
+        ScrollView(.horizontal) {
+          LazyHStack {
+            ForEach(filteredItemList) { item in
+              Button(action: { tapCrewAction(item) }) {
+                ItemComponent(crewItem: item)
+              }
             }
           }
+          .padding(.leading, 12)
         }
-        .padding(.leading, 12)
+        .padding(.top, 12)
+        .scrollIndicators(.hidden)
       }
-      .padding(.top, 12)
-      .scrollIndicators(.hidden)
+      .padding(.bottom, 12)
+      
     }
-    .padding(.bottom, 12)
   }
 }
 
@@ -91,7 +95,7 @@ extension MovieDetailPage.CrewItemListComponent {
 extension MovieDetailPage.CrewItemListComponent {
   fileprivate struct ItemComponent {
     let crewItem: MovieEntity.MovieDetail.Credit.CrewItem
-
+    
     @Environment(\.colorScheme) var colorScheme
   }
 }
@@ -110,20 +114,21 @@ extension MovieDetailPage.CrewItemListComponent.ItemComponent: View {
       RemoteImage(
         url: profileImageURL,
         placeholder: {
-          Rectangle()
-            .fill(DesignSystemColor.palette(.gray(.lv250)).color)
+          Image(systemName: "person.fill")
+            .resizable()
+            .foregroundStyle(DesignSystemColor.palette(.gray(.lv250)).color)
         })
-        .scaledToFill()
-        .frame(width: 80, height: 120)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+      .clipShape(RoundedRectangle(cornerRadius: 5))
+      .frame(width: 80, height: 100)
+      
       Text(crewItem.name)
         .font(.system(size: 16))
         .foregroundStyle(
           colorScheme == .dark
-            ? DesignSystemColor.system(.white).color
-            : DesignSystemColor.system(.black).color)
-          .lineLimit(1)
-
+          ? DesignSystemColor.system(.white).color
+          : DesignSystemColor.system(.black).color)
+        .lineLimit(1)
+      
       Text(crewItem.department)
         .font(.system(size: 16))
         .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
@@ -132,3 +137,5 @@ extension MovieDetailPage.CrewItemListComponent.ItemComponent: View {
     .frame(width: 120)
   }
 }
+
+

@@ -70,6 +70,7 @@ extension MovieDetailPage.MovieCardComponent: View {
           .scaledToFill()
           .frame(width: 100, height: 160)
           .clipShape(RoundedRectangle(cornerRadius: 10))
+          .padding(.top, 12)
 
         VStack(alignment: .leading, spacing: 8) {
           HStack {

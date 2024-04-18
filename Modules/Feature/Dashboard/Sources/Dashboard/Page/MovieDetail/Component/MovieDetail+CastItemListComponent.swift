@@ -20,53 +20,56 @@ extension MovieDetailPage.CastItemListComponent { }
 
 extension MovieDetailPage.CastItemListComponent: View {
   var body: some View {
-    Divider()
-      .padding(.leading, 16)
-
-    VStack(spacing: .zero) {
-      Button(action: {
-        tapSeaAllAction(viewState.movieID)
-      }) {
-        HStack {
-          Text("Cast")
-            .font(.system(size: 16))
-            .foregroundStyle(
-              colorScheme == .dark
+    if !viewState.item.castItemList.isEmpty {
+      
+      Divider()
+        .padding(.leading, 16)
+      
+      VStack(spacing: .zero) {
+        Button(action: {
+          tapSeaAllAction(viewState.movieID)
+        }) {
+          HStack {
+            Text("Cast")
+              .font(.system(size: 16))
+              .foregroundStyle(
+                colorScheme == .dark
                 ? DesignSystemColor.system(.white).color
                 : DesignSystemColor.system(.black).color)
-
-          Text("See all")
-            .font(.system(size: 16))
-            .foregroundStyle(DesignSystemColor.label(.greenSlate).color)
-
-          Spacer()
-
-          Image(systemName: "chevron.right")
-            .resizable()
-            .frame(width: 8, height: 12)
-            .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
+            
+            Text("See all")
+              .font(.system(size: 16))
+              .foregroundStyle(DesignSystemColor.label(.greenSlate).color)
+            
+            Spacer()
+            
+            Image(systemName: "chevron.right")
+              .resizable()
+              .frame(width: 8, height: 12)
+              .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
+          }
+          .padding(.top, 4)
+          .padding(.horizontal, 16)
+          .padding(.vertical, 8)
         }
-        .padding(.top, 4)
-        .padding(.horizontal, 16)
-        .padding(.vertical, 8)
-      }
-
-      ScrollView(.horizontal) {
-        LazyHStack {
-          ForEach(viewState.item.castItemList) { item in
-            Button(action: {
-              tapCastAction(item)
-            }) {
-              ItemComponent(castItem: item)
+        
+        ScrollView(.horizontal) {
+          LazyHStack {
+            ForEach(viewState.item.castItemList) { item in
+              Button(action: {
+                tapCastAction(item)
+              }) {
+                ItemComponent(castItem: item)
+              }
             }
           }
+          .padding(.leading, 12)
         }
-        .padding(.leading, 12)
+        .padding(.top, 12)
+        .scrollIndicators(.hidden)
       }
-      .padding(.top, 12)
-      .scrollIndicators(.hidden)
+      .padding(.bottom, 12)
     }
-    .padding(.bottom, 12)
   }
 }
 
@@ -103,12 +106,14 @@ extension MovieDetailPage.CastItemListComponent.ItemComponent: View {
       RemoteImage(
         url: profileImageURL,
         placeholder: {
-          Rectangle()
-            .fill(DesignSystemColor.palette(.gray(.lv250)).color)
+          Image(systemName: "person.fill")
+            .resizable()
+            .foregroundStyle(DesignSystemColor.palette(.gray(.lv250)).color)
         })
-        .scaledToFill()
-        .frame(width: 80, height: 120)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+      .clipShape(RoundedRectangle(cornerRadius: 5))
+      .frame(width: 80, height: 100)
+      
+      
       Text(castItem.name)
         .font(.system(size: 16))
         .foregroundStyle(

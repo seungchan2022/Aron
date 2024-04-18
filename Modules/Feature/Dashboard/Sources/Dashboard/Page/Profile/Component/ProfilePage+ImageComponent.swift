@@ -33,12 +33,12 @@ extension ProfilePage.ImageComponent: View {
             RemoteImage(
               url: "https://image.tmdb.org/t/p/w500/\(item.profileImageURL ?? "")",
               placeholder: {
-                Rectangle()
-                  .fill(DesignSystemColor.palette(.gray(.lv250)).color)
+                Image(systemName: "person.fill")
+                  .resizable()
+                  .foregroundStyle(DesignSystemColor.palette(.gray(.lv250)).color)
               })
-              .scaledToFill()
-              .frame(width: 60, height: 80)
-              .clipShape(RoundedRectangle(cornerRadius: 10))
+            .clipShape(RoundedRectangle(cornerRadius: 5))
+            .frame(width: 80, height: 100)
           }
           .padding(.leading, 16)
 
