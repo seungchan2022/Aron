@@ -54,4 +54,36 @@ extension ProfileSideEffect {
         }
     }
   }
+  
+  var routeToCastDetail: (MovieEntity.Person.MovieCredit.CastItem) -> Void {
+    { item in
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.movieDetail.rawValue,
+          items: item.serialized()),
+        isAnimated: true)
+    }
+  }
+  
+  var routeToCrewDetail: (MovieEntity.Person.MovieCredit.CrewItem) -> Void {
+    { item in
+      navigator.next(
+        linkItem: .init(
+          path: Link.Dashboard.Path.movieDetail.rawValue,
+          items: item.serialized()),
+        isAnimated: true)
+    }
+  }
+}
+
+extension MovieEntity.Person.MovieCredit.CastItem {
+  fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
+    .init(movieID: id)
+  }
+}
+
+extension MovieEntity.Person.MovieCredit.CrewItem {
+  fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
+    .init(movieID: id)
+  }
 }

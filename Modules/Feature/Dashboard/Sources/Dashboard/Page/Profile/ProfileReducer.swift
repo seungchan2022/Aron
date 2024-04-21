@@ -57,6 +57,9 @@ struct ProfileReducer {
     case fetchItem(Result<MovieEntity.Person.Info.Response, CompositeErrorRepository>)
     case fetchProfileImage(Result<MovieEntity.Person.Image.Response, CompositeErrorRepository>)
     case fetchMovieCreditItem(Result<MovieEntity.Person.MovieCredit.Response, CompositeErrorRepository>)
+    
+    case routeToCastDetail(MovieEntity.Person.MovieCredit.CastItem)
+    case routeToCrewDetail(MovieEntity.Person.MovieCredit.CrewItem)
 
     case throwError(CompositeErrorRepository)
   }
@@ -127,6 +130,14 @@ struct ProfileReducer {
         case .failure(let error):
           return .run { await $0(.throwError(error)) }
         }
+        
+      case .routeToCastDetail(let item):
+        sideEffect.routeToCastDetail(item)
+        return .none
+        
+      case .routeToCrewDetail(let item):
+        sideEffect.routeToCrewDetail(item)
+        return .none
         
       case .throwError(let error):
         sideEffect.useCase.toastViewModel.send(errorMessage: error.displayMessage)

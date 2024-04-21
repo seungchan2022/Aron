@@ -46,6 +46,56 @@ extension ProfilePage: View {
       
       // Section2 해당 유저의 무비 리스트?
       
+      VStack(alignment: .leading, spacing: 24) {
+        // Cast
+        VStack(alignment: .leading, spacing: .zero) {
+          Text("Cast")
+            .font(.title)
+            .fontWeight(.bold)
+            .padding(.leading, 32)
+          
+          LazyVStack(alignment: .leading) {
+            ForEach(store.fetchMovieCreditItem.value?.castItemList ?? []) { item in
+              CastItemComponent(
+                viewState: .init(item: item),
+                tapAction: { store.send(.routeToCastDetail($0))})
+            }
+          }
+          
+          
+          .background(
+            colorScheme == .dark
+            ? DesignSystemColor.background(.black).color
+            : DesignSystemColor.system(.white).color)
+          .clipShape(RoundedRectangle(cornerRadius: 10))
+          .padding(.horizontal, 12) // 그룹의 패딩
+        }
+        
+        // Crew
+        VStack(alignment: .leading, spacing: .zero) {
+          Text("Crew")
+            .font(.title)
+            .fontWeight(.bold)
+            .padding(.leading, 32)
+          
+          LazyVStack(alignment: .leading) {
+            ForEach(store.fetchMovieCreditItem.value?.crewItemList ?? []) { item in
+              CrewItemComponent(
+                viewState: .init(item: item),
+                tapAction: { store.send(.routeToCrewDetail($0))})
+            }
+          }
+          .background(
+            colorScheme == .dark
+            ? DesignSystemColor.background(.black).color
+            : DesignSystemColor.system(.white).color)
+          .clipShape(RoundedRectangle(cornerRadius: 10))
+          .padding(.horizontal, 12) // 그룹의 패딩
+        }
+        
+        
+      }
+      .padding(.top, 24)
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .background(
