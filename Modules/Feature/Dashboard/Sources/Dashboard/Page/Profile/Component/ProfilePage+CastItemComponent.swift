@@ -1,12 +1,14 @@
-import SwiftUI
-import Domain
 import DesignSystem
+import Domain
+import SwiftUI
+
+// MARK: - ProfilePage.CastItemComponent
 
 extension ProfilePage {
   struct CastItemComponent {
     let viewState: ViewState
     let tapAction: (MovieEntity.Person.MovieCredit.CastItem) -> Void
-    
+
     @Environment(\.colorScheme) var colorScheme
   }
 }
@@ -16,6 +18,8 @@ extension ProfilePage.CastItemComponent {
     "https://image.tmdb.org/t/p/w500/\(viewState.item.poster ?? "")"
   }
 }
+
+// MARK: - ProfilePage.CastItemComponent + View
 
 extension ProfilePage.CastItemComponent: View {
   var body: some View {
@@ -29,26 +33,22 @@ extension ProfilePage.CastItemComponent: View {
                 .resizable()
                 .foregroundStyle(DesignSystemColor.palette(.gray(.lv250)).color)
             })
-          .clipShape(RoundedRectangle(cornerRadius: 5))
-          .frame(width: 80, height: 100)
+            .clipShape(RoundedRectangle(cornerRadius: 5))
+            .frame(width: 80, height: 100)
 
           VStack(alignment: .leading, spacing: 8) {
             Text(viewState.item.title)
               .foregroundStyle(
                 colorScheme == .dark
-                ? DesignSystemColor.system(.white).color
-                : DesignSystemColor.system(.black).color
-              )
-              .multilineTextAlignment(.leading)
-
+                  ? DesignSystemColor.system(.white).color
+                  : DesignSystemColor.system(.black).color)
+                .multilineTextAlignment(.leading)
 
             if let character = viewState.item.character {
               Text(character)
                 .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
                 .multilineTextAlignment(.leading)
             }
-            
-
           }
 
           Spacer()
@@ -68,6 +68,8 @@ extension ProfilePage.CastItemComponent: View {
     }
   }
 }
+
+// MARK: - ProfilePage.CastItemComponent.ViewState
 
 extension ProfilePage.CastItemComponent {
   struct ViewState: Equatable {

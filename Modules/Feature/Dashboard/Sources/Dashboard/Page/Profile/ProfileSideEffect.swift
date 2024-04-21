@@ -43,18 +43,18 @@ extension ProfileSideEffect {
       }
     }
   }
-  
+
   var movieCredit: (MovieEntity.Person.MovieCredit.Request) -> Effect<ProfileReducer.Action> {
     { request in
-        .publisher {
-          useCase.personUseCase.movieCredit(request)
-            .receive(on: main)
-            .mapToResult()
-            .map(ProfileReducer.Action.fetchMovieCreditItem)
-        }
+      .publisher {
+        useCase.personUseCase.movieCredit(request)
+          .receive(on: main)
+          .mapToResult()
+          .map(ProfileReducer.Action.fetchMovieCreditItem)
+      }
     }
   }
-  
+
   var routeToCastDetail: (MovieEntity.Person.MovieCredit.CastItem) -> Void {
     { item in
       navigator.next(
@@ -64,7 +64,7 @@ extension ProfileSideEffect {
         isAnimated: true)
     }
   }
-  
+
   var routeToCrewDetail: (MovieEntity.Person.MovieCredit.CrewItem) -> Void {
     { item in
       navigator.next(

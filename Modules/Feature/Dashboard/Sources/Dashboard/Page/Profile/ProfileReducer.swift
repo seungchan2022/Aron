@@ -20,18 +20,8 @@ struct ProfileReducer {
 
   @ObservableState
   struct State: Equatable, Identifiable {
-    let id: UUID
-    
-    var isShowingReadMore = false
-    
-    let item: MovieEntity.Person.Info.Request
-    let profileImageItem: MovieEntity.Person.Image.Request
-        
-    let movieCreditItem: MovieEntity.Person.MovieCredit.Request
 
-    var fetchItem: FetchState.Data<MovieEntity.Person.Info.Response?> = .init(isLoading: false, value: .none)
-    var fetchProfileImageItem: FetchState.Data<MovieEntity.Person.Image.Response?> = .init(isLoading: false, value: .none)
-    var fetchMovieCreditItem: FetchState.Data<MovieEntity.Person.MovieCredit.Response?> = .init(isLoading: false, value: .none)
+    // MARK: Lifecycle
 
     init(
       id: UUID = UUID(),
@@ -44,6 +34,22 @@ struct ProfileReducer {
       self.profileImageItem = profileImageItem
       self.movieCreditItem = movieCreditItem
     }
+
+    // MARK: Internal
+
+    let id: UUID
+
+    var isShowingReadMore = false
+
+    let item: MovieEntity.Person.Info.Request
+    let profileImageItem: MovieEntity.Person.Image.Request
+
+    let movieCreditItem: MovieEntity.Person.MovieCredit.Request
+
+    var fetchItem: FetchState.Data<MovieEntity.Person.Info.Response?> = .init(isLoading: false, value: .none)
+    var fetchProfileImageItem: FetchState.Data<MovieEntity.Person.Image.Response?> = .init(isLoading: false, value: .none)
+    var fetchMovieCreditItem: FetchState.Data<MovieEntity.Person.MovieCredit.Response?> = .init(isLoading: false, value: .none)
+
   }
 
   enum Action: BindableAction, Equatable {
@@ -57,7 +63,7 @@ struct ProfileReducer {
     case fetchItem(Result<MovieEntity.Person.Info.Response, CompositeErrorRepository>)
     case fetchProfileImage(Result<MovieEntity.Person.Image.Response, CompositeErrorRepository>)
     case fetchMovieCreditItem(Result<MovieEntity.Person.MovieCredit.Response, CompositeErrorRepository>)
-    
+
     case routeToCastDetail(MovieEntity.Person.MovieCredit.CastItem)
     case routeToCrewDetail(MovieEntity.Person.MovieCredit.CrewItem)
 
@@ -91,7 +97,7 @@ struct ProfileReducer {
         state.fetchProfileImageItem.isLoading = true
         return sideEffect.profileImage(requestModel)
           .cancellable(pageID: pageID, id: CancelID.requestProfileImage, cancelInFlight: true)
-        
+
       case .getMovieCreditItem(let requestModel):
         state.fetchMovieCreditItem.isLoading = true
         return sideEffect.movieCredit(requestModel)
@@ -119,26 +125,25 @@ struct ProfileReducer {
           return .run { await $0(.throwError(error)) }
         }
 
-        
       case .fetchMovieCreditItem(let result):
         state.fetchMovieCreditItem.isLoading = false
         switch result {
         case .success(let item):
           state.fetchMovieCreditItem.value = item
           return .none
-          
+
         case .failure(let error):
           return .run { await $0(.throwError(error)) }
         }
-        
+
       case .routeToCastDetail(let item):
         sideEffect.routeToCastDetail(item)
         return .none
-        
+
       case .routeToCrewDetail(let item):
         sideEffect.routeToCrewDetail(item)
         return .none
-        
+
       case .throwError(let error):
         sideEffect.useCase.toastViewModel.send(errorMessage: error.displayMessage)
         return .none

@@ -37,8 +37,8 @@ extension ProfilePage.ImageComponent: View {
                   .resizable()
                   .foregroundStyle(DesignSystemColor.palette(.gray(.lv250)).color)
               })
-            .clipShape(RoundedRectangle(cornerRadius: 5))
-            .frame(width: 80, height: 100)
+              .clipShape(RoundedRectangle(cornerRadius: 5))
+              .frame(width: 80, height: 100)
           }
           .padding(.leading, 16)
 

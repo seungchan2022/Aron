@@ -71,30 +71,30 @@ extension MovieEntity.Person.Image {
 extension MovieEntity.Person.MovieCredit {
   public struct Request: Equatable, Codable, Sendable {
     public let personID: Int
-    
+
     public init(personID: Int) {
       self.personID = personID
     }
   }
-  
+
   public struct Response: Equatable, Codable, Sendable, Identifiable {
     public let id: Int
     public let castItemList: [CastItem]?
     public let crewItemList: [CrewItem]?
-    
+
     private enum CodingKeys: String, CodingKey {
       case id
       case castItemList = "cast"
       case crewItemList = "crew"
     }
   }
-  
+
   public struct CastItem: Equatable, Codable, Sendable, Identifiable {
     public let id: Int
     public let poster: String?
     public let title: String
     public let character: String?
-    
+
     private enum CodingKeys: String, CodingKey {
       case id
       case poster = "poster_path"
@@ -102,13 +102,13 @@ extension MovieEntity.Person.MovieCredit {
       case character
     }
   }
-  
+
   public struct CrewItem: Equatable, Codable, Sendable, Identifiable {
     public let id: Int
     public let poster: String?
     public let title: String
     public let department: String?
-    
+
     private enum CodingKeys: String, CodingKey {
       case id
       case poster = "poster_path"

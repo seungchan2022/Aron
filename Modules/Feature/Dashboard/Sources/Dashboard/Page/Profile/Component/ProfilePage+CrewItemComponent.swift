@@ -1,12 +1,14 @@
-import SwiftUI
-import Domain
 import DesignSystem
+import Domain
+import SwiftUI
+
+// MARK: - ProfilePage.CrewItemComponent
 
 extension ProfilePage {
   struct CrewItemComponent {
     let viewState: ViewState
     let tapAction: (MovieEntity.Person.MovieCredit.CrewItem) -> Void
-    
+
     @Environment(\.colorScheme) var colorScheme
   }
 }
@@ -17,9 +19,11 @@ extension ProfilePage.CrewItemComponent {
   }
 }
 
+// MARK: - ProfilePage.CrewItemComponent + View
+
 extension ProfilePage.CrewItemComponent: View {
   var body: some View {
-    Button(action: { tapAction(viewState.item)  }) {
+    Button(action: { tapAction(viewState.item) }) {
       VStack(alignment: .leading) {
         HStack(spacing: 8) {
           RemoteImage(
@@ -29,26 +33,22 @@ extension ProfilePage.CrewItemComponent: View {
                 .resizable()
                 .foregroundStyle(DesignSystemColor.palette(.gray(.lv250)).color)
             })
-          .clipShape(RoundedRectangle(cornerRadius: 5))
-          .frame(width: 80, height: 100)
+            .clipShape(RoundedRectangle(cornerRadius: 5))
+            .frame(width: 80, height: 100)
 
           VStack(alignment: .leading, spacing: 8) {
             Text(viewState.item.title)
               .foregroundStyle(
                 colorScheme == .dark
-                ? DesignSystemColor.system(.white).color
-                : DesignSystemColor.system(.black).color
-              )
-              .multilineTextAlignment(.leading)
-
+                  ? DesignSystemColor.system(.white).color
+                  : DesignSystemColor.system(.black).color)
+                .multilineTextAlignment(.leading)
 
             if let department = viewState.item.department {
               Text(department)
                 .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
                 .multilineTextAlignment(.leading)
             }
-            
-
           }
 
           Spacer()
@@ -68,6 +68,8 @@ extension ProfilePage.CrewItemComponent: View {
     }
   }
 }
+
+// MARK: - ProfilePage.CrewItemComponent.ViewState
 
 extension ProfilePage.CrewItemComponent {
   struct ViewState: Equatable {

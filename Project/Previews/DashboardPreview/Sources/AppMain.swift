@@ -54,7 +54,6 @@ extension AppMain: View {
           prefersLargeTitles: true),
       ])
       .ignoresSafeArea()
-      .onAppear { 
-      }
+      .onAppear { }
   }
 }

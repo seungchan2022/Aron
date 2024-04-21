@@ -6,9 +6,9 @@ import SwiftUI
 
 struct ProfilePage {
   @Bindable var store: StoreOf<ProfileReducer>
-  
+
   @Environment(\.colorScheme) var colorScheme
-  
+
 }
 
 extension ProfilePage {
@@ -30,7 +30,7 @@ extension ProfilePage: View {
             viewState: .init(item: item),
             store: store)
         }
-        
+
         // 이미지 컴포넌트 따로 분리
         if let item = store.fetchProfileImageItem.value {
           ImageComponent(viewState: .init(item: item))
@@ -39,13 +39,13 @@ extension ProfilePage: View {
       .padding(.vertical, 16)
       .background(
         colorScheme == .dark
-        ? DesignSystemColor.background(.black).color
-        : DesignSystemColor.system(.white).color)
-      .clipShape(RoundedRectangle(cornerRadius: 10))
-      .padding(.horizontal, 12) // 그룹의 패딩
-      
+          ? DesignSystemColor.background(.black).color
+          : DesignSystemColor.system(.white).color)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .padding(.horizontal, 12) // 그룹의 패딩
+
       // Section2 해당 유저의 무비 리스트?
-      
+
       VStack(alignment: .leading, spacing: 24) {
         // Cast
         VStack(alignment: .leading, spacing: .zero) {
@@ -53,47 +53,44 @@ extension ProfilePage: View {
             .font(.title)
             .fontWeight(.bold)
             .padding(.leading, 32)
-          
+
           LazyVStack(alignment: .leading) {
             ForEach(store.fetchMovieCreditItem.value?.castItemList ?? []) { item in
               CastItemComponent(
                 viewState: .init(item: item),
-                tapAction: { store.send(.routeToCastDetail($0))})
+                tapAction: { store.send(.routeToCastDetail($0)) })
             }
           }
-          
-          
+
           .background(
             colorScheme == .dark
-            ? DesignSystemColor.background(.black).color
-            : DesignSystemColor.system(.white).color)
-          .clipShape(RoundedRectangle(cornerRadius: 10))
-          .padding(.horizontal, 12) // 그룹의 패딩
+              ? DesignSystemColor.background(.black).color
+              : DesignSystemColor.system(.white).color)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .padding(.horizontal, 12) // 그룹의 패딩
         }
-        
+
         // Crew
         VStack(alignment: .leading, spacing: .zero) {
           Text("Crew")
             .font(.title)
             .fontWeight(.bold)
             .padding(.leading, 32)
-          
+
           LazyVStack(alignment: .leading) {
             ForEach(store.fetchMovieCreditItem.value?.crewItemList ?? []) { item in
               CrewItemComponent(
                 viewState: .init(item: item),
-                tapAction: { store.send(.routeToCrewDetail($0))})
+                tapAction: { store.send(.routeToCrewDetail($0)) })
             }
           }
           .background(
             colorScheme == .dark
-            ? DesignSystemColor.background(.black).color
-            : DesignSystemColor.system(.white).color)
-          .clipShape(RoundedRectangle(cornerRadius: 10))
-          .padding(.horizontal, 12) // 그룹의 패딩
+              ? DesignSystemColor.background(.black).color
+              : DesignSystemColor.system(.white).color)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .padding(.horizontal, 12) // 그룹의 패딩
         }
-        
-        
       }
       .padding(.top, 24)
     }

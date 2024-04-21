@@ -38,15 +38,18 @@ extension PersonUseCasePlatform: PersonUseCase {
         .fetch(isDebug: true)
     }
   }
-  
-  public var movieCredit: (MovieEntity.Person.MovieCredit.Request) -> AnyPublisher<MovieEntity.Person.MovieCredit.Response, CompositeErrorRepository> {
+
+  public var movieCredit: (MovieEntity.Person.MovieCredit.Request) -> AnyPublisher<
+    MovieEntity.Person.MovieCredit.Response,
+    CompositeErrorRepository
+  > {
     { item in
       Endpoint(
         baseURL: baseURL,
         pathList: ["\(item.personID)", "movie_credits"],
         httpMethod: .get,
         content: .queryItemPath(PersonQueryItem()))
-      .fetch(isDebug: true)
+        .fetch(isDebug: true)
     }
   }
 }

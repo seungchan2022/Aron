@@ -21,10 +21,9 @@ extension MovieDetailPage.CastItemListComponent { }
 extension MovieDetailPage.CastItemListComponent: View {
   var body: some View {
     if !viewState.item.castItemList.isEmpty {
-      
       Divider()
         .padding(.leading, 16)
-      
+
       VStack(spacing: .zero) {
         Button(action: {
           tapSeaAllAction(viewState.movieID)
@@ -34,15 +33,15 @@ extension MovieDetailPage.CastItemListComponent: View {
               .font(.system(size: 16))
               .foregroundStyle(
                 colorScheme == .dark
-                ? DesignSystemColor.system(.white).color
-                : DesignSystemColor.system(.black).color)
-            
+                  ? DesignSystemColor.system(.white).color
+                  : DesignSystemColor.system(.black).color)
+
             Text("See all")
               .font(.system(size: 16))
               .foregroundStyle(DesignSystemColor.label(.greenSlate).color)
-            
+
             Spacer()
-            
+
             Image(systemName: "chevron.right")
               .resizable()
               .frame(width: 8, height: 12)
@@ -52,7 +51,7 @@ extension MovieDetailPage.CastItemListComponent: View {
           .padding(.horizontal, 16)
           .padding(.vertical, 8)
         }
-        
+
         ScrollView(.horizontal) {
           LazyHStack {
             ForEach(viewState.item.castItemList) { item in
@@ -110,10 +109,9 @@ extension MovieDetailPage.CastItemListComponent.ItemComponent: View {
             .resizable()
             .foregroundStyle(DesignSystemColor.palette(.gray(.lv250)).color)
         })
-      .clipShape(RoundedRectangle(cornerRadius: 5))
-      .frame(width: 80, height: 100)
-      
-      
+        .clipShape(RoundedRectangle(cornerRadius: 5))
+        .frame(width: 80, height: 100)
+
       Text(castItem.name)
         .font(.system(size: 16))
         .foregroundStyle(
