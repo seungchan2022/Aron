@@ -3,9 +3,9 @@ import DesignSystem
 import Domain
 import SwiftUI
 
-// MARK: - TopRatedPage.SearchResultMovieComponent
+// MARK: - HomePage.SearchResultMovieComponent
 
-extension TopRatedPage {
+extension HomePage {
   struct SearchResultMovieComponent {
     let viewState: ViewState
     let tapAction: (MovieEntity.Search.Movie.Item) -> Void
@@ -14,15 +14,15 @@ extension TopRatedPage {
   }
 }
 
-extension TopRatedPage.SearchResultMovieComponent {
+extension HomePage.SearchResultMovieComponent {
   private var remoteImageURL: String {
     "https://image.tmdb.org/t/p/w500/\(viewState.item.poster ?? "")"
   }
 }
 
-// MARK: - TopRatedPage.SearchResultMovieComponent + View
+// MARK: - HomePage.SearchResultMovieComponent + View
 
-extension TopRatedPage.SearchResultMovieComponent: View {
+extension HomePage.SearchResultMovieComponent: View {
 
   var body: some View {
     Button(action: { tapAction(viewState.item) }) {
@@ -86,9 +86,9 @@ extension TopRatedPage.SearchResultMovieComponent: View {
   }
 }
 
-// MARK: - TopRatedPage.SearchResultMovieComponent.ViewState
+// MARK: - HomePage.SearchResultMovieComponent.ViewState
 
-extension TopRatedPage.SearchResultMovieComponent {
+extension HomePage.SearchResultMovieComponent {
   struct ViewState: Equatable {
     let item: MovieEntity.Search.Movie.Item
   }

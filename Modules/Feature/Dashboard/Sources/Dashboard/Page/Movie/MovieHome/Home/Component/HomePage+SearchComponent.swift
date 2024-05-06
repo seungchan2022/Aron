@@ -1,21 +1,21 @@
 import ComposableArchitecture
 import SwiftUI
 
-// MARK: - TrendingPage.SearchComponent
+// MARK: - HomePage.SearchComponent
 
-extension TrendingPage {
+extension HomePage {
   struct SearchComponent {
     let viewState: ViewState
 
-    @Bindable var store: StoreOf<TrendingReducer>
+    @Bindable var store: StoreOf<HomeReducer>
   }
 }
 
-extension TrendingPage.SearchComponent { }
+extension HomePage.SearchComponent { }
 
-// MARK: - TrendingPage.SearchComponent + View
+// MARK: - HomePage.SearchComponent + View
 
-extension TrendingPage.SearchComponent: View {
+extension HomePage.SearchComponent: View {
   var body: some View {
     VStack(spacing: 16) {
       Divider()
@@ -48,8 +48,8 @@ extension TrendingPage.SearchComponent: View {
   }
 }
 
-// MARK: - TrendingPage.SearchComponent.ViewState
+// MARK: - HomePage.SearchComponent.ViewState
 
-extension TrendingPage.SearchComponent {
+extension HomePage.SearchComponent {
   struct ViewState: Equatable { }
 }

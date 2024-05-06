@@ -3,9 +3,9 @@ import DesignSystem
 import Domain
 import SwiftUI
 
-// MARK: - UpcomingPage.SearchResultPersonComponent
+// MARK: - HomePage.SearchResultPersonComponent
 
-extension UpcomingPage {
+extension HomePage {
   struct SearchResultPersonComponent {
     let viewState: ViewState
     let tapAction: (MovieEntity.Search.Person.Item) -> Void
@@ -15,15 +15,15 @@ extension UpcomingPage {
   }
 }
 
-extension UpcomingPage.SearchResultPersonComponent {
+extension HomePage.SearchResultPersonComponent {
   private var remoteImageURL: String {
     "https://image.tmdb.org/t/p/w500/\(viewState.item.profileImageURL ?? "")"
   }
 }
 
-// MARK: - UpcomingPage.SearchResultPersonComponent + View
+// MARK: - HomePage.SearchResultPersonComponent + View
 
-extension UpcomingPage.SearchResultPersonComponent: View {
+extension HomePage.SearchResultPersonComponent: View {
   var body: some View {
     Button(action: { tapAction(viewState.item) }) {
       HStack(spacing: 12) {
@@ -67,9 +67,9 @@ extension UpcomingPage.SearchResultPersonComponent: View {
   }
 }
 
-// MARK: - UpcomingPage.SearchResultPersonComponent.ViewState
+// MARK: - HomePage.SearchResultPersonComponent.ViewState
 
-extension UpcomingPage.SearchResultPersonComponent {
+extension HomePage.SearchResultPersonComponent {
   struct ViewState: Equatable {
     let item: MovieEntity.Search.Person.Item
 

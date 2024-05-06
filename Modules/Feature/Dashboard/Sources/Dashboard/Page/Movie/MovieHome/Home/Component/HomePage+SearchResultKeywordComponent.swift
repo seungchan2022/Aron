@@ -3,9 +3,9 @@ import DesignSystem
 import Domain
 import SwiftUI
 
-// MARK: - NowPlayingPage.SearchResultKeywordComponent
+// MARK: - HomePage.SearchResultKeywordComponent
 
-extension NowPlayingPage {
+extension HomePage {
   struct SearchResultKeywordComponent {
     let viewState: ViewState
     let tapAction: (MovieEntity.Search.Keyword.Item) -> Void
@@ -14,11 +14,11 @@ extension NowPlayingPage {
   }
 }
 
-extension NowPlayingPage.SearchResultKeywordComponent { }
+extension HomePage.SearchResultKeywordComponent { }
 
-// MARK: - NowPlayingPage.SearchResultKeywordComponent + View
+// MARK: - HomePage.SearchResultKeywordComponent + View
 
-extension NowPlayingPage.SearchResultKeywordComponent: View {
+extension HomePage.SearchResultKeywordComponent: View {
   var body: some View {
     Button(action: { tapAction(viewState.item) }) {
       HStack {
@@ -41,9 +41,9 @@ extension NowPlayingPage.SearchResultKeywordComponent: View {
   }
 }
 
-// MARK: - NowPlayingPage.SearchResultKeywordComponent.ViewState
+// MARK: - HomePage.SearchResultKeywordComponent.ViewState
 
-extension NowPlayingPage.SearchResultKeywordComponent {
+extension HomePage.SearchResultKeywordComponent {
   struct ViewState: Equatable {
     let item: MovieEntity.Search.Keyword.Item
   }
