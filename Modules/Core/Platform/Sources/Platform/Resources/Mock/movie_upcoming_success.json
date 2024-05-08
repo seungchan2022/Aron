@@ -1,0 +1,392 @@
+{
+  "dates": {
+    "maximum": "2024-05-29",
+    "minimum": "2024-05-08"
+  },
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/v5XyXZe8FADw8iHupB4L7QOAwH9.jpg",
+      "genre_ids": [
+        16,
+        35,
+        10751
+      ],
+      "id": 748783,
+      "original_language": "en",
+      "original_title": "The Garfield Movie",
+      "overview": "세상귀찮 집냥이, 바쁘고 험난한 세상에 던져졌다! 집사 ‘존’과 반려견 ‘오디’를 기르며 평화로운 나날을 보내던 집냥이 ‘가필드’. 어느 날, 험악한 길냥이 무리에게 납치당해 냉혹한 거리로 던져진다. 돌봐주는 집사가 없는 집 밖 세상은 너무나도 정신없게 돌아가고 길에서 우연히 다시 만난 아빠 길냥이 ‘빅’은 오히려 ‘가필드’를 위기에 빠지게 하는데… 험난한 세상, 살아남아야 한다!",
+      "popularity": 1001.139,
+      "poster_path": "/57g3pHYi3p0JNVO1LkcyYbeMDBf.jpg",
+      "release_date": "2024-05-15",
+      "title": "가필드 더 무비",
+      "video": false,
+      "vote_average": 6.45,
+      "vote_count": 30
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/fypydCipcWDKDTTCoPucBsdGYXW.jpg",
+      "genre_ids": [
+        878,
+        12,
+        28
+      ],
+      "id": 653346,
+      "original_language": "en",
+      "original_title": "Kingdom of the Planet of the Apes",
+      "overview": "진화한 유인원과 퇴화된 인간들이 살아가는 땅. 유인원 리더 프록시무스는 완전한 군림을 위해 인간들을 사냥하며 자신의 제국을 건설한다. 한편, 또 다른 유인원 노아는 우연히 숨겨진 과거의 이야기와 시저의 가르침을 듣게 되고 인간과 유인원이 함께 할 새로운 세상을 꿈꾼다. 어느 날 그의 앞에 나타난 의문의 한 인간 소녀. 노아는 그녀와 함께 자유를 향한 여정을 시작하게 되는데…",
+      "popularity": 829.489,
+      "poster_path": "/plNOSbqkSuGEK2i15A5btAXtB7t.jpg",
+      "release_date": "2024-05-08",
+      "title": "혹성탈출: 새로운 시대",
+      "video": false,
+      "vote_average": 6.5,
+      "vote_count": 14
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/4yrOyO3N55XazHQXXYoqiiPQd40.jpg",
+      "genre_ids": [
+        27
+      ],
+      "id": 938614,
+      "original_language": "en",
+      "original_title": "Late Night with the Devil",
+      "overview": "1977년 핼러윈 전날 밤, 시청률을 위해서라면 일단 틀고 보는 방송국 놈들 때문에 누구도 예상하지 못한 방송사고 발생! 그리고 마침내 미국 전역을 충격에 빠트렸던 그날 밤의 생방송 악마와의 토크쇼 녹화영상이 최근에 발견됐는데… 47년간 숨겨진, 절대 생중계돼서는 안 될 최악의 토크쇼가 마침내 공개된다, 그동안 공개되지 않은 비하인드 영상과 함께!",
+      "popularity": 433.528,
+      "poster_path": "/5nUu9y8hQtmW4Qt5GWZZATCjFnN.jpg",
+      "release_date": "2024-05-08",
+      "title": "악마와의 토크쇼",
+      "video": false,
+      "vote_average": 7.357,
+      "vote_count": 290
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/ySgY4jBvZ6qchrxKnBg4M8tZp8V.jpg",
+      "genre_ids": [
+        27,
+        53,
+        35
+      ],
+      "id": 1111873,
+      "original_language": "en",
+      "original_title": "Abigail",
+      "overview": "오직 돈을 위해서 업계 최고들로만 모인 납치범들. 정체를 알 수 없는 거부의 딸이자 평범한 소녀 ‘애비게일’을 납치하고, 24시간 동안 저택에서 그녀를 감시하고 거액의 돈을 받기로 한다. 하지만 평범한 소녀 ‘애비게일’은 발레리나 뱀파이어였고 오히려 납치범들은 역으로 저택에 갇혀 그녀의 장난감과 먹이가 되었다. 납치범들은 이제 24시간 안에 살기 위해 저택을 탈출해야 한다.",
+      "popularity": 291.018,
+      "poster_path": "/dRCVYbOjhMNghBQgHuqthG5iLH.jpg",
+      "release_date": "2024-05-15",
+      "title": "애비게일",
+      "video": false,
+      "vote_average": 6.904,
+      "vote_count": 89
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/lA6KdSkCTxwzvqzPqxch997RabQ.jpg",
+      "genre_ids": [
+        28,
+        53
+      ],
+      "id": 560016,
+      "original_language": "en",
+      "original_title": "Monkey Man",
+      "overview": "키드는 지하 격투 클럽에서 고릴라 가면을 쓰고 매일 밤 유명 파이터들에게 피투성이가 되도록 얻어맞으며 빈약한 생활을 이어가는 익명의 청년입니다. 수년간 분노를 억눌러온 끝에 키드는 도시의 사악한 엘리트 집단에 잠입할 방법을 찾아냅니다. 어린 시절의 트라우마가 끓어오르자, 그는 자신의 모든 것을 빼앗아간 자들에게 복수하기 위해 신비한 상처를 입은 손으로 폭발적인 보복 작전을 펼칩니다.",
+      "popularity": 213.385,
+      "poster_path": "/4lhR4L2vzzjl68P1zJyCH755Oz4.jpg",
+      "release_date": "2024-05-29",
+      "title": "몽키맨",
+      "video": false,
+      "vote_average": 7.2,
+      "vote_count": 314
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/zj13HSGkT7EIRwUKnXrurgkQ1qc.jpg",
+      "genre_ids": [
+        878,
+        28,
+        12
+      ],
+      "id": 786892,
+      "original_language": "en",
+      "original_title": "Furiosa: A Mad Max Saga",
+      "overview": "문명 붕괴 45년 후, 황폐해진 세상에 무참히 던져진 '퓨리오사'가 고향으로 돌아가기 위해 자신의 인생 전부를 걸고 떠나는 거대한 여정을 그린 액션 블록버스터",
+      "popularity": 177.764,
+      "poster_path": "/zaUFDdJidS4Nyyd6jb2Ok3Kq4Vo.jpg",
+      "release_date": "2024-05-22",
+      "title": "퓨리오사: 매드맥스 사가",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/vpWVeIMNi0Np5shuKFE3QkneiTt.jpg",
+      "genre_ids": [
+        35,
+        14,
+        10751
+      ],
+      "id": 639720,
+      "original_language": "en",
+      "original_title": "IF",
+      "overview": "상상의 친구 ‘이프’를 볼 수 있는 능력을 지닌 한 소녀가 아이들에게 잊혀졌던 ‘이프’를 다시 되찾아주기 위해 마법 같은 모험을 시작하는 이야기를 그린 영화",
+      "popularity": 148.308,
+      "poster_path": "/os1AE0MWPu1S1gcfKxosDv9fwuP.jpg",
+      "release_date": "2024-05-15",
+      "title": "이프: 상상의 친구",
+      "video": false,
+      "vote_average": 8.5,
+      "vote_count": 2
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/okXIAgFc2U6jf4uZrivhwEu7vbW.jpg",
+      "genre_ids": [
+        35,
+        14
+      ],
+      "id": 823482,
+      "original_language": "en",
+      "original_title": "Dream Scenario",
+      "overview": "소심하고, 한심하고, 평범 그 자체여서 언제 어디서나 존재감 없는 ‘폴’로 인해 온 세상이 떠들썩해진다! 왜? 그가 지구상 모두의 꿈에 나타나고 있기 때문에! “실존 인물 맞나요? 왜 당신 꿈을 꾸죠? 도대체 누구세요?” SNS 메시지 폭주, 인터뷰 출연, 광고 모델 요청은 물론, 심지어 꿈속 만남이 현실로 이어지는 기막힌 일까지! 꿈속 남자에서 모두가 꿈꾸는 남자로 거듭난 ‘폴’! 하지만 갑자기 그가 등장하는 모든 꿈들이 악몽이 되는데…",
+      "popularity": 101.214,
+      "poster_path": "/35SkC65KR6R1c7TlRZQAmezmiKr.jpg",
+      "release_date": "2024-05-29",
+      "title": "드림 시나리오",
+      "video": false,
+      "vote_average": 6.739,
+      "vote_count": 587
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/cZmOrIOkJ2SNfVdiO85dUbOAYnL.jpg",
+      "genre_ids": [
+        16,
+        18
+      ],
+      "id": 1012201,
+      "original_language": "ja",
+      "original_title": "劇場版ハイキュー!! ゴミ捨て場の決戦",
+      "overview": "봄철 고교 배구대회 미야기현 대표 결정전. 1회전과 2회전에서 우승 후보를 차례로 꺾은 카라스노 고등학교는 마침내 3회전에서 인연의 라이벌 네코마 고등학교와 맞붙게 된다. 공식 경기에서 처음으로 대결하는 두 고등학교, 통칭 까마귀 VS 고양이 ‘쓰레기장의 결전’. 약속의 땅에서 ‘한 번 더’가 없는 싸움이 드디어 시작된다!",
+      "popularity": 60.673,
+      "poster_path": "/d0jCRbTdJPEvGaboeZ3fvCUVrNT.jpg",
+      "release_date": "2024-05-15",
+      "title": "극장판 하이큐!! 쓰레기장의 결전",
+      "video": false,
+      "vote_average": 8.7,
+      "vote_count": 8
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/nQPwP1uonkooEn4oEpDU0NGW8vH.jpg",
+      "genre_ids": [
+        35,
+        80,
+        28
+      ],
+      "id": 974635,
+      "original_language": "en",
+      "original_title": "Hit Man",
+      "overview": "고지식한 교수인 게리 존슨(글렌 파월)은 부업으로 뉴올리언스 경찰서에서 살인 청부업자 행세를 하며 돈벌이를 한다. 다양한 모습과 성격으로 위장하는 비범한 재주를 바탕으로, 그는 자신들의 적을 제거하고자 연락해 오는 불운한 사람들을 잡는다. 그러던 어느 날 게리는 이런 잠재적 범죄자 중 한 명인 젊고 아름다운 여성 매디슨(아드리아 아르호나)을 의뢰인으로 만나 마음을 빼앗기게 되면서 도덕적 딜레마에 빠진다. 게리가 창조한 살인 청부업자 페르소나 중 하나인 신비하고 섹시한 론에게 매디슨 역시 반하고, 두 사람의 격정적인 로맨스는 연기, 속임수, 증폭하는 위험의 연쇄반응을 일으킨다.",
+      "popularity": 54.876,
+      "poster_path": "/1126gjlBf4hTm9Sgf0ox3LGVEBt.jpg",
+      "release_date": "2024-05-24",
+      "title": "히트맨",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/6uKXrsdguwZrtG5BL1wBHvxWs3Z.jpg",
+      "genre_ids": [
+        28,
+        80,
+        53
+      ],
+      "id": 557946,
+      "original_language": "en",
+      "original_title": "Last Looks",
+      "overview": "홀로 산에 있는 트레일러에 은둔하고 있는 전직 형사 찰리 왈도에게, 어느 날 전 연인인 로레나가 찾아온다.  그녀의 요청은 모니카 핀치 살인 사건을 수사해 달라는 것.  그녀의 남편이자 유명 영화 배우인 앨러스테어 핀치가 유력한 살해 용의자이지만,  아직 드라마 출연분을 채워야 하는 네트워크의 대표인 시고르스키는 그가 혐의를 벗기를 바라고 있다.  로레나에게는 사건을 맡기를 거절했지만,  그가 합류한다는 기사를 보고 갱단 패거리들이 찾아와 그를 협박하고, 설상가상으로 로레나는 행방불명된다.  왈도는 고요했던 은둔 생활을 뒤로 하고, 일을 바로잡으러 시끌벅적한 LA 세상 밖으로 나오게 되는데…",
+      "popularity": 39.973,
+      "poster_path": "/4wG12t52POgo280BWsHd7LWueQI.jpg",
+      "release_date": "2024-05-08",
+      "title": "할리우드 살인사건",
+      "video": false,
+      "vote_average": 5.888,
+      "vote_count": 280
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/hY97iRKr2t44lbX2GHRhfK5CVC7.jpg",
+      "genre_ids": [
+        99
+      ],
+      "id": 1004663,
+      "original_language": "en",
+      "original_title": "All the Beauty and the Bloodshed",
+      "overview": "전설적인 사진작가 낸 골딘의 삶, 예술, 투쟁, 그리고 생존. 언니가 스스로 목숨을 끊은 후, 사진은 나의 유일한 언어였다. 나는 생생하게 반짝이는 뉴욕에서 죽어가는 친구들의 아름다운 모습을 포착했고, 있는 그대로의 내 얼굴을 솔직하게 담아냈다. 이제는 내 모든 명성을 걸고 거대 제약회사에 맞서 싸운다. 생존과 투쟁의 기록이 담긴 나의 일기장을 당신에게 펼쳐 보인다.",
+      "popularity": 24.894,
+      "poster_path": "/fiGdZhBQip33XV8hjgxIqN9OHGR.jpg",
+      "release_date": "2024-05-15",
+      "title": "낸 골딘, 모든 아름다움과 유혈사태",
+      "video": false,
+      "vote_average": 7.426,
+      "vote_count": 121
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/v6zPAMPaHs2fhdYyvi2rMJQI3YD.jpg",
+      "genre_ids": [
+        35
+      ],
+      "id": 925263,
+      "original_language": "it",
+      "original_title": "Il sol dell'avvenire",
+      "overview": "명망 있는 영화감독 조반니는 5년 만에 새 영화 촬영에 들어간다. 그러나 명작 탄생을 기대하던 제작자는 파산 직전에, 40년을 함께한 아내마저 날벼락 같은 이혼 선언으로 그를 혼란에 빠트린다. 급변하는 세상에서 사랑해 온 모든 것들이 위태롭다고 느끼는 조반니. 하지만 불행하기만 한 인생은 없다! 한치 앞도 알 수 없는 모두에게 거장 감독이 선사하는 유쾌한 시네마틱 인생찬가!",
+      "popularity": 24.776,
+      "poster_path": "/9WDl0UZBrF6UYDst3YuMM99o9c9.jpg",
+      "release_date": "2024-05-29",
+      "title": "찬란한 내일로",
+      "video": false,
+      "vote_average": 7.079,
+      "vote_count": 258
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/aWcqE8wGN8Gv4VSPAGCqTFYy7aC.jpg",
+      "genre_ids": [
+        35
+      ],
+      "id": 965791,
+      "original_language": "fr",
+      "original_title": "Une année difficile",
+      "overview": "대출과 빚에 허덕이는 ‘브루노’와 ‘알베르’ TV 중고거래에서 우연히 만난 둘은 공짜 맥주와 감자칩에 이끌려 얼떨결에 환경 운동에 동참하고, 지구 온난화를 막기 위해 블랙 프라이데이에 반대하는 ‘캑터스’를 만나 환경 운동에 점점 진심이 되어가는데… 살기는 어렵지만 사랑은 하고 싶은 두 남자와 환경 문제 외에는 모든 것이 무감각한 여자까지… 갓생을 꿈꾸는 파리지앵 3인의 동상이몽 라이프가 시작된다!",
+      "popularity": 20.12,
+      "poster_path": "/9TeFE1wBWfJb9MiZYpuUbkHNxUm.jpg",
+      "release_date": "2024-05-15",
+      "title": "디피컬트",
+      "video": false,
+      "vote_average": 6.053,
+      "vote_count": 169
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/zuIvu89BpYREc42OKzWyXzANNAQ.jpg",
+      "genre_ids": [
+        10749
+      ],
+      "id": 1188258,
+      "original_language": "ja",
+      "original_title": "青春18x2 君へと続く道",
+      "overview": "18년 전의 대만 타이난. 노래방에서 아르바이트를 하는 고등학생 ‘지미’는, 배낭여행 중 잠시 일자리를 찾아 온 일본인 ‘아미’를 만난다. 천진난만한 그녀와 지내는 동안 풋풋한 첫사랑의 감정이 자라는 ‘지미’. 그러나, 돌연 ‘아미’가 귀국을 하게 되고 갑작스런 이별에 충격을 받은 ‘지미’에게 ‘아미’는 서로의 꿈을 이룬 뒤 다시 만나자는 약속을 하고 떠난다. 시간이 지나 현재. 타이페이에서의 성공한 삶에 지쳐 고향에 돌아온 ‘지미’는, 예전에 ‘아미’로부터 받은 그림엽서를 발견한다. 첫사랑의 기억이 되살아나고 그날의 약속을 지키기 위해 그녀가 나고 자란 일본으로의 여행을 결심하는 ‘지미’. 도쿄부터 가마쿠라, 나가노, 니가타 그리고 ‘아미’의 고향 타다미로 향하는 도중 예기치 않았던 소중한 만남을 되풀이하며 ‘지미’는 ‘아미’와 보냈던 그 여름의 나날들을 떠올린다. 이윽고 다다른 ‘아미’의 고향에서 ‘지미’가 알게 된 18년 전 ‘아미’의 진짜 마음이란...",
+      "popularity": 19.224,
+      "poster_path": "/6DEvozkU7JoHayFPHA7gsOoYi8C.jpg",
+      "release_date": "2024-05-22",
+      "title": "청춘 18X2 너에게로 이어지는 길",
+      "video": false,
+      "vote_average": 8.2,
+      "vote_count": 2
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/rZ4LvgRY9ExeHRh2uppIkTM6Oc4.jpg",
+      "genre_ids": [
+        10751,
+        12
+      ],
+      "id": 654910,
+      "original_language": "en",
+      "original_title": "The Tiger's Nest",
+      "overview": "네팔 대지진으로 고아가 된 발마니가 밀렵꾼으로부터 새끼 호랑이를 구하기 위해 모험하는 과정을 담은 영화",
+      "popularity": 15.446,
+      "poster_path": "/1oZFVPrdMbmEchJkGWr9T5mVeZ7.jpg",
+      "release_date": "2024-05-16",
+      "title": "타이거스 네스트: 호랑이의 보디가드",
+      "video": false,
+      "vote_average": 6.6,
+      "vote_count": 54
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/9ZcJT3plQQPnYqCRkTBbOSksVX8.jpg",
+      "genre_ids": [
+        53,
+        9648
+      ],
+      "id": 743815,
+      "original_language": "ko",
+      "original_title": "그녀가 죽었다",
+      "overview": "고객이 맡긴 열쇠로 그 집에 들어가  남의 삶을 훔쳐보는 취미를 지닌 공인중개사 구정태. 편의점 소시지를 먹으며 비건 샐러드 사진을 포스팅하는  SNS 인플루언서 한소라에게 흥미를 느끼고 관찰하기 시작한다. 급기야 한소라의 집까지 드나들던 구정태는 어느 날, 그녀가 소파에 죽은 채 늘어져 있는 모습을 발견하게 된다. 그 후 그가 한소라 집에 들어간 것을 알고 있는 누군가가 협박을 시작하고, 사건을 맡은 강력반 형사 오영주의 수사망이 그를 향해 좁혀온다. 스스로 범인을 찾아야 하는 구정태는 한소라의 SNS를 통해 주변 인물들을 뒤지며 진범을 찾아 나서는데…",
+      "popularity": 11.125,
+      "poster_path": "/wTtcvHnO0lzF9qOgmBjjzce2PMy.jpg",
+      "release_date": "2024-05-15",
+      "title": "그녀가 죽었다",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [
+        80,
+        53
+      ],
+      "id": 865910,
+      "original_language": "ko",
+      "original_title": "설계자",
+      "overview": "의뢰받은 청부 살인을 사고사로 조작하는 설계자 ‘영일’. 그의 설계를 통해 우연한 사고로 조작된 죽음들이 실은 철저하게 계획된 살인이라는 것을 아무도 알지 못한다. 최근의 타겟 역시 아무 증거 없이 완벽하게 처리한 ‘영일’에게 새로운 의뢰가 들어온다. 이번 타겟은 모든 언론과 세상이 주목하고 있는 유력 인사. 작은 틈이라도 생기면 자신의 정체가 발각될 수 있는 위험한 의뢰지만 ‘영일’은 그의 팀원인 ‘재키’, ‘월천’, ‘점만’과 함께 이를 맡기로 결심한다.철저한 설계와 사전 준비를 거쳐 마침내 실행에 옮기는 순간, ‘영일’의 계획에 예기치 못한 변수가 발생하는데...!",
+      "popularity": 9.858,
+      "poster_path": "/9nDQd9YonVDmIrU39FWfyeqTfPY.jpg",
+      "release_date": "2024-05-29",
+      "title": "설계자",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/mkYWWzV34Ynyg2jgSRbZvTZEgO1.jpg",
+      "genre_ids": [
+        18
+      ],
+      "id": 1106527,
+      "original_language": "ko",
+      "original_title": "미지수",
+      "overview": "헤어진 연인을 사무치게 그리워하는 ‘지수’. 실수로 사람을 죽이고 붕괴 직전인 ‘우주’. 우주선 발사 뉴스에 집착하는 ‘기완’. 비가 오면 발작하는 남편 때문에 괴로운 ‘인선’. 베란다에 장총을 두고 살아가는 ‘신애’. “나 혼자 우주를 떠다니고 있어. 나 좀 꺼내줘”. 삶의 궤도에서 이탈한 다섯 인물들의 미지의 슬픔 그리고 미지의 시간.",
+      "popularity": 9.612,
+      "poster_path": "/2T0QOocJGfJj1jFZ9ESDDF4CcED.jpg",
+      "release_date": "2024-05-08",
+      "title": "미지수",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/vL6iYirX4vz38INriaCCpzwCyWN.jpg",
+      "genre_ids": [
+        16,
+        18
+      ],
+      "id": 1106904,
+      "original_language": "ja",
+      "original_title": "窓ぎわのトットちゃん",
+      "overview": "남들과는 조금 다르다는 이유로 초등학교에 적응하지 못한 ‘토토’가 토모에 학원으로 진학하게 되면서 교장 선생님과 새로운 친구들을 만나면서 벌어지는 이야기를 담은 작품",
+      "popularity": 7.893,
+      "poster_path": "/xdiZ9mZmkxLeIh1YRQlGyOjj9wx.jpg",
+      "release_date": "2024-05-29",
+      "title": "창가의 토토",
+      "video": false,
+      "vote_average": 7.0,
+      "vote_count": 1
+    }
+  ],
+  "total_pages": 2,
+  "total_results": 30
+}

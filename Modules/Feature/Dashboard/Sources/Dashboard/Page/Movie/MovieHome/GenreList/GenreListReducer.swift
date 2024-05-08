@@ -60,7 +60,8 @@ struct GenreListReducer {
 
       case .getItem:
         state.fetchItem.isLoading = true
-        return sideEffect.getItem(.init())
+        return sideEffect
+          .getItem(.init())
           .cancellable(pageID: pageID, id: CancelID.requestItem, cancelInFlight: true)
 
       case .fetchItem(let result):

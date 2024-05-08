@@ -24,8 +24,6 @@ struct TopRatedReducer {
   struct State: Equatable, Identifiable {
     let id: UUID
 
-    var query = ""
-
     var itemList: [MovieEntity.Movie.TopRated.Item] = []
 
     var fetchItem: FetchState.Data<MovieEntity.Movie.TopRated.Response?> = .init(isLoading: false, value: .none)

@@ -160,6 +160,7 @@ extension MovieDetailPage: View {
       }
     }
     .onChange(of: store.fetchDetailItem.value) { _, new in
+      guard let new else { return }
       store.send(.getIsWishLike(new))
       store.send(.getIsSeenLike(new))
     }

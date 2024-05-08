@@ -49,7 +49,7 @@ extension MovieUseCasePlatform: MovieUseCase {
   > {
     {
       Endpoint(
-        baseURL: "https://api.themoviedb.org/3/",
+        baseURL: "https://api.themoviedb.org/3",
         pathList: ["trending", "movie", "day"],
         httpMethod: .get,
         content: .queryItemPath($0))
@@ -91,7 +91,7 @@ extension MovieUseCasePlatform: MovieUseCase {
   > {
     {
       Endpoint(
-        baseURL: "https://api.themoviedb.org/3/",
+        baseURL: "https://api.themoviedb.org/3",
         pathList: ["genre", "movie", "list"],
         httpMethod: .get,
         content: .queryItemPath($0))

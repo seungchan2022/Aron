@@ -74,4 +74,8 @@ extension Error {
 
 public struct RemoteError: Codable, Equatable {
   public let message: String
+  
+  private enum CodingKeys: String, CodingKey {
+    case message = "status_message"
+  }
 }

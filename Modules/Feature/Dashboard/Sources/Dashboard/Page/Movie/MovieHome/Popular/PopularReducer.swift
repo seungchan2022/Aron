@@ -24,8 +24,6 @@ struct PopularReducer {
   struct State: Equatable, Identifiable {
     let id: UUID
 
-    var query = ""
-
     var itemList: [MovieEntity.Movie.Popular.Item] = []
 
     var fetchItem: FetchState.Data<MovieEntity.Movie.Popular.Response?> = .init(isLoading: false, value: .none)
@@ -67,7 +65,8 @@ struct PopularReducer {
       case .getItem:
         state.fetchItem.isLoading = true
         let page = Int(state.itemList.count / 20) + 1
-        return sideEffect.getItem(.init(page: page))
+        return sideEffect
+          .getItem(.init(page: page))
           .cancellable(pageID: pageID, id: CancelID.requestItem, cancelInFlight: true)
 
       case .fetchItem(let result):

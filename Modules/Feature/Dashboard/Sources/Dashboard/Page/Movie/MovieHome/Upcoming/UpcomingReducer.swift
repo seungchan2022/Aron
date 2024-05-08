@@ -6,11 +6,11 @@ import Foundation
 // MARK: - UpcomingReducer
 
 @Reducer
-struct UpcomingReducer {
+public struct UpcomingReducer {
 
   // MARK: Lifecycle
 
-  init(
+  public init(
     pageID: String = UUID().uuidString,
     sideEffect: UpcomingSideEffect)
   {
@@ -21,21 +21,19 @@ struct UpcomingReducer {
   // MARK: Internal
 
   @ObservableState
-  struct State: Equatable, Identifiable {
-    let id: UUID
+  public struct State: Equatable, Identifiable {
+    public let id: UUID
 
-    var query = ""
+    public var itemList: [MovieEntity.Movie.Upcoming.Item] = []
 
-    var itemList: [MovieEntity.Movie.Upcoming.Item] = []
+    public var fetchItem: FetchState.Data<MovieEntity.Movie.Upcoming.Response?> = .init(isLoading: false, value: .none)
 
-    var fetchItem: FetchState.Data<MovieEntity.Movie.Upcoming.Response?> = .init(isLoading: false, value: .none)
-
-    init(id: UUID = UUID()) {
+    public init(id: UUID = UUID()) {
       self.id = id
     }
   }
 
-  enum Action: BindableAction, Equatable {
+  public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
     case teardown
 
@@ -53,7 +51,7 @@ struct UpcomingReducer {
     case requestItem
   }
 
-  var body: some Reducer<State, Action> {
+  public var body: some Reducer<State, Action> {
     BindingReducer()
     Reduce { state, action in
       switch action {

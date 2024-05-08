@@ -31,6 +31,18 @@ let package = Package(
       ],
       resources: [
         .copy("Resources/Mock/dummy.json"),
+        .copy("Resources/Mock/movie_now_playing_success.json"),
+        .copy("Resources/Mock/movie_now_playing_failure.json"),
+        .copy("Resources/Mock/movie_upcoming_success.json"),
+        .copy("Resources/Mock/movie_upcoming_failure.json"),
+        .copy("Resources/Mock/movie_trending_success.json"),
+        .copy("Resources/Mock/movie_trending_failure.json"),
+        .copy("Resources/Mock/movie_popular_success.json"),
+        .copy("Resources/Mock/movie_popular_failure.json"),
+        .copy("Resources/Mock/movie_top_rated_success.json"),
+        .copy("Resources/Mock/movie_top_rated_failure.json"),
+        .copy("Resources/Mock/movie_genre_list_success.json"),
+        .copy("Resources/Mock/movie_genre_list_failure.json"),
       ]),
     .testTarget(
       name: "PlatformTests",

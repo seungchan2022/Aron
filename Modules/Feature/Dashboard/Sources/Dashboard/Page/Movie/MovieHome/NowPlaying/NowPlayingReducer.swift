@@ -6,11 +6,11 @@ import Foundation
 // MARK: - NowPlayingReducer
 
 @Reducer
-struct NowPlayingReducer {
+public struct NowPlayingReducer {
 
   // MARK: Lifecycle
 
-  init(
+  public init(
     pageID: String = UUID().uuidString,
     sideEffect: NowPlayingSideEffect)
   {
@@ -21,20 +21,19 @@ struct NowPlayingReducer {
   // MARK: Internal
 
   @ObservableState
-  struct State: Equatable, Identifiable {
-    let id: UUID
-    var query = ""
+  public struct State: Equatable, Identifiable {
+    public let id: UUID
 
-    var itemList: [MovieEntity.Movie.NowPlaying.Item] = []
+    public var itemList: [MovieEntity.Movie.NowPlaying.Item] = []
 
-    var fetchItem: FetchState.Data<MovieEntity.Movie.NowPlaying.Response?> = .init(isLoading: false, value: .none)
+    public var fetchItem: FetchState.Data<MovieEntity.Movie.NowPlaying.Response?> = .init(isLoading: false, value: .none)
 
-    init(id: UUID = UUID()) {
+    public init(id: UUID = UUID()) {
       self.id = id
     }
   }
 
-  enum Action: BindableAction, Equatable {
+  public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
     case teardown
 
@@ -52,7 +51,7 @@ struct NowPlayingReducer {
     case requestItemList
   }
 
-  var body: some Reducer<State, Action> {
+  public var body: some Reducer<State, Action> {
     BindingReducer()
     Reduce { state, action in
       switch action {
@@ -66,7 +65,8 @@ struct NowPlayingReducer {
       case .getItem:
         let page = Int(state.itemList.count / 20) + 1
         state.fetchItem.isLoading = true
-        return sideEffect.getItem(.init(page: page))
+        return sideEffect
+          .getItem(.init(page: page))
           .cancellable(pageID: pageID, id: CancelID.requestItemList, cancelInFlight: true)
 
       case .fetchItem(let result):

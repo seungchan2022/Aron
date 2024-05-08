@@ -76,10 +76,10 @@ struct MovieDetailReducer {
     case getSimilarMovie(MovieEntity.MovieDetail.SimilarMovie.Request)
     case getRecommendedMovie(MovieEntity.MovieDetail.RecommendedMovie.Request)
 
-    case getIsWishLike(MovieEntity.MovieDetail.MovieCard.Response?)
+    case getIsWishLike(MovieEntity.MovieDetail.MovieCard.Response)
     case updateIsWish(MovieEntity.MovieDetail.MovieCard.Response)
 
-    case getIsSeenLike(MovieEntity.MovieDetail.MovieCard.Response?)
+    case getIsSeenLike(MovieEntity.MovieDetail.MovieCard.Response)
     case updateIsSeen(MovieEntity.MovieDetail.MovieCard.Response)
 
     case fetchDetailItem(Result<MovieEntity.MovieDetail.MovieCard.Response, CompositeErrorRepository>)
@@ -162,7 +162,6 @@ struct MovieDetailReducer {
           .cancellable(pageID: pageID, id: CancelID.requestRecommendedMovie, cancelInFlight: true)
 
       case .getIsWishLike(let item):
-        guard let item else { return .none }
         state.fetchIsWish.isLoading = true
         return sideEffect.isWishLike(item)
           .cancellable(pageID: pageID, id: CancelID.requestIsWish, cancelInFlight: true)
@@ -173,7 +172,6 @@ struct MovieDetailReducer {
           .cancellable(pageID: pageID, id: CancelID.requestIsWish, cancelInFlight: true)
 
       case .getIsSeenLike(let item):
-        guard let item else { return .none }
         state.fetchIsSeen.isLoading = true
         return sideEffect.isSeenLike(item)
           .cancellable(pageID: pageID, id: CancelID.requestIsSeen, cancelInFlight: true)

@@ -22,6 +22,7 @@ extension GenreListPage: View {
         }
       }
     }
+    .navigationTitle("Genre")
     .onAppear {
       store.send(.getItem)
     }

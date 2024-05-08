@@ -24,8 +24,6 @@ struct TrendingReducer {
   struct State: Equatable, Identifiable {
     let id: UUID
 
-    var query = ""
-
     var itemList: [MovieEntity.Movie.Trending.Item] = []
 
     var fetchItem: FetchState.Data<MovieEntity.Movie.Trending.Response?> = .init(isLoading: false, value: .none)
