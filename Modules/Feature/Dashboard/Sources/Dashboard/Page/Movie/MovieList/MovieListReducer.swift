@@ -4,11 +4,11 @@ import Domain
 import Foundation
 
 @Reducer
-struct MovieListReducer {
+public struct MovieListReducer {
 
   // MARK: Lifecycle
 
-  init(
+  public init(
     pageID: String = UUID().uuidString,
     sideEffect: MovieListSideEffect)
   {
@@ -19,29 +19,29 @@ struct MovieListReducer {
   // MARK: Internal
 
   @ObservableState
-  struct State: Equatable, Identifiable {
-    let id: UUID
+  public struct State: Equatable, Identifiable {
+    public let id: UUID
 
-    var nowPlayingItemList: [MovieEntity.Movie.NowPlaying.Item] = []
-    var upcomingItemList: [MovieEntity.Movie.Upcoming.Item] = []
-    var trendingItemList: [MovieEntity.Movie.Trending.Item] = []
-    var popularItemList: [MovieEntity.Movie.Popular.Item] = []
-    var topRatedItemList: [MovieEntity.Movie.TopRated.Item] = []
-    var genreItemList: [MovieEntity.Movie.GenreList.Item] = []
+    public var nowPlayingItemList: [MovieEntity.Movie.NowPlaying.Item] = []
+    public var upcomingItemList: [MovieEntity.Movie.Upcoming.Item] = []
+    public var trendingItemList: [MovieEntity.Movie.Trending.Item] = []
+    public var popularItemList: [MovieEntity.Movie.Popular.Item] = []
+    public var topRatedItemList: [MovieEntity.Movie.TopRated.Item] = []
+    public var genreItemList: [MovieEntity.Movie.GenreList.Item] = []
 
-    var fetchNowPlayingItem: FetchState.Data<MovieEntity.Movie.NowPlaying.Response?> = .init(isLoading: false, value: .none)
-    var fetchUpcomingItem: FetchState.Data<MovieEntity.Movie.Upcoming.Response?> = .init(isLoading: false, value: .none)
-    var fetchTrendingItem: FetchState.Data<MovieEntity.Movie.Trending.Response?> = .init(isLoading: false, value: .none)
-    var fetchPopularItem: FetchState.Data<MovieEntity.Movie.Popular.Response?> = .init(isLoading: false, value: .none)
-    var fetchTopRatedItem: FetchState.Data<MovieEntity.Movie.TopRated.Response?> = .init(isLoading: false, value: .none)
-    var fetchGenreItem: FetchState.Data<MovieEntity.Movie.GenreList.Response?> = .init(isLoading: false, value: .none)
+    public var fetchNowPlayingItem: FetchState.Data<MovieEntity.Movie.NowPlaying.Response?> = .init(isLoading: false, value: .none)
+    public var fetchUpcomingItem: FetchState.Data<MovieEntity.Movie.Upcoming.Response?> = .init(isLoading: false, value: .none)
+    public var fetchTrendingItem: FetchState.Data<MovieEntity.Movie.Trending.Response?> = .init(isLoading: false, value: .none)
+    public var fetchPopularItem: FetchState.Data<MovieEntity.Movie.Popular.Response?> = .init(isLoading: false, value: .none)
+    public var fetchTopRatedItem: FetchState.Data<MovieEntity.Movie.TopRated.Response?> = .init(isLoading: false, value: .none)
+    public var fetchGenreItem: FetchState.Data<MovieEntity.Movie.GenreList.Response?> = .init(isLoading: false, value: .none)
 
-    init(id: UUID = UUID()) {
+    public init(id: UUID = UUID()) {
       self.id = id
     }
   }
 
-  enum Action: BindableAction, Equatable {
+  public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
     case teardown
 
@@ -87,7 +87,7 @@ struct MovieListReducer {
     case requestGenreItem
   }
 
-  var body: some Reducer<State, Action> {
+  public var body: some Reducer<State, Action> {
     BindingReducer()
     Reduce { state, action in
       switch action {
