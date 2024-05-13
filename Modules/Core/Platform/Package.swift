@@ -43,6 +43,12 @@ let package = Package(
         .copy("Resources/Mock/movie_top_rated_failure.json"),
         .copy("Resources/Mock/movie_genre_list_success.json"),
         .copy("Resources/Mock/movie_genre_list_failure.json"),
+        .copy("Resources/Mock/search_keyword_success.json"),
+        .copy("Resources/Mock/search_keyword_failure.json"),
+        .copy("Resources/Mock/search_movie_success.json"),
+        .copy("Resources/Mock/search_movie_failure.json"),
+        .copy("Resources/Mock/search_person_success.json"),
+        .copy("Resources/Mock/search_person_failure.json"),
       ]),
     .testTarget(
       name: "PlatformTests",

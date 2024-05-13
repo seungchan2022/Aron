@@ -13,11 +13,11 @@ enum SearchResult {
 // MARK: - HomeReducer
 
 @Reducer
-struct HomeReducer {
+public struct HomeReducer {
   
   // MARK: Lifecycle
   
-  init(
+  public init(
     pageID: String = UUID().uuidString,
     sideEffect: HomeSideEffect)
   {
@@ -29,25 +29,25 @@ struct HomeReducer {
   
   @ObservableState
   
-  struct State: Equatable, Identifiable {
-    let id: UUID
+  public struct State: Equatable, Identifiable {
+    public let id: UUID
     
-    var query = ""
+    public var query = ""
     
-    var searchMovieItemList: [MovieEntity.Search.Movie.Item] = []
-    var searchKeywordItemList: [MovieEntity.Search.Keyword.Item] = []
-    var searchPersonItemList: [MovieEntity.Search.Person.Item] = []
+    public var searchMovieItemList: [MovieEntity.Search.Movie.Item] = []
+    public var searchKeywordItemList: [MovieEntity.Search.Keyword.Item] = []
+    public var searchPersonItemList: [MovieEntity.Search.Person.Item] = []
     
-    var fetchSearchPersonItem: FetchState.Data<MovieEntity.Search.Person.Composite?> = .init(isLoading: false, value: .none)
-    var fetchSearchMovieItem: FetchState.Data<MovieEntity.Search.Movie.Composite?> = .init(isLoading: false, value: .none)
-    var fetchSearchKeywordItem: FetchState.Data<MovieEntity.Search.Keyword.Composite?> = .init(isLoading: false, value: .none)
+    public var fetchSearchPersonItem: FetchState.Data<MovieEntity.Search.Person.Composite?> = .init(isLoading: false, value: .none)
+    public var fetchSearchMovieItem: FetchState.Data<MovieEntity.Search.Movie.Composite?> = .init(isLoading: false, value: .none)
+    public var fetchSearchKeywordItem: FetchState.Data<MovieEntity.Search.Keyword.Composite?> = .init(isLoading: false, value: .none)
     
-    init(id: UUID = UUID()) {
+    public init(id: UUID = UUID()) {
       self.id = id
     }
   }
   
-  enum Action: BindableAction, Equatable {
+  public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
     case teardown
     
@@ -75,7 +75,7 @@ struct HomeReducer {
     case requestSearchPerson
   }
   
-  var body: some Reducer<State, Action> {
+  public var body: some Reducer<State, Action> {
     BindingReducer()
     Reduce { state, action in
       switch action {

@@ -8,12 +8,12 @@ import Dashboard
 //@testable import DashboardPreview
 //
 //final class AppContainerMock {
-//  
+//
 //  private init(dependency: AppSideEffect, navigator: TabLinkNavigatorMock) {
 //    self.dependency = dependency
 //    self.navigator = navigator
 //  }
-//  
+//
 //  let dependency: AppSideEffect
 //  let navigator: TabLinkNavigatorMock
 //}
@@ -28,7 +28,7 @@ import Dashboard
 //      fanClubUseCase: FanClubUseCasePlatform(),
 //      movieListUseCase: MovieListUseCasePlatform(),
 //      searchUseCase: SearchUseCasePlatform())
-//    
+//
 //    return .init(
 //      dependency: sideEffect,
 //      navigator: TabLinkNavigatorMock())
@@ -43,7 +43,7 @@ struct AppContainerMock: DashboardEnvironmentUsable {
   let personUseCase: PersonUseCase
   let fanClubUseCase: FanClubUseCase
   let movieListUseCase: MovieListUseCase
-  let searchUseCase: SearchUseCase
+  let searchUseCaseStub: SearchUseCaseStub
   let linkNavigatorMock: TabLinkNavigatorMock
   
   private init(
@@ -53,7 +53,7 @@ struct AppContainerMock: DashboardEnvironmentUsable {
     personUseCase: PersonUseCase,
     fanClubUseCase: FanClubUseCase,
     movieListUseCase: MovieListUseCase,
-    searchUseCase: SearchUseCase,
+    searchUseCaseStub: SearchUseCaseStub,
     linkNavigatorMock: TabLinkNavigatorMock)
   {
     self.toastViewModel = toastViewModel
@@ -62,8 +62,12 @@ struct AppContainerMock: DashboardEnvironmentUsable {
     self.personUseCase = personUseCase
     self.fanClubUseCase = fanClubUseCase
     self.movieListUseCase = movieListUseCase
-    self.searchUseCase = searchUseCase
+    self.searchUseCaseStub = searchUseCaseStub
     self.linkNavigatorMock = linkNavigatorMock
+  }
+  
+  var searchUseCase: SearchUseCase {
+    searchUseCaseStub
   }
   
   var linkNavigator: RootNavigatorType {
@@ -84,7 +88,7 @@ extension AppContainerMock {
       personUseCase: PersonUseCasePlatform(),
       fanClubUseCase: FanClubUseCasePlatform(),
       movieListUseCase: MovieListUseCasePlatform(),
-      searchUseCase: SearchUseCasePlatform(),
-    linkNavigatorMock: TabLinkNavigatorMock())
+      searchUseCaseStub: .init(),
+      linkNavigatorMock: TabLinkNavigatorMock())
   }
 }

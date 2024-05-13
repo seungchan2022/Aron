@@ -36,6 +36,18 @@ internal enum Files {
   internal static let movieUpcomingFailureJson = File(name: "movie_upcoming_failure", ext: "json", relativePath: "", mimeType: "application/json")
   /// movie_upcoming_success.json
   internal static let movieUpcomingSuccessJson = File(name: "movie_upcoming_success", ext: "json", relativePath: "", mimeType: "application/json")
+  /// search_keyword_failure.json
+  internal static let searchKeywordFailureJson = File(name: "search_keyword_failure", ext: "json", relativePath: "", mimeType: "application/json")
+  /// search_keyword_success.json
+  internal static let searchKeywordSuccessJson = File(name: "search_keyword_success", ext: "json", relativePath: "", mimeType: "application/json")
+  /// search_movie_failure.json
+  internal static let searchMovieFailureJson = File(name: "search_movie_failure", ext: "json", relativePath: "", mimeType: "application/json")
+  /// search_movie_success.json
+  internal static let searchMovieSuccessJson = File(name: "search_movie_success", ext: "json", relativePath: "", mimeType: "application/json")
+  /// search_person_failure.json
+  internal static let searchPersonFailureJson = File(name: "search_person_failure", ext: "json", relativePath: "", mimeType: "application/json")
+  /// search_person_success.json
+  internal static let searchPersonSuccessJson = File(name: "search_person_success", ext: "json", relativePath: "", mimeType: "application/json")
 }
 // swiftlint:enable explicit_type_interface identifier_name
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces
