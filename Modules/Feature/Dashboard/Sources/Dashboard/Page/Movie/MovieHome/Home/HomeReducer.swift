@@ -81,6 +81,7 @@ public struct HomeReducer {
       switch action {
         
       case .binding(\.query):
+        /// - Note: test_binding_query_case1, test_binding_query_case2
         guard !state.query.isEmpty else {
           state.searchMovieItemList = []
           state.searchKeywordItemList = []
@@ -88,6 +89,7 @@ public struct HomeReducer {
           return .none
         }
         
+        ///- Note: test_binding_query_case3, test_binding_query_case4
         if state.query != state.fetchSearchMovieItem.value?.request.query {
           state.searchMovieItemList = []
         }
