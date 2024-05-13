@@ -5,12 +5,12 @@ import Foundation
 
 // MARK: - TopRatedSideEffect
 
-struct TopRatedSideEffect {
-  let useCase: DashboardEnvironmentUsable
-  let main: AnySchedulerOf<DispatchQueue>
-  let navigator: RootNavigatorType
+public struct TopRatedSideEffect {
+  public let useCase: DashboardEnvironmentUsable
+  public let main: AnySchedulerOf<DispatchQueue>
+  public let navigator: RootNavigatorType
 
-  init(
+  public init(
     useCase: DashboardEnvironmentUsable,
     main: AnySchedulerOf<DispatchQueue> = .main,
     navigator: RootNavigatorType)

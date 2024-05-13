@@ -6,11 +6,11 @@ import Foundation
 // MARK: - TrendingReducer
 
 @Reducer
-struct TrendingReducer {
+public struct TrendingReducer {
 
   // MARK: Lifecycle
 
-  init(
+  public init(
     pageID: String = UUID().uuidString,
     sideEffect: TrendingSideEffect)
   {
@@ -21,19 +21,19 @@ struct TrendingReducer {
   // MARK: Internal
 
   @ObservableState
-  struct State: Equatable, Identifiable {
-    let id: UUID
+  public struct State: Equatable, Identifiable {
+    public let id: UUID
 
-    var itemList: [MovieEntity.Movie.Trending.Item] = []
+    public var itemList: [MovieEntity.Movie.Trending.Item] = []
 
-    var fetchItem: FetchState.Data<MovieEntity.Movie.Trending.Response?> = .init(isLoading: false, value: .none)
+    public var fetchItem: FetchState.Data<MovieEntity.Movie.Trending.Response?> = .init(isLoading: false, value: .none)
 
-    init(id: UUID = UUID()) {
+    public init(id: UUID = UUID()) {
       self.id = id
     }
   }
 
-  enum Action: BindableAction, Equatable {
+  public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
     case teardown
 
@@ -51,7 +51,7 @@ struct TrendingReducer {
     case requestItem
   }
 
-  var body: some Reducer<State, Action> {
+  public var body: some Reducer<State, Action> {
     BindingReducer()
     Reduce { state, action in
       switch action {

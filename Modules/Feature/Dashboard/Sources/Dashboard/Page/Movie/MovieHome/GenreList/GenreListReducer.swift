@@ -4,11 +4,11 @@ import Domain
 import Foundation
 
 @Reducer
-struct GenreListReducer {
+public struct GenreListReducer {
 
   // MARK: Lifecycle
 
-  init(
+  public init(
     pageID: String = UUID().uuidString,
     sideEffect: GenreListSideEffect)
   {
@@ -19,18 +19,18 @@ struct GenreListReducer {
   // MARK: Internal
 
   @ObservableState
-  struct State: Equatable, Identifiable {
-    let id: UUID
+  public struct State: Equatable, Identifiable {
+    public let id: UUID
 
-    var itemList: [MovieEntity.Movie.GenreList.Item] = []
-    var fetchItem: FetchState.Data<MovieEntity.Movie.GenreList.Response?> = .init(isLoading: false, value: .none)
+    public var itemList: [MovieEntity.Movie.GenreList.Item] = []
+    public var fetchItem: FetchState.Data<MovieEntity.Movie.GenreList.Response?> = .init(isLoading: false, value: .none)
 
-    init(id: UUID = UUID()) {
+    public init(id: UUID = UUID()) {
       self.id = id
     }
   }
 
-  enum Action: BindableAction, Equatable {
+  public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
     case teardown
 
@@ -47,7 +47,7 @@ struct GenreListReducer {
     case requestItem
   }
 
-  var body: some Reducer<State, Action> {
+  public var body: some Reducer<State, Action> {
     BindingReducer()
     Reduce { state, action in
       switch action {
