@@ -25,7 +25,7 @@ extension GenreSideEffect {
   var getItem: (MovieEntity.MovieDetail.MovieCard.GenreItem) -> Effect<GenreReducer.Action> {
     { item in
       .publisher {
-        useCase.movieDetailUseCase.genre(item.serialized())
+        useCase.movieDiscoverUseCase.genre(item.serialized())
           .receive(on: main)
           .mapToResult()
           .map(GenreReducer.Action.fetchItem)
@@ -33,7 +33,7 @@ extension GenreSideEffect {
     }
   }
 
-  var routeToDetail: (MovieEntity.MovieDetail.Genre.Response.Item) -> Void {
+  var routeToDetail: (MovieEntity.Discover.Genre.Response.Item) -> Void {
     { item in
       navigator.next(
         linkItem: .init(
@@ -44,14 +44,14 @@ extension GenreSideEffect {
   }
 }
 
-extension MovieEntity.MovieDetail.Genre.Response.Item {
-  fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
-    .init(movieID: id)
+extension MovieEntity.MovieDetail.MovieCard.GenreItem {
+  fileprivate func serialized() -> MovieEntity.Discover.Genre.Request {
+    .init(genreID: id)
   }
 }
 
-extension MovieEntity.MovieDetail.MovieCard.GenreItem {
-  fileprivate func serialized() -> MovieEntity.MovieDetail.Genre.Request {
-    .init(genreID: id)
+extension MovieEntity.Discover.Genre.Response.Item {
+  fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
+    .init(movieID: id)
   }
 }

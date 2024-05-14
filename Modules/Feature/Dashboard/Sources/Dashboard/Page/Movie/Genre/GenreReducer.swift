@@ -24,7 +24,7 @@ struct GenreReducer {
 
     let item: MovieEntity.MovieDetail.MovieCard.GenreItem
 
-    var fetchItem: FetchState.Data<MovieEntity.MovieDetail.Genre.Response?> = .init(isLoading: false, value: .none)
+    var fetchItem: FetchState.Data<MovieEntity.Discover.Genre.Response?> = .init(isLoading: false, value: .none)
 
     init(
       id: UUID = UUID(),
@@ -41,9 +41,9 @@ struct GenreReducer {
 
     case getItem(MovieEntity.MovieDetail.MovieCard.GenreItem)
 
-    case fetchItem(Result<MovieEntity.MovieDetail.Genre.Response, CompositeErrorRepository>)
+    case fetchItem(Result<MovieEntity.Discover.Genre.Response, CompositeErrorRepository>)
 
-    case routeToDetail(MovieEntity.MovieDetail.Genre.Response.Item)
+    case routeToDetail(MovieEntity.Discover.Genre.Response.Item)
 
     case throwError(CompositeErrorRepository)
   }

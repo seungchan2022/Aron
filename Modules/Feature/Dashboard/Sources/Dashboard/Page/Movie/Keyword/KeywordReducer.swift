@@ -24,7 +24,7 @@ struct KeywordReducer {
 
     let item: MovieEntity.MovieDetail.MovieCard.KeywordItem
 
-    var fetchItem: FetchState.Data<MovieEntity.MovieDetail.Keyword.Response?> = .init(isLoading: false, value: .none)
+    var fetchItem: FetchState.Data<MovieEntity.Discover.Keyword.Response?> = .init(isLoading: false, value: .none)
 
     init(
       id: UUID = UUID(),
@@ -40,9 +40,9 @@ struct KeywordReducer {
     case teardown
 
     case getItem(MovieEntity.MovieDetail.MovieCard.KeywordItem)
-    case fetchItem(Result<MovieEntity.MovieDetail.Keyword.Response, CompositeErrorRepository>)
+    case fetchItem(Result<MovieEntity.Discover.Keyword.Response, CompositeErrorRepository>)
 
-    case routeToDetail(MovieEntity.MovieDetail.Keyword.Response.Item)
+    case routeToDetail(MovieEntity.Discover.Keyword.Response.Item)
 
     case throwError(CompositeErrorRepository)
   }

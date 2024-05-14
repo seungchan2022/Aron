@@ -83,34 +83,6 @@ extension MovieDetailUseCasePlatform: MovieDetailUseCase {
         .fetch(isDebug: true)
     }
   }
-
-  public var genre: (MovieEntity.MovieDetail.Genre.Request) -> AnyPublisher<
-    MovieEntity.MovieDetail.Genre.Response,
-    CompositeErrorRepository
-  > {
-    {
-      Endpoint(
-        baseURL: "https://api.themoviedb.org/3/",
-        pathList: ["discover", "movie"],
-        httpMethod: .get,
-        content: .queryItemPath($0))
-        .fetch(isDebug: true)
-    }
-  }
-
-  public var keyword: (MovieEntity.MovieDetail.Keyword.Request) -> AnyPublisher<
-    MovieEntity.MovieDetail.Keyword.Response,
-    CompositeErrorRepository
-  > {
-    {
-      Endpoint(
-        baseURL: "https://api.themoviedb.org/3/",
-        pathList: ["discover", "movie"],
-        httpMethod: .get,
-        content: .queryItemPath($0))
-        .fetch(isDebug: true)
-    }
-  }
 }
 
 extension MovieDetailUseCasePlatform {

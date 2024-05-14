@@ -26,7 +26,7 @@ extension KeywordSideEffect {
   var getItem: (MovieEntity.MovieDetail.MovieCard.KeywordItem) -> Effect<KeywordReducer.Action> {
     { item in
       .publisher {
-        useCase.movieDetailUseCase.keyword(item.serialized())
+        useCase.movieDiscoverUseCase.keyword(item.serialized())
           .receive(on: main)
           .mapToResult()
           .map(KeywordReducer.Action.fetchItem)
@@ -34,7 +34,7 @@ extension KeywordSideEffect {
     }
   }
 
-  var routeToDetail: (MovieEntity.MovieDetail.Keyword.Response.Item) -> Void {
+  var routeToDetail: (MovieEntity.Discover.Keyword.Response.Item) -> Void {
     { item in
       navigator.next(
         linkItem: .init(
@@ -45,14 +45,14 @@ extension KeywordSideEffect {
   }
 }
 
-extension MovieEntity.MovieDetail.Keyword.Response.Item {
-  fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
-    .init(movieID: id)
+extension MovieEntity.MovieDetail.MovieCard.KeywordItem {
+  fileprivate func serialized() -> MovieEntity.Discover.Keyword.Request {
+    .init(keywordID: id)
   }
 }
 
-extension MovieEntity.MovieDetail.MovieCard.KeywordItem {
-  fileprivate func serialized() -> MovieEntity.MovieDetail.Keyword.Request {
-    .init(keywordID: id)
+extension MovieEntity.Discover.Keyword.Response.Item {
+  fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
+    .init(movieID: id)
   }
 }
