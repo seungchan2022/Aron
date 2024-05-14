@@ -12,6 +12,10 @@ import Foundation
 enum Files {
   /// dummy.json
   static let dummyJson = File(name: "dummy", ext: "json", relativePath: "", mimeType: "application/json")
+  /// fan_club_failure.json
+  static let fanClubFailureJson = File(name: "fan_club_failure", ext: "json", relativePath: "", mimeType: "application/json")
+  /// fan_club_success.json
+  static let fanClubSuccessJson = File(name: "fan_club_success", ext: "json", relativePath: "", mimeType: "application/json")
   /// movie_detail_credit_failure.json
   static let movieDetailCreditFailureJson = File(
     name: "movie_detail_credit_failure",

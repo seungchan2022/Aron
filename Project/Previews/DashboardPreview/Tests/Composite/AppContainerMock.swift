@@ -46,7 +46,7 @@ struct AppContainerMock: DashboardEnvironmentUsable {
     movieUseCaseStub: MovieUseCaseStub,
     movieDetailUseCaseStub: MovieDetailUseCaseStub,
     personUseCase: PersonUseCase,
-    fanClubUseCase: FanClubUseCase,
+    fanClubUseCaseStub: FanClubUseCaseStub,
     movieListUseCaseFake: MovieListUseCaseFake,
     searchUseCaseStub: SearchUseCaseStub,
     movieDiscoverUseCaseStub: MovieDiscoverUseCaseStub,
@@ -56,7 +56,7 @@ struct AppContainerMock: DashboardEnvironmentUsable {
     self.movieUseCaseStub = movieUseCaseStub
     self.movieDetailUseCaseStub = movieDetailUseCaseStub
     self.personUseCase = personUseCase
-    self.fanClubUseCase = fanClubUseCase
+    self.fanClubUseCaseStub = fanClubUseCaseStub
     self.movieListUseCaseFake = movieListUseCaseFake
     self.searchUseCaseStub = searchUseCaseStub
     self.movieDiscoverUseCaseStub = movieDiscoverUseCaseStub
@@ -69,11 +69,15 @@ struct AppContainerMock: DashboardEnvironmentUsable {
   let movieUseCaseStub: MovieUseCaseStub
   let movieDetailUseCaseStub: MovieDetailUseCaseStub
   let personUseCase: PersonUseCase
-  let fanClubUseCase: FanClubUseCase
+  let fanClubUseCaseStub: FanClubUseCaseStub
   let movieListUseCaseFake: MovieListUseCaseFake
   let searchUseCaseStub: SearchUseCaseStub
   let movieDiscoverUseCaseStub: MovieDiscoverUseCaseStub
   let linkNavigatorMock: TabLinkNavigatorMock
+
+  var fanClubUseCase: FanClubUseCase {
+    fanClubUseCaseStub
+  }
 
   var movieDiscoverUseCase: MovieDiscoverUseCase {
     movieDiscoverUseCaseStub
@@ -108,10 +112,10 @@ extension AppContainerMock {
   static func generate() -> AppContainerMock {
     .init(
       toastViewActionMock: .init(),
-      movieUseCaseStub: MovieUseCaseStub(),
+      movieUseCaseStub: .init(),
       movieDetailUseCaseStub: .init(),
       personUseCase: PersonUseCasePlatform(),
-      fanClubUseCase: FanClubUseCasePlatform(),
+      fanClubUseCaseStub: .init(),
       movieListUseCaseFake: .init(),
       searchUseCaseStub: .init(),
       movieDiscoverUseCaseStub: .init(),

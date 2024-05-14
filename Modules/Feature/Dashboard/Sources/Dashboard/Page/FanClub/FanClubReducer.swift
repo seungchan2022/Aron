@@ -6,11 +6,11 @@ import Foundation
 // MARK: - FanClubReducer
 
 @Reducer
-struct FanClubReducer {
+public struct FanClubReducer {
 
   // MARK: Lifecycle
 
-  init(
+  public init(
     pageID: String = UUID().uuidString,
     sideEffect: FanClubSideEffect)
   {
@@ -18,22 +18,22 @@ struct FanClubReducer {
     self.sideEffect = sideEffect
   }
 
-  // MARK: Internal
+  // MARK: Public
 
   @ObservableState
-  struct State: Equatable, Identifiable {
-    let id: UUID
+  public struct State: Equatable, Identifiable {
+    public let id: UUID
 
-    var itemList: [MovieEntity.FanClub.Item] = []
+    public var itemList: [MovieEntity.FanClub.Item] = []
 
-    var fetchItem: FetchState.Data<MovieEntity.FanClub.Response?> = .init(isLoading: false, value: .none)
+    public var fetchItem: FetchState.Data<MovieEntity.FanClub.Response?> = .init(isLoading: false, value: .none)
 
-    init(id: UUID = UUID()) {
+    public init(id: UUID = UUID()) {
       self.id = id
     }
   }
 
-  enum Action: BindableAction, Equatable {
+  public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
     case teardown
 
@@ -45,12 +45,7 @@ struct FanClubReducer {
     case throwError(CompositeErrorRepository)
   }
 
-  enum CancelID: Equatable, CaseIterable {
-    case teardown
-    case requestItemList
-  }
-
-  var body: some Reducer<State, Action> {
+  public var body: some Reducer<State, Action> {
     BindingReducer()
     Reduce { state, action in
       switch action {
@@ -88,6 +83,13 @@ struct FanClubReducer {
         return .none
       }
     }
+  }
+
+  // MARK: Internal
+
+  enum CancelID: Equatable, CaseIterable {
+    case teardown
+    case requestItemList
   }
 
   // MARK: Private
