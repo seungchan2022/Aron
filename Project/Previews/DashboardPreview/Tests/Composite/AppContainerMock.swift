@@ -45,7 +45,7 @@ struct AppContainerMock: DashboardEnvironmentUsable {
     toastViewActionMock: ToastViewActionMock,
     movieUseCaseStub: MovieUseCaseStub,
     movieDetailUseCaseStub: MovieDetailUseCaseStub,
-    personUseCase: PersonUseCase,
+    personUseCaseStub: PersonUseCaseStub,
     fanClubUseCaseStub: FanClubUseCaseStub,
     movieListUseCaseFake: MovieListUseCaseFake,
     searchUseCaseStub: SearchUseCaseStub,
@@ -55,7 +55,7 @@ struct AppContainerMock: DashboardEnvironmentUsable {
     self.toastViewActionMock = toastViewActionMock
     self.movieUseCaseStub = movieUseCaseStub
     self.movieDetailUseCaseStub = movieDetailUseCaseStub
-    self.personUseCase = personUseCase
+    self.personUseCaseStub = personUseCaseStub
     self.fanClubUseCaseStub = fanClubUseCaseStub
     self.movieListUseCaseFake = movieListUseCaseFake
     self.searchUseCaseStub = searchUseCaseStub
@@ -68,12 +68,16 @@ struct AppContainerMock: DashboardEnvironmentUsable {
   let toastViewActionMock: ToastViewActionMock
   let movieUseCaseStub: MovieUseCaseStub
   let movieDetailUseCaseStub: MovieDetailUseCaseStub
-  let personUseCase: PersonUseCase
+  let personUseCaseStub: PersonUseCaseStub
   let fanClubUseCaseStub: FanClubUseCaseStub
   let movieListUseCaseFake: MovieListUseCaseFake
   let searchUseCaseStub: SearchUseCaseStub
   let movieDiscoverUseCaseStub: MovieDiscoverUseCaseStub
   let linkNavigatorMock: TabLinkNavigatorMock
+
+  var personUseCase: PersonUseCase {
+    personUseCaseStub
+  }
 
   var fanClubUseCase: FanClubUseCase {
     fanClubUseCaseStub
@@ -114,7 +118,7 @@ extension AppContainerMock {
       toastViewActionMock: .init(),
       movieUseCaseStub: .init(),
       movieDetailUseCaseStub: .init(),
-      personUseCase: PersonUseCasePlatform(),
+      personUseCaseStub: .init(),
       fanClubUseCaseStub: .init(),
       movieListUseCaseFake: .init(),
       searchUseCaseStub: .init(),

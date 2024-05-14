@@ -172,6 +172,42 @@ enum Files {
     ext: "json",
     relativePath: "",
     mimeType: "application/json")
+  /// person_image_failure.json
+  static let personImageFailureJson = File(
+    name: "person_image_failure",
+    ext: "json",
+    relativePath: "",
+    mimeType: "application/json")
+  /// person_image_success.json
+  static let personImageSuccessJson = File(
+    name: "person_image_success",
+    ext: "json",
+    relativePath: "",
+    mimeType: "application/json")
+  /// person_info_failure.json
+  static let personInfoFailureJson = File(
+    name: "person_info_failure",
+    ext: "json",
+    relativePath: "",
+    mimeType: "application/json")
+  /// person_info_success.json
+  static let personInfoSuccessJson = File(
+    name: "person_info_success",
+    ext: "json",
+    relativePath: "",
+    mimeType: "application/json")
+  /// person_movie_credit_failure.json
+  static let personMovieCreditFailureJson = File(
+    name: "person_movie_credit_failure",
+    ext: "json",
+    relativePath: "",
+    mimeType: "application/json")
+  /// person_movie_credit_success.json
+  static let personMovieCreditSuccessJson = File(
+    name: "person_movie_credit_success",
+    ext: "json",
+    relativePath: "",
+    mimeType: "application/json")
   /// search_keyword_failure.json
   static let searchKeywordFailureJson = File(
     name: "search_keyword_failure",

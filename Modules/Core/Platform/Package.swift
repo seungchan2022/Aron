@@ -65,6 +65,12 @@ let package = Package(
         .copy("Resources/Mock/movie_discover_keyword_failure.json"),
         .copy("Resources/Mock/fan_club_success.json"),
         .copy("Resources/Mock/fan_club_failure.json"),
+        .copy("Resources/Mock/person_info_success.json"),
+        .copy("Resources/Mock/person_info_failure.json"),
+        .copy("Resources/Mock/person_image_success.json"),
+        .copy("Resources/Mock/person_image_failure.json"),
+        .copy("Resources/Mock/person_movie_credit_success.json"),
+        .copy("Resources/Mock/person_movie_credit_failure.json"),
       ]),
     .testTarget(
       name: "PlatformTests",

@@ -32,7 +32,7 @@ extension ProfilePage: View {
         }
 
         // 이미지 컴포넌트 따로 분리
-        if let item = store.fetchProfileImageItem.value {
+        if let item = store.fetchProfileImage.value {
           ImageComponent(viewState: .init(item: item))
         }
       }

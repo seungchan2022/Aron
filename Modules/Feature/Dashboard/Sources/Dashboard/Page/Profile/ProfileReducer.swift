@@ -4,11 +4,11 @@ import Domain
 import Foundation
 
 @Reducer
-struct ProfileReducer {
+public struct ProfileReducer {
 
   // MARK: Lifecycle
 
-  init(
+  public init(
     pageID: String = UUID().uuidString,
     sideEffect: ProfileSideEffect)
   {
@@ -16,14 +16,14 @@ struct ProfileReducer {
     self.sideEffect = sideEffect
   }
 
-  // MARK: Internal
+  // MARK: Public
 
   @ObservableState
-  struct State: Equatable, Identifiable {
+  public struct State: Equatable, Identifiable {
 
     // MARK: Lifecycle
 
-    init(
+    public init(
       id: UUID = UUID(),
       item: MovieEntity.Person.Info.Request,
       profileImageItem: MovieEntity.Person.Image.Request,
@@ -35,24 +35,26 @@ struct ProfileReducer {
       self.movieCreditItem = movieCreditItem
     }
 
-    // MARK: Internal
+    // MARK: Public
 
-    let id: UUID
+    public let id: UUID
 
-    var isShowingReadMore = false
+    public var isShowingReadMore = false
 
-    let item: MovieEntity.Person.Info.Request
-    let profileImageItem: MovieEntity.Person.Image.Request
+    public let item: MovieEntity.Person.Info.Request
+    public let profileImageItem: MovieEntity.Person.Image.Request
 
-    let movieCreditItem: MovieEntity.Person.MovieCredit.Request
+    public let movieCreditItem: MovieEntity.Person.MovieCredit.Request
 
-    var fetchItem: FetchState.Data<MovieEntity.Person.Info.Response?> = .init(isLoading: false, value: .none)
-    var fetchProfileImageItem: FetchState.Data<MovieEntity.Person.Image.Response?> = .init(isLoading: false, value: .none)
-    var fetchMovieCreditItem: FetchState.Data<MovieEntity.Person.MovieCredit.Response?> = .init(isLoading: false, value: .none)
+    public var fetchItem: FetchState.Data<MovieEntity.Person.Info.Response?> = .init(isLoading: false, value: .none)
+    public var fetchProfileImage: FetchState.Data<MovieEntity.Person.Image.Response?> = .init(isLoading: false, value: .none)
+    public var fetchMovieCreditItem: FetchState.Data<MovieEntity.Person.MovieCredit.Response?> = .init(
+      isLoading: false,
+      value: .none)
 
   }
 
-  enum Action: BindableAction, Equatable {
+  public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
     case teardown
 
@@ -70,14 +72,7 @@ struct ProfileReducer {
     case throwError(CompositeErrorRepository)
   }
 
-  enum CancelID: Equatable, CaseIterable {
-    case teardown
-    case requestItem
-    case requestProfileImage
-    case requestMovieCreditItem
-  }
-
-  var body: some Reducer<State, Action> {
+  public var body: some Reducer<State, Action> {
     BindingReducer()
     Reduce { state, action in
       switch action {
@@ -94,7 +89,7 @@ struct ProfileReducer {
           .cancellable(pageID: pageID, id: CancelID.requestItem, cancelInFlight: true)
 
       case .getProfileImage(let requestModel):
-        state.fetchProfileImageItem.isLoading = true
+        state.fetchProfileImage.isLoading = true
         return sideEffect.profileImage(requestModel)
           .cancellable(pageID: pageID, id: CancelID.requestProfileImage, cancelInFlight: true)
 
@@ -115,10 +110,10 @@ struct ProfileReducer {
         }
 
       case .fetchProfileImage(let result):
-        state.fetchProfileImageItem.isLoading = false
+        state.fetchProfileImage.isLoading = false
         switch result {
         case .success(let item):
-          state.fetchProfileImageItem.value = item
+          state.fetchProfileImage.value = item
           return .none
 
         case .failure(let error):
@@ -149,6 +144,15 @@ struct ProfileReducer {
         return .none
       }
     }
+  }
+
+  // MARK: Internal
+
+  enum CancelID: Equatable, CaseIterable {
+    case teardown
+    case requestItem
+    case requestProfileImage
+    case requestMovieCreditItem
   }
 
   // MARK: Private
