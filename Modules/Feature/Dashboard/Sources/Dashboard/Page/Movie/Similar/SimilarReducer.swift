@@ -4,11 +4,11 @@ import Domain
 import Foundation
 
 @Reducer
-struct SimilarReducer {
+public struct SimilarReducer {
 
   // MARK: Lifecycle
 
-  init(
+  public init(
     pageID: String = UUID().uuidString,
     sideEffect: SimilarSideEffect)
   {
@@ -16,17 +16,17 @@ struct SimilarReducer {
     self.sideEffect = sideEffect
   }
 
-  // MARK: Internal
+  // MARK: Public
 
   @ObservableState
-  struct State: Equatable, Identifiable {
-    let id: UUID
+  public struct State: Equatable, Identifiable {
+    public let id: UUID
 
-    let item: MovieEntity.MovieDetail.SimilarMovie.Request
+    public let item: MovieEntity.MovieDetail.SimilarMovie.Request
 
-    var fetchItem: FetchState.Data<MovieEntity.MovieDetail.SimilarMovie.Response?> = .init(isLoading: false, value: .none)
+    public var fetchItem: FetchState.Data<MovieEntity.MovieDetail.SimilarMovie.Response?> = .init(isLoading: false, value: .none)
 
-    init(
+    public init(
       id: UUID = UUID(),
       item: MovieEntity.MovieDetail.SimilarMovie.Request)
     {
@@ -35,7 +35,7 @@ struct SimilarReducer {
     }
   }
 
-  enum Action: BindableAction, Equatable {
+  public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
     case teardown
 
@@ -47,12 +47,7 @@ struct SimilarReducer {
     case throwError(CompositeErrorRepository)
   }
 
-  enum CancelID: CaseIterable, Equatable {
-    case teardown
-    case requestItem
-  }
-
-  var body: some Reducer<State, Action> {
+  public var body: some Reducer<State, Action> {
     BindingReducer()
     Reduce { state, action in
       switch action {
@@ -88,6 +83,13 @@ struct SimilarReducer {
         return .none
       }
     }
+  }
+
+  // MARK: Internal
+
+  enum CancelID: CaseIterable, Equatable {
+    case teardown
+    case requestItem
   }
 
   // MARK: Private
