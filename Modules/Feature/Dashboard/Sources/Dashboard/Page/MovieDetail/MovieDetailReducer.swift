@@ -4,11 +4,11 @@ import Domain
 import Foundation
 
 @Reducer
-struct MovieDetailReducer {
+public struct MovieDetailReducer {
 
   // MARK: Lifecycle
 
-  init(
+  public init(
     pageID: String = UUID().uuidString,
     sideEffect: MovieDetailSideEffect)
   {
@@ -19,11 +19,11 @@ struct MovieDetailReducer {
   // MARK: Internal
 
   @ObservableState
-  struct State: Equatable {
+  public struct State: Equatable {
 
     // MARK: Lifecycle
 
-    init(
+    public init(
       id: UUID = UUID(),
       item: MovieEntity.MovieDetail.MovieCard.Request,
       reviewItem: MovieEntity.MovieDetail.Review.Request,
@@ -41,32 +41,32 @@ struct MovieDetailReducer {
 
     // MARK: Internal
 
-    var isShowingConfirmation = false
-    var isShowingReadMore = false
+    public var isShowingConfirmation = false
+    public var isShowingReadMore = false
 
-    let id: UUID
-    let item: MovieEntity.MovieDetail.MovieCard.Request
-    let reviewItem: MovieEntity.MovieDetail.Review.Request
-    let creditItem: MovieEntity.MovieDetail.Credit.Request
-    let similarMovieItem: MovieEntity.MovieDetail.SimilarMovie.Request
-    let recommendedMovieItem: MovieEntity.MovieDetail.RecommendedMovie.Request
+    public let id: UUID
+    public let item: MovieEntity.MovieDetail.MovieCard.Request
+    public let reviewItem: MovieEntity.MovieDetail.Review.Request
+    public let creditItem: MovieEntity.MovieDetail.Credit.Request
+    public let similarMovieItem: MovieEntity.MovieDetail.SimilarMovie.Request
+    public let recommendedMovieItem: MovieEntity.MovieDetail.RecommendedMovie.Request
 
-    var fetchDetailItem: FetchState.Data<MovieEntity.MovieDetail.MovieCard.Response?> = .init(isLoading: false, value: .none)
-    var fetchReviewItem: FetchState.Data<MovieEntity.MovieDetail.Review.Response?> = .init(isLoading: false, value: .none)
-    var fetchCreditItem: FetchState.Data<MovieEntity.MovieDetail.Credit.Response?> = .init(isLoading: false, value: .none)
-    var fetchSimilarMovieItem: FetchState.Data<MovieEntity.MovieDetail.SimilarMovie.Response?> = .init(
+    public var fetchDetailItem: FetchState.Data<MovieEntity.MovieDetail.MovieCard.Response?> = .init(isLoading: false, value: .none)
+    public var fetchReviewItem: FetchState.Data<MovieEntity.MovieDetail.Review.Response?> = .init(isLoading: false, value: .none)
+    public var fetchCreditItem: FetchState.Data<MovieEntity.MovieDetail.Credit.Response?> = .init(isLoading: false, value: .none)
+    public var fetchSimilarMovieItem: FetchState.Data<MovieEntity.MovieDetail.SimilarMovie.Response?> = .init(
       isLoading: false,
       value: .none)
-    var fetchRecommendedMovieItem: FetchState.Data<MovieEntity.MovieDetail.RecommendedMovie.Response?> = .init(
+    public var fetchRecommendedMovieItem: FetchState.Data<MovieEntity.MovieDetail.RecommendedMovie.Response?> = .init(
       isLoading: false,
       value: .none)
 
-    var fetchIsWish: FetchState.Data<Bool> = .init(isLoading: false, value: false)
+    public var fetchIsWish: FetchState.Data<Bool> = .init(isLoading: false, value: false)
 
-    var fetchIsSeen: FetchState.Data<Bool> = .init(isLoading: false, value: false)
+    public var fetchIsSeen: FetchState.Data<Bool> = .init(isLoading: false, value: false)
   }
 
-  enum Action: Equatable, BindableAction {
+  public enum Action: Equatable, BindableAction {
     case binding(BindingAction<State>)
     case teardown
 
@@ -125,7 +125,7 @@ struct MovieDetailReducer {
     case requestIsSeen
   }
 
-  var body: some Reducer<State, Action> {
+  public var body: some Reducer<State, Action> {
     BindingReducer()
     Reduce { state, action in
       switch action {
