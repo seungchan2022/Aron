@@ -4,11 +4,11 @@ import Domain
 import Foundation
 
 @Reducer
-struct CastReducer {
+public struct CastReducer {
 
   // MARK: Lifecycle
 
-  init(
+  public init(
     pageID: String = UUID().uuidString,
     sideEffect: CastSideEffect)
   {
@@ -16,16 +16,16 @@ struct CastReducer {
     self.sideEffect = sideEffect
   }
 
-  // MARK: Internal
+  // MARK: Public
 
   @ObservableState
-  struct State: Equatable, Identifiable {
-    let id: UUID
+  public struct State: Equatable, Identifiable {
+    public let id: UUID
 
-    let castItem: MovieEntity.MovieDetail.Credit.Request
-    var fetchCastItem: FetchState.Data<MovieEntity.MovieDetail.Credit.Response?> = .init(isLoading: false, value: .none)
+    public let castItem: MovieEntity.MovieDetail.Credit.Request
+    public var fetchCastItem: FetchState.Data<MovieEntity.MovieDetail.Credit.Response?> = .init(isLoading: false, value: .none)
 
-    init(
+    public init(
       id: UUID = UUID(),
       castItem: MovieEntity.MovieDetail.Credit.Request)
     {
@@ -34,7 +34,7 @@ struct CastReducer {
     }
   }
 
-  enum Action: BindableAction, Equatable {
+  public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
     case teardown
 
@@ -46,12 +46,7 @@ struct CastReducer {
     case throwError(CompositeErrorRepository)
   }
 
-  enum CancelID: Equatable, CaseIterable {
-    case teardown
-    case requestCast
-  }
-
-  var body: some Reducer<State, Action> {
+  public var body: some Reducer<State, Action> {
     BindingReducer()
     Reduce { state, action in
       switch action {
@@ -87,6 +82,13 @@ struct CastReducer {
         return .none
       }
     }
+  }
+
+  // MARK: Internal
+
+  enum CancelID: Equatable, CaseIterable {
+    case teardown
+    case requestCast
   }
 
   // MARK: Private
