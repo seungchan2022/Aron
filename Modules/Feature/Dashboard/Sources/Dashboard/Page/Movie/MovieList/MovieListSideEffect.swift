@@ -228,7 +228,7 @@ extension MovieEntity.Movie.TopRated.Item {
 }
 
 extension MovieEntity.Movie.GenreList.Item {
-  fileprivate func serialized() -> MovieEntity.MovieDetail.Genre.Request {
+  fileprivate func serialized() -> MovieEntity.Discover.Genre.Request {
     .init(genreID: id)
   }
 }

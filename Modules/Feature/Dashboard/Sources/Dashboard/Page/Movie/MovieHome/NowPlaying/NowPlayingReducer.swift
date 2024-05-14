@@ -18,7 +18,7 @@ public struct NowPlayingReducer {
     self.sideEffect = sideEffect
   }
 
-  // MARK: Internal
+  // MARK: Public
 
   @ObservableState
   public struct State: Equatable, Identifiable {
@@ -44,11 +44,6 @@ public struct NowPlayingReducer {
     case routeToDetail(MovieEntity.Movie.NowPlaying.Item)
 
     case throwError(CompositeErrorRepository)
-  }
-
-  enum CancelID: Equatable, CaseIterable {
-    case teardown
-    case requestItemList
   }
 
   public var body: some Reducer<State, Action> {
@@ -90,6 +85,13 @@ public struct NowPlayingReducer {
         return .none
       }
     }
+  }
+
+  // MARK: Internal
+
+  enum CancelID: Equatable, CaseIterable {
+    case teardown
+    case requestItemList
   }
 
   // MARK: Private

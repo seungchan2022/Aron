@@ -18,7 +18,7 @@ public struct TrendingReducer {
     self.sideEffect = sideEffect
   }
 
-  // MARK: Internal
+  // MARK: Public
 
   @ObservableState
   public struct State: Equatable, Identifiable {
@@ -44,11 +44,6 @@ public struct TrendingReducer {
     case routeToDetail(MovieEntity.Movie.Trending.Item)
 
     case throwError(CompositeErrorRepository)
-  }
-
-  enum CancelID: Equatable, CaseIterable {
-    case teardown
-    case requestItem
   }
 
   public var body: some Reducer<State, Action> {
@@ -89,6 +84,13 @@ public struct TrendingReducer {
         return .none
       }
     }
+  }
+
+  // MARK: Internal
+
+  enum CancelID: Equatable, CaseIterable {
+    case teardown
+    case requestItem
   }
 
   // MARK: Private

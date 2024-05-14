@@ -16,7 +16,7 @@ public struct MovieListReducer {
     self.sideEffect = sideEffect
   }
 
-  // MARK: Internal
+  // MARK: Public
 
   @ObservableState
   public struct State: Equatable, Identifiable {
@@ -29,7 +29,9 @@ public struct MovieListReducer {
     public var topRatedItemList: [MovieEntity.Movie.TopRated.Item] = []
     public var genreItemList: [MovieEntity.Movie.GenreList.Item] = []
 
-    public var fetchNowPlayingItem: FetchState.Data<MovieEntity.Movie.NowPlaying.Response?> = .init(isLoading: false, value: .none)
+    public var fetchNowPlayingItem: FetchState.Data<MovieEntity.Movie.NowPlaying.Response?> = .init(
+      isLoading: false,
+      value: .none)
     public var fetchUpcomingItem: FetchState.Data<MovieEntity.Movie.Upcoming.Response?> = .init(isLoading: false, value: .none)
     public var fetchTrendingItem: FetchState.Data<MovieEntity.Movie.Trending.Response?> = .init(isLoading: false, value: .none)
     public var fetchPopularItem: FetchState.Data<MovieEntity.Movie.Popular.Response?> = .init(isLoading: false, value: .none)
@@ -75,16 +77,6 @@ public struct MovieListReducer {
     case routeToTopRated
 
     case throwError(CompositeErrorRepository)
-  }
-
-  enum CancelID: Equatable, CaseIterable {
-    case teardown
-    case requestNowPlayingItem
-    case requestUpcomingItem
-    case requestTrendingItem
-    case requestPopularItem
-    case requestTopRatedItem
-    case requestGenreItem
   }
 
   public var body: some Reducer<State, Action> {
@@ -253,6 +245,18 @@ public struct MovieListReducer {
         return .none
       }
     }
+  }
+
+  // MARK: Internal
+
+  enum CancelID: Equatable, CaseIterable {
+    case teardown
+    case requestNowPlayingItem
+    case requestUpcomingItem
+    case requestTrendingItem
+    case requestPopularItem
+    case requestTopRatedItem
+    case requestGenreItem
   }
 
   // MARK: Private
