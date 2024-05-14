@@ -21,7 +21,7 @@ final class SceneDelegate: NSObject, UIWindowSceneDelegate {
     guard session.role != .windowExternalDisplayNonInteractive else { return }
 
     guard let toastViewModel = appDelegate.dependency.toastViewModel as? ToastViewModel else { return }
-    
+
     toastWindow = root.buildForToastView(toastViewModel: toastViewModel)
     keyWindow = root.buildForKeyWindow(linkNavigator: appDelegate.navigator)
 

@@ -16,7 +16,7 @@ public struct MovieDetailReducer {
     self.sideEffect = sideEffect
   }
 
-  // MARK: Internal
+  // MARK: Public
 
   @ObservableState
   public struct State: Equatable {
@@ -39,7 +39,7 @@ public struct MovieDetailReducer {
       self.recommendedMovieItem = recommendedMovieItem
     }
 
-    // MARK: Internal
+    // MARK: Public
 
     public var isShowingConfirmation = false
     public var isShowingReadMore = false
@@ -51,7 +51,9 @@ public struct MovieDetailReducer {
     public let similarMovieItem: MovieEntity.MovieDetail.SimilarMovie.Request
     public let recommendedMovieItem: MovieEntity.MovieDetail.RecommendedMovie.Request
 
-    public var fetchDetailItem: FetchState.Data<MovieEntity.MovieDetail.MovieCard.Response?> = .init(isLoading: false, value: .none)
+    public var fetchDetailItem: FetchState.Data<MovieEntity.MovieDetail.MovieCard.Response?> = .init(
+      isLoading: false,
+      value: .none)
     public var fetchReviewItem: FetchState.Data<MovieEntity.MovieDetail.Review.Response?> = .init(isLoading: false, value: .none)
     public var fetchCreditItem: FetchState.Data<MovieEntity.MovieDetail.Credit.Response?> = .init(isLoading: false, value: .none)
     public var fetchSimilarMovieItem: FetchState.Data<MovieEntity.MovieDetail.SimilarMovie.Response?> = .init(
@@ -112,17 +114,6 @@ public struct MovieDetailReducer {
     case routeToOtherPoster(MovieEntity.MovieDetail.MovieCard.Response)
 
     case throwError(CompositeErrorRepository)
-  }
-
-  enum CancelID: Equatable, CaseIterable {
-    case teardown
-    case requestDetail
-    case requestReview
-    case requestCredit
-    case reqeustSimilarMovie
-    case requestRecommendedMovie
-    case requestIsWish
-    case requestIsSeen
   }
 
   public var body: some Reducer<State, Action> {
@@ -310,6 +301,19 @@ public struct MovieDetailReducer {
         return .none
       }
     }
+  }
+
+  // MARK: Internal
+
+  enum CancelID: Equatable, CaseIterable {
+    case teardown
+    case requestDetail
+    case requestReview
+    case requestCredit
+    case reqeustSimilarMovie
+    case requestRecommendedMovie
+    case requestIsWish
+    case requestIsSeen
   }
 
   // MARK: Private

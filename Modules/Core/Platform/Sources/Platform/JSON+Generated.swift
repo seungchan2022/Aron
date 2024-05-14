@@ -72,6 +72,30 @@ enum Files {
     ext: "json",
     relativePath: "",
     mimeType: "application/json")
+  /// movie_discover_genre_failure.json
+  static let movieDiscoverGenreFailureJson = File(
+    name: "movie_discover_genre_failure",
+    ext: "json",
+    relativePath: "",
+    mimeType: "application/json")
+  /// movie_discover_genre_success.json
+  static let movieDiscoverGenreSuccessJson = File(
+    name: "movie_discover_genre_success",
+    ext: "json",
+    relativePath: "",
+    mimeType: "application/json")
+  /// movie_discover_keyword_failure.json
+  static let movieDiscoverKeywordFailureJson = File(
+    name: "movie_discover_keyword_failure",
+    ext: "json",
+    relativePath: "",
+    mimeType: "application/json")
+  /// movie_discover_keyword_success.json
+  static let movieDiscoverKeywordSuccessJson = File(
+    name: "movie_discover_keyword_success",
+    ext: "json",
+    relativePath: "",
+    mimeType: "application/json")
   /// movie_genre_list_failure.json
   static let movieGenreListFailureJson = File(
     name: "movie_genre_list_failure",

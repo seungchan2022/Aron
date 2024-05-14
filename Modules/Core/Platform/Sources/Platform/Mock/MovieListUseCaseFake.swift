@@ -1,18 +1,28 @@
 import Combine
 import Domain
 
-public class MovieListUseCaseFake  {
-  
+// MARK: - MovieListUseCaseFake
+
+public class MovieListUseCaseFake {
+
+  // MARK: Lifecycle
+
   public init(store: MovieEntity.List = .init()) {
     self.store = store
   }
-  
+
+  // MARK: Public
+
   public func reset(store: MovieEntity.List = .init()) {
     self.store = store
   }
-  
+
+  // MARK: Private
+
   private var store: MovieEntity.List
 }
+
+// MARK: MovieListUseCase
 
 extension MovieListUseCaseFake: MovieListUseCase {
   public var getIsWishLike: () -> AnyPublisher<MovieEntity.List, CompositeErrorRepository> {
@@ -22,7 +32,7 @@ extension MovieListUseCaseFake: MovieListUseCase {
         .eraseToAnyPublisher()
     }
   }
-  
+
   public var getIsSeenLike: () -> AnyPublisher<MovieEntity.List, CompositeErrorRepository> {
     {
       Just(self.store)
@@ -30,8 +40,11 @@ extension MovieListUseCaseFake: MovieListUseCase {
         .eraseToAnyPublisher()
     }
   }
-  
-  public var saveWishList: (MovieEntity.MovieDetail.MovieCard.Response) -> AnyPublisher<MovieEntity.List, CompositeErrorRepository> {
+
+  public var saveWishList: (MovieEntity.MovieDetail.MovieCard.Response) -> AnyPublisher<
+    MovieEntity.List,
+    CompositeErrorRepository
+  > {
     { model in
       self.store = self.store.mutateWishItem(item: model)
       return Just(self.store)
@@ -39,8 +52,11 @@ extension MovieListUseCaseFake: MovieListUseCase {
         .eraseToAnyPublisher()
     }
   }
-  
-  public var saveSeenList: (MovieEntity.MovieDetail.MovieCard.Response) -> AnyPublisher<MovieEntity.List, CompositeErrorRepository> {
+
+  public var saveSeenList: (MovieEntity.MovieDetail.MovieCard.Response) -> AnyPublisher<
+    MovieEntity.List,
+    CompositeErrorRepository
+  > {
     { model in
       self.store = self.store.mutateSeenItem(item: model)
       return Just(self.store)
@@ -48,7 +64,7 @@ extension MovieListUseCaseFake: MovieListUseCase {
         .eraseToAnyPublisher()
     }
   }
-  
+
   public var getItemList: () -> AnyPublisher<MovieEntity.List, CompositeErrorRepository> {
     {
       Just(self.store)
@@ -57,8 +73,6 @@ extension MovieListUseCaseFake: MovieListUseCase {
     }
   }
 }
-
-
 
 extension MovieEntity.List {
 

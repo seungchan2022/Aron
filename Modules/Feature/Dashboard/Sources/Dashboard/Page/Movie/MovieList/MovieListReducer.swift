@@ -20,6 +20,15 @@ public struct MovieListReducer {
 
   @ObservableState
   public struct State: Equatable, Identifiable {
+
+    // MARK: Lifecycle
+
+    public init(id: UUID = UUID()) {
+      self.id = id
+    }
+
+    // MARK: Public
+
     public let id: UUID
 
     public var nowPlayingItemList: [MovieEntity.Movie.NowPlaying.Item] = []
@@ -38,9 +47,6 @@ public struct MovieListReducer {
     public var fetchTopRatedItem: FetchState.Data<MovieEntity.Movie.TopRated.Response?> = .init(isLoading: false, value: .none)
     public var fetchGenreItem: FetchState.Data<MovieEntity.Movie.GenreList.Response?> = .init(isLoading: false, value: .none)
 
-    public init(id: UUID = UUID()) {
-      self.id = id
-    }
   }
 
   public enum Action: BindableAction, Equatable {

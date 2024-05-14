@@ -4,11 +4,11 @@ import Domain
 import Foundation
 
 @Reducer
-struct GenreReducer {
+public struct GenreReducer {
 
   // MARK: Lifecycle
 
-  init(
+  public init(
     pageID: String = UUID().uuidString,
     sideEffect: GenreSideEffect)
   {
@@ -16,17 +16,17 @@ struct GenreReducer {
     self.sideEffect = sideEffect
   }
 
-  // MARK: Internal
+  // MARK: Public
 
   @ObservableState
-  struct State: Equatable, Identifiable {
-    let id: UUID
+  public struct State: Equatable, Identifiable {
+    public let id: UUID
 
-    let item: MovieEntity.MovieDetail.MovieCard.GenreItem
+    public let item: MovieEntity.MovieDetail.MovieCard.GenreItem
 
-    var fetchItem: FetchState.Data<MovieEntity.Discover.Genre.Response?> = .init(isLoading: false, value: .none)
+    public var fetchItem: FetchState.Data<MovieEntity.Discover.Genre.Response?> = .init(isLoading: false, value: .none)
 
-    init(
+    public init(
       id: UUID = UUID(),
       item: MovieEntity.MovieDetail.MovieCard.GenreItem)
     {
@@ -35,7 +35,7 @@ struct GenreReducer {
     }
   }
 
-  enum Action: BindableAction, Equatable {
+  public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
     case teardown
 
@@ -48,12 +48,7 @@ struct GenreReducer {
     case throwError(CompositeErrorRepository)
   }
 
-  enum CancelID: Equatable, CaseIterable {
-    case teardown
-    case requestItem
-  }
-
-  var body: some Reducer<State, Action> {
+  public var body: some Reducer<State, Action> {
     BindingReducer()
     Reduce { state, action in
       switch action {
@@ -66,7 +61,8 @@ struct GenreReducer {
 
       case .getItem(let item):
         state.fetchItem.isLoading = true
-        return sideEffect.getItem(item)
+        return sideEffect
+          .getItem(item)
           .cancellable(pageID: pageID, id: CancelID.requestItem, cancelInFlight: true)
 
       case .fetchItem(let result):
@@ -89,6 +85,13 @@ struct GenreReducer {
         return .none
       }
     }
+  }
+
+  // MARK: Internal
+
+  enum CancelID: Equatable, CaseIterable {
+    case teardown
+    case requestItem
   }
 
   // MARK: Private

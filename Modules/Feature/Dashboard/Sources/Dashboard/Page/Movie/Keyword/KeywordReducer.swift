@@ -4,11 +4,11 @@ import Domain
 import Foundation
 
 @Reducer
-struct KeywordReducer {
+public struct KeywordReducer {
 
   // MARK: Lifecycle
 
-  init(
+  public init(
     pageID: String = UUID().uuidString,
     sideEffect: KeywordSideEffect)
   {
@@ -16,17 +16,17 @@ struct KeywordReducer {
     self.sideEffect = sideEffect
   }
 
-  // MARK: Internal
+  // MARK: Public
 
   @ObservableState
-  struct State: Equatable, Identifiable {
-    let id: UUID
+  public struct State: Equatable, Identifiable {
+    public let id: UUID
 
-    let item: MovieEntity.MovieDetail.MovieCard.KeywordItem
+    public let item: MovieEntity.MovieDetail.MovieCard.KeywordItem
 
-    var fetchItem: FetchState.Data<MovieEntity.Discover.Keyword.Response?> = .init(isLoading: false, value: .none)
+    public var fetchItem: FetchState.Data<MovieEntity.Discover.Keyword.Response?> = .init(isLoading: false, value: .none)
 
-    init(
+    public init(
       id: UUID = UUID(),
       item: MovieEntity.MovieDetail.MovieCard.KeywordItem)
     {
@@ -35,7 +35,7 @@ struct KeywordReducer {
     }
   }
 
-  enum Action: BindableAction, Equatable {
+  public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
     case teardown
 
@@ -47,12 +47,7 @@ struct KeywordReducer {
     case throwError(CompositeErrorRepository)
   }
 
-  enum CancelID: Equatable, CaseIterable {
-    case teardown
-    case requestItem
-  }
-
-  var body: some Reducer<State, Action> {
+  public var body: some Reducer<State, Action> {
     BindingReducer()
     Reduce { state, action in
       switch action {
@@ -88,6 +83,13 @@ struct KeywordReducer {
         return .none
       }
     }
+  }
+
+  // MARK: Internal
+
+  enum CancelID: Equatable, CaseIterable {
+    case teardown
+    case requestItem
   }
 
   // MARK: Private
