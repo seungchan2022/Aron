@@ -42,22 +42,22 @@ struct AppContainerMock: DashboardEnvironmentUsable {
   // MARK: Lifecycle
 
   private init(
-    toastViewModel: ToastViewModel,
+    toastViewActionMock: ToastViewActionMock,
     movieUseCaseStub: MovieUseCaseStub,
     movieDetailUseCaseStub: MovieDetailUseCaseStub,
     personUseCase: PersonUseCase,
     fanClubUseCase: FanClubUseCase,
-    movieListUseCase: MovieListUseCase,
+    movieListUseCaseFake: MovieListUseCaseFake,
     searchUseCaseStub: SearchUseCaseStub,
     movieDiscoverUseCase: MovieDiscoverUseCase,
     linkNavigatorMock: TabLinkNavigatorMock)
   {
-    self.toastViewModel = toastViewModel
+    self.toastViewActionMock = toastViewActionMock
     self.movieUseCaseStub = movieUseCaseStub
     self.movieDetailUseCaseStub = movieDetailUseCaseStub
     self.personUseCase = personUseCase
     self.fanClubUseCase = fanClubUseCase
-    self.movieListUseCase = movieListUseCase
+    self.movieListUseCaseFake = movieListUseCaseFake
     self.searchUseCaseStub = searchUseCaseStub
     self.movieDiscoverUseCase = movieDiscoverUseCase
     self.linkNavigatorMock = linkNavigatorMock
@@ -65,15 +65,23 @@ struct AppContainerMock: DashboardEnvironmentUsable {
 
   // MARK: Internal
 
-  let toastViewModel: ToastViewModel
+  let toastViewActionMock: ToastViewActionMock
   let movieUseCaseStub: MovieUseCaseStub
   let movieDetailUseCaseStub: MovieDetailUseCaseStub
   let personUseCase: PersonUseCase
   let fanClubUseCase: FanClubUseCase
-  let movieListUseCase: MovieListUseCase
+  let movieListUseCaseFake: MovieListUseCaseFake
   let searchUseCaseStub: SearchUseCaseStub
   let movieDiscoverUseCase: MovieDiscoverUseCase
   let linkNavigatorMock: TabLinkNavigatorMock
+  
+  var toastViewModel: ToastViewActionType {
+    toastViewActionMock
+  }
+  
+  var movieListUseCase: MovieListUseCase  {
+    movieListUseCaseFake
+  }
   
   var movieDetailUseCase: MovieDetailUseCase  {
     movieDetailUseCaseStub
@@ -95,12 +103,12 @@ struct AppContainerMock: DashboardEnvironmentUsable {
 extension AppContainerMock {
   static func generate() -> AppContainerMock {
     .init(
-      toastViewModel: .init(),
+      toastViewActionMock: .init(),
       movieUseCaseStub: MovieUseCaseStub(),
       movieDetailUseCaseStub: .init(),
       personUseCase: PersonUseCasePlatform(),
       fanClubUseCase: FanClubUseCasePlatform(),
-      movieListUseCase: MovieListUseCasePlatform(),
+      movieListUseCaseFake: .init(),
       searchUseCaseStub: .init(),
       movieDiscoverUseCase: MovieDiscoverUseCasePlatform(),
       linkNavigatorMock: TabLinkNavigatorMock())

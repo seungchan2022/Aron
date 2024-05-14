@@ -2,7 +2,7 @@ import Architecture
 import Domain
 
 public protocol DashboardEnvironmentUsable {
-  var toastViewModel: ToastViewModel { get }
+  var toastViewModel: ToastViewActionType { get }
   var movieUseCase: MovieUseCase { get }
   var movieDetailUseCase: MovieDetailUseCase { get }
   var personUseCase: PersonUseCase { get }
