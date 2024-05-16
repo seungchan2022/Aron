@@ -5,7 +5,7 @@ import Foundation
 
 // MARK: - LikeList
 
-enum LikeList: String {
+public enum LikeList: String {
   case wishList = "WishList"
   case seenList = "SeenList"
 }
@@ -13,11 +13,11 @@ enum LikeList: String {
 // MARK: - MyListReducer
 
 @Reducer
-struct MyListReducer {
+public struct MyListReducer {
 
   // MARK: Lifecycle
 
-  init(
+  public init(
     pageID: String = UUID().uuidString,
     sideEffect: MyListSideEffect)
   {
@@ -25,24 +25,24 @@ struct MyListReducer {
     self.sideEffect = sideEffect
   }
 
-  // MARK: Internal
+  // MARK: Public
 
   @ObservableState
-  struct State: Equatable, Identifiable {
-    let id: UUID
+  public struct State: Equatable, Identifiable {
+    public let id: UUID
 
-    var isShowingConfirmation = false
+    public var isShowingConfirmation = false
 
-    var selectedLikeList: LikeList = .wishList
-    var itemList: MovieEntity.List = .init()
-    var fetchItemList: FetchState.Data<MovieEntity.List?> = .init(isLoading: false, value: .none)
+    public var selectedLikeList: LikeList = .wishList
+    public var itemList: MovieEntity.List = .init()
+    public var fetchItemList: FetchState.Data<MovieEntity.List?> = .init(isLoading: false, value: .none)
 
-    init(id: UUID = UUID()) {
+    public init(id: UUID = UUID()) {
       self.id = id
     }
   }
 
-  enum Action: BindableAction, Equatable {
+  public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
     case teardown
 
@@ -59,12 +59,7 @@ struct MyListReducer {
     case throwError(CompositeErrorRepository)
   }
 
-  enum CancelID: Equatable, CaseIterable {
-    case teardown
-    case requestItemList
-  }
-
-  var body: some Reducer<State, Action> {
+  public var body: some Reducer<State, Action> {
     BindingReducer()
     Reduce { state, action in
       switch action {
@@ -77,7 +72,8 @@ struct MyListReducer {
 
       case .getItemList:
         state.fetchItemList.isLoading = true
-        return sideEffect.getItemList()
+        return sideEffect
+          .getItemList()
           .cancellable(pageID: pageID, id: CancelID.requestItemList, cancelInFlight: true)
 
       case .fetchItemList(let result):
@@ -123,6 +119,13 @@ struct MyListReducer {
         return .none
       }
     }
+  }
+
+  // MARK: Internal
+
+  enum CancelID: Equatable, CaseIterable {
+    case teardown
+    case requestItemList
   }
 
   // MARK: Private
