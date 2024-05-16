@@ -18,31 +18,35 @@ extension OtherPosterPage.ItemComponent { }
 extension OtherPosterPage.ItemComponent: View {
   var body: some View {
     VStack {
-      ScrollView(.horizontal) {
-        LazyHStack(spacing: 0) {
-          ForEach(viewState.item.otherPosterItemList ?? [], id: \.image) { item in
-            RemoteImage(
-              url: "https://image.tmdb.org/t/p/w500/\(item.image ?? "")",
-              placeholder: {
-                Rectangle()
-                  .fill(DesignSystemColor.palette(.gray(.lv250)).color)
-              })
-              .frame(height: 300)
-              .clipShape(RoundedRectangle(cornerRadius: 25.0))
-              .padding(.horizontal, 4)
-              .containerRelativeFrame(.horizontal)
+      GeometryReader { geometry in
+        ScrollView(.horizontal) {
+          LazyHStack(spacing: .zero) {
+            ForEach(viewState.item.otherPosterItemList ?? [], id: \.image) { item in
+              GeometryReader { proxy in
+                RemoteImage(
+                  url: "https://image.tmdb.org/t/p/w500/\(item.image ?? "")",
+                  placeholder: {
+                    Rectangle()
+                      .fill(DesignSystemColor.palette(.gray(.lv250)).color)
+                  })
+                  .aspectRatio(contentMode: .fill)
+                  .frame(width: proxy.size.width, height: proxy.size.height)
+                  .clipShape(.rect(cornerRadius: 15))
+              } // proxy
+              .frame(width: geometry.size.width - 60)
+              .scrollTransition(.interactive, axis: .horizontal) { content, phase in
+                content.scaleEffect(phase.isIdentity ? 1 : 0.9)
+              }
+            }
           }
-          .scrollTransition(.animated, axis: .horizontal) { content, phase in
-            content
-              .opacity(phase.isIdentity ? 1.0 : 0.8)
-              .scaleEffect(phase.isIdentity ? 1.0 : 0.8)
-          }
+          .padding(.horizontal, 30)
+          .scrollTargetLayout()
+          .frame(height: geometry.size.height, alignment: .top)
         }
-      }
-      .scrollIndicators(.hidden)
-      .scrollTargetBehavior(.paging)
-
-      Spacer()
+        .scrollTargetBehavior(.viewAligned)
+        .scrollIndicators(.hidden)
+      } // geometry
+      .frame(height: 500)
 
       Button(action: { tapBackAction() }) {
         Image(systemName: "x.circle")
@@ -51,7 +55,10 @@ extension OtherPosterPage.ItemComponent: View {
           .fontWeight(.ultraLight)
           .tint(.red)
       }
+      .padding(.top, 32)
     }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background(.ultraThinMaterial)
   }
 }
 
