@@ -10,13 +10,21 @@ struct MovieListRouteBuilder<RootNavigator: RootNavigatorType> {
       guard let env: DashboardEnvironmentUsable = diContainer.resolve() else { return .none }
 
       return DebugWrappingController(matchPath: matchPath) {
-        MovieListPage(store: .init(
-          initialState: MovieListReducer.State(),
-          reducer: {
-            MovieListReducer(sideEffect: .init(
-              useCase: env,
-              navigator: navigator))
-          }))
+        MovieListPage(
+          store: .init(
+            initialState: MovieListReducer.State(),
+            reducer: {
+              MovieListReducer(sideEffect: .init(
+                useCase: env,
+                navigator: navigator))
+            }),
+          settingStore: .init(
+            initialState: SettingReducer.State(),
+            reducer: {
+              SettingReducer(sideEffect: .init(
+                useCase: env,
+                navigator: navigator))
+            }))
       }
     }
   }

@@ -30,9 +30,20 @@ public struct HomeReducer {
   @ObservableState
 
   public struct State: Equatable, Identifiable {
+
+    // MARK: Lifecycle
+
+    public init(id: UUID = UUID()) {
+      self.id = id
+    }
+
+    // MARK: Public
+
     public let id: UUID
 
     public var query = ""
+
+    public var isChangeTheme = false
 
     public var searchMovieItemList: [MovieEntity.Search.Movie.Item] = []
     public var searchKeywordItemList: [MovieEntity.Search.Keyword.Item] = []
@@ -46,9 +57,6 @@ public struct HomeReducer {
       isLoading: false,
       value: .none)
 
-    public init(id: UUID = UUID()) {
-      self.id = id
-    }
   }
 
   public enum Action: BindableAction, Equatable {

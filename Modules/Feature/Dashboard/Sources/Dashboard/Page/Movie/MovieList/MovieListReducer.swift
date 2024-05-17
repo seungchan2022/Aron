@@ -31,6 +31,8 @@ public struct MovieListReducer {
 
     public let id: UUID
 
+    public var isChangeTheme = false
+
     public var nowPlayingItemList: [MovieEntity.Movie.NowPlaying.Item] = []
     public var upcomingItemList: [MovieEntity.Movie.Upcoming.Item] = []
     public var trendingItemList: [MovieEntity.Movie.Trending.Item] = []

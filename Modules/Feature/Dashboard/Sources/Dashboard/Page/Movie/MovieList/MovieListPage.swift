@@ -5,7 +5,10 @@ import SwiftUI
 
 struct MovieListPage {
   @Bindable var store: StoreOf<MovieListReducer>
+  @Bindable var settingStore: StoreOf<SettingReducer>
 
+  @Environment(\.colorScheme) private var scheme
+  @AppStorage("userTheme") private var userTheme: Theme = .systemDefault
 }
 
 // MARK: View
@@ -67,7 +70,7 @@ extension MovieListPage: View {
       }
 
       ToolbarItem(placement: .topBarTrailing) {
-        Button(action: { }) {
+        Button(action: { store.isChangeTheme = true }) {
           Image(systemName: "gearshape")
         }
       }
@@ -82,6 +85,12 @@ extension MovieListPage: View {
     }
     .onDisappear {
       store.send(.teardown)
+    }
+    .preferredColorScheme(userTheme.colorScheme)
+    .sheet(isPresented: $store.isChangeTheme) {
+      SettingPage(store: settingStore, scheme: scheme)
+        .presentationDetents([.height(410)])
+        .presentationBackground(.clear)
     }
   }
 }

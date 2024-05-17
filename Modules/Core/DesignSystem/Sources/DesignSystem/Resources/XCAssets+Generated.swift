@@ -27,6 +27,7 @@ enum Asset {
       static let backgroundBlack = ColorAsset(name: "BackgroundBlack")
       static let backgroundBlue = ColorAsset(name: "BackgroundBlue")
       static let backgroundGreen = ColorAsset(name: "BackgroundGreen")
+      static let backgroundTheme = ColorAsset(name: "BackgroundTheme")
     }
 
     enum Error {

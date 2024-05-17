@@ -32,5 +32,6 @@ extension Link.Dashboard {
     case profile
     case myList
     case newList
+    case setting
   }
 }

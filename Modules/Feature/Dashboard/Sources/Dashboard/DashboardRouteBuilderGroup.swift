@@ -32,6 +32,7 @@ extension DashboardRouteBuilderGroup {
       ProfileRouteBuilder.generate(),
       MyListRouteBuilder.generate(),
       NewListRouteBuilder.generate(),
+      SettingRouteBuilder.generate(),
     ]
   }
 }

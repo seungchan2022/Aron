@@ -16,11 +16,14 @@ struct HomePage {
   @Bindable var popularStore: StoreOf<PopularReducer>
   @Bindable var topRatedStore: StoreOf<TopRatedReducer>
   @Bindable var genreListStore: StoreOf<GenreListReducer>
+  @Bindable var settingStore: StoreOf<SettingReducer>
 
   @State var throttleEvent: ThrottleEvent = .init(value: "", delaySeconds: 1.5)
 
   @State private var searchResult: SearchResult = .movie
 
+  @Environment(\.colorScheme) private var scheme
+  @AppStorage("userTheme") private var userTheme: Theme = .systemDefault
 }
 
 // MARK: View
@@ -142,6 +145,28 @@ extension HomePage: View {
       }
     }
     .scrollDismissesKeyboard(.immediately)
+    .preferredColorScheme(userTheme.colorScheme)
+    .sheet(isPresented: $store.isChangeTheme) {
+      SettingPage(store: settingStore, scheme: scheme)
+        .presentationDetents([.height(410)])
+        .presentationBackground(.clear)
+    }
+
+    .toolbar {
+      ToolbarItem(placement: .topBarTrailing) {
+        Button(action: { store.send(.routeToMovieList) }) {
+          Image(systemName: "rectangle.3.group.fill")
+        }
+      }
+
+      ToolbarItem(placement: .topBarTrailing) {
+        Button(action: {
+          store.isChangeTheme = true
+        }) {
+          Image(systemName: "gearshape")
+        }
+      }
+    }
     .onChange(of: store.query) { _, new in
       throttleEvent.update(value: new)
     }
@@ -155,20 +180,6 @@ extension HomePage: View {
     .onDisappear {
       throttleEvent.reset()
       store.send(.teardown)
-    }
-
-    .toolbar {
-      ToolbarItem(placement: .topBarTrailing) {
-        Button(action: { store.send(.routeToMovieList) }) {
-          Image(systemName: "rectangle.3.group.fill")
-        }
-      }
-
-      ToolbarItem(placement: .topBarTrailing) {
-        Button(action: { }) {
-          Image(systemName: "gearshape")
-        }
-      }
     }
   }
 }

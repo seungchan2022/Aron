@@ -43,14 +43,16 @@ extension DesignSystemColor {
     case green
     case blue
     case black
+    case theme
 
     var color: Color {
       switch self {
       case .green: Asset.ColorChip.Background.backgroundGreen.swiftUIColor
       case .blue: Asset.ColorChip.Background.backgroundBlue.swiftUIColor
-
       case .black:
         Asset.ColorChip.Background.backgroundBlack.swiftUIColor
+      case .theme:
+        Asset.ColorChip.Background.backgroundTheme.swiftUIColor
       }
     }
   }
