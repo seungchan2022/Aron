@@ -8,7 +8,7 @@ extension GenrePage {
   struct ItemComponent {
     let viewState: ViewState
 
-    let tapAction: (MovieEntity.Discover.Genre.Response.Item) -> Void
+    let tapAction: (MovieEntity.Discover.Genre.Item) -> Void
 
     @Environment(\.colorScheme) var colorScheme
 
@@ -134,7 +134,7 @@ extension GenrePage.ItemComponent: View {
 
 extension GenrePage.ItemComponent {
   struct ViewState: Equatable {
-    let item: MovieEntity.Discover.Genre.Response.Item
+    let item: MovieEntity.Discover.Genre.Item
   }
 }
 

@@ -33,7 +33,7 @@ extension GenreSideEffect {
     }
   }
 
-  var routeToDetail: (MovieEntity.Discover.Genre.Response.Item) -> Void {
+  var routeToDetail: (MovieEntity.Discover.Genre.Item) -> Void {
     { item in
       navigator.next(
         linkItem: .init(
@@ -50,7 +50,7 @@ extension MovieEntity.MovieDetail.MovieCard.GenreItem {
   }
 }
 
-extension MovieEntity.Discover.Genre.Response.Item {
+extension MovieEntity.Discover.Genre.Item {
   fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
     .init(movieID: id)
   }

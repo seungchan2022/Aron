@@ -42,7 +42,7 @@ public struct KeywordReducer {
     case getItem(MovieEntity.MovieDetail.MovieCard.KeywordItem)
     case fetchItem(Result<MovieEntity.Discover.Keyword.Response, CompositeErrorRepository>)
 
-    case routeToDetail(MovieEntity.Discover.Keyword.Response.Item)
+    case routeToDetail(MovieEntity.Discover.Keyword.Item)
 
     case throwError(CompositeErrorRepository)
   }

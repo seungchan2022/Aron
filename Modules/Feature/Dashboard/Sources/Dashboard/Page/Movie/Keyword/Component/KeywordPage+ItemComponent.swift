@@ -8,7 +8,7 @@ extension KeywordPage {
   struct ItemComponent {
     let viewState: ViewState
 
-    let tapAction: (MovieEntity.Discover.Keyword.Response.Item) -> Void
+    let tapAction: (MovieEntity.Discover.Keyword.Item) -> Void
 
     @Environment(\.colorScheme) var colorScheme
 
@@ -134,7 +134,7 @@ extension KeywordPage.ItemComponent: View {
 
 extension KeywordPage.ItemComponent {
   struct ViewState: Equatable {
-    let item: MovieEntity.Discover.Keyword.Response.Item
+    let item: MovieEntity.Discover.Keyword.Item
   }
 }
 

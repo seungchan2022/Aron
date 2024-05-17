@@ -43,7 +43,7 @@ public struct GenreReducer {
 
     case fetchItem(Result<MovieEntity.Discover.Genre.Response, CompositeErrorRepository>)
 
-    case routeToDetail(MovieEntity.Discover.Genre.Response.Item)
+    case routeToDetail(MovieEntity.Discover.Genre.Item)
 
     case throwError(CompositeErrorRepository)
   }

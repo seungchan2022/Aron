@@ -34,7 +34,7 @@ extension KeywordSideEffect {
     }
   }
 
-  var routeToDetail: (MovieEntity.Discover.Keyword.Response.Item) -> Void {
+  var routeToDetail: (MovieEntity.Discover.Keyword.Item) -> Void {
     { item in
       navigator.next(
         linkItem: .init(
@@ -51,7 +51,7 @@ extension MovieEntity.MovieDetail.MovieCard.KeywordItem {
   }
 }
 
-extension MovieEntity.Discover.Keyword.Response.Item {
+extension MovieEntity.Discover.Keyword.Item {
   fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
     .init(movieID: id)
   }
