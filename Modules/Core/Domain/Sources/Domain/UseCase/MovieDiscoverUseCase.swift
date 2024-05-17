@@ -1,8 +1,9 @@
 import Combine
 
 public protocol MovieDiscoverUseCase {
-  var movie: (MovieEntity.Discover.Movie.Request) -> AnyPublisher<MovieEntity.Discover.Movie.Response, CompositeErrorRepository> { get }
-  
+  var movie: (MovieEntity.Discover.Movie.Request)
+    -> AnyPublisher<MovieEntity.Discover.Movie.Response, CompositeErrorRepository> { get }
+
   var genre: (MovieEntity.Discover.Genre.Request)
     -> AnyPublisher<MovieEntity.Discover.Genre.Response, CompositeErrorRepository> { get }
 

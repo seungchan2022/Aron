@@ -1,14 +1,16 @@
 import Architecture
-import ComposableArchitecture
-import Foundation
 import CombineExt
+import ComposableArchitecture
 import Domain
+import Foundation
+
+// MARK: - DiscoverSideEffect
 
 struct DiscoverSideEffect {
   let useCase: DashboardEnvironmentUsable
   let main: AnySchedulerOf<DispatchQueue>
   let navigator: RootNavigatorType
-  
+
   init(
     useCase: DashboardEnvironmentUsable,
     main: AnySchedulerOf<DispatchQueue> = .main,
@@ -23,12 +25,12 @@ struct DiscoverSideEffect {
 extension DiscoverSideEffect {
   var getItem: (MovieEntity.Discover.Movie.Request) -> Effect<DiscoverReducer.Action> {
     { item in
-        .publisher {
-          useCase.movieDiscoverUseCase.movie(item)
-            .receive(on: main)
-            .mapToResult()
-            .map(DiscoverReducer.Action.fetchItem)
-        }
+      .publisher {
+        useCase.movieDiscoverUseCase.movie(item)
+          .receive(on: main)
+          .mapToResult()
+          .map(DiscoverReducer.Action.fetchItem)
+      }
     }
   }
 }

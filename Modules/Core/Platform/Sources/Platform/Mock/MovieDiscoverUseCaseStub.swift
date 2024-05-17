@@ -19,26 +19,29 @@ public final class MovieDiscoverUseCaseStub {
 // MARK: MovieDiscoverUseCase
 
 extension MovieDiscoverUseCaseStub: MovieDiscoverUseCase {
-  public var movie: (MovieEntity.Discover.Movie.Request) -> AnyPublisher<MovieEntity.Discover.Movie.Response, CompositeErrorRepository> {
+  public var movie: (MovieEntity.Discover.Movie.Request) -> AnyPublisher<
+    MovieEntity.Discover.Movie.Response,
+    CompositeErrorRepository
+  > {
     { [weak self] _ in
       guard let self else {
         return Fail(error: CompositeErrorRepository.invalidTypeCasting)
           .eraseToAnyPublisher()
       }
-      
+
       switch type {
       case .success:
         return Just(Response().movie.successValue)
           .setFailureType(to: CompositeErrorRepository.self)
           .eraseToAnyPublisher()
-        
+
       case .failure(let error):
         return Fail(error: error)
           .eraseToAnyPublisher()
       }
     }
   }
-  
+
   public var genre: (MovieEntity.Discover.Genre.Request) -> AnyPublisher<
     MovieEntity.Discover.Genre.Response,
     CompositeErrorRepository
@@ -93,8 +96,13 @@ extension MovieDiscoverUseCaseStub {
   }
 
   public struct Response: Equatable, Sendable {
+
+    // MARK: Lifecycle
+
     public init() { }
-    
+
+    // MARK: Public
+
     public var movie = DataResponseMock<MovieEntity.Discover.Movie.Response>(
       successValue: URLSerializedMockFunctor
         .serialized(url: Files.movieDiscoverMovieSuccessJson.url)!,
