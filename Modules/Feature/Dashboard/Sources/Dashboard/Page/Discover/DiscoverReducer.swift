@@ -39,6 +39,8 @@ struct DiscoverReducer {
 
     case fetchItem(Result<MovieEntity.Discover.Movie.Response, CompositeErrorRepository>)
 
+    case routeToDetail(MovieEntity.Discover.Movie.Item)
+    
     case throwError(CompositeErrorRepository)
   }
 
@@ -70,12 +72,16 @@ struct DiscoverReducer {
         switch result {
         case .success(let item):
           state.fetchItem.value = item
-          state.itemList = state.itemList + item.itemList
+          state.itemList = state.itemList.merge(item.itemList)
           return .none
 
         case .failure(let error):
           return .run { await $0(.throwError(error)) }
         }
+        
+      case .routeToDetail(let item):
+        sideEffect.routeToDetail(item)
+        return .none
 
       case .throwError(let error):
         sideEffect.useCase.toastViewModel.send(errorMessage: error.displayMessage)
@@ -88,4 +94,16 @@ struct DiscoverReducer {
 
   private let pageID: String
   private let sideEffect: DiscoverSideEffect
+}
+
+
+extension [MovieEntity.Discover.Movie.Item] {
+  fileprivate func merge(_ target: Self) -> Self {
+    let new = target.reduce(self) { curr, next in
+      guard !self.contains(where: { $0.id == next.id }) else { return curr }
+      return curr + [next]
+    }
+
+    return new
+  }
 }

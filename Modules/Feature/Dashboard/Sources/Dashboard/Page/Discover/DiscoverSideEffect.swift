@@ -33,4 +33,20 @@ extension DiscoverSideEffect {
       }
     }
   }
+  
+  var routeToDetail: (MovieEntity.Discover.Movie.Item) -> Void {
+    { item in
+      navigator.sheet(
+        linkItem: .init(
+          path: Link.Dashboard.Path.movieDetail.rawValue,
+          items: item.serialized()),
+        isAnimated: true)
+    }
+  }
+}
+
+extension MovieEntity.Discover.Movie.Item {
+  fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
+    .init(movieID: self.id)
+  }
 }

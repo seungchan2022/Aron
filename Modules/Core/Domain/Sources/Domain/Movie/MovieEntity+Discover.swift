@@ -49,7 +49,7 @@ extension MovieEntity.Discover.Movie {
   public struct Item: Equatable, Codable, Sendable, Identifiable {
     public let id: Int
     public let title: String
-    public let poster: String
+    public let poster: String?
 
     private enum CodingKeys: String, CodingKey {
       case id
