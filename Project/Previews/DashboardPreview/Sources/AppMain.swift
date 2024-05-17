@@ -24,7 +24,6 @@ extension AppMain: View {
             image: .init(systemName: "film.fill"),
             tag: .zero),
           linkItem: .init(path: Link.Dashboard.Path.home.rawValue),
-//          linkItem: .init(path: Link.Dashboard.Path.nowPlaying.rawValue),
           prefersLargeTitles: true),
 
         .init(

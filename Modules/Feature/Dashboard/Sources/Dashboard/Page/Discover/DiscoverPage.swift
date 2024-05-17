@@ -11,6 +11,14 @@ struct DiscoverPage {
 
 extension DiscoverPage: View {
   var body: some View {
-    Text("DiscoverPage")
+    VStack {
+      Text("DiscoverPage")
+    }
+    .onAppear {
+      store.send(.getItem)
+    }
+    .onDisappear {
+      store.send(.teardown)
+    }
   }
 }

@@ -2,8 +2,59 @@
 
 extension MovieEntity {
   public enum Discover {
+    public enum Movie { }
     public enum Genre { }
     public enum Keyword { }
+  }
+}
+
+extension MovieEntity.Discover.Movie {
+  public struct Request: Equatable, Codable, Sendable {
+    public let apiKey: String
+    public let language: String
+    public let page: Int
+    
+    public init(
+      apiKey: String = "1d9b898a212ea52e283351e521e17871",
+      language: String = "ko-KR",
+      page: Int = 1) {
+      self.apiKey = apiKey
+      self.language = language
+      self.page = page
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+      case apiKey = "api_key"
+      case language
+      case page
+      
+    }
+  }
+  
+  public struct Response: Equatable, Codable, Sendable {
+    public let page: Int
+    public let itemList: [Item]
+    public let totalPage: Int
+    public let totalItemList: Int
+    
+    private enum CodingKeys: String, CodingKey {
+      case page
+      case itemList = "results"
+      case totalPage = "total_pages"
+      case totalItemList = "total_results"
+    }
+  }
+  
+  public struct Item: Equatable, Codable, Sendable, Identifiable {
+    public let id: Int
+    public let title: String
+    public let poster: String
+    
+    private enum CodingKeys: String, CodingKey {
+      case id
+      case title
+      case poster = "poster_path"
+    }
   }
 }
 
