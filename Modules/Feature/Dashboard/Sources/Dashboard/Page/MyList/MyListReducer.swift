@@ -53,7 +53,6 @@ public struct MyListReducer {
     case sortedByRating
     case sortedByPopularity
 
-    case routeToNewList
     case routeToDetail(MovieEntity.MovieDetail.MovieCard.Response)
 
     case throwError(CompositeErrorRepository)
@@ -104,10 +103,6 @@ public struct MyListReducer {
         state.itemList = .init(
           wishList: sideEffect.sortedByPopularity(state.itemList.wishList),
           seenList: sideEffect.sortedByPopularity(state.itemList.seenList))
-        return .none
-
-      case .routeToNewList:
-        sideEffect.routeToNewList()
         return .none
 
       case .routeToDetail(let item):

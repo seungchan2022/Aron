@@ -56,14 +56,6 @@ extension MyListSideEffect {
     }
   }
 
-  var routeToNewList: () -> Void {
-    {
-      navigator.sheet(
-        linkItem: .init(path: Link.Dashboard.Path.newList.rawValue),
-        isAnimated: true)
-    }
-  }
-
   var routeToDetail: (MovieEntity.MovieDetail.MovieCard.Response) -> Void {
     { item in
       navigator.next(

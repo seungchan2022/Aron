@@ -8,8 +8,6 @@ import SwiftUI
 struct MyListPage {
   @Bindable var store: StoreOf<MyListReducer>
 
-//  @State private var isShowingConfirmation = false
-
   @Environment(\.colorScheme) var colorScheme
 
 }
@@ -19,31 +17,6 @@ struct MyListPage {
 extension MyListPage: View {
   var body: some View {
     ScrollView {
-      // Section1: Custom List 생성
-      VStack(alignment: .leading) {
-        Text("CUSTOM LISTS")
-          .font(.system(size: 14, weight: .regular))
-          .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
-          .padding(.horizontal, 16)
-
-        Button(action: { store.send(.routeToNewList) }) {
-          HStack {
-            Text("Create custom list")
-              .foregroundStyle(DesignSystemColor.label(.greenSlate).color)
-            Spacer()
-          }
-        }
-        .padding(16)
-        .background(
-          colorScheme == .dark
-            ? DesignSystemColor.background(.black).color
-            : DesignSystemColor.system(.white).color)
-      }
-      .padding(.vertical, 16)
-      .padding(.bottom, 16)
-      .frame(maxWidth: .infinity)
-
-      // Section2: segmented, 아이템 표현
       VStack {
         Picker(
           "",
@@ -58,10 +31,6 @@ extension MyListPage: View {
         .pickerStyle(.segmented)
         .padding(.vertical, 8)
         .padding(.horizontal, 16)
-        .background(
-          colorScheme == .dark
-            ? DesignSystemColor.background(.black).color
-            : DesignSystemColor.system(.white).color)
 
         switch store.state.selectedLikeList {
         case .wishList:

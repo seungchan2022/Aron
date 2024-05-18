@@ -31,7 +31,6 @@ extension DashboardRouteBuilderGroup {
       FanClubRouteBuilder.generate(),
       ProfileRouteBuilder.generate(),
       MyListRouteBuilder.generate(),
-      NewListRouteBuilder.generate(),
       SettingRouteBuilder.generate(),
     ]
   }

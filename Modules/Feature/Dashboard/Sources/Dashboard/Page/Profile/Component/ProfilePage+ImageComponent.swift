@@ -13,11 +13,7 @@ extension ProfilePage {
   }
 }
 
-extension ProfilePage.ImageComponent {
-//  private var profileImageURL: String {
-//    "https://image.tmdb.org/t/p/w500/\(viewState.item.profileItemList. ?? "")"
-//  }
-}
+extension ProfilePage.ImageComponent {}
 
 // MARK: - ProfilePage.ImageComponent + View
 

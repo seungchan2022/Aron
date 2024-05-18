@@ -22,16 +22,13 @@ extension ProfilePage {
 extension ProfilePage: View {
   var body: some View {
     ScrollView {
-      // Section1
       VStack(alignment: .leading, spacing: .zero) {
-        // profile ~ birth까지
         if let item = store.fetchItem.value {
           InfoComponent(
             viewState: .init(item: item),
             store: store)
         }
 
-        // 이미지 컴포넌트 따로 분리
         if let item = store.fetchProfileImage.value {
           ImageComponent(viewState: .init(item: item))
         }
@@ -42,55 +39,42 @@ extension ProfilePage: View {
           ? DesignSystemColor.background(.black).color
           : DesignSystemColor.system(.white).color)
         .clipShape(RoundedRectangle(cornerRadius: 10))
-        .padding(.horizontal, 12) // 그룹의 패딩
-
-      // Section2 해당 유저의 무비 리스트?
+        .padding(.horizontal, 12)
 
       VStack(alignment: .leading, spacing: 24) {
-        // Cast
-        VStack(alignment: .leading, spacing: .zero) {
-          Text("Cast")
-            .font(.title)
-            .fontWeight(.bold)
-            .padding(.leading, 32)
-
-          LazyVStack(alignment: .leading) {
-            ForEach(store.fetchMovieCreditItem.value?.castItemList ?? []) { item in
-              CastItemComponent(
-                viewState: .init(item: item),
-                tapAction: { store.send(.routeToCastDetail($0)) })
-            }
-          }
-
-          .background(
-            colorScheme == .dark
-              ? DesignSystemColor.background(.black).color
-              : DesignSystemColor.system(.white).color)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-            .padding(.horizontal, 12) // 그룹의 패딩
+        
+        if let item = store.fetchMovieCreditItem.value {
+          CastItemListComponent(
+            viewState: .init(item: item),
+            tapAction: { store.send(.routeToCastDetail($0))})
         }
 
-        // Crew
-        VStack(alignment: .leading, spacing: .zero) {
-          Text("Crew")
-            .font(.title)
-            .fontWeight(.bold)
-            .padding(.leading, 32)
-
-          LazyVStack(alignment: .leading) {
-            ForEach(store.fetchMovieCreditItem.value?.crewItemList ?? []) { item in
-              CrewItemComponent(
-                viewState: .init(item: item),
-                tapAction: { store.send(.routeToCrewDetail($0)) })
-            }
-          }
-          .background(
-            colorScheme == .dark
-              ? DesignSystemColor.background(.black).color
-              : DesignSystemColor.system(.white).color)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-            .padding(.horizontal, 12) // 그룹의 패딩
+        if let item = store.fetchMovieCreditItem.value {
+          
+          CrewItemListComponent(
+            viewState: .init(item: item),
+            tapAction: { store.send(.routeToCrewDetail($0))})
         }
+//        VStack(alignment: .leading, spacing: .zero) {
+//          Text("Crew")
+//            .font(.title)
+//            .fontWeight(.bold)
+//            .padding(.leading, 32)
+//
+//          LazyVStack(alignment: .leading) {
+//            ForEach(store.fetchMovieCreditItem.value?.crewItemList ?? []) { item in
+//              CrewItemComponent(
+//                viewState: .init(item: item),
+//                tapAction: { store.send(.routeToCrewDetail($0)) })
+//            }
+//          }
+//          .background(
+//            colorScheme == .dark
+//              ? DesignSystemColor.background(.black).color
+//              : DesignSystemColor.system(.white).color)
+//            .clipShape(RoundedRectangle(cornerRadius: 10))
+//            .padding(.horizontal, 12)
+//        }
       }
       .padding(.top, 24)
     }

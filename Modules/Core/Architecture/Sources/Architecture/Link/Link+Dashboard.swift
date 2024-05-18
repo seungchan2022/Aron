@@ -31,7 +31,6 @@ extension Link.Dashboard {
     case fanClub
     case profile
     case myList
-    case newList
     case setting
   }
 }

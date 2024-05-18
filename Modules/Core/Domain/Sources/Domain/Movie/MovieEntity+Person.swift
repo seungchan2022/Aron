@@ -79,8 +79,8 @@ extension MovieEntity.Person.MovieCredit {
 
   public struct Response: Equatable, Codable, Sendable, Identifiable {
     public let id: Int
-    public let castItemList: [CastItem]?
-    public let crewItemList: [CrewItem]?
+    public let castItemList: [CastItem]
+    public let crewItemList: [CrewItem]
 
     private enum CodingKeys: String, CodingKey {
       case id
