@@ -71,7 +71,7 @@ final class KeywordTets: XCTestCase {
   func test_routeToDetail_case() async {
     let sut = SUT()
 
-    let pick: MovieEntity.Discover.Keyword.Response.Item = ResponseMock().response.keyword.successValue.itemList.first!
+    let pick: MovieEntity.Discover.Keyword.Item = ResponseMock().response.keyword.successValue.itemList.first!
 
     await sut.store.send(.routeToDetail(pick))
 

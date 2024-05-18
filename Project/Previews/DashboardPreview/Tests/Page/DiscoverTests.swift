@@ -1,115 +1,106 @@
 import ComposableArchitecture
-import Dashboard
 import Domain
+import Dashboard
 import Foundation
 import Platform
 import XCTest
 
-// MARK: - GenreTests
-
-final class GenreTests: XCTestCase {
+final class DiscoverTest: XCTestCase {
   override class func tearDown() {
     super.tearDown()
   }
-
+  
   @MainActor
   func test_binding() async {
     let sut = SUT()
-
-    await sut.store.send(.set(\.fetchItem, .init(isLoading: false, value: .none)))
+    
+    await sut.stroe.send(.binding(.set(\.itemList, [])))
   }
-
+  
   @MainActor
   func test_teardown() async {
     let sut = SUT()
-
-    await sut.store.send(.teardown)
+    
+    await sut.stroe.send(.teardown)
   }
-
+  
   @MainActor
-  func test_getItem_success_case() async {
+  func test_geItem_success_case() async {
     let sut = SUT()
-
-    let mock: MovieEntity.MovieDetail.MovieCard.GenreItem = .init(id: 2, name: "test")
-
-    let responseMock: MovieEntity.Discover.Genre.Response = ResponseMock().response.genre.successValue
-
-    await sut.store.send(.getItem(mock)) { state in
+    
+    let responseMock: MovieEntity.Discover.Movie.Response = ResponseMock().response.movie.successValue
+    
+    await sut.stroe.send(.getItem) { state in
       state.fetchItem.isLoading = true
     }
-
+    
     await sut.scheduler.advance()
-
-    await sut.store.receive(\.fetchItem) { state in
+    
+    await sut.stroe.receive(\.fetchItem) { state in
       state.fetchItem.isLoading = false
       state.fetchItem.value = responseMock
+      state.itemList = responseMock.itemList
     }
   }
-
+  
   @MainActor
   func test_getItem_failure_case() async {
     let sut = SUT()
-
-    let mock: MovieEntity.MovieDetail.MovieCard.GenreItem = .init(id: 2, name: "test")
-
+    
     sut.container.movieDiscoverUseCaseStub.type = .failure(.invalidTypeCasting)
-
-    await sut.store.send(.getItem(mock)) { state in
+    
+    await sut.stroe.send(.getItem) { state in
       state.fetchItem.isLoading = true
     }
-
+    
     await sut.scheduler.advance()
-
-    await sut.store.receive(\.fetchItem) { state in
+    
+    await sut.stroe.receive(\.fetchItem) { state in
       state.fetchItem.isLoading = false
     }
-
-    await sut.store.receive(\.throwError)
+    
+    await sut.stroe.receive(\.throwError)
   }
-
+  
   @MainActor
   func test_routeToDetail_case() async {
     let sut = SUT()
-
-    let pick: MovieEntity.Discover.Genre.Item = ResponseMock().response.genre.successValue.itemList.first!
-
-    await sut.store.send(.routeToDetail(pick))
-
-    XCTAssertEqual(sut.container.linkNavigatorMock.event.next, 1)
+    
+    let pick: MovieEntity.Discover.Movie.Item = ResponseMock().response.movie.successValue.itemList.first!
+    
+    await sut.stroe.send(.routeToDetail(pick))
+    
+    XCTAssertEqual(sut.container.linkNavigatorMock.event.sheet, 1)
   }
-
 }
 
-extension GenreTests {
+
+extension DiscoverTest {
   struct SUT {
-
-    // MARK: Lifecycle
-
-    init(state: GenreReducer.State = .init(item: .init(id: 2, name: "test"))) {
+    
+    init(state: DiscoverReducer.State = .init()) {
       let container = AppContainerMock.generate()
       let main = DispatchQueue.test
-
+      
       self.container = container
-      scheduler = main
-
-      store = .init(
+      self.scheduler = main
+      
+      self.stroe = .init(
         initialState: state,
         reducer: {
-          GenreReducer(
+          DiscoverReducer(
             sideEffect: .init(
               useCase: container,
               main: main.eraseToAnyScheduler(),
               navigator: container.linkNavigatorMock))
         })
     }
-
-    // MARK: Internal
-
+    
     let container: AppContainerMock
     let scheduler: TestSchedulerOf<DispatchQueue>
-    let store: TestStore<GenreReducer.State, GenreReducer.Action>
+    let stroe: TestStore<DiscoverReducer.State, DiscoverReducer.Action>
   }
-
+  
   struct ResponseMock {
     let response: MovieDiscoverUseCaseStub.Response = .init()
     init() { }
