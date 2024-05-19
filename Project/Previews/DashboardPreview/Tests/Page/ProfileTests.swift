@@ -150,7 +150,7 @@ final class ProfileTests: XCTestCase {
   func test_routeToCastDetail_case() async {
     let sut = SUT()
 
-    let pick: MovieEntity.Person.MovieCredit.CastItem = (ResponseMock().response.movieCredit.successValue.castItemList?.first)!
+    let pick: MovieEntity.Person.MovieCredit.CastItem = (ResponseMock().response.movieCredit.successValue.castItemList.first)!
 
     await sut.store.send(.routeToCastDetail(pick))
 
@@ -161,7 +161,7 @@ final class ProfileTests: XCTestCase {
   func test_routeToCrewDetail_case() async {
     let sut = SUT()
 
-    let pick: MovieEntity.Person.MovieCredit.CrewItem = (ResponseMock().response.movieCredit.successValue.crewItemList?.first)!
+    let pick: MovieEntity.Person.MovieCredit.CrewItem = (ResponseMock().response.movieCredit.successValue.crewItemList.first)!
 
     await sut.store.send(.routeToCrewDetail(pick))
 
