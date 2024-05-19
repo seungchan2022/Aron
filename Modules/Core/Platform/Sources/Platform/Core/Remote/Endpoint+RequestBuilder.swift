@@ -86,3 +86,10 @@ extension URLRequest {
     return new
   }
 }
+
+extension Encodable {
+  fileprivate func encodeString() -> String {
+    guard let data = try? URLEncodedFormEncoder().encode(self) else { return "" }
+    return String(data: data, encoding: .utf8) ?? ""
+  }
+}

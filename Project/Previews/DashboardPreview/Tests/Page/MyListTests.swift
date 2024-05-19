@@ -72,23 +72,16 @@ final class MyListTests: XCTestCase {
   @MainActor
   func test_sortedByReleaseDate_case() async {
     let sut = SUT()
+    let responseMock: MovieEntity.List = MyListStub.Response().localStore
 
-//    await sut.store.send(.sortedByReleaseDate)
+    sut.container.movieListUseCaseFake.reset(store: responseMock)
+    
+    await sut.store.send(.fetchItemList(.success(responseMock))) { state in
+      state.fetchItemList.value = responseMock
+      state.itemList = responseMock
+    }
 
-    let wishMock: MovieEntity.MovieDetail.MovieCard.Response = ResponseMock().response.movieCard.successValue
-    let seenMock: MovieEntity.MovieDetail.MovieCard.Response = ResponseMock().response.movieCard.successValue
-    
-    let responseMock: MovieEntity.List = .init(
-      wishList: [wishMock],
-      seenList: [seenMock])
-    
-    
-    /// - Note: 해당 리스트에 들어가도록
-    sut.container.movieListUseCaseFake.reset(
-      store: .init(
-        wishList: [wishMock],
-        seenList: [seenMock]))
-    
+    await sut.scheduler.advance()
     
     await sut.store.send(.sortedByReleaseDate) { state in
       state.itemList = .init(
@@ -101,15 +94,45 @@ final class MyListTests: XCTestCase {
   @MainActor
   func test_sortedByRating_case() async {
     let sut = SUT()
+    
+    let responseMock: MovieEntity.List = MyListStub.Response().localStore
+        
+    sut.container.movieListUseCaseFake.reset(store: responseMock)
+    
+    await sut.store.send(.fetchItemList(.success(responseMock))) { state in
+      state.fetchItemList.value = responseMock
+      state.itemList = responseMock
+    }
 
-    await sut.store.send(.sortedByRating)
+    await sut.scheduler.advance()
+    
+    await sut.store.send(.sortedByRating) { state in
+      state.itemList = .init(
+        wishList: responseMock.wishList.sorted(by: { $0.voteAverage ?? .zero > $1.voteAverage ?? .zero }),
+        seenList: responseMock.seenList.sorted(by: { $0.voteAverage ?? .zero > $1.voteAverage ?? .zero }))
+    }
   }
 
   @MainActor
   func test_sortedByPopularity_case() async {
     let sut = SUT()
 
-    await sut.store.send(.sortedByPopularity)
+    let responseMock: MovieEntity.List = MyListStub.Response().localStore
+    
+    sut.container.movieListUseCaseFake.reset(store: responseMock)
+    
+    await sut.store.send(.fetchItemList(.success(responseMock))) { state in
+      state.fetchItemList.value = responseMock
+      state.itemList = responseMock
+    }
+    
+    await sut.scheduler.advance()
+    
+    await sut.store.send(.sortedByPopularity) { state in
+      state.itemList = .init(
+        wishList: responseMock.wishList.sorted(by: { $0.popularity > $1.popularity }),
+        seenList: responseMock.seenList.sorted(by: { $0.popularity > $1.popularity }))
+    }
   }
 
   @MainActor

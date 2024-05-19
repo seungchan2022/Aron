@@ -73,6 +73,7 @@ let package = Package(
         .copy("Resources/Mock/person_movie_credit_failure.json"),
         .copy("Resources/Mock/movie_discover_movie_success.json"),
         .copy("Resources/Mock/movie_discover_movie_failure.json"),
+        .copy("Resources/Mock/my_list.json"),
       ]),
     .testTarget(
       name: "PlatformTests",
