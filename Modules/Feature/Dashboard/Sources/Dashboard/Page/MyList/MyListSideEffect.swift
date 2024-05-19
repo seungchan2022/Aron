@@ -33,29 +33,49 @@ extension MyListSideEffect {
     }
   }
 
-  var sortedByReleaseDate: ([MovieEntity.MovieDetail.MovieCard.Response]) -> [MovieEntity.MovieDetail.MovieCard.Response] {
+//  var sortedByReleaseDate: ([MovieEntity.MovieDetail.MovieCard.Response]) -> [MovieEntity.MovieDetail.MovieCard.Response] {
+//    { itemList in
+//      (try? itemList.sorted(by: itemList.releaseDate)) ?? itemList
+//    }
+//  }
+//
+//  var sortedByRating: ([MovieEntity.MovieDetail.MovieCard.Response]) -> [MovieEntity.MovieDetail.MovieCard.Response] {
+//    { itemList in
+//      (try? itemList.sorted(by: itemList.rating)) ?? itemList
+//    }
+//  }
+//
+//  var sortedByPopularity: ([MovieEntity.MovieDetail.MovieCard.Response]) -> [MovieEntity.MovieDetail.MovieCard.Response] {
+//    { itemList in
+//      (try? itemList.sorted(by: itemList.rating)) ?? itemList
+//    }
+//  }
+
+  var sortedByReleaseDate: (MovieEntity.List) -> MovieEntity.List {
     { itemList in
-//      SortItem(
-//        itemList: itemList,
-//        process: itemList.releaseDate
-//      )
-      //        .sort()
-      (try? itemList.sorted(by: itemList.releaseDate)) ?? itemList
+      .init(
+        wishList: (try? itemList.wishList.sorted(by: itemList.wishList.releaseDate)) ?? itemList.wishList,
+        seenList: (try? itemList.seenList.sorted(by: itemList.seenList.releaseDate)) ?? itemList.seenList)
     }
   }
-
-  var sortedByRating: ([MovieEntity.MovieDetail.MovieCard.Response]) -> [MovieEntity.MovieDetail.MovieCard.Response] {
+  
+  var sortedByRating: (MovieEntity.List) -> MovieEntity.List {
     { itemList in
-      (try? itemList.sorted(by: itemList.rating)) ?? itemList
+      .init(
+        wishList: (try? itemList.wishList.sorted(by: itemList.wishList.rating)) ?? itemList.wishList,
+        seenList: (try? itemList.seenList.sorted(by: itemList.seenList.rating)) ?? itemList.seenList)
     }
   }
-
-  var sortedByPopularity: ([MovieEntity.MovieDetail.MovieCard.Response]) -> [MovieEntity.MovieDetail.MovieCard.Response] {
+  
+  var sortedByPopularity: (MovieEntity.List) -> MovieEntity.List {
     { itemList in
-      (try? itemList.sorted(by: itemList.rating)) ?? itemList
+      .init(
+        wishList: (try? itemList.wishList.sorted(by: itemList.wishList.popularity)) ?? itemList.wishList,
+        seenList: (try? itemList.seenList.sorted(by: itemList.seenList.popularity)) ?? itemList.seenList)
     }
   }
-
+  
+  
   var routeToDetail: (MovieEntity.MovieDetail.MovieCard.Response) -> Void {
     { item in
       navigator.next(

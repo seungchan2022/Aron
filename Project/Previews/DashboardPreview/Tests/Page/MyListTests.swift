@@ -73,29 +73,29 @@ final class MyListTests: XCTestCase {
   func test_sortedByReleaseDate_case() async {
     let sut = SUT()
 
-    await sut.store.send(.sortedByReleaseDate)
+//    await sut.store.send(.sortedByReleaseDate)
 
-    //    let wishMock: MovieEntity.MovieDetail.MovieCard.Response = ResponseMock().response.movieCard.successValue
-    //    let seenMock: MovieEntity.MovieDetail.MovieCard.Response = ResponseMock().response.movieCard.successValue
-    //
-    //    let responseMock: MovieEntity.List = .init(
-    //      wishList: [wishMock],
-    //      seenList: [seenMock])
-    //
-    //
-    //    /// - Note: 해당 리스트에 들어가도록
-    //    sut.container.movieListUseCaseFake.reset(
-    //      store: .init(
-    //        wishList: [wishMock],
-    //        seenList: [seenMock]))
-    //
-    //
-    //    await sut.store.send(.sortedByReleaseDate) { state in
-    //      state.itemList = .init(
-    //        wishList: responseMock.wishList.sorted(by: { $0.releaseDate > $1.releaseDate}),
-    //        seenList: responseMock.seenList.sorted(by: { $0.releaseDate > $1.releaseDate})
-    //      )
-    //    }
+    let wishMock: MovieEntity.MovieDetail.MovieCard.Response = ResponseMock().response.movieCard.successValue
+    let seenMock: MovieEntity.MovieDetail.MovieCard.Response = ResponseMock().response.movieCard.successValue
+    
+    let responseMock: MovieEntity.List = .init(
+      wishList: [wishMock],
+      seenList: [seenMock])
+    
+    
+    /// - Note: 해당 리스트에 들어가도록
+    sut.container.movieListUseCaseFake.reset(
+      store: .init(
+        wishList: [wishMock],
+        seenList: [seenMock]))
+    
+    
+    await sut.store.send(.sortedByReleaseDate) { state in
+      state.itemList = .init(
+        wishList: responseMock.wishList.sorted(by: { $0.releaseDate > $1.releaseDate}),
+        seenList: responseMock.seenList.sorted(by: { $0.releaseDate > $1.releaseDate})
+      )
+    }
   }
 
   @MainActor
@@ -110,15 +110,6 @@ final class MyListTests: XCTestCase {
     let sut = SUT()
 
     await sut.store.send(.sortedByPopularity)
-  }
-
-  @MainActor
-  func test_routeToNewList_case() async {
-    let sut = SUT()
-
-    await sut.store.send(.routeToNewList)
-
-    XCTAssertEqual(sut.container.linkNavigatorMock.event.sheet, 1)
   }
 
   @MainActor

@@ -88,21 +88,15 @@ public struct MyListReducer {
         }
 
       case .sortedByReleaseDate:
-        state.itemList = .init(
-          wishList: sideEffect.sortedByReleaseDate(state.itemList.wishList),
-          seenList: sideEffect.sortedByReleaseDate(state.itemList.seenList))
+        state.itemList = sideEffect.sortedByReleaseDate(state.itemList)
         return .none
 
       case .sortedByRating:
-        state.itemList = .init(
-          wishList: sideEffect.sortedByRating(state.itemList.wishList),
-          seenList: sideEffect.sortedByRating(state.itemList.seenList))
+        state.itemList = sideEffect.sortedByRating(state.itemList)
         return .none
 
       case .sortedByPopularity:
-        state.itemList = .init(
-          wishList: sideEffect.sortedByPopularity(state.itemList.wishList),
-          seenList: sideEffect.sortedByPopularity(state.itemList.seenList))
+        state.itemList = sideEffect.sortedByPopularity(state.itemList)
         return .none
 
       case .routeToDetail(let item):
