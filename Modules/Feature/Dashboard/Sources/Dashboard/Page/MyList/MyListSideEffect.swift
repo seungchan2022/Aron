@@ -1,4 +1,5 @@
 import Architecture
+import CombineExt
 import ComposableArchitecture
 import Domain
 import Foundation
@@ -33,23 +34,33 @@ extension MyListSideEffect {
     }
   }
 
-//  var sortedByReleaseDate: ([MovieEntity.MovieDetail.MovieCard.Response]) -> [MovieEntity.MovieDetail.MovieCard.Response] {
-//    { itemList in
-//      (try? itemList.sorted(by: itemList.releaseDate)) ?? itemList
-//    }
-//  }
-//
-//  var sortedByRating: ([MovieEntity.MovieDetail.MovieCard.Response]) -> [MovieEntity.MovieDetail.MovieCard.Response] {
-//    { itemList in
-//      (try? itemList.sorted(by: itemList.rating)) ?? itemList
-//    }
-//  }
-//
-//  var sortedByPopularity: ([MovieEntity.MovieDetail.MovieCard.Response]) -> [MovieEntity.MovieDetail.MovieCard.Response] {
-//    { itemList in
-//      (try? itemList.sorted(by: itemList.rating)) ?? itemList
-//    }
-//  }
+  var updateIsWish: (MovieEntity.MovieDetail.MovieCard.Response) -> Effect<MyListReducer.Action> {
+    { item in
+        .publisher {
+          useCase.movieListUseCase.saveWishList(item)
+            .map {
+              $0.wishList.first(where: { $0 == item }) != .none
+            }
+            .receive(on: main)
+            .mapToResult()
+            .map(MyListReducer.Action.fetchIsWish)
+        }
+    }
+  }
+  
+  var updateIsSeen: (MovieEntity.MovieDetail.MovieCard.Response) -> Effect<MyListReducer.Action> {
+    { item in
+        .publisher {
+          useCase.movieListUseCase.saveSeenList(item)
+            .map {
+              $0.seenList.first(where: { $0 == item }) != .none
+            }
+            .receive(on: main)
+            .mapToResult()
+            .map(MyListReducer.Action.fetchIsSeen)
+        }
+    }
+  }
 
   var sortedByReleaseDate: (MovieEntity.List) -> MovieEntity.List {
     { itemList in
