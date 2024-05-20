@@ -13,7 +13,7 @@ extension ProfilePage {
   }
 }
 
-extension ProfilePage.ImageComponent {}
+extension ProfilePage.ImageComponent { }
 
 // MARK: - ProfilePage.ImageComponent + View
 

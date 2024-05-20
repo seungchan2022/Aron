@@ -2,15 +2,15 @@ import DesignSystem
 import Domain
 import SwiftUI
 
-// MARK: - ProfilePage.CrewItemComponent
+// MARK: - ProfilePage.CrewItemListComponent
 
 extension ProfilePage {
   struct CrewItemListComponent {
     let viewState: ViewState
     let tapAction: (MovieEntity.Person.MovieCredit.CrewItem) -> Void
-    
+
     @Environment(\.colorScheme) var colorScheme
-    
+
   }
 }
 
@@ -23,6 +23,8 @@ extension ProfilePage.CrewItemListComponent {
   }
 }
 
+// MARK: - ProfilePage.CrewItemListComponent + View
+
 extension ProfilePage.CrewItemListComponent: View {
   var body: some View {
     if !viewState.item.crewItemList.isEmpty {
@@ -31,7 +33,7 @@ extension ProfilePage.CrewItemListComponent: View {
           .font(.title)
           .fontWeight(.bold)
           .padding(.leading, 32)
-        
+
         LazyVStack(alignment: .leading) {
           ForEach(filteredItemList) { item in
             Button(action: { tapAction(item) }) {
@@ -41,14 +43,16 @@ extension ProfilePage.CrewItemListComponent: View {
         }
         .background(
           colorScheme == .dark
-          ? DesignSystemColor.background(.black).color
-          : DesignSystemColor.system(.white).color)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-        .padding(.horizontal, 12)
+            ? DesignSystemColor.background(.black).color
+            : DesignSystemColor.system(.white).color)
+          .clipShape(RoundedRectangle(cornerRadius: 10))
+          .padding(.horizontal, 12)
       }
     }
   }
 }
+
+// MARK: - ProfilePage.CrewItemListComponent.ViewState
 
 extension ProfilePage.CrewItemListComponent {
   struct ViewState: Equatable {
@@ -56,10 +60,12 @@ extension ProfilePage.CrewItemListComponent {
   }
 }
 
+// MARK: - ProfilePage.CrewItemListComponent.ItemComponent
+
 extension ProfilePage.CrewItemListComponent {
   fileprivate struct ItemComponent {
     let crewItem: MovieEntity.Person.MovieCredit.CrewItem
-    
+
     @Environment(\.colorScheme) var colorScheme
   }
 }
@@ -70,9 +76,10 @@ extension ProfilePage.CrewItemListComponent.ItemComponent {
   }
 }
 
+// MARK: - ProfilePage.CrewItemListComponent.ItemComponent + View
+
 extension ProfilePage.CrewItemListComponent.ItemComponent: View {
   var body: some View {
-    
     VStack(alignment: .leading) {
       HStack(spacing: 8) {
         RemoteImage(
@@ -114,7 +121,5 @@ extension ProfilePage.CrewItemListComponent.ItemComponent: View {
         .padding(.leading, 72)
     }
     .padding(.horizontal, 16)
-    
   }
 }
-

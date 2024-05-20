@@ -42,18 +42,16 @@ extension ProfilePage: View {
         .padding(.horizontal, 12)
 
       VStack(alignment: .leading, spacing: 24) {
-        
         if let item = store.fetchMovieCreditItem.value {
           CastItemListComponent(
             viewState: .init(item: item),
-            tapAction: { store.send(.routeToCastDetail($0))})
+            tapAction: { store.send(.routeToCastDetail($0)) })
         }
 
         if let item = store.fetchMovieCreditItem.value {
-          
           CrewItemListComponent(
             viewState: .init(item: item),
-            tapAction: { store.send(.routeToCrewDetail($0))})
+            tapAction: { store.send(.routeToCrewDetail($0)) })
         }
 //        VStack(alignment: .leading, spacing: .zero) {
 //          Text("Crew")

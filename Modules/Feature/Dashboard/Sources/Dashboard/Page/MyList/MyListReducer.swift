@@ -36,7 +36,7 @@ public struct MyListReducer {
     public var selectedLikeList: LikeList = .wishList
     public var itemList: MovieEntity.List = .init()
     public var fetchItemList: FetchState.Data<MovieEntity.List?> = .init(isLoading: false, value: .none)
-    
+
     public var fetchIsWish: FetchState.Data<Bool> = .init(isLoading: false, value: false)
     public var fetchIsSeen: FetchState.Data<Bool> = .init(isLoading: false, value: false)
 
@@ -50,12 +50,12 @@ public struct MyListReducer {
     case teardown
 
     case getItemList
-    
+
     case updateIsWish(MovieEntity.MovieDetail.MovieCard.Response)
     case updateIsSeen(MovieEntity.MovieDetail.MovieCard.Response)
-    
+
     case fetchItemList(Result<MovieEntity.List, CompositeErrorRepository>)
-  
+
     case fetchIsWish(Result<Bool, CompositeErrorRepository>)
     case fetchIsSeen(Result<Bool, CompositeErrorRepository>)
 
@@ -84,17 +84,17 @@ public struct MyListReducer {
         return sideEffect
           .getItemList()
           .cancellable(pageID: pageID, id: CancelID.requestItemList, cancelInFlight: true)
-        
+
       case .updateIsWish(let item):
         state.fetchIsWish.isLoading = true
         return sideEffect.updateIsWish(item)
           .cancellable(pageID: pageID, id: CancelID.requestIsWish, cancelInFlight: true)
-        
+
       case .updateIsSeen(let item):
         state.fetchIsSeen.isLoading = true
         return sideEffect.updateIsSeen(item)
           .cancellable(pageID: pageID, id: CancelID.requestIsSeen, cancelInFlight: true)
-        
+
       case .fetchItemList(let result):
         state.fetchItemList.isLoading = false
         switch result {
@@ -106,7 +106,7 @@ public struct MyListReducer {
         case .failure(let error):
           return .run { await $0(.throwError(error)) }
         }
-        
+
       case .fetchIsWish(let result):
         state.fetchIsWish.isLoading = false
         switch result {
@@ -128,7 +128,7 @@ public struct MyListReducer {
         case .failure(let error):
           return .run { await $0(.throwError(error)) }
         }
-        
+
       case .sortedByReleaseDate:
         state.itemList = sideEffect.sortedByReleaseDate(state.itemList)
         return .none

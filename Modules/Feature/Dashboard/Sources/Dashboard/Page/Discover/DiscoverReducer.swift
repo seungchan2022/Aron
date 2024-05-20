@@ -3,6 +3,8 @@ import ComposableArchitecture
 import Domain
 import Foundation
 
+// MARK: - DiscoverReducer
+
 @Reducer
 public struct DiscoverReducer {
 
@@ -16,7 +18,7 @@ public struct DiscoverReducer {
     self.sideEffect = sideEffect
   }
 
-  // MARK: Internal
+  // MARK: Public
 
   @ObservableState
   public struct State: Equatable, Identifiable {
@@ -40,13 +42,8 @@ public struct DiscoverReducer {
     case fetchItem(Result<MovieEntity.Discover.Movie.Response, CompositeErrorRepository>)
 
     case routeToDetail(MovieEntity.Discover.Movie.Item)
-    
-    case throwError(CompositeErrorRepository)
-  }
 
-  enum CancelID: Equatable, CaseIterable {
-    case teardown
-    case requestItem
+    case throwError(CompositeErrorRepository)
   }
 
   public var body: some Reducer<State, Action> {
@@ -78,7 +75,7 @@ public struct DiscoverReducer {
         case .failure(let error):
           return .run { await $0(.throwError(error)) }
         }
-        
+
       case .routeToDetail(let item):
         sideEffect.routeToDetail(item)
         return .none
@@ -90,12 +87,18 @@ public struct DiscoverReducer {
     }
   }
 
+  // MARK: Internal
+
+  enum CancelID: Equatable, CaseIterable {
+    case teardown
+    case requestItem
+  }
+
   // MARK: Private
 
   private let pageID: String
   private let sideEffect: DiscoverSideEffect
 }
-
 
 extension [MovieEntity.Discover.Movie.Item] {
   fileprivate func merge(_ target: Self) -> Self {

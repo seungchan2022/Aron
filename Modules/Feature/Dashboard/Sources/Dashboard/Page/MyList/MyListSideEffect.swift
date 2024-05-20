@@ -36,29 +36,29 @@ extension MyListSideEffect {
 
   var updateIsWish: (MovieEntity.MovieDetail.MovieCard.Response) -> Effect<MyListReducer.Action> {
     { item in
-        .publisher {
-          useCase.movieListUseCase.saveWishList(item)
-            .map {
-              $0.wishList.first(where: { $0 == item }) != .none
-            }
-            .receive(on: main)
-            .mapToResult()
-            .map(MyListReducer.Action.fetchIsWish)
-        }
+      .publisher {
+        useCase.movieListUseCase.saveWishList(item)
+          .map {
+            $0.wishList.first(where: { $0 == item }) != .none
+          }
+          .receive(on: main)
+          .mapToResult()
+          .map(MyListReducer.Action.fetchIsWish)
+      }
     }
   }
-  
+
   var updateIsSeen: (MovieEntity.MovieDetail.MovieCard.Response) -> Effect<MyListReducer.Action> {
     { item in
-        .publisher {
-          useCase.movieListUseCase.saveSeenList(item)
-            .map {
-              $0.seenList.first(where: { $0 == item }) != .none
-            }
-            .receive(on: main)
-            .mapToResult()
-            .map(MyListReducer.Action.fetchIsSeen)
-        }
+      .publisher {
+        useCase.movieListUseCase.saveSeenList(item)
+          .map {
+            $0.seenList.first(where: { $0 == item }) != .none
+          }
+          .receive(on: main)
+          .mapToResult()
+          .map(MyListReducer.Action.fetchIsSeen)
+      }
     }
   }
 
@@ -69,7 +69,7 @@ extension MyListSideEffect {
         seenList: (try? itemList.seenList.sorted(by: itemList.seenList.releaseDate)) ?? itemList.seenList)
     }
   }
-  
+
   var sortedByRating: (MovieEntity.List) -> MovieEntity.List {
     { itemList in
       .init(
@@ -77,7 +77,7 @@ extension MyListSideEffect {
         seenList: (try? itemList.seenList.sorted(by: itemList.seenList.rating)) ?? itemList.seenList)
     }
   }
-  
+
   var sortedByPopularity: (MovieEntity.List) -> MovieEntity.List {
     { itemList in
       .init(
@@ -85,8 +85,7 @@ extension MyListSideEffect {
         seenList: (try? itemList.seenList.sorted(by: itemList.seenList.popularity)) ?? itemList.seenList)
     }
   }
-  
-  
+
   var routeToDetail: (MovieEntity.MovieDetail.MovieCard.Response) -> Void {
     { item in
       navigator.next(

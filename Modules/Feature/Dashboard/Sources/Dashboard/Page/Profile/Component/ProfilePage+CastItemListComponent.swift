@@ -2,14 +2,15 @@ import DesignSystem
 import Domain
 import SwiftUI
 
+// MARK: - ProfilePage.CastItemListComponent
 
 extension ProfilePage {
   struct CastItemListComponent {
     let viewState: ViewState
     let tapAction: (MovieEntity.Person.MovieCredit.CastItem) -> Void
-    
+
     @Environment(\.colorScheme) var colorScheme
-    
+
   }
 }
 
@@ -18,9 +19,11 @@ extension ProfilePage.CastItemListComponent {
     viewState.item.castItemList.reduce(into: [MovieEntity.Person.MovieCredit.CastItem]()) { curr, next in
       guard !curr.contains(where: { $0.id == next.id }) else { return }
       curr = curr + [next]
-    } 
+    }
   }
 }
+
+// MARK: - ProfilePage.CastItemListComponent + View
 
 extension ProfilePage.CastItemListComponent: View {
   var body: some View {
@@ -30,7 +33,7 @@ extension ProfilePage.CastItemListComponent: View {
           .font(.title)
           .fontWeight(.bold)
           .padding(.leading, 32)
-        
+
         LazyVStack(alignment: .leading) {
           ForEach(filteredItemList) { item in
             Button(action: { tapAction(item) }) {
@@ -40,14 +43,16 @@ extension ProfilePage.CastItemListComponent: View {
         }
         .background(
           colorScheme == .dark
-          ? DesignSystemColor.background(.black).color
-          : DesignSystemColor.system(.white).color)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-        .padding(.horizontal, 12)
+            ? DesignSystemColor.background(.black).color
+            : DesignSystemColor.system(.white).color)
+          .clipShape(RoundedRectangle(cornerRadius: 10))
+          .padding(.horizontal, 12)
       }
     }
   }
 }
+
+// MARK: - ProfilePage.CastItemListComponent.ViewState
 
 extension ProfilePage.CastItemListComponent {
   struct ViewState: Equatable {
@@ -55,10 +60,12 @@ extension ProfilePage.CastItemListComponent {
   }
 }
 
+// MARK: - ProfilePage.CastItemListComponent.ItemComponent
+
 extension ProfilePage.CastItemListComponent {
   fileprivate struct ItemComponent {
     let castItem: MovieEntity.Person.MovieCredit.CastItem
-    
+
     @Environment(\.colorScheme) var colorScheme
   }
 }
@@ -69,9 +76,10 @@ extension ProfilePage.CastItemListComponent.ItemComponent {
   }
 }
 
+// MARK: - ProfilePage.CastItemListComponent.ItemComponent + View
+
 extension ProfilePage.CastItemListComponent.ItemComponent: View {
   var body: some View {
-    
     VStack(alignment: .leading) {
       HStack(spacing: 8) {
         RemoteImage(
@@ -113,7 +121,5 @@ extension ProfilePage.CastItemListComponent.ItemComponent: View {
         .padding(.leading, 72)
     }
     .padding(.horizontal, 16)
-    
   }
 }
-

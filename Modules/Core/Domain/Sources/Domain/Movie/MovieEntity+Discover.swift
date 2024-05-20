@@ -10,9 +10,8 @@ extension MovieEntity {
 
 extension MovieEntity.Discover.Movie {
   public struct Request: Equatable, Codable, Sendable {
-    public let apiKey: String
-    public let language: String
-    public let page: Int
+
+    // MARK: Lifecycle
 
     public init(
       apiKey: String = "1d9b898a212ea52e283351e521e17871",
@@ -23,6 +22,14 @@ extension MovieEntity.Discover.Movie {
       self.language = language
       self.page = page
     }
+
+    // MARK: Public
+
+    public let apiKey: String
+    public let language: String
+    public let page: Int
+
+    // MARK: Private
 
     private enum CodingKeys: String, CodingKey {
       case apiKey = "api_key"

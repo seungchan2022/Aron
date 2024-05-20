@@ -33,7 +33,7 @@ extension DiscoverSideEffect {
       }
     }
   }
-  
+
   var routeToDetail: (MovieEntity.Discover.Movie.Item) -> Void {
     { item in
       navigator.sheet(
@@ -47,6 +47,6 @@ extension DiscoverSideEffect {
 
 extension MovieEntity.Discover.Movie.Item {
   fileprivate func serialized() -> MovieEntity.MovieDetail.MovieCard.Request {
-    .init(movieID: self.id)
+    .init(movieID: id)
   }
 }

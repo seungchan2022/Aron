@@ -75,37 +75,36 @@ final class MyListTests: XCTestCase {
     let responseMock: MovieEntity.List = MyListStub.Response().localStore
 
     sut.container.movieListUseCaseFake.reset(store: responseMock)
-    
+
     await sut.store.send(.fetchItemList(.success(responseMock))) { state in
       state.fetchItemList.value = responseMock
       state.itemList = responseMock
     }
 
     await sut.scheduler.advance()
-    
+
     await sut.store.send(.sortedByReleaseDate) { state in
       state.itemList = .init(
-        wishList: responseMock.wishList.sorted(by: { $0.releaseDate > $1.releaseDate}),
-        seenList: responseMock.seenList.sorted(by: { $0.releaseDate > $1.releaseDate})
-      )
+        wishList: responseMock.wishList.sorted(by: { $0.releaseDate > $1.releaseDate }),
+        seenList: responseMock.seenList.sorted(by: { $0.releaseDate > $1.releaseDate }))
     }
   }
 
   @MainActor
   func test_sortedByRating_case() async {
     let sut = SUT()
-    
+
     let responseMock: MovieEntity.List = MyListStub.Response().localStore
-        
+
     sut.container.movieListUseCaseFake.reset(store: responseMock)
-    
+
     await sut.store.send(.fetchItemList(.success(responseMock))) { state in
       state.fetchItemList.value = responseMock
       state.itemList = responseMock
     }
 
     await sut.scheduler.advance()
-    
+
     await sut.store.send(.sortedByRating) { state in
       state.itemList = .init(
         wishList: responseMock.wishList.sorted(by: { $0.voteAverage ?? .zero > $1.voteAverage ?? .zero }),
@@ -118,16 +117,16 @@ final class MyListTests: XCTestCase {
     let sut = SUT()
 
     let responseMock: MovieEntity.List = MyListStub.Response().localStore
-    
+
     sut.container.movieListUseCaseFake.reset(store: responseMock)
-    
+
     await sut.store.send(.fetchItemList(.success(responseMock))) { state in
       state.fetchItemList.value = responseMock
       state.itemList = responseMock
     }
-    
+
     await sut.scheduler.advance()
-    
+
     await sut.store.send(.sortedByPopularity) { state in
       state.itemList = .init(
         wishList: responseMock.wishList.sorted(by: { $0.popularity > $1.popularity }),

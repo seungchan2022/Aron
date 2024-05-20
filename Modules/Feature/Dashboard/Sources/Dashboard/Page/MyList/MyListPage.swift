@@ -7,11 +7,11 @@ import SwiftUI
 
 struct MyListPage {
   @Bindable var store: StoreOf<MyListReducer>
-  
+
   @Environment(\.colorScheme) var colorScheme
-  
+
   @State private var isEditingFocus: MovieEntity.MovieDetail.MovieCard.Response? = .none
-  
+
 }
 
 // MARK: View
@@ -26,14 +26,14 @@ extension MyListPage: View {
         {
           Text(LikeList.wishList.rawValue)
             .tag(LikeList.wishList)
-          
+
           Text(LikeList.seenList.rawValue)
             .tag(LikeList.seenList)
         }
         .pickerStyle(.segmented)
         .padding(.vertical, 8)
         .padding(.horizontal, 16)
-        
+
         switch store.state.selectedLikeList {
         case .wishList:
           LazyVStack(alignment: .leading, spacing: .zero) {
@@ -42,22 +42,22 @@ extension MyListPage: View {
               .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
               .padding(.horizontal, 16)
               .padding(.vertical, 8)
-            
+
             if !store.itemList.wishList.isEmpty {
               ForEach(store.itemList.wishList) { item in
                 ItemComponent(
                   viewState: .init(item: item, isEdit: isEditingFocus == item),
                   tapAction: { store.send(.routeToDetail($0)) },
-                  swipeAction: { self.isEditingFocus = $0},
-                  deleteAction: { store.send(.updateIsWish($0) )})
+                  swipeAction: { self.isEditingFocus = $0 },
+                  deleteAction: { store.send(.updateIsWish($0)) })
               }
               .background(
                 colorScheme == .dark
-                ? DesignSystemColor.background(.black).color
-                : DesignSystemColor.system(.white).color)
+                  ? DesignSystemColor.background(.black).color
+                  : DesignSystemColor.system(.white).color)
             }
           }
-          
+
         case .seenList:
           LazyVStack(alignment: .leading, spacing: .zero) {
             Text("\(store.itemList.seenList.count) MOVIES IN SEENLIST")
@@ -65,19 +65,19 @@ extension MyListPage: View {
               .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
               .padding(.horizontal, 16)
               .padding(.vertical, 8)
-            
+
             if !store.itemList.seenList.isEmpty {
               ForEach(store.itemList.seenList) { item in
                 ItemComponent(
                   viewState: .init(item: item, isEdit: isEditingFocus == item),
                   tapAction: { store.send(.routeToDetail($0)) },
-                  swipeAction: { self.isEditingFocus = $0},
-                  deleteAction: { store.send(.updateIsSeen($0) )})
+                  swipeAction: { self.isEditingFocus = $0 },
+                  deleteAction: { store.send(.updateIsSeen($0)) })
               }
               .background(
                 colorScheme == .dark
-                ? DesignSystemColor.background(.black).color
-                : DesignSystemColor.system(.white).color)
+                  ? DesignSystemColor.background(.black).color
+                  : DesignSystemColor.system(.white).color)
             }
           }
         }
@@ -102,19 +102,19 @@ extension MyListPage: View {
       }) {
         Text("Sort by added date")
       }
-      
+
       Button(action: {
         store.send(.sortedByReleaseDate)
       }) {
         Text("Sort by release date")
       }
-      
+
       Button(action: {
         store.send(.sortedByRating)
       }) {
         Text("Sort by ratings")
       }
-      
+
       Button(action: {
         store.send(.sortedByPopularity)
       }) {
