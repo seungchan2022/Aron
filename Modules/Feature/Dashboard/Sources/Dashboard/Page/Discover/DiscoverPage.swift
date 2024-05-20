@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import DesignSystem
 import Domain
 import SwiftUI
 
@@ -6,6 +7,7 @@ import SwiftUI
 
 struct DiscoverPage {
   @Bindable var store: StoreOf<DiscoverReducer>
+
 }
 
 extension DiscoverPage {
@@ -74,7 +76,31 @@ extension DiscoverPage: View {
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .padding(.top, -48)
-    .background(.ultraThickMaterial)
+    .background {
+      RemoteImage(
+        url: "https://image.tmdb.org/t/p/w500/\(store.itemList.randomElement()?.poster ?? "")",
+        placeholder: {
+          Rectangle()
+            .fill(.gray)
+        })
+
+      Rectangle()
+        .background(.ultraThinMaterial)
+
+      //      ForEach(store.itemList) { item in
+      //        RemoteImage(
+      //          url: "https://image.tmdb.org/t/p/w500/\(item.poster ?? "")",
+      //          placeholder: {
+      //            Rectangle()
+      //              .fill(.gray)
+      //          }
+      //        )
+      //        Rectangle()
+      //          .background(.ultraThinMaterial)
+      //
+      //      }
+    }
+    .ignoresSafeArea(.all)
     .navigationTitle("Discover")
     .onAppear {
       store.send(.getItem)

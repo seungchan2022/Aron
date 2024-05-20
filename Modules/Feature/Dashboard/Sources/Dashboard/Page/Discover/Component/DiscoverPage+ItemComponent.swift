@@ -37,7 +37,7 @@ extension DiscoverPage.ItemComponent: View {
         .fontWeight(.bold)
         .multilineTextAlignment(.center)
     }
-    .background(.ultraThickMaterial)
+    .background(.clear)
     .clipShape(RoundedRectangle(cornerRadius: 10))
   }
 }

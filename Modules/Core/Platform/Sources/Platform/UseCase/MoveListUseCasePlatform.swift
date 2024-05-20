@@ -59,7 +59,7 @@ extension MovieListUseCasePlatform: MovieListUseCase {
 
   public var getItemList: () -> AnyPublisher<MovieEntity.List, CompositeErrorRepository> {
     {
-      return Just(store)
+      Just(store)
         .setFailureType(to: CompositeErrorRepository.self)
         .eraseToAnyPublisher()
     }
