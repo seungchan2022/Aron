@@ -14,6 +14,16 @@ extension MovieDetailPage {
   private var navigationTitle: String {
     store.state.fetchDetailItem.value?.title ?? ""
   }
+  
+  private var isLoading: Bool {
+    store.fetchDetailItem.isLoading
+    || store.fetchReviewItem.isLoading
+    || store.fetchCreditItem.isLoading
+    || store.fetchSimilarMovieItem.isLoading
+    || store.fetchRecommendedMovieItem.isLoading
+    || store.fetchIsWish.isLoading
+    || store.fetchIsSeen.isLoading
+  }
 }
 
 // MARK: View
@@ -164,6 +174,7 @@ extension MovieDetailPage: View {
       store.send(.getIsWishLike(new))
       store.send(.getIsSeenLike(new))
     }
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getDetail(store.item))
       store.send(.getReview(store.reviewItem))

@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import SwiftUI
+import DesignSystem
 
 // MARK: - TrendingPage
 
@@ -10,7 +11,11 @@ struct TrendingPage {
 
 }
 
-extension TrendingPage { }
+extension TrendingPage { 
+  private var isLoading: Bool {
+    store.fetchItem.isLoading
+  }
+}
 
 // MARK: View
 
@@ -37,6 +42,7 @@ extension TrendingPage: View {
     }
     .navigationTitle("Trending")
     .navigationBarTitleDisplayMode(isNavigationBarLargeTitle ? .large : .inline)
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getItem)
     }

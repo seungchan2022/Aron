@@ -37,6 +37,10 @@ extension DiscoverPage {
 
     return -progress * offset
   }
+  
+  private var isLoading: Bool {
+    store.fetchItem.isLoading
+  }
 }
 
 // MARK: View
@@ -102,6 +106,7 @@ extension DiscoverPage: View {
     }
     .ignoresSafeArea(.all)
     .navigationTitle("Discover")
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getItem)
     }

@@ -8,6 +8,12 @@ struct OtherPosterPage {
   @Bindable var store: StoreOf<OtherPosterReducer>
 }
 
+extension OtherPosterPage {
+  private var isLoading: Bool {
+    store.fetchItem.isLoading
+  }
+}
+
 // MARK: View
 
 extension OtherPosterPage: View {
@@ -19,6 +25,7 @@ extension OtherPosterPage: View {
           tapBackAction: { store.send(.routeToBack) })
       }
     }
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getItem(store.item))
     }

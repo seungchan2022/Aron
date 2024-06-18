@@ -9,6 +9,12 @@ struct GenreListPage {
 
 }
 
+extension GenreListPage {
+  private var isLoading: Bool {
+    store.fetchItem.isLoading
+  }
+}
+
 // MARK: View
 
 extension GenreListPage: View {
@@ -23,6 +29,7 @@ extension GenreListPage: View {
       }
     }
     .navigationTitle("Genre")
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getItem)
     }

@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import SwiftUI
+import DesignSystem
 
 // MARK: - TopRatedPage
 
@@ -10,7 +11,11 @@ struct TopRatedPage {
 
 }
 
-extension TopRatedPage { }
+extension TopRatedPage {
+  private var isLoading: Bool {
+    store.fetchItem.isLoading
+  }
+}
 
 // MARK: View
 
@@ -37,6 +42,7 @@ extension TopRatedPage: View {
     }
     .navigationTitle("Top Rated")
     .navigationBarTitleDisplayMode(isNavigationBarLargeTitle ? .large : .inline)
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getItem)
     }

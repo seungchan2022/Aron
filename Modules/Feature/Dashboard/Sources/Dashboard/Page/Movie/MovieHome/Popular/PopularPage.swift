@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import SwiftUI
+import DesignSystem
 
 // MARK: - PopularPage
 
@@ -10,7 +11,11 @@ struct PopularPage {
 
 }
 
-extension PopularPage { }
+extension PopularPage { 
+  private var isLoading: Bool {
+    store.fetchItem.isLoading
+  }
+}
 
 // MARK: View
 
@@ -37,6 +42,7 @@ extension PopularPage: View {
     }
     .navigationTitle("Popular")
     .navigationBarTitleDisplayMode(isNavigationBarLargeTitle ? .large : .inline)
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getItem)
     }

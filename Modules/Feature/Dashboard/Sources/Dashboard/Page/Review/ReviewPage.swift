@@ -10,6 +10,12 @@ struct ReviewPage {
 
 }
 
+extension ReviewPage {
+  private var isLoading: Bool {
+    store.fetchReviewItem.isLoading
+  }
+}
+
 // MARK: View
 
 extension ReviewPage: View {
@@ -24,6 +30,7 @@ extension ReviewPage: View {
       colorScheme == .dark ? DesignSystemColor.system(.black).color : DesignSystemColor.palette(.gray(.lv200)).color)
     .navigationTitle("Reviews")
     .navigationBarTitleDisplayMode(.large)
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getReview(store.reviewItem))
     }

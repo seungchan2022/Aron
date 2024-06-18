@@ -1,10 +1,17 @@
 import ComposableArchitecture
 import SwiftUI
+import DesignSystem
 
 // MARK: - SimilarPage
 
 struct SimilarPage {
   @Bindable var store: StoreOf<SimilarReducer>
+}
+
+extension SimilarPage {
+  private var isLoading: Bool {
+    store.fetchItem.isLoading
+  }
 }
 
 // MARK: View
@@ -33,6 +40,7 @@ extension SimilarPage: View {
     }
     .navigationTitle("Similar Movies")
     .navigationBarTitleDisplayMode(.large)
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getItem(store.item))
     }

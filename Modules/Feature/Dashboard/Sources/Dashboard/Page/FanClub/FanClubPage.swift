@@ -11,6 +11,12 @@ struct FanClubPage {
 
 }
 
+extension FanClubPage {
+  private var isLoading: Bool {
+    store.fetchItem.isLoading
+  }
+}
+
 // MARK: View
 
 extension FanClubPage: View {
@@ -58,6 +64,7 @@ extension FanClubPage: View {
       colorScheme == .dark ? DesignSystemColor.system(.black).color : DesignSystemColor.palette(.gray(.lv200)).color)
     .navigationTitle("Fan Club")
     .navigationBarTitleDisplayMode(.large)
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getItem)
     }

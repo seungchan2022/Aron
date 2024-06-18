@@ -13,6 +13,10 @@ extension KeywordPage {
   private var navigationTitle: String {
     store.item.name
   }
+  
+  private var isLoading: Bool {
+    store.fetchItem.isLoading
+  }
 }
 
 // MARK: View
@@ -41,6 +45,7 @@ extension KeywordPage: View {
     }
     .navigationTitle(navigationTitle)
     .navigationBarTitleDisplayMode(.inline)
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getItem(store.item))
     }

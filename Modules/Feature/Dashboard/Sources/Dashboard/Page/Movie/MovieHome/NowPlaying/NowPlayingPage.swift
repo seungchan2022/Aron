@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import SwiftUI
+import DesignSystem
 
 // MARK: - NowPlayingPage
 
@@ -10,7 +11,11 @@ struct NowPlayingPage {
 
 }
 
-extension NowPlayingPage { }
+extension NowPlayingPage {
+  private var isLoading: Bool {
+    store.fetchItem.isLoading
+  }
+}
 
 // MARK: View
 
@@ -37,6 +42,7 @@ extension NowPlayingPage: View {
     }
     .navigationTitle("Now Playing")
     .navigationBarTitleDisplayMode(isNavigationBarLargeTitle ? .large : .inline)
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getItem)
     }

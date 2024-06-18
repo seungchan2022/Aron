@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import SwiftUI
+import DesignSystem
 
 // MARK: - MovieListPage
 
@@ -9,6 +10,17 @@ struct MovieListPage {
 
   @Environment(\.colorScheme) private var scheme
   @AppStorage("userTheme") private var userTheme: Theme = .systemDefault
+}
+
+extension MovieListPage {
+  private var isLoading: Bool {
+    store.fetchNowPlayingItem.isLoading
+    || store.fetchUpcomingItem.isLoading
+    || store.fetchTrendingItem.isLoading
+    || store.fetchPopularItem.isLoading
+    || store.fetchTopRatedItem.isLoading
+    || store.fetchGenreItem.isLoading
+  }
 }
 
 // MARK: View
@@ -75,6 +87,7 @@ extension MovieListPage: View {
         }
       }
     }
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getNowPlayingItem)
       store.send(.getUpcomingItem)

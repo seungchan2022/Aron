@@ -10,6 +10,12 @@ struct CastPage {
 
 }
 
+extension CastPage {
+  private var isLoading: Bool {
+    store.fetchCastItem.isLoading
+  }
+}
+
 // MARK: View
 
 extension CastPage: View {
@@ -26,6 +32,7 @@ extension CastPage: View {
       colorScheme == .dark ? DesignSystemColor.system(.black).color : DesignSystemColor.palette(.gray(.lv200)).color)
     .navigationTitle("Cast")
     .navigationBarTitleDisplayMode(.large)
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getCastItem(store.castItem))
     }

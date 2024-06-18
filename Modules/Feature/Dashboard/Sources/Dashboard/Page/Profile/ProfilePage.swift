@@ -15,6 +15,12 @@ extension ProfilePage {
   private var navigationTitle: String {
     store.fetchItem.value?.name ?? ""
   }
+  
+  private var isLoading: Bool {
+    store.fetchItem.isLoading
+    || store.fetchProfileImage.isLoading
+    || store.fetchMovieCreditItem.isLoading
+  }
 }
 
 // MARK: View
@@ -81,6 +87,7 @@ extension ProfilePage: View {
       colorScheme == .dark ? DesignSystemColor.system(.black).color : DesignSystemColor.palette(.gray(.lv200)).color)
     .navigationTitle(navigationTitle)
     .navigationBarTitleDisplayMode(.large)
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getItem(store.item))
       store.send(.getProfileImage(store.profileImageItem))

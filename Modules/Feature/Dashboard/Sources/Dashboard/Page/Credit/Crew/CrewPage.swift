@@ -10,6 +10,12 @@ struct CrewPage {
 
 }
 
+extension CrewPage {
+  private var isLoading: Bool {
+    store.fetchCrewItem.isLoading
+  }
+}
+
 // MARK: View
 
 extension CrewPage: View {
@@ -26,6 +32,7 @@ extension CrewPage: View {
       colorScheme == .dark ? DesignSystemColor.system(.black).color : DesignSystemColor.palette(.gray(.lv200)).color)
     .navigationTitle("Crew")
     .navigationBarTitleDisplayMode(.large)
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getCrewItem(store.crewItem))
     }

@@ -16,7 +16,11 @@ struct UpcomingPage {
 
 }
 
-extension UpcomingPage { }
+extension UpcomingPage { 
+  private var isLoading: Bool {
+    store.fetchItem.isLoading
+  }
+}
 
 // MARK: View
 
@@ -43,6 +47,7 @@ extension UpcomingPage: View {
     }
     .navigationTitle("Upcoming")
     .navigationBarTitleDisplayMode(isNavigationBarLargeTitle ? .large : .inline)
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getItem)
     }

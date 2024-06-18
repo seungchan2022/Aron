@@ -26,6 +26,14 @@ struct HomePage {
   @AppStorage("userTheme") private var userTheme: Theme = .systemDefault
 }
 
+extension HomePage {
+  private var isLoading: Bool {
+    store.fetchSearchMovieItem.isLoading
+    || store.fetchSearchPersonItem.isLoading
+    || store.fetchSearchKeywordItem.isLoading
+  }
+}
+
 // MARK: View
 
 extension HomePage: View {
@@ -170,6 +178,7 @@ extension HomePage: View {
     .onChange(of: store.query) { _, new in
       throttleEvent.update(value: new)
     }
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       throttleEvent.apply { _ in
         store.send(.searchMovie(store.query))

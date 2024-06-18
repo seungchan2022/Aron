@@ -1,10 +1,17 @@
 import ComposableArchitecture
 import SwiftUI
+import DesignSystem
 
 // MARK: - RecommendedPage
 
 struct RecommendedPage {
   @Bindable var store: StoreOf<RecommendedReducer>
+}
+
+extension RecommendedPage {
+  private var isLoading: Bool {
+    store.fetchItem.isLoading
+  }
 }
 
 // MARK: View
@@ -33,6 +40,7 @@ extension RecommendedPage: View {
     }
     .navigationTitle("Recommended Movies")
     .navigationBarTitleDisplayMode(.large)
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getItem(store.item))
     }

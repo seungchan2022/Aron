@@ -14,6 +14,14 @@ struct MyListPage {
 
 }
 
+extension MyListPage {
+  private var isLoading: Bool {
+    store.fetchItemList.isLoading
+    || store.fetchIsWish.isLoading
+    || store.fetchIsSeen.isLoading
+  }
+}
+
 // MARK: View
 
 extension MyListPage: View {
@@ -123,6 +131,7 @@ extension MyListPage: View {
     } message: {
       Text("Sort movies by")
     }
+    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getItemList)
     }
