@@ -15,6 +15,10 @@ extension TopRatedPage {
   private var isLoading: Bool {
     store.fetchItem.isLoading
   }
+  
+  private var navigationTitle: String {
+    "Top Rated"
+  }
 }
 
 // MARK: View
@@ -40,9 +44,10 @@ extension TopRatedPage: View {
       .padding(.horizontal, 16)
       .padding(.top, 12)
     }
-    .navigationTitle("Top Rated")
+    .navigationTitle(navigationTitle)
     .navigationBarTitleDisplayMode(isNavigationBarLargeTitle ? .large : .inline)
     .setRequestFlightView(isLoading: isLoading)
+    .redacted(reason: isLoading ? .placeholder : [])
     .onAppear {
       store.send(.getItem)
     }

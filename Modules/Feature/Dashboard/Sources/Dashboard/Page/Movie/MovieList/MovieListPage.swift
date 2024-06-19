@@ -21,6 +21,10 @@ extension MovieListPage {
     || store.fetchTopRatedItem.isLoading
     || store.fetchGenreItem.isLoading
   }
+  
+  private var navigationTitle: String {
+    "MovieList"
+  }
 }
 
 // MARK: View
@@ -71,7 +75,7 @@ extension MovieListPage: View {
         }
       }
     }
-    .navigationTitle("MovieList")
+    .navigationTitle(navigationTitle)
     .navigationBarTitleDisplayMode(.large)
     .navigationBarBackButtonHidden(true)
     .toolbar {
@@ -88,6 +92,7 @@ extension MovieListPage: View {
       }
     }
     .setRequestFlightView(isLoading: isLoading)
+    .redacted(reason: isLoading ? .placeholder : [])
     .onAppear {
       store.send(.getNowPlayingItem)
       store.send(.getUpcomingItem)

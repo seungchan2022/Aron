@@ -12,6 +12,10 @@ extension SimilarPage {
   private var isLoading: Bool {
     store.fetchItem.isLoading
   }
+  
+  private var navigationTitle: String {
+    "Similar Movies"
+  }
 }
 
 // MARK: View
@@ -38,7 +42,7 @@ extension SimilarPage: View {
         .padding(.top, 12)
       }
     }
-    .navigationTitle("Similar Movies")
+    .navigationTitle(navigationTitle)
     .navigationBarTitleDisplayMode(.large)
     .setRequestFlightView(isLoading: isLoading)
     .onAppear {

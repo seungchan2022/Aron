@@ -175,6 +175,7 @@ extension MovieDetailPage: View {
       store.send(.getIsSeenLike(new))
     }
     .setRequestFlightView(isLoading: isLoading)
+    .redacted(reason: isLoading ? .placeholder : [])
     .onAppear {
       store.send(.getDetail(store.item))
       store.send(.getReview(store.reviewItem))

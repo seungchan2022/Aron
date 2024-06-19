@@ -20,6 +20,10 @@ extension MyListPage {
     || store.fetchIsWish.isLoading
     || store.fetchIsSeen.isLoading
   }
+  
+  private var navigationTitle: String {
+    "My List"
+  }
 }
 
 // MARK: View
@@ -93,7 +97,7 @@ extension MyListPage: View {
     }
     .background(
       colorScheme == .dark ? DesignSystemColor.system(.black).color : DesignSystemColor.palette(.gray(.lv100)).color)
-    .navigationTitle("My Lists")
+    .navigationTitle(navigationTitle)
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
         Button(action: { store.isShowingConfirmation = true }) {
@@ -132,6 +136,7 @@ extension MyListPage: View {
       Text("Sort movies by")
     }
     .setRequestFlightView(isLoading: isLoading)
+    .redacted(reason: isLoading ? .placeholder : [])
     .onAppear {
       store.send(.getItemList)
     }

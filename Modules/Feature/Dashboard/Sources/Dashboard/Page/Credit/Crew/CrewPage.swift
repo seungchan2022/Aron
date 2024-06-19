@@ -14,6 +14,10 @@ extension CrewPage {
   private var isLoading: Bool {
     store.fetchCrewItem.isLoading
   }
+  
+  private var navigationTitle: String {
+    "Crew"
+  }
 }
 
 // MARK: View
@@ -30,7 +34,7 @@ extension CrewPage: View {
     .frame(maxWidth: .infinity, alignment: .leading)
     .background(
       colorScheme == .dark ? DesignSystemColor.system(.black).color : DesignSystemColor.palette(.gray(.lv200)).color)
-    .navigationTitle("Crew")
+    .navigationTitle(navigationTitle)
     .navigationBarTitleDisplayMode(.large)
     .setRequestFlightView(isLoading: isLoading)
     .onAppear {

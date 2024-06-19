@@ -59,26 +59,6 @@ extension ProfilePage: View {
             viewState: .init(item: item),
             tapAction: { store.send(.routeToCrewDetail($0)) })
         }
-//        VStack(alignment: .leading, spacing: .zero) {
-//          Text("Crew")
-//            .font(.title)
-//            .fontWeight(.bold)
-//            .padding(.leading, 32)
-//
-//          LazyVStack(alignment: .leading) {
-//            ForEach(store.fetchMovieCreditItem.value?.crewItemList ?? []) { item in
-//              CrewItemComponent(
-//                viewState: .init(item: item),
-//                tapAction: { store.send(.routeToCrewDetail($0)) })
-//            }
-//          }
-//          .background(
-//            colorScheme == .dark
-//              ? DesignSystemColor.background(.black).color
-//              : DesignSystemColor.system(.white).color)
-//            .clipShape(RoundedRectangle(cornerRadius: 10))
-//            .padding(.horizontal, 12)
-//        }
       }
       .padding(.top, 24)
     }
@@ -88,6 +68,7 @@ extension ProfilePage: View {
     .navigationTitle(navigationTitle)
     .navigationBarTitleDisplayMode(.large)
     .setRequestFlightView(isLoading: isLoading)
+    .redacted(reason: isLoading ? .placeholder : [])
     .onAppear {
       store.send(.getItem(store.item))
       store.send(.getProfileImage(store.profileImageItem))

@@ -41,6 +41,10 @@ extension DiscoverPage {
   private var isLoading: Bool {
     store.fetchItem.isLoading
   }
+  
+  private var navigationTitle: String {
+    "Discover"
+  }
 }
 
 // MARK: View
@@ -105,7 +109,7 @@ extension DiscoverPage: View {
       //      }
     }
     .ignoresSafeArea(.all)
-    .navigationTitle("Discover")
+    .navigationTitle(navigationTitle)
     .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getItem)

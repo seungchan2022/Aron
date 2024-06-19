@@ -20,6 +20,10 @@ extension UpcomingPage {
   private var isLoading: Bool {
     store.fetchItem.isLoading
   }
+  
+  private var navigationTitle: String {
+    "Upcoming"
+  }
 }
 
 // MARK: View
@@ -45,9 +49,10 @@ extension UpcomingPage: View {
       .padding(.horizontal, 16)
       .padding(.top, 12)
     }
-    .navigationTitle("Upcoming")
+    .navigationTitle(navigationTitle)
     .navigationBarTitleDisplayMode(isNavigationBarLargeTitle ? .large : .inline)
     .setRequestFlightView(isLoading: isLoading)
+    .redacted(reason: isLoading ? .placeholder : [])
     .onAppear {
       store.send(.getItem)
     }

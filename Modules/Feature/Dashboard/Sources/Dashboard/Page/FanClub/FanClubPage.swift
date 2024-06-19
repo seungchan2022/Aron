@@ -15,6 +15,10 @@ extension FanClubPage {
   private var isLoading: Bool {
     store.fetchItem.isLoading
   }
+  
+  private var navigationTitle: String {
+    "Fan Club"
+  }
 }
 
 // MARK: View
@@ -28,6 +32,7 @@ extension FanClubPage: View {
           .foregroundStyle(DesignSystemColor.palette(.gray(.lv400)).color)
           .padding(.leading, 24)
           .padding(.vertical, 8)
+          .unredacted()
 
         if !store.itemList.isEmpty {
           LazyVStack {
@@ -62,9 +67,10 @@ extension FanClubPage: View {
     .frame(maxWidth: .infinity, alignment: .leading)
     .background(
       colorScheme == .dark ? DesignSystemColor.system(.black).color : DesignSystemColor.palette(.gray(.lv200)).color)
-    .navigationTitle("Fan Club")
+    .navigationTitle(navigationTitle)
     .navigationBarTitleDisplayMode(.large)
     .setRequestFlightView(isLoading: isLoading)
+    .redacted(reason: isLoading ? .placeholder : [])
     .onAppear {
       store.send(.getItem)
     }

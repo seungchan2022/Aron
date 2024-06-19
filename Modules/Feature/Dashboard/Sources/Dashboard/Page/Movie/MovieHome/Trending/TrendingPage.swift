@@ -15,6 +15,10 @@ extension TrendingPage {
   private var isLoading: Bool {
     store.fetchItem.isLoading
   }
+  
+  private var navigationTitle: String {
+    "Trending"
+  }
 }
 
 // MARK: View
@@ -40,9 +44,10 @@ extension TrendingPage: View {
       .padding(.horizontal, 16)
       .padding(.top, 12)
     }
-    .navigationTitle("Trending")
+    .navigationTitle(navigationTitle)
     .navigationBarTitleDisplayMode(isNavigationBarLargeTitle ? .large : .inline)
     .setRequestFlightView(isLoading: isLoading)
+    .redacted(reason: isLoading ? .placeholder : [])
     .onAppear {
       store.send(.getItem)
     }

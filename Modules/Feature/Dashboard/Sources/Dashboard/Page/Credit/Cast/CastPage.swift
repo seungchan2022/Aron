@@ -14,6 +14,10 @@ extension CastPage {
   private var isLoading: Bool {
     store.fetchCastItem.isLoading
   }
+  
+  private var navigationTitle: String {
+    "Cast"
+  }
 }
 
 // MARK: View
@@ -30,7 +34,7 @@ extension CastPage: View {
     .frame(maxWidth: .infinity, alignment: .leading)
     .background(
       colorScheme == .dark ? DesignSystemColor.system(.black).color : DesignSystemColor.palette(.gray(.lv200)).color)
-    .navigationTitle("Cast")
+    .navigationTitle(navigationTitle)
     .navigationBarTitleDisplayMode(.large)
     .setRequestFlightView(isLoading: isLoading)
     .onAppear {

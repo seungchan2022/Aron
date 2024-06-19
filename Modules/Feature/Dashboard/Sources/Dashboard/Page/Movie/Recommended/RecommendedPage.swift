@@ -12,6 +12,10 @@ extension RecommendedPage {
   private var isLoading: Bool {
     store.fetchItem.isLoading
   }
+  
+  private var navigationTitle: String {
+    "Recommended Movies"
+  }
 }
 
 // MARK: View

@@ -15,6 +15,10 @@ extension PopularPage {
   private var isLoading: Bool {
     store.fetchItem.isLoading
   }
+  
+  private var navigationTitle: String {
+    "Popular"
+  }
 }
 
 // MARK: View
@@ -40,9 +44,10 @@ extension PopularPage: View {
       .padding(.horizontal, 16)
       .padding(.top, 12)
     }
-    .navigationTitle("Popular")
+    .navigationTitle(navigationTitle)
     .navigationBarTitleDisplayMode(isNavigationBarLargeTitle ? .large : .inline)
     .setRequestFlightView(isLoading: isLoading)
+    .redacted(reason: isLoading ? .placeholder : [])
     .onAppear {
       store.send(.getItem)
     }
