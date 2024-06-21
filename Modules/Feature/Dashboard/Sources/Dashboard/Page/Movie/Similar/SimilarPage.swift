@@ -1,6 +1,6 @@
 import ComposableArchitecture
-import SwiftUI
 import DesignSystem
+import SwiftUI
 
 // MARK: - SimilarPage
 
@@ -12,7 +12,7 @@ extension SimilarPage {
   private var isLoading: Bool {
     store.fetchItem.isLoading
   }
-  
+
   private var navigationTitle: String {
     "Similar Movies"
   }
@@ -23,7 +23,6 @@ extension SimilarPage {
 extension SimilarPage: View {
   var body: some View {
     ScrollView {
-      // MovieItemComponent
       Divider()
         .padding(.leading, 16)
 

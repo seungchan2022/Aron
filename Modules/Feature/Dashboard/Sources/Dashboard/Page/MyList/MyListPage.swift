@@ -17,10 +17,10 @@ struct MyListPage {
 extension MyListPage {
   private var isLoading: Bool {
     store.fetchItemList.isLoading
-    || store.fetchIsWish.isLoading
-    || store.fetchIsSeen.isLoading
+      || store.fetchIsWish.isLoading
+      || store.fetchIsSeen.isLoading
   }
-  
+
   private var navigationTitle: String {
     "My List"
   }

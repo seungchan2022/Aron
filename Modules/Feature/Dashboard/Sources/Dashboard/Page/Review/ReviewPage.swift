@@ -14,7 +14,7 @@ extension ReviewPage {
   private var isLoading: Bool {
     store.fetchReviewItem.isLoading
   }
-  
+
   private var navigationTitle: String {
     "Reviews"
   }

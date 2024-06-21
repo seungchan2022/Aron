@@ -1,6 +1,6 @@
 import ComposableArchitecture
-import SwiftUI
 import DesignSystem
+import SwiftUI
 
 // MARK: - TrendingPage
 
@@ -11,11 +11,11 @@ struct TrendingPage {
 
 }
 
-extension TrendingPage { 
+extension TrendingPage {
   private var isLoading: Bool {
     store.fetchItem.isLoading
   }
-  
+
   private var navigationTitle: String {
     "Trending"
   }

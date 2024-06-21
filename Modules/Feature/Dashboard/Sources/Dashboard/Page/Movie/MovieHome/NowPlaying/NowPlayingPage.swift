@@ -1,6 +1,6 @@
 import ComposableArchitecture
-import SwiftUI
 import DesignSystem
+import SwiftUI
 
 // MARK: - NowPlayingPage
 
@@ -15,7 +15,7 @@ extension NowPlayingPage {
   private var isLoading: Bool {
     store.fetchItem.isLoading
   }
-  
+
   private var navigationTitle: String {
     "Now Playing"
   }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension View {
-  
+
   @ViewBuilder
   public func setRequestFlightView(isLoading: Bool) -> some View {
     overlay(alignment: .center) {

@@ -1,6 +1,6 @@
 import ComposableArchitecture
-import SwiftUI
 import DesignSystem
+import SwiftUI
 
 // MARK: - MovieListPage
 
@@ -15,13 +15,13 @@ struct MovieListPage {
 extension MovieListPage {
   private var isLoading: Bool {
     store.fetchNowPlayingItem.isLoading
-    || store.fetchUpcomingItem.isLoading
-    || store.fetchTrendingItem.isLoading
-    || store.fetchPopularItem.isLoading
-    || store.fetchTopRatedItem.isLoading
-    || store.fetchGenreItem.isLoading
+      || store.fetchUpcomingItem.isLoading
+      || store.fetchTrendingItem.isLoading
+      || store.fetchPopularItem.isLoading
+      || store.fetchTopRatedItem.isLoading
+      || store.fetchGenreItem.isLoading
   }
-  
+
   private var navigationTitle: String {
     "MovieList"
   }
@@ -82,12 +82,14 @@ extension MovieListPage: View {
       ToolbarItem(placement: .topBarTrailing) {
         Button(action: { store.send(.routeToMovieHome) }) {
           Image(systemName: "rectangle.grid.1x2")
+            .unredacted()
         }
       }
 
       ToolbarItem(placement: .topBarTrailing) {
         Button(action: { store.isChangeTheme = true }) {
           Image(systemName: "gearshape")
+            .unredacted()
         }
       }
     }

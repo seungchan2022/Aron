@@ -29,8 +29,8 @@ struct HomePage {
 extension HomePage {
   private var isLoading: Bool {
     store.fetchSearchMovieItem.isLoading
-    || store.fetchSearchPersonItem.isLoading
-    || store.fetchSearchKeywordItem.isLoading
+      || store.fetchSearchPersonItem.isLoading
+      || store.fetchSearchKeywordItem.isLoading
   }
 }
 
@@ -85,6 +85,11 @@ extension HomePage: View {
                 Text("Keywords")
                   .foregroundStyle(DesignSystemColor.palette(.gray(.lv300)).color)
                   .padding(.top, 16)
+
+                if store.searchKeywordItemList.isEmpty {
+                  Text("No Result")
+                    .padding(.top, 8)
+                }
 
                 ForEach(store.searchKeywordItemList.prefix(5)) { item in
                   SearchResultKeywordComponent(
@@ -171,7 +176,7 @@ extension HomePage: View {
         Button(action: {
           store.isChangeTheme = true
         }) {
-          Image(systemName: "gearshape")
+          Image(systemName: scheme == .dark ? "moon.fill" : "sun.max")
         }
       }
     }

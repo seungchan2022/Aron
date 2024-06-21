@@ -43,6 +43,7 @@ extension HomePage.SearchResultPersonComponent: View {
           Text(viewState.item.name)
             .font(.system(size: 18))
             .foregroundStyle(DesignSystemColor.label(.ocher).color)
+            .multilineTextAlignment(.leading)
 
           Spacer()
 

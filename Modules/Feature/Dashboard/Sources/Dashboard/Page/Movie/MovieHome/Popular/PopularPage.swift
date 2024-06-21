@@ -1,6 +1,6 @@
 import ComposableArchitecture
-import SwiftUI
 import DesignSystem
+import SwiftUI
 
 // MARK: - PopularPage
 
@@ -11,11 +11,11 @@ struct PopularPage {
 
 }
 
-extension PopularPage { 
+extension PopularPage {
   private var isLoading: Bool {
     store.fetchItem.isLoading
   }
-  
+
   private var navigationTitle: String {
     "Popular"
   }

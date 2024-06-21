@@ -14,7 +14,7 @@ extension CrewPage {
   private var isLoading: Bool {
     store.fetchCrewItem.isLoading
   }
-  
+
   private var navigationTitle: String {
     "Crew"
   }

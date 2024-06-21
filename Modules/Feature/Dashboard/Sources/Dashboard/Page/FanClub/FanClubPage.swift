@@ -15,7 +15,7 @@ extension FanClubPage {
   private var isLoading: Bool {
     store.fetchItem.isLoading
   }
-  
+
   private var navigationTitle: String {
     "Fan Club"
   }

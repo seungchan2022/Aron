@@ -13,7 +13,7 @@ extension GenrePage {
   private var navigationTitle: String {
     store.item.name
   }
-  
+
   private var isLoading: Bool {
     store.fetchItem.isLoading
   }

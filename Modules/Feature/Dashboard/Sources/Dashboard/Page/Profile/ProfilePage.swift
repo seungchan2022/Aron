@@ -15,11 +15,11 @@ extension ProfilePage {
   private var navigationTitle: String {
     store.fetchItem.value?.name ?? ""
   }
-  
+
   private var isLoading: Bool {
     store.fetchItem.isLoading
-    || store.fetchProfileImage.isLoading
-    || store.fetchMovieCreditItem.isLoading
+      || store.fetchProfileImage.isLoading
+      || store.fetchMovieCreditItem.isLoading
   }
 }
 

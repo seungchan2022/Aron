@@ -14,15 +14,15 @@ extension MovieDetailPage {
   private var navigationTitle: String {
     store.state.fetchDetailItem.value?.title ?? ""
   }
-  
+
   private var isLoading: Bool {
     store.fetchDetailItem.isLoading
-    || store.fetchReviewItem.isLoading
-    || store.fetchCreditItem.isLoading
-    || store.fetchSimilarMovieItem.isLoading
-    || store.fetchRecommendedMovieItem.isLoading
-    || store.fetchIsWish.isLoading
-    || store.fetchIsSeen.isLoading
+      || store.fetchReviewItem.isLoading
+      || store.fetchCreditItem.isLoading
+      || store.fetchSimilarMovieItem.isLoading
+      || store.fetchRecommendedMovieItem.isLoading
+      || store.fetchIsWish.isLoading
+      || store.fetchIsSeen.isLoading
   }
 }
 
@@ -154,6 +154,7 @@ extension MovieDetailPage: View {
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .padding(.horizontal, 12) // 그룹의 패딩
         .padding(.top, 24)
+        .padding(.bottom, 32)
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .background(
@@ -174,6 +175,7 @@ extension MovieDetailPage: View {
       store.send(.getIsWishLike(new))
       store.send(.getIsSeenLike(new))
     }
+    .animation(.smooth, value: isLoading)
     .setRequestFlightView(isLoading: isLoading)
     .redacted(reason: isLoading ? .placeholder : [])
     .onAppear {

@@ -43,6 +43,7 @@ extension HomePage.SearchResultMovieComponent: View {
             Text(viewState.item.title)
               .font(.system(size: 18))
               .foregroundStyle(DesignSystemColor.label(.ocher).color)
+              .multilineTextAlignment(.leading)
 
             HStack {
               Text("\(Int(viewState.item.voteAverage ?? 0 * 10))%")

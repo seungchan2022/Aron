@@ -16,11 +16,11 @@ struct UpcomingPage {
 
 }
 
-extension UpcomingPage { 
+extension UpcomingPage {
   private var isLoading: Bool {
     store.fetchItem.isLoading
   }
-  
+
   private var navigationTitle: String {
     "Upcoming"
   }

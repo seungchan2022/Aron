@@ -11,6 +11,15 @@ struct DiscoverPage {
 }
 
 extension DiscoverPage {
+
+  private var isLoading: Bool {
+    store.fetchItem.isLoading
+  }
+
+  private var navigationTitle: String {
+    "Discover"
+  }
+
   private func minX(proxy: GeometryProxy) -> CGFloat {
     let minX = proxy.frame(in: .scrollView(axis: .horizontal)).minX
 
@@ -36,14 +45,6 @@ extension DiscoverPage {
     let progress = progress(proxy: proxy)
 
     return -progress * offset
-  }
-  
-  private var isLoading: Bool {
-    store.fetchItem.isLoading
-  }
-  
-  private var navigationTitle: String {
-    "Discover"
   }
 }
 
@@ -110,7 +111,7 @@ extension DiscoverPage: View {
     }
     .ignoresSafeArea(.all)
     .navigationTitle(navigationTitle)
-    .setRequestFlightView(isLoading: isLoading)
+//    .setRequestFlightView(isLoading: isLoading)
     .onAppear {
       store.send(.getItem)
     }

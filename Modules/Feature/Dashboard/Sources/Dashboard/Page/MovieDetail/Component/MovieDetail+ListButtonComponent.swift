@@ -31,7 +31,7 @@ extension MovieDetailPage.ListButtonComponent {
   }
 
   private var seenButtonImage: Image {
-    Image(systemName: viewState.isSeen ? "eye.fill" : "heart")
+    Image(systemName: viewState.isSeen ? "eye.fill" : "eye")
   }
 
   private var seenButtonText: String {
