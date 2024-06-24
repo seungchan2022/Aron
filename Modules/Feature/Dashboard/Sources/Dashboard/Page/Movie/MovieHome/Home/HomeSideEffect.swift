@@ -104,7 +104,7 @@ extension HomeSideEffect {
     { item in
       navigator.next(
         linkItem: .init(
-          path: Link.Dashboard.Path.profile.rawValue,
+          path: Link.Person.Path.profile.rawValue,
           items: item.serialized()),
         isAnimated: true)
     }

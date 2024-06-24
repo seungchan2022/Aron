@@ -41,7 +41,7 @@ extension AppMain: View {
             title: "FanClub",
             image: .init(systemName: "star.circle.fill"),
             tag: 2),
-          linkItem: .init(path: Link.Dashboard.Path.fanClub.rawValue),
+          linkItem: .init(path: Link.Person.Path.fanClub.rawValue),
           prefersLargeTitles: true),
 
         .init(

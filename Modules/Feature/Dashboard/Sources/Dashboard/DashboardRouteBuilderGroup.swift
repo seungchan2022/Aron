@@ -24,14 +24,19 @@ extension DashboardRouteBuilderGroup {
       RecommendedRouteBuilder.generate(),
       MovieDetailRouteBuilder.generate(),
       ReviewRouteBuilder.generate(),
-      CastRouteBuilder.generate(),
-      CrewRouteBuilder.generate(),
       OtherPosterRouteBuilder.generate(),
       DiscoverRouteBuilder.generate(),
-      FanClubRouteBuilder.generate(),
-      ProfileRouteBuilder.generate(),
       MyListRouteBuilder.generate(),
       SettingRouteBuilder.generate(),
+    ]
+  }
+
+  public static var template: [RouteBuilderOf<RootNavigator>] {
+    [
+      CastRouteBuilder.generate(),
+      CrewRouteBuilder.generate(),
+      FanClubRouteBuilder.generate(),
+      ProfileRouteBuilder.generate(),
     ]
   }
 }

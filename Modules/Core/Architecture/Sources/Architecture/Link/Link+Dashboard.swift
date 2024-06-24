@@ -24,12 +24,8 @@ extension Link.Dashboard {
     case recommended
     case movieDetail
     case review
-    case cast
-    case crew
     case otherPoster
     case discover
-    case fanClub
-    case profile
     case myList
     case setting
   }

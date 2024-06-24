@@ -168,7 +168,7 @@ extension MovieDetailSideEffect {
     { item in
       navigator.next(
         linkItem: .init(
-          path: Link.Dashboard.Path.profile.rawValue,
+          path: Link.Person.Path.profile.rawValue,
           items: item.serializedCast()),
         isAnimated: true)
     }
@@ -178,7 +178,7 @@ extension MovieDetailSideEffect {
     { item in
       navigator.next(
         linkItem: .init(
-          path: Link.Dashboard.Path.profile.rawValue,
+          path: Link.Person.Path.profile.rawValue,
           items: item.serializedCrew()),
         isAnimated: true)
     }
@@ -188,7 +188,7 @@ extension MovieDetailSideEffect {
     { item in
       navigator.next(
         linkItem: .init(
-          path: Link.Dashboard.Path.cast.rawValue,
+          path: Link.Person.Path.cast.rawValue,
           items: item.serializedCredit()),
         isAnimated: true)
     }
@@ -198,7 +198,7 @@ extension MovieDetailSideEffect {
     { item in
       navigator.next(
         linkItem: .init(
-          path: Link.Dashboard.Path.crew.rawValue,
+          path: Link.Person.Path.crew.rawValue,
           items: item.serializedCredit()),
         isAnimated: true)
     }
