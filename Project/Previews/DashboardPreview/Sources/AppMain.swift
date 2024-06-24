@@ -50,7 +50,7 @@ extension AppMain: View {
             title: "MyList",
             image: .init(systemName: "heart.circle.fill"),
             tag: 3),
-          linkItem: .init(path: Link.Dashboard.Path.myList.rawValue),
+          linkItem: .init(path: Link.My.Path.myList.rawValue),
           prefersLargeTitles: true),
       ])
       .ignoresSafeArea()

@@ -26,7 +26,6 @@ extension Link.Dashboard {
     case review
     case otherPoster
     case discover
-    case myList
     case setting
   }
 }

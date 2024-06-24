@@ -68,6 +68,7 @@ extension [TargetDependency] {
     [
       .package(product: "Dashboard", type: .runtime),
       .package(product: "Person", type: .runtime),
+      .package(product: "My", type: .runtime),
     ]
   }
 }
