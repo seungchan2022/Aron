@@ -87,10 +87,12 @@ extension MovieListPage: View {
       }
 
       ToolbarItem(placement: .topBarTrailing) {
-        Button(action: { store.isChangeTheme = true }) {
-          Image(systemName: "gearshape")
-            .unredacted()
+        Button(action: {
+          store.isChangeTheme = true
+        }) {
+          Image(systemName: scheme == .dark ? "moon.fill" : "sun.max")
         }
+        .unredacted()
       }
     }
     .setRequestFlightView(isLoading: isLoading)

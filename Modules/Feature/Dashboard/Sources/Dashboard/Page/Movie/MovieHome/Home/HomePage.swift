@@ -178,6 +178,7 @@ extension HomePage: View {
         }) {
           Image(systemName: scheme == .dark ? "moon.fill" : "sun.max")
         }
+        .unredacted()
       }
     }
     .onChange(of: store.query) { _, new in
