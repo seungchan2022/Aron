@@ -52,35 +52,6 @@ API는 [MovieSwiftUI](https://github.com/Dimillian/MovieSwiftUI)를 실행해서
 
 <br>
 
-## 🗂️ UI 컴포넌트 분리
-
-* 화면에 표현할 것들을 UI 컴포넌트라는 파일안에 최대한 분리하여, 해당 페이지 안에서는 UI 표현에 대한 직접적인 로직을 최대한 작성하지 않으려고 했습니다.
-* 이렇게 함으로써 코드를 더욱더 구조화 할수 있고, 각 부분이 명확하게 분리되어 있어 유지보수 및 확장이 용이하면 가독성을 높일 수 있습니다.
-  
-<br>
-
-<details>
-<summary><strong style="font-size: 1.2em;"> 페이지 구조</strong></summary>
-
-<br>
-
-* 페이지에 구조에 대해서 설명하자면 먼저 구조체가 정의되어 있습니다. 이 구조체안에는 뷰 상태를 관리하고, 뷰의 데이터를 저장합니다.
-* 그 다음 extension은 해당 페이지에 대한 내부 상태와 속성을 계산하는 부분입니다. 이를 통해 뷰에 필요한 데이터를 제공합니다.
-* 그리고 위에서 설정할 것들과 분리한 컴포넌트들을 View에 작성하여 실제 UI를 정의합니다.
-
-<p align="center">
-  <img width="80%" alt="페이지 구조" src="https://github.com/seungchan2022/Aron/assets/110214307/4a31f15a-ac66-42c0-9fe4-be2c80a8e05a">
-</p>
-
-</details>
-
-<br>
-
-<p align="left">
-	<img width="80%" alt="UI 컴포넌트 분리" src="https://github.com/seungchan2022/Aron/assets/110214307/4b4d9225-6c08-405e-acf4-3236128e7da5">
-</p>
-
-<br>
 
 ## 👀 예외 처리
 * 예외 처리를 통해 사용자에게 현재 상태를 명확하게 전달하고, 예상치 못한 상황에서도 적절한 피드백을 제공함으로써 사용자 경험을 개선합니다.
@@ -128,13 +99,15 @@ API는 [MovieSwiftUI](https://github.com/Dimillian/MovieSwiftUI)를 실행해서
 <br>
 
 ## 📚 모듈화
-* 모듈화를 함으로써 각 모듈이 독립성을 가지고, 코드를 구조화 되며, 재사용 가능하고 유지 보수를 효율적으로 만듭니다. 
+ 
+* 한 프로젝트에서 각 테마 별로 모듈로 나누어 모듈화를 진행했습니다.
+* 모듈화를 함으로써 각 모듈이 독립성을 가지고, 코드를 구조화 되며, 재사용 가능하고 유지 보수를 효율적으로 만듭니다.
 
 <br>
 
-<p align="center">
-  <img width="40%" alt="모둘화" src="https://github.com/seungchan2022/Aron/assets/110214307/7c0c902f-8791-43ab-88f1-c89ced167f42">
-</p>
+|프로젝트 구조 구상|실제 프로젝트 구조|
+|-|-|
+|<img src="https://github.com/seungchan2022/Aron/assets/110214307/5e026f2a-77b8-4dae-ae50-4c6488249316" alt="Mind">|<img src="https://github.com/seungchan2022/Aron/assets/110214307/9dc167b4-9958-489d-8b7e-198991f44eda" alt="Module">
 
 <br>
 
@@ -165,3 +138,5 @@ API는 [MovieSwiftUI](https://github.com/Dimillian/MovieSwiftUI)를 실행해서
 > #### [개념 출처](https://martinfowler.com/articles/mocksArentStubs.html )
 
 </details>
+<br>
+
