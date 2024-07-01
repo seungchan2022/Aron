@@ -24,13 +24,7 @@ extension AppContainer {
   class func build() -> AppContainer {
     let sideEffect = AppSideEffect(
       toastViewModel: ToastViewModel(),
-      movieUseCase: MovieUseCasePlatform(),
-      movieDetailUseCase: MovieDetailUseCasePlatform(),
-      personUseCase: PersonUseCasePlatform(),
-      fanClubUseCase: FanClubUseCasePlatform(),
-      movieListUseCase: MovieListUseCasePlatform(),
-      searchUseCase: SearchUseCasePlatform(),
-      movieDiscoverUseCase: MovieDiscoverUseCasePlatform())
+      movieListUseCase: MovieListUseCasePlatform())
 
     return .init(
       dependency: sideEffect,

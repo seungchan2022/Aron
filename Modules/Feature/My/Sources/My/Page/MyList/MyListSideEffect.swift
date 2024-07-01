@@ -90,7 +90,7 @@ extension MyListSideEffect {
     { item in
       navigator.next(
         linkItem: .init(
-          path: Link.Dashboard.Path.movieDetail.rawValue,
+          path: Link.Common.Path.movieDetail.rawValue,
           items: item.serialized()),
         isAnimated: true)
     }

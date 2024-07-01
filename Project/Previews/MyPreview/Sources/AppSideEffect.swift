@@ -9,11 +9,5 @@ import Platform
 
 struct AppSideEffect: DependencyType, MyEnvironmentUsable {
   let toastViewModel: ToastViewActionType
-  let movieUseCase: MovieUseCase
-  let movieDetailUseCase: MovieDetailUseCase
-  let personUseCase: PersonUseCase
-  let fanClubUseCase: FanClubUseCase
   let movieListUseCase: MovieListUseCase
-  let searchUseCase: SearchUseCase
-  let movieDiscoverUseCase: MovieDiscoverUseCase
 }

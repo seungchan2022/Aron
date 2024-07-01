@@ -1,13 +1,18 @@
 import Architecture
-import Dashboard
+import Common
+import Credit
 import Domain
 import Foundation
 import LinkNavigator
+import Movie
+import My
 import Platform
 
 // MARK: - AppSideEffect
 
-struct AppSideEffect: DependencyType, DashboardEnvironmentUsable {
+struct AppSideEffect: DependencyType, CommonEnvironmentUsable, MyEnvironmentUsable, CreditEnvironmentUsable,
+  MovieEnvironmentUsable
+{
   let toastViewModel: ToastViewActionType
   let movieUseCase: MovieUseCase
   let movieDetailUseCase: MovieDetailUseCase

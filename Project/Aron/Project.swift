@@ -66,8 +66,9 @@ let project: Project = .init(
 extension [TargetDependency] {
   public static var `default`: Self {
     [
-      .package(product: "Dashboard", type: .runtime),
-      .package(product: "Person", type: .runtime),
+      .package(product: "Movie", type: .runtime),
+      .package(product: "Common", type: .runtime),
+      .package(product: "Credit", type: .runtime),
       .package(product: "My", type: .runtime),
     ]
   }

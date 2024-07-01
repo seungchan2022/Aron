@@ -23,7 +23,7 @@ extension AppMain: View {
             title: "Movie",
             image: .init(systemName: "film.fill"),
             tag: .zero),
-          linkItem: .init(path: Link.Dashboard.Path.home.rawValue),
+          linkItem: .init(path: Link.Movie.Path.home.rawValue),
           prefersLargeTitles: true),
 
         .init(
@@ -32,7 +32,7 @@ extension AppMain: View {
             title: "Discover",
             image: .init(systemName: "square.stack.fill"),
             tag: 1),
-          linkItem: .init(path: Link.Dashboard.Path.discover.rawValue),
+          linkItem: .init(path: Link.Movie.Path.discover.rawValue),
           prefersLargeTitles: true),
 
         .init(
@@ -41,7 +41,7 @@ extension AppMain: View {
             title: "FanClub",
             image: .init(systemName: "star.circle.fill"),
             tag: 2),
-          linkItem: .init(path: Link.Person.Path.fanClub.rawValue),
+          linkItem: .init(path: Link.Credit.Path.fanClub.rawValue),
           prefersLargeTitles: true),
 
         .init(
